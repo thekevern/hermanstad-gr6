@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hermanstad-gr6-jozelle-v1';
+const CACHE_NAME = 'hermanstad-gr6-jozelle-v3';
 const STATIC_ASSETS = [
   './',
   './index.html',

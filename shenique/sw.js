@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hermanstad-gr6-shenique-v2';
+const CACHE_NAME = 'hermanstad-gr6-shenique-v3';
 const STATIC_ASSETS = [
   './',
   './index.html',
