@@ -54,7 +54,7 @@ header.app-bar {
   align-items: center;
 }
 .app-title-wrap h1 {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   display: flex;
@@ -62,26 +62,26 @@ header.app-bar {
   gap: 0.5rem;
 }
 .app-title-wrap p {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: #93c5fd;
   font-weight: 500;
 }
 .header-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 .btn-icon {
   background: rgba(255,255,255,0.15);
   border: none;
   color: white;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   transition: all 0.2s;
 }
 .btn-icon:active { transform: scale(0.92); background: rgba(255,255,255,0.25); }
@@ -90,25 +90,25 @@ header.app-bar {
 .pomo-bar {
   background: #ffffff;
   border-bottom: 1px solid var(--border);
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   box-shadow: var(--shadow-sm);
 }
 .pomo-info {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   font-weight: 700;
 }
 .pomo-badge {
   background: #fee2e2;
   color: #b91c1c;
-  padding: 0.2rem 0.5rem;
+  padding: 0.2rem 0.45rem;
   border-radius: 6px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -118,7 +118,7 @@ header.app-bar {
 }
 .pomo-timer {
   font-variant-numeric: tabular-nums;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--primary);
   font-weight: 800;
 }
@@ -129,10 +129,10 @@ header.app-bar {
 .btn-pomo {
   border: 1px solid var(--border);
   background: #f8fafc;
-  padding: 0.3rem 0.75rem;
+  padding: 0.3rem 0.65rem;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   cursor: pointer;
 }
 .btn-pomo.active { background: var(--primary); color: white; border-color: var(--primary); }
@@ -149,7 +149,6 @@ header.app-bar {
   align-items: center;
   font-size: 0.85rem;
 }
-.alarm-banner.hidden { display: none; }
 
 /* CONTAINER & TABS */
 .container {
@@ -158,7 +157,7 @@ header.app-bar {
   padding: 1rem;
 }
 .tab-content { display: none; }
-.tab-content.active { display: block; animation: fadeIn 0.25s ease-in-out; }
+.tab-content.active { display: block; animation: fadeIn 0.2s ease-in-out; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
 /* BOTTOM NAVIGATION */
@@ -184,76 +183,49 @@ nav.bottom-nav {
   background: none;
   border: none;
   color: var(--text-muted);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
   cursor: pointer;
   flex: 1;
   height: 100%;
   transition: all 0.15s;
 }
-.nav-item .nav-icon { font-size: 1.25rem; margin-bottom: 2px; }
+.nav-item .nav-icon { font-size: 1.2rem; margin-bottom: 2px; }
 .nav-item.active { color: var(--primary); font-weight: 700; }
 .nav-item.active .nav-icon { transform: scale(1.1); }
 
-/* MISSION CARDS */
+/* CARDS & UI ELEMENTS */
 .mission-card {
   background: var(--card-bg);
   border-radius: var(--radius-lg);
-  padding: 1.25rem;
-  margin-bottom: 1rem;
+  padding: 1.15rem;
+  margin-bottom: 0.9rem;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  position: relative;
-  overflow: hidden;
-}
-.mission-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  gap: 0.5rem;
 }
 .mission-badge {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
-  padding: 0.25rem 0.6rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 6px;
   letter-spacing: 0.04em;
-}
-.mission-title {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--text);
-  margin-top: 0.2rem;
-}
-.mission-desc {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  line-height: 1.4;
-}
-.mission-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0.4rem;
-  padding-top: 0.6rem;
-  border-top: 1px dashed var(--border);
-  font-size: 0.8rem;
 }
 .btn-mission {
   background: var(--primary);
   color: white;
   border: none;
-  padding: 0.4rem 0.9rem;
+  padding: 0.4rem 0.85rem;
   border-radius: 8px;
   font-weight: 700;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   cursor: pointer;
 }
 
-/* FLASHCARD UI */
+/* FLASHCARDS */
 .flashcard-wrapper {
   perspective: 1000px;
   min-height: 380px;
@@ -276,7 +248,7 @@ nav.bottom-nav {
   min-height: 380px;
   backface-visibility: hidden;
   border-radius: var(--radius-lg);
-  padding: 1.75rem 1.5rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -289,46 +261,16 @@ nav.bottom-nav {
   background: #f0fdf4;
   border-color: #bbf7d0;
 }
-.card-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .leitner-badge {
   font-size: 0.7rem;
   font-weight: 800;
-  padding: 0.2rem 0.55rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 6px;
   text-transform: uppercase;
 }
 .leitner-b1 { background: #fee2e2; color: #b91c1c; }
 .leitner-b2 { background: #fef3c7; color: #b45309; }
 .leitner-b3 { background: #dcfce7; color: #15803d; }
-
-.card-question {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.5;
-  margin: 1.5rem 0;
-}
-.card-answer {
-  font-size: 1.02rem;
-  color: #14532d;
-  line-height: 1.6;
-  white-space: pre-line;
-  margin: 1rem 0;
-}
-.trick-box {
-  background: #eff6ff;
-  border-left: 3px solid #3b82f6;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.82rem;
-  color: #1e40af;
-  border-radius: 6px;
-  margin-top: 0.5rem;
-  font-weight: 600;
-}
 .card-actions-back {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -337,18 +279,16 @@ nav.bottom-nav {
 }
 .btn-box-action {
   border: none;
-  padding: 0.65rem 0.25rem;
+  padding: 0.6rem 0.2rem;
   border-radius: 8px;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  transition: transform 0.1s;
 }
-.btn-box-action:active { transform: scale(0.95); }
 .btn-b1 { background: #fee2e2; color: #b91c1c; }
 .btn-b2 { background: #fef3c7; color: #b45309; }
 .btn-b3 { background: #22c55e; color: white; }
@@ -358,16 +298,16 @@ nav.bottom-nav {
   gap: 0.4rem;
   overflow-x: auto;
   padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
   -webkit-overflow-scrolling: touch;
 }
 .filter-btn {
   white-space: nowrap;
   background: white;
   border: 1px solid var(--border);
-  padding: 0.35rem 0.85rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-muted);
   cursor: pointer;
@@ -378,20 +318,14 @@ nav.bottom-nav {
   border-color: var(--primary);
 }
 
-/* QUIZ UI */
+/* QUIZZES */
 .quiz-card {
   background: white;
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  padding: 1.35rem;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   margin-bottom: 1rem;
-}
-.quiz-q-text {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 1.25rem;
-  line-height: 1.45;
 }
 .quiz-option {
   display: block;
@@ -399,30 +333,120 @@ nav.bottom-nav {
   text-align: left;
   background: #f8fafc;
   border: 2px solid var(--border);
-  padding: 0.85rem 1rem;
+  padding: 0.8rem 1rem;
   border-radius: var(--radius-md);
-  margin-bottom: 0.65rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s;
 }
-.quiz-option:hover { background: #f1f5f9; }
 .quiz-option.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; }
 .quiz-option.incorrect { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
 .quiz-expl {
   background: #eff6ff;
   border-left: 4px solid var(--primary-light);
-  padding: 0.85rem 1rem;
+  padding: 0.8rem;
   border-radius: 8px;
-  font-size: 0.88rem;
-  line-height: 1.5;
+  font-size: 0.86rem;
   margin-top: 1rem;
-  color: #1e3a8a;
   display: none;
 }
 
-/* DIAGNOSTIC RADAR / WEAKNESS DASHBOARD */
+/* EXAM SIMULATOR STYLES */
+.exam-paper-container {
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1.5rem;
+}
+.exam-official-header {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+.exam-official-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  text-transform: uppercase;
+}
+.exam-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  text-align: left;
+  font-size: 0.82rem;
+  margin-top: 0.75rem;
+  background: #f8fafc;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+}
+.exam-timer-bar {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-weight: 800;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+}
+.exam-section-banner {
+  background: #f1f5f9;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  margin: 1.25rem 0 0.8rem 0;
+  border-left: 4px solid var(--primary);
+}
+.sim-q-block {
+  background: #ffffff;
+  border-bottom: 1px dashed #e2e8f0;
+  padding: 1rem 0;
+}
+.sim-q-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 0.4rem;
+}
+.sim-q-badge {
+  font-size: 0.7rem;
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+.sim-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  margin-top: 0.5rem;
+}
+.sim-memo-box {
+  background: #f0fdf4;
+  border-left: 4px solid #22c55e;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #14532d;
+  margin-top: 0.6rem;
+  display: none;
+  white-space: pre-line;
+}
+
+/* DIAGNOSTIC / WEAKNESS DASHBOARD */
 .diag-card {
   background: white;
   border-radius: var(--radius-lg);
@@ -437,10 +461,10 @@ nav.bottom-nav {
   justify-content: space-between;
   padding: 0.6rem 0;
   border-bottom: 1px solid #f1f5f9;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
 }
 .bar-track {
-  width: 110px;
+  width: 100px;
   height: 8px;
   background: #e2e8f0;
   border-radius: 999px;
@@ -474,19 +498,19 @@ nav.bottom-nav {
   box-shadow: var(--shadow-lg);
 }
 
-/* BREATHING CIRCLE */
+/* ASEMHALING */
 .breathe-circle {
-  width: 130px;
-  height: 130px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: #bfdbfe;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1.5rem auto;
+  margin: 1.25rem auto;
   font-weight: 800;
   color: #1e3a8a;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   transition: transform 4s ease-in-out;
 }
 .breathe-expand { transform: scale(1.35); background: #93c5fd; }
@@ -538,9 +562,9 @@ nav.bottom-nav {
   <section id="tab-calendar" class="tab-content active">
     <div style="background:linear-gradient(135deg, #1e3a8a, #3b82f6); color:white; padding:1.25rem; border-radius:var(--radius-lg); margin-bottom:1.25rem; box-shadow:var(--shadow-md);">
       <h2 style="font-size:1.15rem; font-weight:800; margin-bottom:0.25rem;">Die Slim Studieplan 🎯</h2>
-      <p style="font-size:0.82rem; color:#bfdbfe; margin-bottom:0.75rem;">7 dae tot die eerste vraestel! Leer 25 minute, rus 5 minute.</p>
+      <p style="font-size:0.82rem; color:#bfdbfe; margin-bottom:0.75rem;">November-Eksamen: 9 – 24 November 2026. Leer 25 minute, rus 5 minute!</p>
       
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-size:0.8rem; background:rgba(255,255,255,0.1); padding:0.6rem; border-radius:8px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-size:0.78rem; background:rgba(255,255,255,0.1); padding:0.6rem; border-radius:8px;">
         <div>💧 <strong>Drink water</strong> & eet ontbyt</div>
         <div>🧠 <strong>Slaap genoeg</strong> (brein stoor alles)</div>
         <div>🦘 <strong>Spring 20 keer</strong> in pouses</div>
@@ -548,7 +572,6 @@ nav.bottom-nav {
       </div>
     </div>
 
-    <!-- MISSIES LYS -->
     <h3 style="font-size:1rem; font-weight:800; margin:1rem 0 0.5rem 0;">Alle Eksamenvraestelle</h3>
     <div id="mission-list-container"></div>
 
@@ -565,7 +588,7 @@ nav.bottom-nav {
       <h4 style="font-weight:800; color:#b45309; margin-bottom:0.4rem;">🎒 Pakkie-lys vir Eksamendae:</h4>
       <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.6;">
         2 penne • potlood • uitveër • skerpmaker • liniaal • gradeboog • passer • kleurpotlode • horlosie • waterbottel.<br>
-        <strong>Wiskunde V1 sê:</strong> "Bring die nodige skryfbehoeftes vir tekeninge!"
+        <strong>Wiskunde V1 sê spesifiek:</strong> "Bring die nodige skryfbehoeftes vir tekeninge!"
       </p>
     </div>
   </section>
@@ -580,7 +603,6 @@ nav.bottom-nav {
       <button class="filter-btn" onclick="setBoxFilter(3)">Boks 3 (Bemeester 🟢)</button>
     </div>
 
-    <!-- VORDERING BALK -->
     <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:var(--text-muted);">
       <span id="fc-progress-label">Kaart 1 van 107</span>
       <span id="fc-mastery-label">Bemeester: 0%</span>
@@ -594,16 +616,16 @@ nav.bottom-nav {
             <span class="mission-badge" id="card-mission-tag" style="background:#e0e7ff; color:#3730a3;">Geskiedenis</span>
             <span class="leitner-badge leitner-b1" id="card-box-tag">Boks 1</span>
           </div>
-          <div class="card-question" id="card-q-text">Vraag laai...</div>
-          <div style="font-size:0.78rem; color:var(--text-muted); text-align:center;">Tik om om te draai ↻</div>
+          <div class="card-question" id="card-q-text" style="font-size:1.15rem; font-weight:700; margin:1.25rem 0;">Vraag laai...</div>
+          <div style="font-size:0.75rem; color:var(--text-muted); text-align:center;">Tik om om te draai ↻</div>
         </div>
         <div class="card-face card-back">
           <div class="card-meta">
             <span class="mission-badge" id="card-mission-tag-back" style="background:#dcfce7; color:#15803d;">Antwoord</span>
             <span style="font-size:0.75rem; color:#15803d; font-weight:700;" id="card-page-ref">Bl. 144</span>
           </div>
-          <div class="card-answer" id="card-a-text">Antwoord laai...</div>
-          <div class="trick-box" id="card-trick-text">Onthou-truuk</div>
+          <div class="card-answer" id="card-a-text" style="font-size:0.95rem; line-height:1.5; color:#14532d; margin:0.8rem 0; white-space:pre-line;">Antwoord laai...</div>
+          <div class="trick-box" id="card-trick-text" style="background:#eff6ff; border-left:3px solid #3b82f6; padding:0.4rem 0.6rem; font-size:0.78rem; color:#1e40af; border-radius:6px; font-weight:600;">Onthou-truuk</div>
           <div class="card-actions-back" onclick="event.stopPropagation()">
             <button class="btn-box-action btn-b1" onclick="moveCardBox(1)">
               <span>🔴</span>
@@ -622,10 +644,10 @@ nav.bottom-nav {
       </div>
     </div>
 
-    <div style="display:flex; justify-content:space-between; gap:1rem;">
-      <button class="btn-pomo" onclick="prevFlashcard()" style="flex:1; padding:0.75rem;">← Vorige</button>
-      <button class="btn-pomo" onclick="flipMainCard()" style="flex:1; padding:0.75rem; background:var(--primary); color:white;">Draai Om ↻</button>
-      <button class="btn-pomo" onclick="nextFlashcard()" style="flex:1; padding:0.75rem;">Volgende →</button>
+    <div style="display:flex; justify-content:space-between; gap:0.5rem;">
+      <button class="btn-pomo" onclick="prevFlashcard()" style="flex:1; padding:0.65rem;">← Vorige</button>
+      <button class="btn-pomo" onclick="flipMainCard()" style="flex:1; padding:0.65rem; background:var(--primary); color:white;">Draai Om ↻</button>
+      <button class="btn-pomo" onclick="nextFlashcard()" style="flex:1; padding:0.65rem;">Volgende →</button>
     </div>
   </section>
 
@@ -638,24 +660,70 @@ nav.bottom-nav {
         <span class="mission-badge" id="quiz-sub-badge" style="background:#fee2e2; color:#b91c1c;">Onderwerp</span>
         <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted);" id="quiz-counter">Vraag 1 van 10</span>
       </div>
-      <div class="quiz-q-text" id="quiz-question-text">Vraag laai...</div>
+      <div class="quiz-q-text" id="quiz-question-text" style="font-size:1.1rem; font-weight:700; margin-bottom:1rem;">Vraag laai...</div>
       <div id="quiz-options-container"></div>
       <div class="quiz-expl" id="quiz-explanation"></div>
       
       <div style="display:flex; justify-content:flex-end; margin-top:1rem;">
-        <button class="btn-mission" id="quiz-next-btn" onclick="nextQuizQuestion()" style="display:none; padding:0.6rem 1.25rem;">Volgende Vraag →</button>
+        <button class="btn-mission" id="quiz-next-btn" onclick="nextQuizQuestion()" style="display:none; padding:0.55rem 1.25rem;">Volgende Vraag →</button>
       </div>
     </div>
   </section>
 
-  <!-- TAB 4: SWAKPLEK DIAGNOSE & SLIM AFRIFTER -->
+  <!-- TAB 4: VOLWAARDIGE EKSAMEN-SIMULATOR (NUUT!) -->
+  <section id="tab-simulator" class="tab-content">
+    <div style="background:linear-gradient(135deg, #0f172a, #1e293b); color:white; padding:1.25rem; border-radius:var(--radius-lg); margin-bottom:1.25rem;">
+      <h3 style="font-size:1.15rem; font-weight:800; margin-bottom:0.25rem;">📋 Amptelike Model Eksamensimulator</h3>
+      <p style="font-size:0.82rem; color:#94a3b8; margin-bottom:0.75rem;">
+        Oefen 'n volledige vraestel met presiese tydtoets, instruksies en puntetoekenning soos in die regte eksamenlokaal!
+      </p>
+      
+      <div style="display:flex; gap:0.4rem; overflow-x:auto;" id="sim-paper-selector"></div>
+    </div>
+
+    <!-- DIE MODELVRAESTEL DOKUMENT -->
+    <div class="exam-paper-container" id="exam-paper-doc">
+      <div class="exam-timer-bar">
+        <span>⏱️ Tyd Oor: <span id="sim-time-left">60:00</span></span>
+        <button class="btn-pomo" id="sim-timer-toggle" onclick="toggleSimTimer()">Pouseer Tyd</button>
+      </div>
+
+      <div class="exam-official-header">
+        <div style="font-size:0.8rem; font-weight:700; color:#64748b; letter-spacing:0.05em;">LAERSKOOL HERMANSTAD • NOVEMBER-EKSAMEN 2026</div>
+        <h2 id="sim-paper-title">SW: Geskiedenis Eindeksamen</h2>
+        <div style="font-size:0.85rem; font-weight:600; color:#334155; margin-top:0.25rem;" id="sim-paper-term">Kwartaal 3 & 4</div>
+        
+        <div class="exam-meta-grid">
+          <div><strong>Kandidaat:</strong> Graad 6 Leerder</div>
+          <div><strong>Totaal Punte:</strong> <span id="sim-paper-total-marks">40 Punte</span></div>
+          <div><strong>Tydsduur:</strong> <span id="sim-paper-duration">60 Minute</span></div>
+          <div><strong>Moderator:</strong> Departement van Basiese Onderwys (CAPS)</div>
+        </div>
+      </div>
+
+      <div style="background:#fffbeb; border:1px solid #fef3c7; padding:0.75rem; border-radius:8px; font-size:0.8rem; margin-bottom:1.25rem;">
+        <strong>Instruksies aan die leerder:</strong>
+        <ul id="sim-instructions-list" style="margin-left:1.25rem; margin-top:0.25rem; line-height:1.5;"></ul>
+      </div>
+
+      <div id="sim-questions-body"></div>
+
+      <div style="margin-top:1.5rem; text-align:center;">
+        <button class="btn-mission" onclick="submitExamPaper()" style="background:#059669; font-size:1rem; padding:0.75rem 2rem;">
+          Lewer Vraestel In & Sien Memorandum ✓
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 5: SWAKPLEK DIAGNOSE & SLIM AFRIFTER -->
   <section id="tab-weakness" class="tab-content">
     <div class="diag-card" style="background:linear-gradient(135deg, #fef3c7, #fffbeb); border-color:#fcd34d;">
       <h3 style="color:#b45309; font-weight:800; font-size:1.1rem; margin-bottom:0.3rem;">🧠 Slim Diagnostiese Afrigter</h3>
       <p style="font-size:0.82rem; color:#92400e; margin-bottom:0.8rem;">
         Ons hou presies dop waar jou foute voorkom sodat jy net oefen wat nodig is!
       </p>
-      <button class="btn-mission" onclick="startTargetedDrill()" style="background:#b45309; font-size:0.9rem; padding:0.65rem 1.25rem; width:100%;">
+      <button class="btn-mission" onclick="startTargetedDrill()" style="background:#b45309; font-size:0.88rem; padding:0.6rem 1.25rem; width:100%;">
         ⚡ Oefen My Swak Plekke Nou
       </button>
     </div>
@@ -668,23 +736,23 @@ nav.bottom-nav {
     <div class="diag-card">
       <h4 style="font-weight:800; margin-bottom:0.75rem;">Flitskaart Boks-Verdeling</h4>
       <div style="display:flex; gap:0.5rem; text-align:center;">
-        <div style="flex:1; background:#fee2e2; padding:0.75rem; border-radius:8px;">
-          <div style="font-size:1.5rem; font-weight:800; color:#b91c1c;" id="b1-count">0</div>
-          <div style="font-size:0.75rem; color:#991b1b; font-weight:700;">Boks 1 (Leer nog)</div>
+        <div style="flex:1; background:#fee2e2; padding:0.6rem; border-radius:8px;">
+          <div style="font-size:1.4rem; font-weight:800; color:#b91c1c;" id="b1-count">0</div>
+          <div style="font-size:0.72rem; color:#991b1b; font-weight:700;">Boks 1 (Leer nog)</div>
         </div>
-        <div style="flex:1; background:#fef3c7; padding:0.75rem; border-radius:8px;">
-          <div style="font-size:1.5rem; font-weight:800; color:#b45309;" id="b2-count">0</div>
-          <div style="font-size:0.75rem; color:#92400e; font-weight:700;">Boks 2 (Byna daar)</div>
+        <div style="flex:1; background:#fef3c7; padding:0.6rem; border-radius:8px;">
+          <div style="font-size:1.4rem; font-weight:800; color:#b45309;" id="b2-count">0</div>
+          <div style="font-size:0.72rem; color:#92400e; font-weight:700;">Boks 2 (Byna daar)</div>
         </div>
-        <div style="flex:1; background:#dcfce7; padding:0.75rem; border-radius:8px;">
-          <div style="font-size:1.5rem; font-weight:800; color:#15803d;" id="b3-count">0</div>
-          <div style="font-size:0.75rem; color:#166534; font-weight:700;">Boks 3 (Bemeester!)</div>
+        <div style="flex:1; background:#dcfce7; padding:0.6rem; border-radius:8px;">
+          <div style="font-size:1.4rem; font-weight:800; color:#15803d;" id="b3-count">0</div>
+          <div style="font-size:0.72rem; color:#166534; font-weight:700;">Boks 3 (Bemeester!)</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TAB 5: SERTIFIKAAT -->
+  <!-- TAB 6: SERTIFIKAAT -->
   <section id="tab-cert" class="tab-content">
     <div class="diag-card" style="border: 4px double #1e3a8a; padding: 2rem 1.5rem; text-align: center; background: #fffcf0;">
       <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎓</div>
@@ -720,19 +788,19 @@ nav.bottom-nav {
   </button>
   <button class="nav-item" onclick="switchTab('flashcards')">
     <span class="nav-icon">🃏</span>
-    <span>Flitskaarte</span>
+    <span>Kaarte</span>
   </button>
   <button class="nav-item" onclick="switchTab('quizzes')">
     <span class="nav-icon">📝</span>
     <span>Toetse</span>
   </button>
+  <button class="nav-item" onclick="switchTab('simulator')">
+    <span class="nav-icon">📋</span>
+    <span>Simulator</span>
+  </button>
   <button class="nav-item" onclick="switchTab('weakness')">
     <span class="nav-icon">🎯</span>
     <span>Afrigter</span>
-  </button>
-  <button class="nav-item" onclick="switchTab('cert')">
-    <span class="nav-icon">🏆</span>
-    <span>Sertifikaat</span>
   </button>
 </nav>
 
@@ -777,6 +845,7 @@ nav.bottom-nav {
 const missions = [{"id": "m1", "name": "Missie 1: SW – Geskiedenis", "shortName": "Geskiedenis", "date": "2026-11-10", "dateStr": "Dinsdag 10 November 2026", "theme": "Demokrasie & Mediese Helde", "color": "#b91c1c", "bgLight": "#fef2f2", "icon": "🏛️", "topics": "Demokrasie in SA (K3), Grondwet & Parlement, Reëls & Wette, Nasionale Simbole, Medisyne deur die Eeue (K4), Inheemse Medisyne, Westerse Deurbrake, Chris Barnard", "pages": "Bl. 144–188"}, {"id": "m2", "name": "Missie 2: Wiskunde Vraestel 1", "shortName": "Wiskunde V1", "date": "2026-11-11", "dateStr": "Woensdag 11 November 2026", "theme": "Vorms, Mates, Tyd & Data", "color": "#1d4ed8", "bgLight": "#eff6ff", "icon": "📐", "topics": "Persentasies (T23), Lengte (T27), 2D-Vorms & Hoeke (T6), 3D-Voorwerpe & Euler (T31), Transformasies (T22/36), Omtrek/Oppervlakte/Volume (T33), Kapasiteit (T16), Massa (T18), Tyd (T5), Datahantering (T7/25)", "pages": "Bring liniaal, gradeboog & passer!"}, {"id": "m3", "name": "Missie 3: Afrikaans Huistaal", "shortName": "Afrikaans", "date": "2026-11-12", "dateStr": "Donderdag 12 November 2026", "theme": "Taalwerk-towenaar", "color": "#b45309", "bgLight": "#fffbeb", "icon": "🪄", "topics": "Byvoeglike naamwoorde (attributief vs predikatief), Trappe van vergelyking, Intensiewe vorme, Werkwoorde & tye, Bywoorde & T-M-P, Voorsetsels, Sinonieme & Antonieme, Voegwoorde (EMOW & stert-toe), Saamgestelde sinne, Sinsoorte, Leestekens & Skryftekens", "pages": "Bl. 21, 31, 33, 45, 68, 93, 105, 117, 129, 139, 199–201"}, {"id": "m4", "name": "Missie 4: English (FAL)", "shortName": "English", "date": "2026-11-13", "dateStr": "Vrydag 13 November 2026", "theme": "Grammar Ninja", "color": "#047857", "bgLight": "#ecfdf5", "icon": "🥷", "topics": "Demonstrative & Possessive Pronouns, Conjunctions (FANBOYS & Subordinating), Sentence Parts, Adverbs, Direct & Indirect Speech, Active & Passive Voice, Clauses (Main, Subordinate, Relative)", "pages": "Term 1, 3 & 4 notes (60 marks, 120 min)"}, {"id": "m5", "name": "Missie 5: SW – Geografie", "shortName": "Geografie", "date": "2026-11-16", "dateStr": "Maandag 16 November 2026", "theme": "Klimaat & Mense", "color": "#0f766e", "bgLight": "#f0fdfa", "icon": "🌍", "topics": "Klimaat oor die wêreld (K3), Klimaatgrafieke, Tropiese Reënwoude (4 lae & aanpassings), Warm Woestyne, Naaldwoude (Taiga), Bevolking in SA (K4, Sensus 2022, 9 Provinsies, Digtheid), Trek- & Stootfaktore, Landelik vs Stedelik, Wêreldbevolking", "pages": "Bl. 50–90"}, {"id": "m6", "name": "Missie 6: Wiskunde Vraestel 2", "shortName": "Wiskunde V2", "date": "2026-11-17", "dateStr": "Dinsdag 17 November 2026", "theme": "Getal-gimnasium (4 Bewerkings & Hoofrekene)", "color": "#6d28d9", "bgLight": "#f5f3ff", "icon": "🔢", "topics": "Plekwaarde tot miljoene, Kolomoptel & Aftrek (leen/dra), Afronding, Lang vermenigvuldiging & opbreek, Superkrag-truuks (×10, ×5, verdubbel/halveer), Lang deling & stukke-metode, Deelbaarheidsreëls (2, 3, 4, 5, 6, 9, 10), Hoofrekene & Tafels tot 12×12", "pages": "Bladsy 12–17, 64–68, 88–94"}, {"id": "m7", "name": "Missie 7: NW & Tegnologie", "shortName": "NW & Tegnologie", "date": "2026-11-19", "dateStr": "Donderdag 19 November 2026", "theme": "Stroombane & Ruimte", "color": "#c2410c", "bgLight": "#fff7ed", "icon": "⚡", "topics": "Elektriese stroombane (K3), Simbole & komponente, Geleiers & Isoleerders, Stelsels & O-O-M-E-K, Hoofstroomelektrisiteit & Eskom kragstasies, Sonnestelsel (K4, 8 planete), Bewegings van Aarde & Maan (rotasie vs wenteling, fases), Ruimteteleskope (SALT & MeerKAT/SKA), Maan & Mars verkenning", "pages": "Bl. 114–212"}, {"id": "m8", "name": "Missie 8: PSW (Lewensoriëntering)", "shortName": "PSW", "date": "2026-11-24", "dateStr": "Dinsdag 24 November 2026", "theme": "Gesond, Veilig & Trots", "color": "#be185d", "bgLight": "#fdf2f8", "icon": "❤️", "topics": "Versorging van diere (K3), Nasiebou & Reënboognasie, Erfenis (tasbaar vs ontasbaar), Vakansiedae, Stereotipes & Seksime, Basiese Noodhulp (K4, R-Y-V-O, brandwonde, neusbloeding), Voedselhigiëne (4 goue reëls), Oordraagbare siektes, MIV & VIGS (feite vs mites)", "pages": "Bl. 26–28 in gids • Laaste eksamen!"}];
 const flashcards = [{"id": "m1_fc_1", "mid": "m1", "topic": "Demokrasie in SA", "page": "Bl. 144", "q": "Waarvan is die woord 'demokrasie' afgelei en wat beteken dit?", "a": "Demokrasie kom van Grieks:\n• demos = die mense\n• kratos = mag of gesag.\n\nDit beteken REGERING DEUR DIE MENSE.", "trick": "demos + kratos = mensemag!"}, {"id": "m1_fc_2", "mid": "m1", "topic": "Demokrasie in SA", "page": "Bl. 144", "q": "Wat het op 27 April 1994 in Suid-Afrika gebeur en wat noem ons die dag vandag?", "a": "Die heel eerste demokratiese verkiesing waarin alle volwasse Suid-Afrikaners (ongeag ras) kon stem.\n\nNelson Mandela is verkies as die eerste demokratiese president.\n\nVandag vier ons dit as VRYHEIDSDAG.", "trick": "27 April 1994 = Vryheidsdag."}, {"id": "m1_fc_3", "mid": "m1", "topic": "Verkiesings & OVK", "page": "Bl. 144", "q": "Wie mag stem, hoe gereeld vind verkiesings plaas, en wie reël die verkiesings?", "a": "• Burgers 18 jaar en ouer.\n• Elke 5 jaar in 'n geheime stemming.\n• Hulle stem vir politieke partye.\n• Die Onafhanklike Verkiesingskommissie (OVK) reël die verkiesings regverdig.", "trick": "OVK = Onafhanklike Verkiesingskommissie."}, {"id": "m1_fc_4", "mid": "m1", "topic": "Sfere van Regering", "page": "Bl. 144", "q": "Noem die drie vlakke (sfere) waarop die regering werk.", "a": "1. Nasionaal (die hele land)\n2. Provinsiaal (die 9 provinsies)\n3. Plaaslik (munisipaliteite – sorg vir water, krag, vullis, strate).", "trick": "Land -> Provinsie -> Munisipaliteit."}, {"id": "m1_fc_5", "mid": "m1", "topic": "3 Arms van Regering", "page": "Bl. 144", "q": "Noem die drie arms van die regering en wat elkeen doen.", "a": "1. Wetgewende gesag: Maak en verander wette (Die Parlement in Kaapstad).\n2. Uitvoerende gesag: Voer wette uit en bestuur die land (President, Adjunkpresident en Kabinet in Pretoria by die Uniegebou).\n3. Regsprekende gesag: Pas wette toe en beslis in hofsake (Die howe en regters in Bloemfontein en Konstitusionele Hof in JHB).", "trick": "Onthou: MAAK (Parlement) – DOEN (President/Kabinet) – BEOORDEEL (Howe)."}, {"id": "m1_fc_6", "mid": "m1", "topic": "Strikvraag: President", "page": "Bl. 144", "q": "STRIKVRAAG: Stem Suid-Afrikaners direk vir die President? En hoeveel termyne mag hy dien?", "a": "NEE! Ons stem vir 'n politieke party. Die Nasionale Vergadering (Parlement) kies dan die President.\n\n'n President mag hoogstens TWEE termyne van 5 jaar dien (maksimum 10 jaar).", "trick": "Ons stem vir partye, Parlement kies die President!"}, {"id": "m1_fc_7", "mid": "m1", "topic": "Die Grondwet", "page": "Bl. 146", "q": "Wat is die Grondwet en wanneer het dit in werking getree?", "a": "Die Grondwet is die HOOGSTE WET van die land. Alle ander wette moet daarmee saamstem – selfs die President moet dit gehoorsaam.\n\nTydlyn:\n• Aanvaar: 8 Mei 1996\n• Onderteken deur Mandela: 10 Desember 1996 in Sharpeville\n• In werking getree: 4 Februarie 1997.", "trick": "4 Februarie 1997 het dit begin geld."}, {"id": "m1_fc_8", "mid": "m1", "topic": "Handves van Menseregte", "page": "Bl. 146", "q": "Waar in die Grondwet is die Handves van Menseregte en noem 4 regte?", "a": "In HOOFSTUK 2 van die Grondwet.\n\nRegte sluit in:\n1. Reg op lewe\n2. Gelykheid en menswaardigheid\n3. Reg op basiese onderwys\n4. Vryheid van spraak en godsdiens\n5. Reg om te stem en privaatheid.", "trick": "Hoofstuk 2 = Handves van Menseregte."}, {"id": "m1_fc_9", "mid": "m1", "topic": "Kinders se Regte", "page": "Bl. 146", "q": "Watter artikel in die Grondwet beskerm kinders se regte en wat sluit dit in?", "a": "ARTIKEL 28 beskerm kinders se regte:\n• 'n Naam en nasionaliteit vanaf geboorte\n• Familieversorging of ouerlike sorg\n• Basiese voeding, skuiling en gesondheidsorg\n• Beskerming teen mishandeling, verwaarlosing en kinderarbeid.", "trick": "Artikel 28 is vir kinders!"}, {"id": "m1_fc_10", "mid": "m1", "topic": "Twee Huise van Parlement", "page": "Bl. 148", "q": "Noem die twee 'huise' van die Parlement en hoeveel lede elkeen het.", "a": "1. Nasionale Vergadering (NV): 400 lede (deur partye volgens stemme gekies, gelei deur die Speaker).\n2. Nasionale Raad van Provinsies (NRVP): 90 lede (presies 10 uit elke provinsie om provinsies 'n stem te gee).", "trick": "NV = 400, NRVP = 90 (10 × 9 provinsies)."}, {"id": "m1_fc_11", "mid": "m1", "topic": "Wetmaak-proses", "page": "Bl. 150", "q": "In watter stappe word 'n wet gemaak?", "a": "Idee → Wetsontwerp → Debat in die Nasionale Vergadering → Stemming → NRVP keur goed → President onderteken → Dit is 'n wet!", "trick": "Eers Wetsontwerp, laaste teken die President."}, {"id": "m1_fc_12", "mid": "m1", "topic": "Die Regstelsel & Howe", "page": "Bl. 150", "q": "Noem die howe in Suid-Afrika van klein na groot.", "a": "1. Landdroshof (kleinste, in elke dorp)\n2. Hoë Hof (in groot stede/provinsies)\n3. Hoogste Hof van Appèl (in Bloemfontein)\n4. Konstitusionele Hof (die heel hoogste hof in SA, in Johannesburg).", "trick": "Konstitusionele Hof is die wag van die Grondwet!"}, {"id": "m1_fc_13", "mid": "m1", "topic": "Nasionale Simbole", "page": "Bl. 165", "q": "Wie het die vlag ontwerp en wat beteken die Y-vorm?", "a": "Ontwerp deur Frederick Brownell (eerste keer gehys op 27 April 1994).\n\nDie Y-vorm wys hoe verskillende groepe mense saamkom en saam vorentoe beweeg – simbool van EENHEID.\n\n(Ses kleure: rooi, wit, groen, goud/geel, swart en blou).", "trick": "Y = saamkom en vorentoe beweeg."}, {"id": "m1_fc_14", "mid": "m1", "topic": "5 Natuur-simbole", "page": "Bl. 166", "q": "Noem die 5 nasionale natuur-simbole met die onthou-rympie.", "a": "Rympie: 'Springende Bloukrane Kyk Geel Galjoene'\n1. Dier: Springbok\n2. Voël: Bloukraanvoël\n3. Blom: Koningsprotea\n4. Boom: Opregte Geelhout\n5. Vis: Galjoen.", "trick": "Springende Bloukrane Kyk Geel Galjoene!"}, {"id": "m1_fc_15", "mid": "m1", "topic": "Inheemse Medisyne", "page": "Bl. 174", "q": "Wat is die verskil tussen 'n inyanga en 'n sangoma?", "a": "• Inyanga = 'n Kruiedokter wat met medisinale plante, wortels en bas werk om fisiese kwale te genees.\n• Sangoma = 'n Waarsêer/geestelike geneesheer wat glo met voorouers kommunikeer om die oorsaak van siekte te vind.", "trick": "Inyanga = kruie/plante; Sangoma = voorouers/gees."}, {"id": "m1_fc_16", "mid": "m1", "topic": "Gevallestudie: Boegoe", "page": "Bl. 176", "q": "Waar groei boegoe, wie het dit eerste gebruik, en waarvoor?", "a": "• Groei slegs in fynbos van die Wes-Kaap (veral Sederberge).\n• Khoi en San het dit eeue lank gebruik (blare gedroog, met vet gemeng vir vel en geur; tee vir maag, niere, blaas en wonde).\n• Wilde boegoe is beskerm: jy het 'n permit nodig om dit te oes!", "trick": "Boegoe = Sederberge fynbos, permit nodig!"}, {"id": "m1_fc_17", "mid": "m1", "topic": "Edward Jenner (1796)", "page": "Bl. 182", "q": "Wat het Edward Jenner ontdek, hoe het hy dit getoets, en wat beteken 'vaccine'?", "a": "• Ontdekker van inenting teen pokke (1796).\n• Het gesien melkmeisies met ligte koeipokke kry nooit die dodelike pokke nie.\n• Het etter uit melkmeisie Sarah Nelmes se koeipok geneem en die 8-jarige seun James Phipps ingeënt.\n• Vaccine kom van die Latynse vacca = koei!\n• Pokke is in 1980 deur die WGO verklaar as heeltemal uitgewis.", "trick": "vacca = koei -> vaccine!"}, {"id": "m1_fc_18", "mid": "m1", "topic": "Penisillien & Fleming", "page": "Bl. 184", "q": "Hoe het Alexander Fleming penisillien ontdek en teen wat werk antibiotika?", "a": "• 1928, Londen: Fleming het met vakansie gegaan en per ongeluk bakterie-bakkies oop gelos. 'n Skimmel (Penicillium) het gegroei en die bakterieë rondom doodgemaak – 'n 'gelukkige ongeluk'!\n• STRIKVRAAG: Antibiotika werk SLEGS teen bakterieë – NIE teen virusse (soos griep of verkoue) nie!\n• Drink altyd die hele kursus klaar.", "trick": "Antibiotika maak bakterieë dood, NIE virusse nie!"}, {"id": "m1_fc_19", "mid": "m1", "topic": "Deurbraak in Chirurgie", "page": "Bl. 185", "q": "Noem die uitvinders en deurbrake vir: (a) Narkose (b) Antiseptika (c) X-strale (d) Bloedgroepe.", "a": "(a) Narkose (1846): William Morton gebruik eter sodat pasiënte slaap sonder pyn.\n(b) Antiseptika (1867): Joseph Lister gebruik karbolsuur om infeksies te keer.\n(c) X-strale (1895): Wilhelm Röntgen (eerste foto: vrou se hand met trouring).\n(d) Bloedgroepe (1901): Karl Landsteiner ontdek A, B, O (O-negatief is universele skenker).", "trick": "Lister = karbolsuur; Röntgen = X-strale; Landsteiner = bloedgroepe."}, {"id": "m1_fc_20", "mid": "m1", "topic": "Chris Barnard (1967)", "page": "Bl. 186", "q": "Waar en wanneer is die wêreld se eerste hartoorplanting gedoen, en wie was betrokke?", "a": "• 3 Desember 1967 in Groote Schuur-hospitaal, Kaapstad.\n• Chirurg: Prof. Chris Barnard (gebore in Beaufort-Wes).\n• Pasiënt (ontvanger): Louis Washkansky (het 18 dae geleef; hart het tot einde geklop).\n• Skenker: Denise Darvall (25) ná 'n motorongeluk.\n• Hamilton Naki: Laboratoriumassistent wat met chirurgie-opleiding gehelp het.", "trick": "3 Desember 1967 • Groote Schuur • Chris Barnard."}, {"id": "m2_fc_1", "mid": "m2", "topic": "Persentasies", "page": "Bl. 8", "q": "Wat beteken 'persent' en hoe skryf jy 35% as 'n breuk?", "a": "Persent (%) beteken 'uit 100'.\n\n35% = 35 uit 100 = 35/100 (kan vereenvoudig na 7/20).", "trick": "Persent = altyd op noemer 100!"}, {"id": "m2_fc_2", "mid": "m2", "topic": "Breuk na Persent", "page": "Bl. 8", "q": "Hoe skakel jy 'n breuk om na 'n persentasie? Bv. 18 uit 20 vir 'n toets?", "a": "Maak die noemer 100 deur bo en onder met dieselfde getal te vermenigvuldig:\n\n18/20 = (18 × 5) / (20 × 5) = 90/100 = 90%!", "trick": "Maak die noemer 100!"}, {"id": "m2_fc_3", "mid": "m2", "topic": "Persentasie Truuk", "page": "Bl. 8", "q": "Hoe bereken jy vinnig 10%, 5% en 20% van R350?", "a": "• 10% = deel deur 10: R350 ÷ 10 = R35.\n• 5% = helfte van 10%: R35 ÷ 2 = R17,50.\n• 20% = 10% × 2: R35 × 2 = R70.\n• Afslag: R400 met 25% afslag -> afslag = R100 -> betaal R300.", "trick": "Vind eers 10% deur deur 10 te deel, bou dan die res!"}, {"id": "m2_fc_4", "mid": "m2", "topic": "Lengte Omskakeltrappie", "page": "Bl. 8", "q": "Wat is die reël van die omskakel-trappie vir lengte (km, m, cm, mm)?", "a": "km → (×1000) → m → (×100) → cm → (×10) → mm\n\n• Afgaan (groot na klein eenheid) = VERMENIGVULDIG (×)\n• Opgaan (klein na groot eenheid) = DEEL (÷)\n\nVoorbeelde: 3,5 km = 3 500 m; 68 mm = 6,8 cm; 245 cm = 2,45 m.", "trick": "Groot na klein = maal; klein na groot = deel."}, {"id": "m2_fc_5", "mid": "m2", "topic": "Lengte Strikvraag", "page": "Bl. 8", "q": "STRIKVRAAG: Bereken 2 m + 40 cm. Is die antwoord 42?", "a": "NEE! Maak altyd seker al die mates is in DIESELFDE EENHEID voor jy optel of vergelyk.\n\n2 m = 200 cm\n200 cm + 40 cm = 240 cm (of 2,4 m).", "trick": "Sit eers albei in dieselfde eenheid!"}, {"id": "m2_fc_6", "mid": "m2", "topic": "Soorte Hoeke", "page": "Bl. 8", "q": "Noem die 6 soorte hoeke en hul groottes in grade.", "a": "1. Skerphoek: kleiner as 90°\n2. Regte hoek: presies 90° (∟)\n3. Stomphoek: tussen 90° en 180°\n4. Gestrekte hoek: presies 180° (reguit lyn)\n5. Reflekshoek: tussen 180° en 360°\n6. Omwenteling: presies 360° (heel rond).", "trick": "skerp < 90° | regte = 90° | stomp 90°-180° | gestrek = 180°"}, {"id": "m2_fc_7", "mid": "m2", "topic": "Driehoeke Eienskappe", "page": "Bl. 8", "q": "Wat is die eienskappe van driehoeke en waartoe tel hul hoeke altyd op?", "a": "Volgens sye:\n• Gelyksydig: 3 gelyke sye en 3 gelyke hoeke (elkeen presies 60°)\n• Gelykbenig: 2 gelyke sye en 2 gelyke hoeke\n• Ongelyksydig: geen gelyke sye nie.\n\nDie 3 binnehoeke van ENIGE driehoek tel ALTYD op tot 180°!", "trick": "Binnehoeke som altyd 180°!"}, {"id": "m2_fc_8", "mid": "m2", "topic": "Vierhoeke Eienskappe", "page": "Bl. 9", "q": "Benoem die vierhoek met: (a) Net 1 paar ewewydige sye (b) 4 gelyke sye en geen regte hoeke (c) 2 pare aangrensende gelyke sye.", "a": "(a) Trapesium: het net EEN paar ewewydige sye.\n(b) Ruit: 4 gelyke sye met teenoorstaande hoeke gelyk ('skuins vierkant').\n(c) Vlieër: 2 pare aangrensende (langs mekaar) gelyke sye.", "trick": "Trapesium = net 1 paar ewewydig."}, {"id": "m2_fc_9", "mid": "m2", "topic": "Veelhoeke & Sirkels", "page": "Bl. 9", "q": "Noem die 2D-vorms met 5, 6, 7, 8 en 10 sye, en definieer 'deursnee'.", "a": "• 5 sye = Vyfhoek (pentagoon)\n• 6 sye = Seshoek (heksagoon)\n• 7 sye = Sewehoek (heptagoon)\n• 8 sye = Agthoek (oktagoon, soos stopteken)\n• 10 sye = Tienhoek (dekagoon)\n\nDeursnee van 'n sirkel: afstand van rand tot rand DEUR die middelpunt = 2 × radius.", "trick": "Deursnee = 2 × radius."}, {"id": "m2_fc_10", "mid": "m2", "topic": "3D-Voorwerpe Definisies", "page": "Bl. 9", "q": "Wat is die verskil tussen 'n Prisma en 'n Piramide?", "a": "• Prisma: Het 2 identiese basisse en reghoekige syvlakke (bv. driehoekige prisma, reghoekige prisma).\n• Piramide: Het net 1 basis en driehoekige syvlakke wat bo bymekaarkom in 'n skerp punt (apeks).\n\nAlbei word vernoem na die vorm van hul basis!", "trick": "Prisma = 2 basisse; Piramide = 1 basis na 'n apeks."}, {"id": "m2_fc_11", "mid": "m2", "topic": "Euler se Toorformule", "page": "Bl. 9", "q": "Wat is Euler se toorformule vir 3D-vorms en toets dit op 'n kubus?", "a": "Formule: Vlakke (V) + Hoekpunte (H) − Rande (R) = 2\n\nKubus:\n• Vlakke = 6\n• Hoekpunte = 8\n• Rande = 12\n\nToets: 6 + 8 − 12 = 14 − 12 = 2! Klop perfek!", "trick": "V + H − R = 2 (Onthou: Vlakke + Punte minus Lyne = 2)."}, {"id": "m2_fc_12", "mid": "m2", "topic": "Transformasies", "page": "Bl. 9", "q": "Wat is die verskil tussen Translasie, Refleksie en Rotasie?", "a": "• Translasie: Skuif of gly in 'n rigting (vorm, grootte en rigting bly identies).\n• Refleksie: Spieëlbeeld oor 'n lyn (omgeflip, elke punt ewe ver van lyn).\n• Rotasie: Draai om 'n vaste punt (90° = ¼ draai, 180° = ½ draai, ens.).\n\nNá hierdie 3 transformasies is figure KONGRUENT (presies dieselfde vorm én grootte).", "trick": "Translasie = skuif; Refleksie = spieël; Rotasie = draai."}, {"id": "m2_fc_13", "mid": "m2", "topic": "Simmetrielyne", "page": "Bl. 9", "q": "Hoeveel simmetrielyne het: (a) 'n Vierkant (b) 'n Reghoek (c) 'n Gelyksydige driehoek (d) 'n Sirkel?", "a": "(a) Vierkant = 4 simmetrielyne\n(b) Reghoek = 2 simmetrielyne (NIE die hoeklyne nie!)\n(c) Gelyksydige driehoek = 3 simmetrielyne\n(d) Sirkel = oneindig baie simmetrielyne.", "trick": "Reghoek het net 2 (kruise), nie 4 nie!"}, {"id": "m2_fc_14", "mid": "m2", "topic": "Omtrek, Oppervlakte & Volume", "page": "Bl. 10", "q": "Wat is die formules en eenhede vir Omtrek, Oppervlakte en Volume?", "a": "• Omtrek (buite-om): Tel al die sye bymekaar. Reghoek = 2 × (L + B). Eenheid: cm, m.\n• Oppervlakte (plat ruimte binne): Lengte × Breedte (L × B). Eenheid: cm², m² (vierkante eenhede).\n• Volume (3D-ruimte): Lengte × Breedte × Hoogte (L × B × H). Eenheid: cm³, m³ (kubieke eenhede).\n\nPUNTEDIEF: Moenie die ² of ³ vergeet nie, anders verloor jy 'n punt!", "trick": "Omtrek = cm | Oppervlakte = cm² | Volume = cm³"}, {"id": "m2_fc_15", "mid": "m2", "topic": "Kapasiteit & Volume", "page": "Bl. 10", "q": "Wat is die brug tussen volume en kapasiteit?", "a": "1 cm³ = 1 ml\n1 000 cm³ = 1 000 ml = 1 liter (ℓ)\n1 000 liter = 1 kiloliter (kℓ)\n\nKapasiteit is hoeveel 'n houer KAN hou as dit vol is; Volume is hoeveel werklik daarin IS.", "trick": "1 cm³ = 1 ml en 1 000 cm³ = 1 liter."}, {"id": "m2_fc_16", "mid": "m2", "topic": "Massa & Gewig", "page": "Bl. 10", "q": "Skakel om: 2,3 kg na gram; en wat weeg swaarder – 1 kg vere of 1 kg bakstene?", "a": "• 2,3 kg × 1 000 = 2 300 g\n• RAAISEL: Albei is PRESIES EWE SWAAR! Albei weeg presies 1 kg (1 000 g).\n\n(1 000 mg = 1 g; 1 000 g = 1 kg; 1 000 kg = 1 ton).", "trick": "1 kg is 1 kg, ongeag wat dit is!"}, {"id": "m2_fc_17", "mid": "m2", "topic": "Tyd & 24-uur Notasie", "page": "Bl. 10", "q": "Skakel om na 24-uur tyd: (a) 2:30 nm. (b) 7:15 vm. (c) 11:45 nm. (d) middernag.", "a": "(a) 2:30 nm. = 14:30 (tel 12 by ná 12:00 middag)\n(b) 7:15 vm. = 07:15\n(c) 11:45 nm. = 23:45\n(d) middernag = 00:00 (of 24:00).\n\n(vm. = voormiddag voor 12; nm. = namiddag ná 12).", "trick": "Vir nm: tel 12 by die ure!"}, {"id": "m2_fc_18", "mid": "m2", "topic": "Tydsverloop", "page": "Bl. 10", "q": "Die fliek begin 18:50 en is 1 h 45 min lank. Hoe laat is dit klaar?", "a": "Tel aan in stappe:\n1. 18:50 + 10 min = 19:00 (nog 1 h 35 min oor)\n2. 19:00 + 1 h = 20:00 (nog 35 min oor)\n3. 20:00 + 35 min = 20:35!\n\nAntwoord: 20:35.", "trick": "Tel aan na die volgende vol uur toe!"}, {"id": "m2_fc_19", "mid": "m2", "topic": "Modus & Mediaan", "page": "Bl. 11", "q": "STRIKVRAAG: Hoe kry jy die Modus en die Mediaan van: 12, 8, 15, 8, 10?", "a": "STRIKVRAAG: Sorteer EERS van klein na groot!\nGesorteer: 8, 8, 10, 12, 15\n\n• Modus (waarde wat die meeste voorkom) = 8 (kom 2 keer voor).\n• Mediaan (middelste waarde) = 10.\n\nAs jy nie eers sorteer nie, is jou mediaan verkeerd!", "trick": "SORTEER ALTYD EERS voor jy die mediaan soek!"}, {"id": "m2_fc_20", "mid": "m2", "topic": "Datahantering Grafieke", "page": "Bl. 11", "q": "Wat is die belangrike kenmerke van 'n staafgrafiek teenoor 'n sirkelgrafiek?", "a": "• Staafgrafiek: Stawe is ewe breed met gelyke spasies tussenin; het altyd 'n titel, benoemde asse en 'n skaal.\n• Sirkelgrafiek (koekgrafiek): Wys dele van 'n geheel, dikwels in persentasies (%) of breuke.", "trick": "Staafgrafiek het spasies tussen die stawe!"}, {"id": "m3_fc_1", "mid": "m3", "topic": "Byvoeglike Naamwoorde", "page": "Bl. 199", "q": "Wat is die verskil tussen 'n attributiewe en predikatiewe byvoeglike naamwoord?", "a": "• Attributief: Staan VOOR die naamwoord en kry dikwels 'n -e (bv. die goeie pad, die koue water, die hoë boom).\n• Predikatief: Staan NÁ die werkwoord en kry GEEN -e nie (bv. die pad is goed, die water is koud, die boom is hoog).", "trick": "Voor = attributief (+e); Ná ww = predikatief (geen e)."}, {"id": "m3_fc_2", "mid": "m3", "topic": "Trappe van Vergelyking", "page": "Bl. 200", "q": "Gee die trappe van vergelyking vir: goed, hoog, duur, lief.", "a": "• goed → beter → beste (onreëlmatig)\n• hoog → hoër → hoogste (die 'g' val weg en kry 'n deelteken)\n• duur → duurder → duurste (eindig op -r kry -der)\n• lief → liewer → liefste ('f' word 'w').", "trick": "Onreëlmatig: goed - beter - beste!"}, {"id": "m3_fc_3", "mid": "m3", "topic": "Onreëlmatige Trappe", "page": "Bl. 200", "q": "Gee die trappe vir: baie, min, graag, naby.", "a": "• baie → meer → meeste\n• min → minder → minste\n• graag → liewer → liefste\n• naby → nader → naaste.", "trick": "Leer hulle uit jou kop: baie - meer - meeste!"}, {"id": "m3_fc_4", "mid": "m3", "topic": "Intensiewe Vorme", "page": "Bl. 200", "q": "Gee die intensiewe vorme vir: baie nat, baie oud, baie klein, baie moeg, baie skoon.", "a": "• baie nat → sopnat\n• baie oud → stokoud\n• baie klein → piepklein\n• baie moeg → doodmoeg\n• baie skoon → silwerskoon (of skoonveld).\n\nReël: Altyd EEN WOORD sonder spasies of koppeltekens!", "trick": "Altyd EEN woord: sopnat, stokoud, piepklein."}, {"id": "m3_fc_5", "mid": "m3", "topic": "Verlede Tyd & BE-GE-ER...", "page": "Bl. 200", "q": "Watter werkwoorde kry GEEN 'ge-' in die verlede tyd nie?", "a": "Werkwoorde wat begin met:\nBE-, GE-, ER-, HER-, ONT-, VER- (Onthou: BE-GE-ER-HER-ONT-VER) kry NIE 'ge-' nie!\n\nVoorbeelde:\n• begin → het begin\n• vergeet → het vergeet\n• ontdek → het ontdek\n• herken → het herken.", "trick": "Rympie: BE-GE-ER-HER-ONT-VER kry nooit 'ge-' nie!"}, {"id": "m3_fc_6", "mid": "m3", "topic": "Spesiale Verlede Tye", "page": "Bl. 200", "q": "Wat is die spesiale verlede tye van: is, het, kan, wil, moet, sal?", "a": "• is → was\n• het → het ... gehad\n• kan → kon\n• wil → wou\n• moet → moes\n• sal → sou.", "trick": "is word was; het word het gehad!"}, {"id": "m3_fc_7", "mid": "m3", "topic": "Bywoorde & T-M-P", "page": "Bl. 68, 201", "q": "Wat is die T-M-P reël vir die woordorde van bywoorde?", "a": "Tyd kom voor Manier, wat voor Plek kom:\n\nT - Tyd (wanneer?)\nM - Manier / Wyse (hoe?)\nP - Plek (waar?)\n\nVoorbeeld: Ons gaan môre (T) met die bus (M) skool toe (P).", "trick": "T-M-P = Tyd voor Manier voor Plek!"}, {"id": "m3_fc_8", "mid": "m3", "topic": "Vaste Voorsetsels", "page": "Bl. 93", "q": "Voltooi die vaste voorsetsels: trots ___, jaloers ___, bang ___, dink ___, glo ___.", "a": "• trots OP\n• jaloers OP\n• verlief OP\n• bang VIR\n• kwaad VIR\n• dink AAN\n• glo IN\n• goed IN\n• afhanklik VAN.", "trick": "trots OP, bang VIR, dink AAN!"}, {"id": "m3_fc_9", "mid": "m3", "topic": "Voegwoorde Groep 1 (EMOW)", "page": "Bl. 21", "q": "Watter voegwoorde is Groep 1 en wat gebeur met die werkwoord?", "a": "Groep 1 = EMOW (En, Maar, Of, Want).\n\nDie werkwoord BLY OP SY PLEK (niks skuif nie!).\n\nVoorbeeld: Ek wil buite speel, maar dit reën hard.", "trick": "EMOW = En, Maar, Of, Want -> werkwoord bly net daar!"}, {"id": "m3_fc_10", "mid": "m3", "topic": "Voegwoorde Groep 2", "page": "Bl. 21", "q": "Watter voegwoorde is Groep 2 en wat gebeur met die werkwoord?", "a": "Groep 2 = daarom, dus, toe (= daarna), nogtans, anders, intussen.\n\nDie werkwoord kom DIREK NÁ die voegwoord!\n\nVoorbeeld: Dit reën hard, daarom BLY ons binne.", "trick": "Groep 2: werkwoord plak reg agter die voegwoord!"}, {"id": "m3_fc_11", "mid": "m3", "topic": "Voegwoorde Groep 3", "page": "Bl. 21", "q": "Watter voegwoorde is Groep 3 en wat gebeur met die werkwoord?", "a": "Groep 3 = omdat, sodat, as, wanneer, terwyl, voordat, nadat, totdat, hoewel, dat, toe (= toe ek klein was).\n\nDie werkwoord skuif HEEL NA DIE EINDE van die sin ('stert toe')!\n\nVoorbeeld: Ons bly binne omdat dit REËN.", "trick": "Groep 3 = die werkwoord gaan stert toe!"}, {"id": "m3_fc_12", "mid": "m3", "topic": "Sinsoorte", "page": "Bl. 33", "q": "Noem die 4 sinsoorte, hul doel en hul leestekens.", "a": "1. Stelsin: sê of vertel iets (eindig op .)\n2. Vraagsin: vra iets (eindig op ?)\n3. Bevelsin: gee 'n opdrag (eindig op ! of .)\n4. Uitroepsin: wys sterk gevoel/emosie (eindig op !).\n\nVoorbeeld van uitroepsin: Wat 'n pragtige dag!", "trick": "Stelsin (.) | Vraag (?) | Bevel (!/.) | Uitroep (!)"}, {"id": "m3_fc_13", "mid": "m3", "topic": "Skryftekens", "page": "Bl. 31, 45", "q": "Gee voorbeelde van 'n deelteken (trema) en 'n kappie.", "a": "• Deelteken (trema ¨): Skei twee vokale sodat jy hulle apart uitspreek: reën, geëet, voël, België.\n• Kappie (^): Maak die klank lank en gerek: môre, wêreld, sê, brûe.\n• Akuut (´) wys klem: dié, só; Gravis (`) bv. hè, nè, appèl.", "trick": "Deelteken skei klanke; kappie rek die klank!"}, {"id": "m3_fc_14", "mid": "m3", "topic": "Strikvraag: 'n aan die begin", "page": "Bl. 45", "q": "STRIKVRAAG: Kry 'n ooit 'n hoofletter aan die begin van 'n sin?", "a": "NEE! 'n kry NOOIT 'n hoofletter nie!\n\nAs 'n sin met 'n begin, kry die VOLGENDE WOORD die hoofletter:\n\nReg: 'n Kat sit op die dak.\nVerkeerd: 'N kat sit op die dak.", "trick": "'n bly klein; volgende woord kry hoofletter!"}, {"id": "m3_fc_15", "mid": "m3", "topic": "Sinonieme & Antonieme", "page": "Bl. 139", "q": "Gee die sinoniem van: vinnig, mooi, dokter; en die antoniem van: vriend, onthou, dapper.", "a": "Sinonieme (dieselfde):\n• vinnig = gou / haastig\n• mooi = pragtig\n• dokter = geneesheer\n\nAntonieme (teenoorgestelde):\n• vriend ↔ vyand\n• onthou ↔ vergeet\n• dapper ↔ lafhartig.", "trick": "Sinoniem = selfde; Antoniem = andersom."}, {"id": "m4_fc_1", "mid": "m4", "topic": "Demonstrative Pronouns", "page": "p. 158", "q": "What are the 4 demonstrative pronouns for Near and Far?", "a": "• Singular Near: this\n• Plural Near: these\n• Singular Far: that\n• Plural Far: those\n\nExample: This is my bag. Those are yours.", "trick": "this/these = near; that/those = far."}, {"id": "m4_fc_2", "mid": "m4", "topic": "Pronoun vs Adjective Trap", "page": "p. 158", "q": "TRAP: What is the difference between a demonstrative pronoun and an adjective?", "a": "• If the word stands ALONE (replaces the noun), it is a PRONOUN: 'This is mine.'\n• If it stands IN FRONT OF A NOUN, it is an ADJECTIVE: 'This bag is mine.'", "trick": "In front of noun = adjective; stands alone = pronoun!"}, {"id": "m4_fc_3", "mid": "m4", "topic": "Possessive Pronouns", "page": "p. 137", "q": "Change to possessive pronouns and state the apostrophe rule:\n'This is my pen. That is their house.'", "a": "• 'This pen is mine.'\n• 'That house is theirs.'\n\nTRAP: NO apostrophes in possessive pronouns! It is yours, hers, ours, theirs (NEVER your's or their's)!\nAnd 'its' (belonging to it) ≠ 'it's' (it is).", "trick": "No apostrophes in hers, ours, yours, theirs!"}, {"id": "m4_fc_4", "mid": "m4", "topic": "Coordinating Conjunctions", "page": "Term 1 notes", "q": "What is the FANBOYS acronym for coordinating conjunctions?", "a": "**F** - For\n**A** - And\n**N** - Nor\n**B** - But\n**O** - Or\n**Y** - Yet\n**S** - So\n\nExample: I was hungry, so I ate a sandwich.", "trick": "FANBOYS joins equal parts of a sentence!"}, {"id": "m4_fc_5", "mid": "m4", "topic": "Parts of Sentences", "page": "Term 1 notes", "q": "Identify Subject, Verb, Direct Object and Indirect Object in:\n'Mom gave me a gift.'", "a": "• Subject (who does action): Mom\n• Verb (action): gave\n• Indirect Object (to/for whom): me\n• Direct Object (what receives action): a gift\n• Predicate: gave me a gift.", "trick": "Verb first -> who + verb = subject -> verb + what = object!"}, {"id": "m4_fc_6", "mid": "m4", "topic": "Direct & Indirect Speech", "page": "Term 3 notes", "q": "Change to indirect speech: Sam said, 'I am tired.' and 'We will go tomorrow,' said Mom.", "a": "• Sam said that he was tired.\n• Mom said that they would go the next day.\n\nRules:\n1. Quotation marks fall away.\n2. Pronouns change (I → he, we → they).\n3. Tense moves one step back (am → was, will → would).\n4. Time words change (tomorrow → the next day).", "trick": "Tense moves one step back: is -> was, will -> would!"}, {"id": "m4_fc_7", "mid": "m4", "topic": "Active & Passive Voice", "page": "Term 3 notes", "q": "What is the recipe for Passive Voice? Change: 'The cat ate the fish.'", "a": "Recipe: Object moves to front + (am/is/are/was/were) + past participle + by + doer.\n\n'The cat ate the fish.' (Past tense active)\n→ 'The fish was eaten by the cat.' (Past tense passive).\n\nTRAP: Keep the same tense! If plural object: 'The teacher marked the tests' → 'The tests WERE marked by the teacher.'", "trick": "Object first + was/were + past participle + by!"}, {"id": "m4_fc_8", "mid": "m4", "topic": "Clauses", "page": "Term 4 notes", "q": "What is the difference between a Main clause, Subordinate clause and Relative clause?", "a": "• Main clause: Makes complete sense on its own (I stayed inside).\n• Subordinate clause: Cannot stand alone, starts with a conjunction (because it was raining).\n• Relative clause: Starts with who, which, that, whose and describes a noun (The boy who won the race is my friend).", "trick": "Main stands alone; Subordinate needs help!"}, {"id": "m5_fc_1", "mid": "m5", "topic": "Weer vs Klimaat", "page": "Bl. 50", "q": "Wat is die presiese verskil tussen Weer en Klimaat?", "a": "• Weer = hoe dit VANDAG buite is op 'n spesifieke plek (temperatuur, reën, wind – verander vinnig).\n• Klimaat = die GEMIDDELDE WEER van 'n plek oor baie jare gemeet (ongeveer 30 jaar).", "trick": "Weer = vandag; Klimaat = 30-jaar gemiddeld!"}, {"id": "m5_fc_2", "mid": "m5", "topic": "Breedtegrade & Temperatuur", "page": "Bl. 50", "q": "Noem die 4 belangrike breedtelyne en hoe temperatuur verander.", "a": "1. Ewenaar (0°)\n2. Kreefskeerkring (±23½° N)\n3. Steenbokskeerkring (±23½° S)\n4. Noord- en Suidpoolsirkel (±66½°).\n\nTemperatuur: Hoe NADER aan die ewenaar, hoe WARMER (son skyn reg van bo). Hoe NADER aan die pole, hoe KOUER.", "trick": "Ewenaar = warm; Pole = koud."}, {"id": "m5_fc_3", "mid": "m5", "topic": "Klimaatgrafiek Lees", "page": "Bl. 55", "q": "Hoe lees jy 'n klimaatgrafiek?", "a": "• Die LYN toon die TEMPERATUUR in grade Celsius (°C).\n• Die STAWE toon die REËNVAL in millimeter (mm).\n• Die maande (J F M A M J J A S O N D) lê op die horisontale as onderaan.\n\nReënwoud: Hoë stawe regdeur die jaar en 'n warm, plat temperatuurlyn.", "trick": "Lyn = temperatuur, Stawe = reënval!"}, {"id": "m5_fc_4", "mid": "m5", "topic": "Tropiese Reënwoude", "page": "Bl. 54", "q": "Waar lê reënwoude en wat is hul klimaat?", "a": "• Waar: Naby die Ewenaar – Amasone (Suid-Amerika, die grootste), Kongo-kom (Afrika), en Suidoos-Asië (Indonesië).\n• Klimaat: Warm (±27 °C) en nat deur die hele jaar (meer as 2 000 mm reën per jaar, middag-donderstorms).\n• Geen duidelike winter nie.", "trick": "Amasone is die grootste reënwoud; warm & nat heeljaar!"}, {"id": "m5_fc_5", "mid": "m5", "topic": "Lae van die Reënwoud", "page": "Bl. 57", "q": "Noem die 4 lae van die reënwoud van bo na onder.", "a": "1. Opkomende laag (Emergent layer): Reuse-bome wat bo uitsteek (arende, vlermuise).\n2. Blaredak / Kroondak (Canopy): Digte groen dak van blare; meeste diere leef hier (ape, toekans, luiaards).\n3. Ondergroei (Understorey): Donker, klein boompies en struike (slange, jaguars).\n4. Woudvloer (Forest floor): Byna geen sonlig; blare vrot vinnig (insekte, miere, gorillas).", "trick": "Bo na onder: Opkomend → Blaredak → Ondergroei → Woudvloer."}, {"id": "m5_fc_6", "mid": "m5", "topic": "Reënwoud Plant-aanpassings", "page": "Bl. 57", "q": "Noem 4 plant-aanpassings in die reënwoud.", "a": "1. Plankwortels / steunwortels: Hou reuse-bome stewig regop in die vlak grond.\n2. Druppunte op blare: Laat die swaar reënwater vinnig afloop sodat blare nie vrot nie.\n3. Klimplante (lianas): Rank teen reuse-bome op na die lig.\n4. Epifiete (bv. orgideë): Groei bo-op ander bome se takke om sonlig te kry.", "trick": "Plankwortels hou bome regop; druppunte laat water afgly."}, {"id": "m5_fc_7", "mid": "m5", "topic": "Warm Woestyne", "page": "Bl. 60", "q": "Wat definieer 'n woestyn en noem die grootste warm en koue woestyn.", "a": "• Woestyn kry MINDER as 250 mm reën per jaar.\n• Grootste WARM woestyn: Die Sahara (Noord-Afrika).\n• RAAISEL: Die grootste woestyn op aarde is eintlik ANTARKTIKA – 'n yskoue woestyn met byna geen neerslag!\n• Namib (een van die oudstes) en Kalahari ('n halfwoestyn).", "trick": "Woestyn = <250 mm reën. Antarktika is grootste koue woestyn!"}, {"id": "m5_fc_8", "mid": "m5", "topic": "Woestyn Aanpassings", "page": "Bl. 62", "q": "Hoe pas plante en diere aan in die woestyn?", "a": "Plante:\n• Vetplante & kaktusse stoor water; waslaag op blare keer verdamping; lang diep penwortels; Welwitschia in Namib word >1 000 jaar oud.\nDiere:\n• Nagdiere (kruip weg bedags); kameel stoor VET in sy bult (nie water nie!); fennek-jakkals se groot ore straal hitte uit; Namib-kewer kondenseer mis op sy rug.", "trick": "Kameel stoor VET (nie water nie) in sy bult!"}, {"id": "m5_fc_9", "mid": "m5", "topic": "Naaldwoude (Taiga)", "page": "Bl. 67", "q": "Wat is naaldwoude, waar kom hulle voor, en het Suid-Afrika natuurlike naaldwoude?", "a": "• Ook genoem Taiga of boreale woud – grootste woudstreek op land (Noordelike Halfrond: Kanada, Skandinawië, Siberië).\n• Bome: Denne, sparre, lorke – immergroen, keëlvormig sodat sneeu kan afgly.\n• Diere: Bruinbere (winterslaap), sneeuhase (wit winterpels kamoeflering), elande.\n• SUID-AFRIKA HET GEEN NATUURLIKE NAALDWOUD NIE! Die dennebome in Mpumalanga en KZN is mensgemaakte plantasies.", "trick": "Keëlvormig sodat sneeu afgly; SA dennebome is plantasies!"}, {"id": "m5_fc_10", "mid": "m5", "topic": "Die Groot Paradoks van SA Provinsies", "page": "Bl. 76, 79", "q": "Wat is die 'Groot Paradoks' tussen Gauteng en Noord-Kaap?", "a": "• GAUTENG is die KLEINSTE provinsie in oppervlakte (18 178 km²), maar het die MEESTE mense (15,1 miljoen) – die digste bevolk (±831 mense/km²).\n• NOORD-KAAP is die GROOTSTE provinsie in oppervlakte (372 889 km²), maar het die MINSTE mense (1,4 miljoen) – die ylste bevolk (±4 mense/km²).\n\nOnthou: 'Klein Gauteng is propvol, groot Noord-Kaap is lekker leeg!'", "trick": "Gauteng = kleinste + meeste; Noord-Kaap = grootste + minste!"}, {"id": "m5_fc_11", "mid": "m5", "topic": "Bevolkingsdigtheid Formule", "page": "Bl. 80", "q": "Wat is die formule vir bevolkingsdigtheid? Bereken vir 10 000 mense op 200 km².", "a": "Formule:\nBevolkingsdigtheid = Getal mense ÷ Oppervlakte (km²)\n\nBerekening:\n10 000 mense ÷ 200 km² = 50 mense per km² (mense/km²).", "trick": "Mense ÷ km² = bevolkingsdigtheid!"}, {"id": "m5_fc_12", "mid": "m5", "topic": "Trek- en Stootfaktore", "page": "Bl. 82", "q": "Wat is die verskil tussen Trekfaktore en Stootfaktore vir nedersettings?", "a": "• Trekfaktore (trek mense na 'n plek): Werk, water, vrugbare grond, goeie klimaat, dienste (skole, hospitale, winkels), veiligheid.\n• Stootfaktore (stoot mense weg van 'n plek): Werkloosheid, droogte, swak dienste, misdaad, oorlog of natuurrampe.\n\nGauteng is so vol omdat daar baie werk is (het begin met goudontdekking in 1886).", "trick": "Trek = kom hierheen; Stoot = vlug weg."}, {"id": "m5_fc_13", "mid": "m5", "topic": "Landelik vs Stedelik", "page": "Bl. 87", "q": "Wat is die verskil tussen 'n Landelike en Stedelike nedersetting en wat is verstedeliking?", "a": "• Landelik: Platteland, dorpies, plase; min mense ver uitmekaar; primêre werk (landbou, bosbou, mynbou); minder dienste.\n• Stedelik: Stede en groot dorpe; baie mense dig op mekaar; sekondêre en tersiêre werk (fabrieke, winkels, banke, kantore); baie dienste naby.\n• Verstedeliking: Wanneer mense van die platteland na die stede trek op soek na werk.", "trick": "Landelik = platteland; Stedelik = stad; Verstedeliking = trek stad toe."}, {"id": "m5_fc_14", "mid": "m5", "topic": "Mense oor die Wêreld Heen", "page": "Bl. 90", "q": "Hoeveel mense is daar in die wêreld en watter kontinent en lande het die meeste mense?", "a": "• Die wêreld het meer as 8 MILJARD mense.\n• ASIË het die meeste mense van alle kontinente.\n• Lande met die meeste mense: Indië en China (elk meer as 1,4 miljard mense!).\n• Megastede (meer as 10 miljoen mense): bv. Tokio, Delhi, Sjanghai, Kaïro.", "trick": "Wêreld > 8 miljard; Asië = meeste; Indië & China = top 2."}, {"id": "m6_fc_1", "mid": "m6", "topic": "Plekwaarde", "page": "Bl. 21", "q": "Wat is die waarde van die 5 in die getal 3 456 789?", "a": "Die getal is: Miljoene, Honderdduisende, Tienduisende, Duisende, Honderde, Tiene, Ene.\n\nDie 5 staan in die Tienduisende-kolom.\nWaarde = 50 000!\n\n(Uitgebreide notasie: 3 000 000 + 400 000 + 50 000 + 6 000 + 700 + 80 + 9).", "trick": "Kyk in watter kolom die syfer staan!"}, {"id": "m6_fc_2", "mid": "m6", "topic": "Optel & Aftrek Reëls", "page": "Bl. 21", "q": "Is optel en aftrek omruilbaar? En hoe kontroleer jy jou antwoorde?", "a": "• Optelling IS omruilbaar: 7 + 4 = 4 + 7.\n• Aftrekking is NIE omruilbaar NIE: 10 − 3 ≠ 3 − 10!\n• Kontroleer aftrekking altyd met die OMGEKEERDE bewerking (optel):\n  As 503 204 − 187 659 = 315 545, toets: 315 545 + 187 659 = 503 204!", "trick": "Toets aftrek deur weer op te tel!"}, {"id": "m6_fc_3", "mid": "m6", "topic": "Afronding Reël", "page": "Bl. 21", "q": "Rond 78 549 af tot: (a) die naaste 1 000 (b) die naaste 100.", "a": "Reël: Kyk na die syfer REGS van die plekwaarde:\n0–4 → rond af | 5–9 → rond op!\n\n(a) Tot naaste 1 000: Kyk na die honderde (5) -> rond op!\n78 549 → 79 000\n(b) Tot naaste 100: Kyk na die tiene (4) -> rond af!\n78 549 → 78 500.", "trick": "0–4 sak af; 5–9 spring op!"}, {"id": "m6_fc_4", "mid": "m6", "topic": "Vermenigvuldiging Truuks", "page": "Bl. 21", "q": "Wat is die superkrag-truuks vir: (a) × 5 (b) × 9 (c) verdubbel en halveer?", "a": "(a) × 5 = maal met 10 en halveer (deel deur 2):\n48 × 5 = 480 ÷ 2 = 240.\n(b) × 9 = maal met 10 en trek 1 keer af:\n7 × 9 = 70 − 7 = 63.\n(c) Verdubbel en halveer:\n25 × 16 = 50 × 8 = 100 × 4 = 400!", "trick": "×5 = maal 10 dan halveer; ×9 = maal 10 minus getal!"}, {"id": "m6_fc_5", "mid": "m6", "topic": "Deling Terme & Res", "page": "Bl. 21, 22", "q": "In 8 652 ÷ 12 = 721, wat is die deeltal, deler en kwosiënt? En wat maak jy met die res by busse?", "a": "• Deeltal = 8 652\n• Deler = 12\n• Kwosiënt (antwoord) = 721.\n\nWat maak jy met die res?\n• As 130 kinders in busse moet gaan (25 per bus) = 5 res 5 -> ROND OP na 6 busse (niemand bly agter nie!).\n• As 130 lekkers verdeel word tussen 25 kinders -> elkeen kry 5, en 5 lekkers BLY OOR.", "trick": "Mense/busse rond altyd op; lekkers bly oor!"}, {"id": "m6_fc_6", "mid": "m6", "topic": "Deelbaarheidsreëls", "page": "Bl. 22", "q": "Hoe weet jy of 'n getal deelbaar is deur 3 en deur 9?", "a": "• Deelbaar deur 3: Die SOM VAN DIE SYFERS moet deelbaar wees deur 3.\n• Deelbaar deur 9: Die SOM VAN DIE SYFERS moet deelbaar wees deur 9!\n\nToets 5 832:\n5 + 8 + 3 + 2 = 18.\nIs 18 deelbaar deur 9? JA (18 ÷ 9 = 2)! Dus is 5 832 deelbaar deur 9!", "trick": "Tel die syfers bymekaar: as die som deel deur 9, deel die getal deur 9!"}, {"id": "m6_fc_7", "mid": "m6", "topic": "Priemgetalle", "page": "Bl. 22", "q": "Wat is 'n priemgetal en skryf al die priemgetalle tussen 20 en 40 neer.", "a": "• 'n Priemgetal het PRESIES TWEE faktore: 1 en homself.\n• 1 is NIE 'n priemgetal nie!\n• 2 is die ENIGSTE ewe priemgetal.\n\nPriemgetalle tussen 20 en 40:\n23, 29, 31, 37!", "trick": "Tussen 20 en 40: 23, 29, 31, 37!"}, {"id": "m6_fc_8", "mid": "m6", "topic": "Vierkantgetalle", "page": "Bl. 22", "q": "Wat is die eerste 12 vierkantgetalle (tot 12 × 12)?", "a": "1² = 1\n2² = 4\n3² = 9\n4² = 16\n5² = 25\n6² = 36\n7² = 49\n8² = 64\n9² = 81\n10² = 100\n11² = 121\n12² = 144.", "trick": "1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144!"}, {"id": "m6_fc_9", "mid": "m6", "topic": "Volgorde van Bewerkings", "page": "Bl. 22", "q": "Wat is die antwoord van: 3 + 4 × 2? Is dit 14?", "a": "NEE! Dit is NIE 14 nie!\n\nVolgorde van bewerkings (BODMAS):\nVermenigvuldiging kom voor optelling!\n1. Maal eers: 4 × 2 = 8\n2. Tel dan by: 3 + 8 = 11!\n\nAntwoord: 11.", "trick": "Maal en deel ALTYD voor optel en aftrek!"}, {"id": "m7_fc_1", "mid": "m7", "topic": "Elektriese Stroombane", "page": "Bl. 23", "q": "Wat is 'n elektriese stroombaan en wat is die verskil tussen 'n oop en geslote stroombaan?", "a": "• 'n Elektriese stroombaan is 'n volledige, ononderbroke pad waardeur elektrisiteit kan vloei: vanaf die sel/battery, deur die drade en gloeilamp, en terug na die sel.\n• Geslote stroombaan: Geen gapings nie → stroom vloei → lamp BRAND.\n• Oop stroombaan: Daar is 'n gaping (skakelaar af of los draad) → geen stroom vloei nie → niks werk nie.", "trick": "Geslote = stroom vloei en lamp brand; oop = niks werk nie."}, {"id": "m7_fc_2", "mid": "m7", "topic": "Stroombaansimbole", "page": "Bl. 23", "q": "Hoe teken jy die simbool vir 'n sel en dui die pole aan?", "a": "• Twee parallelle lyne:\n  - Die LANG, DUN lyn is die POSITIEWE (+) pool.\n  - Die KORT, DIK lyn is die NEGATIEWE (−) pool.\n• Teken stroombaandiagramme altyd met 'n LINIAAL en reguit lyne!", "trick": "Lang dun lyn = +; kort dik lyn = −."}, {"id": "m7_fc_3", "mid": "m7", "topic": "Selle & Lampe in Serie", "page": "Bl. 23", "q": "Wat gebeur as jy meer selle bysit, en wat gebeur as jy meer gloeilampe in serie bysit?", "a": "• Meer SELLE in serie → meer elektriese energie → gloeilamp brand HELDERDER.\n• Meer GLOEILAMPE in serie → groter weerstand → elke lamp brand DOWWER.", "trick": "Meer batterye = helderder; meer lampies = dowwer!"}, {"id": "m7_fc_4", "mid": "m7", "topic": "Energie-omskakeling", "page": "Bl. 23", "q": "Wat is die energie-omskakeling in 'n flitslig / stroombaan?", "a": "Chemiese energie (gestoor in die sel/battery)\n→ Elektriese energie (stroom vloei deur drade)\n→ Lig-energie en Hitte-energie (in die gloeilamp filament).", "trick": "Chemies (battery) → Elektries (drade) → Lig & Hitte (lamp)."}, {"id": "m7_fc_5", "mid": "m7", "topic": "Geleiers en Isoleerders", "page": "Bl. 23", "q": "Noem 3 goeie elektriese geleiers en 3 isoleerders, en verduidelik 'n elektriese draad.", "a": "• Geleiers (elektrisiteit vloei maklik): Koper, aluminium, yster, silwer, goud, grafiet (potloodlood!), soutwater, menslike liggaam.\n• Isoleerders (keer elektrisiteit): Plastiek, rubber, glas, hout, papier, droë lug.\n• 'n Elektriese kragdraad het KOPER binne-in (geleier om stroom te dra) en PLASTIEK buite-om (isoleerder om mense teen skokke te beskerm).", "trick": "Koper binne gelei; plastiek buite beskerm!"}, {"id": "m7_fc_6", "mid": "m7", "topic": "Tegnologie Ontwerpproses", "page": "Bl. 23", "q": "Wat is die stappe van die tegnologiese ontwerpproses (O-O-M-E-K)?", "a": "Rympie: 'Ons Ontwerp, Maak, Evalueer en Kommunikeer'\n\n1. Ondersoek (doen navorsing oor die probleem)\n2. Ontwerp (maak tekeninge en planne)\n3. Maak (bou die model of produk)\n4. Evalueer (toets of dit werk soos beplan)\n5. Kommunikeer (bied jou oplossing aan).", "trick": "O-O-M-E-K = Ondersoek, Ontwerp, Maak, Evalueer, Kommunikeer!"}, {"id": "m7_fc_7", "mid": "m7", "topic": "Hoofstroomelektrisiteit", "page": "Bl. 23, 24", "q": "Hoe sterk is hoofstroom in SA, en beskryf die stappe vanaf steenkool tot kamerlig.", "a": "• Hoofstroom in SA is ±230 V (baie gevaarliker as 'n 1,5 V-sel!).\n\nStappe in kragstasie (Eskom):\n1. Steenkool brand in oond\n2. Water kook in groot ketel\n3. Hoëdruk stoom word gevorm\n4. Stoom laat turbine draai\n5. Turbine dryf generator aan om elektrisiteit op te wek\n6. Hoogspanningsdrade en substasies/transformators neem krag na huise.", "trick": "Steenkool brand → stoom → turbine draai → generator maak krag!"}, {"id": "m7_fc_8", "mid": "m7", "topic": "Hernubaar vs Nie-hernubaar", "page": "Bl. 24", "q": "Wat is die nadele van steenkool en noem Suid-Afrika se enigste kernkragstasie.", "a": "• Steenkool is 'n fossielbrandstof en NIE-HERNUBAAR (raak eendag op); dit veroorsaak erge lugbesoedeling en kweekhuisgasse (aardverwarming).\n• KOEBERG naby Kaapstad is Suid-Afrika se enigste kernkragstasie.\n• Hernubare alternatiewe: Sonpanele (sonkrag), windturbines (windkrag), hidro-elektrisiteit (waterkrag).", "trick": "Koeberg = kernkragstasie; Son/wind = hernubare energie."}, {"id": "m7_fc_9", "mid": "m7", "topic": "Sonnestelsel & Planete", "page": "Bl. 24", "q": "Noem die 8 planete in volgorde van die Son af met die rympie.", "a": "Rympie: 'Ma Vat Elke Môre Jellie Saam Uit Nylstroom'\n\n1. Mercurius (kleinste, naaste, geen mane)\n2. Venus (warmste planeet weens dik atmosfeer, oggend-/aandster)\n3. Aarde (enigste met bekende lewe en vloeibare water, 1 maan)\n4. Mars (die rooi planeet, roesstof, 2 mane)\n5. Jupiter (grootste gasreus, Groot Rooi Vlek storm)\n6. Saturnus (bekend vir reuse ringe)\n7. Uranus (ysreus wat op sy sy draai)\n8. Neptunus (verste, koudste, sterkste winde).\n\n(Pluto is 'n dwergplaneet).", "trick": "Ma Vat Elke Môre Jellie Saam Uit Nylstroom!"}, {"id": "m7_fc_10", "mid": "m7", "topic": "Rotasie vs Wenteling", "page": "Bl. 24, 25", "q": "Wat is die verskil tussen Roteer en Wentel, en wat veroorsaak elkeen?", "a": "• ROTEER: Die Aarde draai om sy EIE AS (soos 'n tol) een keer elke 24 uur (draai wes na oos).\n  → Veroorsaak DAG EN NAG.\n\n• WENTEL: Die Aarde beweeg in 'n wentelbaan OM DIE SON (soos 'n atleet om 'n baan) in 365¼ dae (1 jaar).\n  → Saam met die Aarde se SKOUKANTELING (23.5°), veroorsaak dit die SEISOENE!", "trick": "Roteer = tol om jouself (dag/nag); Wentel = baan om die son (seisoene/jaar)!"}, {"id": "m7_fc_11", "mid": "m7", "topic": "Maan en Maanfases", "page": "Bl. 24", "q": "Hoe lank neem die maan om om die aarde te wentel en hoekom sien ons verskillende fases?", "a": "• Die maan wentel om die aarde in ongeveer 'n maand (±29½ dae).\n• Ons sien altyd DIESELFDE KANT van die maan.\n• Maanfases wys hoeveel van die verligte kant na ons toe wys:\n  Nuwemaan → Groeiende sekelmaan → Eerste kwartier → Groeiende bolmaan → Volmaan → Afnemende bolmaan → Laaste kwartier → Afnemende sekelmaan → Nuwemaan.", "trick": "Die maan gee nie eie lig nie – dit weerkaats slegs sonlig!"}, {"id": "m7_fc_12", "mid": "m7", "topic": "SALT & MeerKAT Teleskope", "page": "Bl. 25", "q": "Waar is SALT en MeerKAT in Suid-Afrika en hoekom is hulle in die Karoo gebou?", "a": "• SALT (Southern African Large Telescope): Grootste enkele optiese teleskoop in die Suidelike Halfrond, by Sutherland in die Noord-Kaap.\n• MeerKAT / SKA (64 skottels): Reuse radioteleskoop naby Carnarvon in die Noord-Kaap.\n\nHoekom die Karoo?\n1. Wolkloos, baie min reën, droë helder lug\n2. Geen ligbesoedeling van stede nie\n3. Baie min elektromagnetiese / radiosein-steurings (stilte-gebied).", "trick": "SALT (Sutherland) = opties; MeerKAT (Carnarvon) = radio. Albei in Noord-Kaap!"}, {"id": "m7_fc_13", "mid": "m7", "topic": "Verkenning van Maan & Mars", "page": "Bl. 25", "q": "Wie was die eerste mens in die ruimte, eerste op die maan, en hoekom stuur ons robotte na Mars?", "a": "• 1961: Joeri Gagarin (eerste mens in die ruimte).\n• 20 Julie 1969 (Apollo 11): Neil Armstrong word die eerste mens op die maan ('n klein treetjie vir die mens...).\n• Mars-verkenning: Nog GEEN mens was op Mars nie – net robotte (rovers soos Curiosity en Perseverance, en Ingenuity helikopter)!\n• Hoekom robotte eerste? Goedkoper, baie veiliger (die reis duur 7 maande, yskoud, geen suurstof nie; robotte het nie kos, water of lug nodig nie).", "trick": "Armstrong = 1969 op die maan; Mars = slegs robotte tot dusver!"}, {"id": "m8_fc_1", "mid": "m8", "topic": "Troeteldier Versorging", "page": "Bl. 26", "q": "Noem 5 dinge wat 'n troeteldier nodig het en waar meld jy mishandeling aan?", "a": "Diere het nodig:\n1. Kos en skoon water elke dag\n2. Skuiling teen son, reën en koue\n3. Oefening en speeltyd\n4. Veeartsenykundige sorg (inentings, ontwurming)\n5. Sterilisasie (voorkom hawelose kleintjies) en liefde.\n\nDieremishandeling is teen die wet: meld aan by die SPCA / DBV (Dierebeskermingsvereniging).", "trick": "Diere het gevoelens; meld mishandeling by die DBV aan!"}, {"id": "m8_fc_2", "mid": "m8", "topic": "Nasiebou & Erfenis", "page": "Bl. 26", "q": "Wat beteken Nasiebou, wie het die term 'Reënboognasie' geskep, en hoeveel amptelike tale het SA?", "a": "• Nasiebou = om mense van verskillende kulture, tale en gelowe saam te bring tot een trotse nasie (eenheid in diversiteit).\n• Aartsbiskop Desmond Tutu het ons die 'Reënboognasie' genoem.\n• Suid-Afrika het 12 amptelike tale (insluitend Suid-Afrikaanse Gebaretaal sedert 2023).", "trick": "Desmond Tutu = Reënboognasie; 12 amptelike tale."}, {"id": "m8_fc_3", "mid": "m8", "topic": "Openbare Vakansiedae", "page": "Bl. 26", "q": "Wat vier ons op: 21 Maart, 27 April, 16 Junie en 24 September?", "a": "• 21 Maart: Menseregtedag (onthou Sharpeville 1960 en ons menseregte)\n• 27 April: Vryheidsdag (eerste demokratiese verkiesing in 1994)\n• 16 Junie: Jeugdag (Soweto-studenteopstand van 1976)\n• 24 September: Erfenisdag (viering van ons verskillende kulture en tradisies).", "trick": "21 Mrt = Menseregte | 27 Apr = Vryheid | 16 Jun = Jeug | 24 Sep = Erfenis."}, {"id": "m8_fc_4", "mid": "m8", "topic": "Stereotipes & Seksisme", "page": "Bl. 26", "q": "Wat is 'n stereotipe en wat is seksisme? Wat doen jy as iemand jou mishandel?", "a": "• Stereotipe: 'n Vaste, dikwels verkeerde idee oor 'n hele groep mense (bv. 'seuns huil nie' of 'meisies kan nie sokker speel nie').\n• Seksisme: Om iemand onregverdig te behandel net oor hul geslag (seuns en meisies is gelyk onder die Grondwet).\n• As jy mishandel word: Sê ferm NEE → gaan weg → vertel dadelik 'n volwassene wat jy vertrou.\n• Noodnommers: Childline 116 (gratis, 24 uur) | Polisie 10111.", "trick": "Sê NEE, gaan weg, vertel iemand! Childline 116."}, {"id": "m8_fc_5", "mid": "m8", "topic": "Noodhulp: Neusbloeding & Brandwonde", "page": "Bl. 27", "q": "Hoe hanteer jy: (a) 'n Neusbloeding (b) 'n Brandwond?", "a": "(a) Neusbloeding: Sit regop en leun VORENTOE (nie agtertoe nie, anders sluk jy bloed!); knyp die sagte deel van die neus vas vir ±10 minute; asem deur die mond.\n(b) Brandwond: Hou dadelik onder KOEL LOPENDE WATER vir ±20 minute; moenie botter, olie of tandepasta op 'n brandwond sit nie; bedek lossies met 'n skoon doek.", "trick": "Neusbloeding: leun VORENTOE! Brandwond: 20 min koel water, NOOIT botter!"}, {"id": "m8_fc_6", "mid": "m8", "topic": "Verstuite Enkel (R-Y-V-O)", "page": "Bl. 27", "q": "Wat beteken die R-Y-V-O reël vir 'n verstuite enkel?", "a": "**R** - Rus: Moenie op die beseerde voet loop nie.\n**Y** - Ys: Sit ys (toegedraai in 'n lap, nooit direk op die vel nie!) op om swelling te keer.\n**V** - Verband: Draai 'n stewige rekverband om (nie te styf nie).\n**O** - Oplig: Lig die been op sodat dit hoër as die hart rus.", "trick": "R-Y-V-O = Rus, Ys, Verband, Oplig!"}, {"id": "m8_fc_7", "mid": "m8", "topic": "Voedselhigiëne 4 Reëls", "page": "Bl. 27", "q": "Noem die 4 goue reëls van voedselhigiëne en watter uitbreking was in SA in 2017-2018?", "a": "1. SKOON: Was hande vir minstens 20 sekondes met seep en warm water voor jy aan kos vat.\n2. SKEI: Hou rou vleis weg van gaar kos; gebruik aparte snyplanke.\n3. KOOK: Kook kos deeglik (veral hoender, vleis en eiers).\n4. KOEL: Bêre oorskietkos in die yskas; moenie kos lank buite los nie.\n\nIn 2017–2018 het SA die wêreld se grootste listeriose-uitbreking gehad weens besmette verwerkte vleis (polony).", "trick": "Skoon, Skei, Kook, Koel!"}, {"id": "m8_fc_8", "mid": "m8", "topic": "MIV & VIGS", "page": "Bl. 28", "q": "Waarvoor staan MIV en VIGS, en noem 4 maniere hoe MIV NIE oorgedra kan word nie.", "a": "• MIV = Menslike Immuniteitsgebreksvirus (val die liggaam se witbloedselle aan).\n• VIGS = Verworwe Immuniteitsgebreksindroom (die gevorderde stadium waar immuunstelsel baie swak is).\n• ARV's (antiretrovirale medisyne) help mense met MIV om 'n gesonde lewe te lei.\n\nMIV word NIE oorgedra deur:\n1. Drukkies gee of hande skud\n2. 'n Koppie, bord of eetgerei deel\n3. Saam swem of toiletsitplekke gebruik\n4. Muskietbyte!", "trick": "Drukkies, hande skud en muskietbyte dra NIE MIV oor nie!"}];
 const quizzes = {"m1": [{"id": "q1_1", "sub": "Demokrasie in SA", "q": "Wat beteken die Griekse woord 'demos' waarvan demokrasie afgelei is?", "options": ["Die koning", "Die mense", "Die howe", "Die wette"], "answer": 1, "expl": "Demokrasie kom van demos (die mense) + kratos (mag/gesag) = regering deur die mense (Bl. 144)."}, {"id": "q1_2", "sub": "Regering & Parlement", "q": "Watter arm van die regering maak en verander wette?", "options": ["Die Uitvoerende gesag (President)", "Die Regsprekende gesag (Howe)", "Die Wetgewende gesag (Parlement)", "Die Munisipaliteit"], "answer": 2, "expl": "Die Wetgewende gesag (Parlement in Kaapstad) MAAK wette. Die onthou-truuk is: MAAK (Parlement) - DOEN (President) - BEOORDEEL (Howe) (Bl. 144)."}, {"id": "q1_3", "sub": "Grondwet", "q": "Watter hof in Suid-Afrika is die hoogste hof en die 'wag' oor die Grondwet?", "options": ["Die Landdroshof", "Die Hoë Hof", "Die Hoogste Hof van Appèl", "Die Konstitusionele Hof"], "answer": 3, "expl": "Die Konstitusionele Hof in Johannesburg is die heel hoogste hof en beskerm die Grondwet (Bl. 146, 150)."}, {"id": "q1_4", "sub": "Parlement", "q": "Hoeveel lede het die Nasionale Vergadering (NV) en die NRVP onderskeidelik?", "options": ["200 en 50", "400 en 90", "350 en 100", "500 en 90"], "answer": 1, "expl": "Die NV het 400 lede en die NRVP het 90 lede (presies 10 uit elk van die 9 provinsies) (Bl. 148)."}, {"id": "q1_5", "sub": "Nasionale Simbole", "q": "Wat is Suid-Afrika se nasionale voël en nasionale boom?", "options": ["Visarend en Maroelakboom", "Bloukraanvoël en Opregte Geelhout", "Sekretarisvoël en Kremetartboom", "Flamink en Jacarandaboom"], "answer": 1, "expl": "Rympie: 'Springende Bloukrane Kyk Geel Galjoene' -> Voël = Bloukraanvoël, Boom = Opregte Geelhout (Bl. 166)."}, {"id": "q1_6", "sub": "Inheemse Medisyne", "q": "Wat is die rol van 'n inyanga in tradisionele Afrika-genesing?", "options": ["Hy kommunikeer met voorouers as waarsêer", "Hy is 'n kruiedokter wat met plante, bas en wortels werk", "Hy doen hartoperasies in hospitale", "Hy maak wette in die Parlement"], "answer": 1, "expl": "'n Inyanga is 'n kruiedokter wat fisiese kwale met plante behandel; 'n sangoma kommunikeer met die voorouers (Bl. 174)."}, {"id": "q1_7", "sub": "Mediese Geskiedenis", "q": "Waarvan is die Engelse woord 'vaccine' (entstof) afgelei?", "options": ["Van die Latynse woord 'vacca' wat koei beteken", "Van die wetenskaplike Louis Pasteur se van", "Van die Griekse woord vir naald", "Van die hospitaal in Londen"], "answer": 0, "expl": "Edward Jenner het koeipokke gebruik om pokke te keer. Die Latynse woord vir koei is vacca, vandaar vaccine (Bl. 182)!"}, {"id": "q1_8", "sub": "Antibiotika", "q": "STRIKVRAAG: Waarteen werk antibiotika soos penisillien?", "options": ["Teen virusse soos griep en verkoue", "Teen slegs bakterieë", "Teen alle siektes insluitend suikersiekte", "Teen hoofpyn en moegheid"], "answer": 1, "expl": "STRIKVRAAG: Antibiotika werk SLEGS teen bakterieë – NIE teen virusse nie! (Bl. 184)."}, {"id": "q1_9", "sub": "Chirurgie & Deurbrake", "q": "Watter antiseptiese middel het Joseph Lister in 1867 gebruik om instrumente en wonde skoon te maak?", "options": ["Soutwater", "Karbolsuur", "Boegoe-asyn", "Chloroform"], "answer": 1, "expl": "Joseph Lister het karbolsuur gebruik as antiseptiese middel om kieme dood te maak (Bl. 185)."}, {"id": "q1_10", "sub": "Hartoorplanting", "q": "Wie was die pasiënt wat op 3 Desember 1967 die wêreld se eerste menslike hartoorplanting ontvang het?", "options": ["Denise Darvall", "Louis Washkansky", "Hamilton Naki", "Philip Blaiberg"], "answer": 1, "expl": "Louis Washkansky was die ontvanger; Denise Darvall was die skenker; Chris Barnard was die chirurg by Groote Schuur (Bl. 186)."}], "m2": [{"id": "q2_1", "sub": "Persentasies", "q": "Wat is 30% van R250?", "options": ["R25", "R50", "R75", "R100"], "answer": 2, "expl": "10% van R250 = R25. Dus is 30% = R25 × 3 = R75 (Bl. 8)."}, {"id": "q2_2", "sub": "Lengte Omskakeling", "q": "Skakel 4,2 km om na meter:", "options": ["42 m", "420 m", "4 200 m", "42 000 m"], "answer": 2, "expl": "1 km = 1 000 m. Dus 4,2 × 1 000 = 4 200 m (Bl. 8)."}, {"id": "q2_3", "sub": "3D-Voorwerpe", "q": "Hoeveel vlakke, rande en hoekpunte het 'n driehoekige prisma?", "options": ["5 vlakke, 9 rande, 6 hoekpunte", "6 vlakke, 12 rande, 8 hoekpunte", "4 vlakke, 6 rande, 4 hoekpunte", "5 vlakke, 8 rande, 5 hoekpunte"], "answer": 0, "expl": "'n Driehoekige prisma (soos 'n Toblerone-boks) het 5 vlakke (2 driehoeke + 3 reghoeke), 9 rande en 6 hoekpunte (Bl. 9)."}, {"id": "q2_4", "sub": "Vierhoeke", "q": "Watter vierhoek het net EEN paar ewewydige sye?", "options": ["Parallelogram", "Ruit", "Trapesium", "Reghoek"], "answer": 2, "expl": "'n Trapesium het presies net een paar ewewydige sye (Bl. 9)."}, {"id": "q2_5", "sub": "Omtrek & Oppervlakte", "q": "'n Reghoek is 8 m lank en 5 m breed. Wat is sy omtrek en oppervlakte?", "options": ["Omtrek = 26 m, Oppervlakte = 40 m²", "Omtrek = 40 m, Oppervlakte = 26 m²", "Omtrek = 13 m, Oppervlakte = 40 m", "Omtrek = 26 m², Oppervlakte = 40 m³"], "answer": 0, "expl": "Omtrek = 2 × (8 + 5) = 26 m. Oppervlakte = 8 × 5 = 40 m² (onthou eenhede tel punte!) (Bl. 10)."}, {"id": "q2_6", "sub": "Kapasiteit", "q": "Hoeveel milliliter is daar in 1,75 liter?", "options": ["175 ml", "1 750 ml", "17 500 ml", "17,5 ml"], "answer": 1, "expl": "1 liter = 1 000 ml. Dus 1,75 × 1 000 = 1 750 ml (Bl. 10)."}, {"id": "q2_7", "sub": "Tyd & Tydsverloop", "q": "Die rugbywedstryd begin om 14:40 en duur 1 uur en 25 minute. Hoe laat blaas die eindfluitjie?", "options": ["15:05", "16:05", "15:55", "16:15"], "answer": 1, "expl": "14:40 + 20 min = 15:00. Nog 1 uur en 5 min oor -> 15:00 + 1 h 5 min = 16:05 (Bl. 10)."}, {"id": "q2_8", "sub": "Datahantering", "q": "Vind die mediaan van die volgende getalle: 12, 8, 15, 8, 10", "options": ["8", "10", "12", "15"], "answer": 1, "expl": "Sorteer eers: 8, 8, 10, 12, 15. Die middelste getal is 10 (Bl. 11)."}, {"id": "q2_9", "sub": "Hoeke & Driehoeke", "q": "Twee binnehoeke van 'n driehoek is 50° en 70°. Hoe groot is die derde hoek?", "options": ["50°", "60°", "70°", "180°"], "answer": 1, "expl": "Die hoeke van enige driehoek tel op tot 180°. 50° + 70° = 120°. Derde hoek = 180° − 120° = 60° (Bl. 8)."}, {"id": "q2_10", "sub": "Transformasies", "q": "Watter transformasie skuif 'n figuur sonder om sy vorm, grootte of rigting te verander?", "options": ["Rotasie", "Refleksie", "Translasie", "Tessellasie"], "answer": 2, "expl": "Translasie is 'n reguit skuif of gly (Bl. 9)."}], "m3": [{"id": "q3_1", "sub": "Trappe van Vergelyking", "q": "Wat is die trappe van vergelyking vir 'hoog'?", "options": ["hoog - hooger - hoogste", "hoog - hoër - hoogste", "hoog - hoeder - hoogste", "hoog - meer hoog - mees hoog"], "answer": 1, "expl": "Die g val weg en kry 'n deelteken: hoog - hoër - hoogste (Bl. 200)."}, {"id": "q3_2", "sub": "Intensiewe Vorme", "q": "Wat is die intensiewe vorm van 'baie oud' en 'baie nat'?", "options": ["stokoud en sopnat", "stok-oud en sop nat", "oeroud en waternat", "kraakoud en druipnat"], "answer": 0, "expl": "stokoud en sopnat, altyd as EEN woord geskryf sonder koppeltekens of spasies (Bl. 200)."}, {"id": "q3_3", "sub": "Verlede Tyd", "q": "Skryf die sin in die verlede tyd: 'Ons vergeet die boeke by die huis.'", "options": ["Ons het die boeke by die huis gevergeet.", "Ons het die boeke by die huis vergeet.", "Ons sal die boeke by die huis vergeet.", "Ons was die boeke by die huis vergeet."], "answer": 1, "expl": "Reël: BE-GE-ER-HER-ONT-VER kry GEEN ge- in die verlede tyd nie! Dus: Ons het die boeke by die huis vergeet (Bl. 200)."}, {"id": "q3_4", "sub": "Voegwoorde", "q": "Verbind die twee sinne met 'omdat': 'Hy is laat. Hy het die bus gemis.'", "options": ["Hy is laat omdat hy die bus gemis het.", "Hy is laat omdat het hy die bus gemis.", "Hy is laat omdat hy het die bus gemis.", "Omdat hy laat is, hy het die bus gemis."], "answer": 0, "expl": "Omdat is 'n Groep 3-voegwoord: die werkwoord ('het') skuif heel stert-toe na die einde van die sin (Bl. 21)."}, {"id": "q3_5", "sub": "Voorsetsels", "q": "Kies die korrekte vaste voorsetsel: 'Die kaptein is baie trots ___ sy span.'", "options": ["vir", "op", "oor", "met"], "answer": 1, "expl": "Die vaste voorsetsel is trots OP (Bl. 93)."}, {"id": "q3_6", "sub": "Sinsoorte", "q": "Watter soort sin is: 'Wat 'n ongelooflike verrassing!'", "options": ["Stelsin", "Vraagsin", "Bevelsin", "Uitroepsin"], "answer": 3, "expl": "Dit wys sterk gevoel/emosie en eindig op 'n uitroepteken: Uitroepsin (Bl. 33)."}, {"id": "q3_7", "sub": "Skryftekens Strikvraag", "q": "STRIKVRAAG: Watter sin is KORREK geskryf?", "options": ["'N Hond blaf in die straat.", "'n Hond blaf in die straat.", "'n hond blaf in die straat.", "'N hond blaf in die straat."], "answer": 1, "expl": "'n kry NOOIT 'n hoofletter nie; die VOLGENDE woord ('Hond') kry die hoofletter (Bl. 45)!"}, {"id": "q3_8", "sub": "Bywoorde T-M-P", "q": "Wat is die korrekte woordorde vir bywoorde in 'n Afrikaanse sin?", "options": ["Plek voor Manier voor Tyd (P-M-T)", "Manier voor Tyd voor Plek (M-T-P)", "Tyd voor Manier voor Plek (T-M-P)", "Tyd voor Plek voor Manier (T-P-M)"], "answer": 2, "expl": "Die T-M-P reël: Tyd kom voor Manier, wat voor Plek kom (Bl. 68, 201)."}, {"id": "q3_9", "sub": "Antonieme", "q": "Wat is die antoniem van 'dapper'?", "options": ["kwaad", "bang / lafhartig", "moeg", "swak"], "answer": 1, "expl": "Die teenoorgestelde van dapper is lafhartig of bang (Bl. 139)."}, {"id": "q3_10", "sub": "Voegwoorde Groep 2", "q": "Verbind met 'daarom': 'Dit reën. Ons bly binne.'", "options": ["Dit reën, daarom ons bly binne.", "Dit reën, daarom bly ons binne.", "Dit reën, daarom ons binne bly.", "Daarom dit reën, bly ons binne."], "answer": 1, "expl": "Daarom is Groep 2: die werkwoord ('bly') kom DIREK NÁ die voegwoord (Bl. 21)."}], "m4": [{"id": "q4_1", "sub": "Pronouns", "q": "Choose the correct possessive pronoun: 'The red bicycle is ______.'", "options": ["her's", "hers", "hers'", "she's"], "answer": 1, "expl": "Possessive pronouns never take an apostrophe: hers, yours, theirs, ours (p. 137)."}, {"id": "q4_2", "sub": "Demonstratives", "q": "In the sentence 'These apples are sweet', what part of speech is 'These'?", "options": ["Demonstrative pronoun", "Demonstrative adjective", "Proper noun", "Adverb"], "answer": 1, "expl": "Because 'these' stands directly in front of the noun 'apples', it is a demonstrative adjective (p. 158)."}, {"id": "q4_3", "sub": "Reported Speech", "q": "Change to indirect speech: 'I can swim,' said Ayanda.", "options": ["Ayanda said that I can swim.", "Ayanda said that she could swim.", "Ayanda said that she can swim.", "Ayanda said that she will swim."], "answer": 1, "expl": "Pronoun changes (I -> she) and tense moves one step back (can -> could) (Term 3 notes)."}, {"id": "q4_4", "sub": "Passive Voice", "q": "Change to passive voice: 'The wind broke the window.'", "options": ["The window is broken by the wind.", "The window was broken by the wind.", "The window had broken by the wind.", "The window broke by the wind."], "answer": 1, "expl": "Broke is past tense -> was broken by the wind (Term 3 notes)."}, {"id": "q4_5", "sub": "Clauses", "q": "In 'Although it was cold, we went swimming', which is the subordinate clause?", "options": ["we went swimming", "Although it was cold", "it was cold", "went swimming"], "answer": 1, "expl": "'Although it was cold' starts with a subordinating conjunction and cannot stand alone (Term 4 notes)."}, {"id": "q4_6", "sub": "Adverbs", "q": "Identify the adverb of frequency: 'She always sings happily.'", "options": ["sings", "happily", "always", "she"], "answer": 2, "expl": "'always' tells how often (frequency); 'happily' is an adverb of manner (Term 3 notes)."}, {"id": "q4_7", "sub": "Conjunctions", "q": "Which of these is a coordinating conjunction from FANBOYS?", "options": ["because", "although", "so", "unless"], "answer": 2, "expl": "FANBOYS: For, And, Nor, But, Or, Yet, So (Term 1 notes)."}, {"id": "q4_8", "sub": "Punctuation", "q": "Which sentence has correct punctuation for direct speech?", "options": ["\"Let's go\", said Lebo.", "\"Let's go,\" said Lebo.", "\"Let's go said Lebo.\"", "\"lets go,\" said lebo."], "answer": 1, "expl": "Comma goes inside the closing quotation marks: \"Let's go,\" said Lebo (Term 3 notes)."}], "m5": [{"id": "q5_1", "sub": "Weer vs Klimaat", "q": "Wat is klimaat?", "options": ["Die temperatuur en reënval van vandag", "Die gemiddelde weerstoestande oor 'n tydperk van sowat 30 jaar", "Hoeveel dit in die somer reën", "Die voorspelling vir môre op TV"], "answer": 1, "expl": "Klimaat is die gemiddelde weerstoestande gemeet oor 'n lang tydperk van ongeveer 30 jaar (Bl. 50)."}, {"id": "q5_2", "sub": "Reënwoud Lae", "q": "In watter laag van die reënwoud leef die meeste diere soos ape, toekans en luiaards?", "options": ["Die woudvloer", "Die ondergroei", "Die blaredak (kroondak)", "Die opkomende laag"], "answer": 2, "expl": "Die blaredak (kroondak / canopy) vorm 'n digte groen dak waar die meeste diere kos en skuiling kry (Bl. 57)."}, {"id": "q5_3", "sub": "Woestyne", "q": "Wat is die grootste woestyn op die aarde?", "options": ["Die Sahara", "Die Kalahari", "Antarktika", "Die Namib"], "answer": 2, "expl": "Antarktika is 'n koue woestyn en is die grootste woestyn op aarde. Die Sahara is die grootste WARM woestyn (Bl. 60)."}, {"id": "q5_4", "sub": "Plant-aanpassings", "q": "Waarom is die bome in naaldwoude keëlvormig?", "options": ["Om meer sonlig te vang", "Sodat sneeu maklik van die takke kan afgly en nie takke breek nie", "Om voëls te lok", "Sodat hulle vinniger kan groei"], "answer": 1, "expl": "Hul keëlvorm laat sneeu afgly sodat swaar sneeu nie hul takke afbreek nie (Bl. 67)."}, {"id": "q5_5", "sub": "Provinsies van SA", "q": "Watter provinsie in Suid-Afrika is die kleinste in oppervlakte, maar het die meeste inwoners?", "options": ["Wes-Kaap", "KwaZulu-Natal", "Gauteng", "Mpumalanga"], "answer": 2, "expl": "Die Groot Paradoks: Gauteng is die kleinste provinsie maar het die meeste mense (15,1 miljoen) (Bl. 76, 79)."}, {"id": "q5_6", "sub": "Bevolkingsdigtheid", "q": "Bereken die bevolkingsdigtheid van 'n streek van 200 km² met 10 000 mense:", "options": ["20 mense per km²", "50 mense per km²", "200 mense per km²", "500 mense per km²"], "answer": 1, "expl": "10 000 mense ÷ 200 km² = 50 mense per km² (Bl. 80)."}, {"id": "q5_7", "sub": "Trek- en Stootfaktore", "q": "Watter van die volgende is 'n STOOTFAKTOR wat mense laat weggaan van 'n plek?", "options": ["Baie werksgeleenthede", "Goeie skole en hospitale", "Ernstige droogte en werkloosheid", "Vrugbare grond vir boerdery"], "answer": 2, "expl": "Stootfaktore stoot mense weg, soos droogte, werkloosheid, misdaad en armoede (Bl. 82)."}, {"id": "q5_8", "sub": "Wêreldbevolking", "q": "Watter kontinent het die grootste bevolking ter wêreld?", "options": ["Afrika", "Europa", "Asië", "Noord-Amerika"], "answer": 2, "expl": "Asië het verreweg die meeste mense, met reuse lande soos Indië en China (Bl. 90)."}], "m6": [{"id": "q6_1", "sub": "Optelling", "q": "Bereken: 456 789 + 123 456", "options": ["579 145", "580 245", "570 245", "580 145"], "answer": 1, "expl": "456 789 + 123 456 = 580 245 (Bl. 21, 22)."}, {"id": "q6_2", "sub": "Aftrekking", "q": "Bereken: 700 000 − 238 457", "options": ["461 543", "462 543", "561 543", "471 543"], "answer": 0, "expl": "Leen oor die nulle: 700 000 − 238 457 = 461 543. Toets: 461 543 + 238 457 = 700 000 (Bl. 21, 22)."}, {"id": "q6_3", "sub": "Afronding", "q": "Rond 78 549 af tot die naaste 1 000:", "options": ["78 000", "78 500", "79 000", "80 000"], "answer": 2, "expl": "Die honderdesyfer is 5, dus spring die duisende op van 78 na 79: 79 000 (Bl. 21, 22)."}, {"id": "q6_4", "sub": "Priemgetalle", "q": "Watter van die volgende is 'n priemgetal?", "options": ["21", "27", "29", "35"], "answer": 2, "expl": "21 = 3×7; 27 = 3×9; 35 = 5×7. 29 het slegs twee faktore: 1 en 29 (Bl. 22)."}, {"id": "q6_5", "sub": "Deelbaarheid", "q": "Is die getal 5 832 deelbaar deur 9?", "options": ["Nee, want dit eindig op 2", "Ja, want 5 + 8 + 3 + 2 = 18 en 18 is deelbaar deur 9", "Nee, want dit is 'n ewe getal", "Ja, want dit begin met 5"], "answer": 1, "expl": "Deelbaarheidsreël vir 9: die som van die syfers is 18, wat presies deelbaar is deur 9 (Bl. 22)."}, {"id": "q6_6", "sub": "Deling & Res", "q": "Bereken: 6 480 ÷ 15", "options": ["432", "422", "442", "412"], "answer": 0, "expl": "64 ÷ 15 = 4 (res 4) -> 48 ÷ 15 = 3 (res 3) -> 30 ÷ 15 = 2. Antwoord: 432 (Bl. 22)."}, {"id": "q6_7", "sub": "Hoofrekene", "q": "Bereken met 'n vinnige truuk: 25 × 12", "options": ["250", "300", "350", "400"], "answer": 1, "expl": "25 × 4 = 100. Omdat 12 = 4 × 3, is 25 × 12 = 100 × 3 = 300 (Bl. 22)!"}, {"id": "q6_8", "sub": "BODMAS", "q": "Wat is die waarde van: 10 + 5 × 4 − 6?", "options": ["54", "24", "30", "14"], "answer": 1, "expl": "BODMAS: Maal eers: 5 × 4 = 20. Dan van links na regs: 10 + 20 = 30, en 30 − 6 = 24 (Bl. 22)."}], "m7": [{"id": "q7_1", "sub": "Elektriese Stroombane", "q": "Wat gebeur in 'n oop stroombaan?", "options": ["Die gloeilamp brand helderder", "Daar is 'n gaping en geen stroom kan vloei nie", "Die battery laai vinniger op", "Die drade word dadelik warm"], "answer": 1, "expl": "In 'n oop stroombaan is daar 'n gaping (bv. oop skakelaar of los draad) wat keer dat stroom vloei (Bl. 23)."}, {"id": "q7_2", "sub": "Stroombaansimbole", "q": "In die simbool vir 'n elektriese sel, wat stel die lang, dun lyn voor?", "options": ["Die negatiewe (−) pool", "Die skakelaar", "Die positiewe (+) pool", "Die gloeilampie"], "answer": 2, "expl": "Die lang, dun lyn is die positiewe (+) pool; die kort, dik lyn is die negatiewe (−) pool (Bl. 23)."}, {"id": "q7_3", "sub": "Geleiers en Isoleerders", "q": "Watter van die volgende materiale is 'n elektriese geleier?", "options": ["Plastiek liniaal", "Grafiet (potloodlood)", "Rubber uitveër", "Glasbottel"], "answer": 1, "expl": "Grafiet is 'n vorm van koolstof wat elektrisiteit baie goed gelei! (Bl. 23)."}, {"id": "q7_4", "sub": "Kragstasies", "q": "Wat laat die turbine in 'n steenkoolkragstasie draai om die generator aan te dryf?", "options": ["Die rook van die steenkool", "Hoëdruk stoom van kokende water", "Koue rivierwater", "Elektrisiteit uit batterye"], "answer": 1, "expl": "Die hitte van brandende steenkool kook water om hoëdruk stoom te maak wat die turbines laat tol (Bl. 24)."}, {"id": "q7_5", "sub": "Sonnestelsel", "q": "Watter planeet is die warmste planeet in ons sonnestelsel?", "options": ["Mercurius (naaste aan die son)", "Venus (weens dik atmosfeer)", "Mars", "Jupiter"], "answer": 1, "expl": "Al is Mercurius nader, is VENUS die warmste planeet omdat sy dik CO2-atmosfeer al die sonhitte soos 'n oond vashou (Bl. 24)."}, {"id": "q7_6", "sub": "Aarde Bewegings", "q": "Wat veroorsaak dag en nag op aarde?", "options": ["Die Aarde wat om die Son wentel in 365 dae", "Die Aarde wat om sy eie as roteer elke 24 uur", "Die Maan wat voor die Son inskuif", "Die wolke wat die Son toemaak"], "answer": 1, "expl": "Die Aarde roteer (draai om eie as) een keer elke 24 uur; die kant wat na die son kyk het dag (Bl. 24)."}, {"id": "q7_7", "sub": "Teleskope in SA", "q": "Waar in Suid-Afrika is die reuse optiese teleskoop SALT geleë?", "options": ["Kaapstad", "Pretoria", "Sutherland in die Noord-Kaap", "Durban"], "answer": 2, "expl": "SALT is by Sutherland in die Noord-Kaap gebou weens die donker, skoon lug sonder ligbesoedeling (Bl. 25)."}, {"id": "q7_8", "sub": "Mars Verkenning", "q": "Hoeveel mense het tot vandag toe al op die planeet Mars geloop?", "options": ["12 mense", "2 mense", "Nog nie een mens nie, slegs robotte", "6 ruimtevaarders"], "answer": 2, "expl": "Nog geen mens was op Mars nie – slegs 12 mense was op die Maan. Op Mars het slegs robot-rovers geland! (Bl. 25)."}], "m8": [{"id": "q8_1", "sub": "Vakansiedae", "q": "Wat vier Suid-Afrikaners op 27 April elke jaar?", "options": ["Menseregtedag", "Vryheidsdag (eerste demokratiese verkiesing in 1994)", "Erfenisdag", "Jeugdag"], "answer": 1, "expl": "27 April is Vryheidsdag ter herdenking van ons heel eerste demokratiese verkiesing in 1994 (Bl. 26)."}, {"id": "q8_2", "sub": "Mishandeling", "q": "Wat is die gratis 24-uur noodnommer vir Childline in Suid-Afrika?", "options": ["10111", "10177", "116", "112"], "answer": 2, "expl": "Childline se gratis tolvrye noodnommer is 116 (Bl. 26)."}, {"id": "q8_3", "sub": "Noodhulp", "q": "Wat moet jy doen as iemand 'n neusbloeding het?", "options": ["Leun agtertoe en drink koue water", "Sit regop, leun VORENTOE en knyp die sagte deel van die neus vas", "Bly plat op jou rug lê", "Sit dadelik botter op die neus"], "answer": 1, "expl": "Leun altyd VORENTOE sodat die bloed nie in die keel afloop nie, en knyp die sagte deel vir ±10 min vas (Bl. 27)."}, {"id": "q8_4", "sub": "Brandwonde", "q": "Wat is die regte behandeling vir 'n brandwond?", "options": ["Smeer dadelik botter of olie aan", "Hou dit onder koel lopende water vir ±20 minute", "Vryf dit hard met ys", "Smeer tandepasta daaroor"], "answer": 1, "expl": "Hou dit dadelik onder koel lopende water vir minstens 20 minute. Moet NOOIT botter, olie of tandepasta aansmeer nie! (Bl. 27)."}, {"id": "q8_5", "sub": "Verstuite Enkel", "q": "Wat beteken die letter 'Y' in die R-Y-V-O reël?", "options": ["Yster drink", "Ys aansit (toegedraai in 'n lap)", "Yl verbande aansit", "Ywerig aanstap"], "answer": 1, "expl": "R-Y-V-O = Rus, Ys (in 'n lap), Verband, Oplig bo die hart (Bl. 27)."}, {"id": "q8_6", "sub": "Voedselhigiëne", "q": "Vir hoe lank moet jy jou hande met seep en warm water was volgens die reëls van voedselhigiëne?", "options": ["Minstens 5 sekondes", "Minstens 20 sekondes (sing Veels geluk 2 keer)", "Minstens 2 minute", "Net vinnig afspoel"], "answer": 1, "expl": "Was hande vir minstens 20 sekondes met seep (sing 'Veels geluk' twee keer!) (Bl. 27)."}, {"id": "q8_7", "sub": "MIV en VIGS", "q": "Kan jy MIV kry as 'n muskiet jou byt nadat hy iemand met MIV gebyt het?", "options": ["Ja, muskiete dra altyd MIV oor", "Nee, MIV kan glad nie deur muskietbyte oorgedra word nie", "Slegs in die somer", "Ja, as dit 'n malariamuskiet is"], "answer": 1, "expl": "MIV kan NIE deur muskietbyte oorgedra word nie – dit is 'n mite! (Bl. 28)."}, {"id": "q8_8", "sub": "Nasiebou", "q": "Hoeveel amptelike tale het Suid-Afrika?", "options": ["11 tale", "12 tale (insluitend Gebaretaal)", "9 tale", "14 tale"], "answer": 1, "expl": "Suid-Afrika het 12 amptelike tale sedert Gebaretaal in 2023 amptelik bygevoeg is (Bl. 26)."}]};
+const examPapers = [{"id": "exam_history", "title": "SW: Geskiedenis – Model Eindeksamen", "subject": "Sosiale Wetenskappe: Geskiedenis", "term": "Kwartaal 3 & 4 (Demokrasie & Medisyne)", "timeMinutes": 60, "totalMarks": 40, "instructions": ["Beantwoord alle vrae volledig en netjies.", "Lees elke vraag twee keer deur voor jy antwoord.", "Let op die puntetoekenning: 2 punte = 2 feite of volsinne.", "Onthou die strikvrae: antibiotika werk nie teen virusse nie; ons stem nie direk vir die President nie."], "sections": [{"sectionTitle": "Afdeling A: Kortvrae & Begrip (Feitekennis)", "totalSectionMarks": 10, "questions": [{"id": "eh_1", "num": "1.1", "type": "mcq", "q": "Waarvan is die woord 'demokrasie' afgelei?", "options": ["Van die Romeinse regters", "Van die Griekse woorde 'demos' (die mense) en 'kratos' (mag/gesag)", "Van die Franse wetgewers", "Van die Suid-Afrikaanse Grondwet"], "answer": 1, "marks": 1, "cogLevel": "Kennis", "memo": "1 punt vir die korrekte Griekse oorsprong (demos + kratos)."}, {"id": "eh_2", "num": "1.2", "type": "mcq", "q": "Wanneer het Suid-Afrika se huidige Grondwet amptelik in werking getree?", "options": ["27 April 1994", "8 Mei 1996", "4 Februarie 1997", "10 Desember 1996"], "answer": 2, "marks": 1, "cogLevel": "Kennis", "memo": "1 punt vir 4 Februarie 1997. (Aanvaar op 8 Mei 1996; onderteken 10 Des 1996; in werking 4 Feb 1997)."}, {"id": "eh_3", "num": "1.3", "type": "mcq", "q": "Watter nasionale simbool word deur die rympie 'Springende Bloukrane Kyk Geel Galjoene' verteenwoordig vir die nasionale boom?", "options": ["Maroelakboom", "Opregte Geelhout", "Kremetartboom", "Proteabos"], "answer": 1, "marks": 1, "cogLevel": "Kennis", "memo": "1 punt vir Opregte Geelhout (Geel = Geelhout)."}, {"id": "eh_4", "num": "1.4", "type": "mcq", "q": "Waarom het Dr. Edward Jenner koeipokke gebruik in sy inentingstoets in 1796?", "options": ["Koeipokke was dodeliker as regte pokke", "Hy het gesien melkmeisies met koeipokke kry nooit die dodelike menslike pokke nie", "Koeie het baie melk gegee", "Die koning het hom beveel om koeie te bestudeer"], "answer": 1, "marks": 1, "cogLevel": "Begrip", "memo": "1 punt vir die waarneming van melkmeisies se immuniteit."}, {"id": "eh_5", "num": "1.5", "type": "mcq", "q": "STRIKVRAAG: Waarteen werk antibiotika soos penisillien?", "options": ["Slegs teen virusse soos griep en verkoue", "Slegs teen bakterieë", "Teen beide bakterieë en virusse", "Teen suikersiekte en hartkwale"], "answer": 1, "marks": 1, "cogLevel": "Kennis (Strikvraag)", "memo": "1 punt vir SLEGS bakterieë. Antibiotika maak NIE virusse dood nie!"}, {"id": "eh_6", "num": "1.6", "type": "short", "q": "Noem die Drie Sfere (vlakke) van die Suid-Afrikaanse regering.", "expectedKeywords": ["nasionaal", "provinsiaal", "plaaslik", "munisipaliteit"], "marks": 3, "cogLevel": "Kennis", "memo": "1 punt vir Nasionaal ✓\n1 punt vir Provinsiaal ✓\n1 punt vir Plaaslik (munisipaliteite) ✓"}, {"id": "eh_7", "num": "1.7", "type": "short", "q": "Wat is die verskil tussen 'n inyanga en 'n sangoma?", "expectedKeywords": ["kruiedokter", "plante", "waarseer", "voorouers"], "marks": 2, "cogLevel": "Begrip", "memo": "1 punt: Inyanga is 'n kruiedokter wat met plante, bas en natuurlike medisyne werk ✓\n1 punt: Sangoma is 'n waarsêer wat met voorouers kommunikeer ✓"}]}, {"sectionTitle": "Afdeling B: Demokrasie, Parlement & Wette", "totalSectionMarks": 15, "questions": [{"id": "eh_8", "num": "2.1", "type": "short", "q": "Verduidelik die drie arms van die regering aan die hand van die leuse: 'MAAK - DOEN - BEOORDEEL'. Noem wie elkeen is en waar hulle gesetel is.", "expectedKeywords": ["wetgewend", "parlement", "kaapstad", "uitvoerend", "president", "pretoria", "regsprekend", "howe", "bloemfontein"], "marks": 6, "cogLevel": "Toepassing", "memo": "• Wetgewend (MAAK wette): Parlement in Kaapstad [2 punte]\n• Uitvoerend (DOEN/bestuur die land): President & Kabinet in Pretoria (Uniegebou) [2 punte]\n• Regsprekend (BEOORDEEL/pas wette toe): Howe & regters in Bloemfontein / Konstitusionele Hof JHB [2 punte]"}, {"id": "eh_9", "num": "2.2", "type": "short", "q": "STRIKVRAAG: Verduidelik hoe die President van Suid-Afrika verkies word. Stem gewone landsburgers direk vir hom?", "expectedKeywords": ["nee", "stem vir party", "nasionale vergadering", "parlement kies"], "marks": 3, "cogLevel": "Begrip (Strikvraag)", "memo": "1 punt: Nee, burgers stem nie direk vir die President nie ✓\n1 punt: Burgers stem vir politieke partye ✓\n1 punt: Die Nasionale Vergadering (Parlement) kies dan die President ✓"}, {"id": "eh_10", "num": "2.3", "type": "short", "q": "Beskryf die rangorde van die howe in Suid-Afrika vanaf die laagste hof tot die heel hoogste hof.", "expectedKeywords": ["landdroshof", "hoe hof", "hoogste hof van appel", "konstitusionele hof"], "marks": 4, "cogLevel": "Kennis", "memo": "1. Landdroshof (laagste) ✓\n2. Hoë Hof ✓\n3. Hoogste Hof van Appèl (Bloemfontein) ✓\n4. Konstitusionele Hof (hoogste wag oor Grondwet) ✓"}, {"id": "eh_11", "num": "2.4", "type": "short", "q": "Hoeveel lede dien in die Nasionale Vergadering en hoeveel in die NRVP?", "expectedKeywords": ["400", "90", "10 per provinsie"], "marks": 2, "cogLevel": "Kennis", "memo": "1 punt vir NV = 400 lede ✓\n1 punt vir NRVP = 90 lede (10 per provinsie) ✓"}]}, {"sectionTitle": "Afdeling C: Mediese Deurbrake & Brongebaseerde Vraag", "totalSectionMarks": 15, "questions": [{"id": "eh_12", "num": "3.1", "type": "short", "q": "Pas die mediese ontdekking by die regte wetenskaplike:\n(a) Ontdekking van Penisillien (1928)\n(b) Karbolsuur as Antiseptiese middel (1867)\n(c) Eerste menslike hartoorplanting (1967)\n(d) Ontdekking van X-strale (1895)", "expectedKeywords": ["fleming", "lister", "barnard", "rontgen"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) Alexander Fleming ✓\n(b) Joseph Lister ✓\n(c) Prof. Chris Barnard ✓\n(d) Wilhelm Röntgen ✓"}, {"id": "eh_13", "num": "3.2", "type": "short", "q": "Gevallestudie Boegoe: Waar in Suid-Afrika groei boegoe natuurlik, wie het dit tradisioneel gebruik, en hoekom het 'n mens vandag 'n permit nodig om dit te oes?", "expectedKeywords": ["wes-kaap", "sederberge", "fynbos", "khoi", "san", "beskerm", "permit"], "marks": 4, "cogLevel": "Begrip & Toepassing", "memo": "1 punt: Groei in die Wes-Kaap fynbos / Sederberge ✓\n1 punt: Die Khoi en San het dit tradisioneel gebruik ✓\n2 punte: Dit is 'n beskermde spesie teen oor-oes, en wetgewing beskerm inheemse kennis van Khoi/San ✓"}, {"id": "eh_14", "num": "3.3", "type": "short", "q": "Prof. Chris Barnard: Noem die datum, die hospitaal, die pasiënt (ontvanger) en die skenker van die wêreld se eerste mens-tot-mens hartoorplanting.", "expectedKeywords": ["3 desember 1967", "groote schuur", "washkansky", "darvall"], "marks": 4, "cogLevel": "Kennis", "memo": "1 punt: 3 Desember 1967 ✓\n1 punt: Groote Schuur-hospitaal (Kaapstad) ✓\n1 punt: Ontvanger = Louis Washkansky ✓\n1 punt: Skenker = Denise Darvall ✓"}, {"id": "eh_15", "num": "3.4", "type": "short", "q": "HOË ORDE EVALUERING: Dr. Edward Jenner het in 1796 etter uit 'n koeipok-blaas geneem en in die arm van 'n 8-jarige seun (James Phipps) gesit. Sou dokters vandag so 'n proef op 'n kind kon doen? Gee jou mening en motiveer met 'n rede.", "expectedKeywords": ["nee", "eties", "toestemming", "veiligheid", "gevaarlik"], "marks": 3, "cogLevel": "Analise & Evaluering (Hoë Orde)", "memo": "1 punt vir duidelike standpunt ('Nee') ✓\n2 punte vir motivering: Vandag vereis mediese proewe streng etiese komitees, ingeligte toestemming, en kinders mag nie aan dodelike risiko's blootgestel word nie ✓✓"}]}]}, {"id": "exam_math_p1", "title": "Wiskunde Vraestel 1 – Model Eindeksamen", "subject": "Wiskunde Vraestel 1", "term": "Vorms, Mates, Tyd & Data", "timeMinutes": 75, "totalMarks": 50, "instructions": ["Beantwoord alle vrae op die vraestel.", "Wys AL jou bewerkings stap-vir-stap – jy kry punte vir jou metode!", "Skryf ALTYD die regte eenheid neer (cm, cm², cm³, g, ml). 'n Vergete eenheid kos jou 'n punt!", "Teken vorms netjies met 'n liniaal en potlood."], "sections": [{"sectionTitle": "Afdeling A: Persentasies & Lengte", "totalSectionMarks": 12, "questions": [{"id": "em1_1", "num": "1.1", "type": "short", "q": "Skakel om na 'n persentasie: Marna behaal 18 uit 20 vir haar Wiskunde-toets. Bereken haar persentasie.", "expectedKeywords": ["90%"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt: 18/20 = (18 × 5) / (20 × 5) = 90/100 ✓\n1 punt vir finale persentasie: 90% ✓"}, {"id": "em1_2", "num": "1.2", "type": "short", "q": "Bereken 15% van R60 met behulp van die 10% truuk.", "expectedKeywords": ["9", "R9"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt: 10% van 60 = 6, en 5% = 3 ✓\n1 punt: 6 + 3 = R9 ✓"}, {"id": "em1_3", "num": "1.3", "type": "short", "q": "'n Paar tekkies kos R400. Die winkel bied 25% afslag aan. Bereken: (a) die afslagbedrag (b) die bedrag wat jy betaal.", "expectedKeywords": ["100", "300"], "marks": 3, "cogLevel": "Toepassing", "memo": "1 punt: 25% van R400 = R400 ÷ 4 = R100 afslag ✓\n2 punte: R400 − R100 = R300 betaalbaar ✓✓"}, {"id": "em1_4", "num": "1.4", "type": "short", "q": "Voltooi die omskakelings:\n(a) 3,5 km = _____ m\n(b) 245 cm = _____ m\n(c) 68 mm = _____ cm", "expectedKeywords": ["3500", "2.45", "6.8"], "marks": 3, "cogLevel": "Kennis & Toepassing", "memo": "(a) 3 500 m ✓\n(b) 2,45 m ✓\n(c) 6,8 cm ✓"}, {"id": "em1_5", "num": "1.5", "type": "short", "q": "STRIKVRAAG: Bereken: 2 m + 40 cm. Skryf jou finale antwoord in sentimeter (cm).", "expectedKeywords": ["240", "240 cm"], "marks": 2, "cogLevel": "Begrip (Strikvraag)", "memo": "1 punt: 2 m = 200 cm ✓\n1 punt: 200 cm + 40 cm = 240 cm ✓"}]}, {"sectionTitle": "Afdeling B: 2D-Vorms, 3D-Voorwerpe & Euler", "totalSectionMarks": 14, "questions": [{"id": "em1_6", "num": "2.1", "type": "short", "q": "Benoem die volgende hoeke volgens hul grootte:\n(a) 'n Hoek van 65°\n(b) 'n Hoek van 90°\n(c) 'n Hoek van 135°\n(d) 'n Hoek van 180°", "expectedKeywords": ["skerphoek", "regte hoek", "stomphoek", "gestrekte hoek"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) Skerphoek ✓\n(b) Regte hoek ✓\n(c) Stomphoek ✓\n(d) Gestrekte hoek / Reguitlynhoek ✓"}, {"id": "em1_7", "num": "2.2", "type": "short", "q": "Twee binnehoeke van 'n driehoek is 55° en 65°. Bereken die grootte van die derde hoek.", "expectedKeywords": ["60", "60°"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt: 55° + 65° = 120° (som is 180°) ✓\n1 punt: 180° − 120° = 60° ✓"}, {"id": "em1_8", "num": "2.3", "type": "short", "q": "Watter vierhoek het presies net EEN paar ewewydige sye?", "expectedKeywords": ["trapesium"], "marks": 1, "cogLevel": "Kennis", "memo": "1 punt vir Trapesium ✓"}, {"id": "em1_9", "num": "2.4", "type": "short", "q": "Voltooi die tabel vir 'n Driehoekige Prisma:\n(a) Aantal vlakke = _____\n(b) Aantal rande = _____\n(c) Aantal hoekpunte = _____", "expectedKeywords": ["5", "9", "6"], "marks": 3, "cogLevel": "Kennis", "memo": "(a) 5 vlakke (2 driehoeke, 3 reghoeke) ✓\n(b) 9 rande ✓\n(c) 6 hoekpunte ✓"}, {"id": "em1_10", "num": "2.5", "type": "short", "q": "Toets Euler se toorformule (V + H − R = 2) op 'n kubus. Wys jou syfers en bewerking.", "expectedKeywords": ["6 + 8 - 12 = 2", "14 - 12 = 2"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt vir die waardes: V = 6, H = 8, R = 12 ✓\n1 punt vir berekening: 6 + 8 − 12 = 14 − 12 = 2 ✓"}, {"id": "em1_11", "num": "2.6", "type": "short", "q": "Hoeveel simmetrielyne het: (a) 'n vierkant (b) 'n reghoek?", "expectedKeywords": ["4", "2"], "marks": 2, "cogLevel": "Kennis", "memo": "(a) Vierkant = 4 simmetrielyne ✓\n(b) Reghoek = 2 simmetrielyne ✓"}]}, {"sectionTitle": "Afdeling C: Meting (Omtrek, Oppervlakte & Volume)", "totalSectionMarks": 14, "questions": [{"id": "em1_12", "num": "3.1", "type": "short", "q": "'n Sokkerveld is 100 m lank en 60 m breed.\n(a) Skryf die formule vir omtrek neer en bereken die omtrek.\n(b) Skryf die formule vir oppervlakte neer en bereken die oppervlakte.", "expectedKeywords": ["320", "320 m", "6000", "6000 m²"], "marks": 6, "cogLevel": "Toepassing", "memo": "(a) Formule: 2 × (L + B) [1 punt]; Berekening: 2 × 160 = 320 m [2 punte met eenheid]\n(b) Formule: L × B [1 punt]; Berekening: 100 × 60 = 6 000 m² [2 punte met eenheid m²]"}, {"id": "em1_13", "num": "3.2", "type": "short", "q": "'n Graankosboks is 20 cm hoog, 15 cm lank en 5 cm breed. Bereken die volume van die boks.", "expectedKeywords": ["1500", "1500 cm³"], "marks": 3, "cogLevel": "Toepassing", "memo": "1 punt vir formule: L × B × H ✓\n1 punt vir bewerking: 15 × 5 × 20 ✓\n1 punt vir finale antwoord met eenheid: 1 500 cm³ ✓"}, {"id": "em1_14", "num": "3.3", "type": "short", "q": "Omskakeling van kapasiteit:\n(a) 1 cm³ = _____ ml\n(b) 2,5 liter = _____ ml\n(c) 3 200 ml = _____ liter", "expectedKeywords": ["1", "2500", "3.2"], "marks": 3, "cogLevel": "Kennis", "memo": "(a) 1 ml ✓\n(b) 2 500 ml ✓\n(c) 3,2 liter (of 3 ℓ 200 ml) ✓"}, {"id": "em1_15", "num": "3.4", "type": "short", "q": "RAAISEL: Wat weeg swaarder – 1 kg vere of 1 kg bakstene? Verduidelik jou antwoord.", "expectedKeywords": ["ewe swaar", "albei 1 kg"], "marks": 2, "cogLevel": "Begrip & Redenering", "memo": "1 punt: Hulle weeg presies ewe swaar ✓\n1 punt: Albei weeg presies 1 kg (1 000 g) ongeag die digtheid of materiaal ✓"}]}, {"sectionTitle": "Afdeling D: Tyd & Datahantering", "totalSectionMarks": 10, "questions": [{"id": "em1_16", "num": "4.1", "type": "short", "q": "Skakel die tye om na 24-uur notasie:\n(a) 07:15 vm. = _____\n(b) 02:30 nm. = _____\n(c) 11:45 nm. = _____", "expectedKeywords": ["07:15", "14:30", "23:45"], "marks": 3, "cogLevel": "Kennis", "memo": "(a) 07:15 ✓\n(b) 14:30 ✓\n(c) 23:45 ✓"}, {"id": "em1_17", "num": "4.2", "type": "short", "q": "Die netbalwedstryd begin 08:45 en eindig om 11:20. Bereken die tydsverloop in ure en minute.", "expectedKeywords": ["2 h 35 min", "2 uur 35 minute"], "marks": 3, "cogLevel": "Toepassing", "memo": "1 punt vir metode (08:45 na 09:00 = 15 min; 09:00 na 11:00 = 2 h; 11:00 na 11:20 = 20 min) ✓\n2 punte vir finale antwoord: 2 uur 35 minute (of 2 h 35 min) ✓✓"}, {"id": "em1_18", "num": "4.3", "type": "short", "q": "STRIKVRAAG: Gegee die getallereeks: 12, 8, 15, 8, 10, 7, 10, 8\n(a) Vind die modus.\n(b) Sorteer die getalle en vind die mediaan.", "expectedKeywords": ["modus = 8", "mediaan = 9", "7, 8, 8, 8, 10, 10, 12, 15"], "marks": 4, "cogLevel": "Toepassing (Strikvraag)", "memo": "(a) Modus = 8 (kom 3 keer voor) [1 punt] ✓\n(b) Gesorteer: 7, 8, 8, 8, 10, 10, 12, 15 [1 punt] ✓\nMediaan lê tussen 8 en 10: (8 + 10) ÷ 2 = 9 [2 punte] ✓✓"}]}]}, {"id": "exam_afr", "title": "Afrikaans Huistaal – Model Taalvraestel", "subject": "Afrikaans Huistaal", "term": "Taalstrukture en -konvensies (Kwartaal 3 & 4)", "timeMinutes": 60, "totalMarks": 40, "instructions": ["Beantwoord alle vrae in netjiese, korrekte Afrikaans.", "Let op jou spelling en leestekens.", "Onthou: 'n kry NOOIT 'n hoofletter nie; intensiewe vorme is ALTYD een woord."], "sections": [{"sectionTitle": "Afdeling A: Byvoeglike Naamwoorde & Trappe van Vergelyking", "totalSectionMarks": 10, "questions": [{"id": "ea_1", "num": "1.1", "type": "short", "q": "Gee die trappe van vergelyking van die volgende woorde:\n(a) goed → _____ → _____\n(b) hoog → _____ → _____\n(c) duur → _____ → _____\n(d) baie → _____ → _____", "expectedKeywords": ["beter", "beste", "hoër", "hoogste", "duurder", "duurste", "meer", "meeste"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) goed - beter - beste ✓\n(b) hoog - hoër - hoogste (deelteken op hoër!) ✓\n(c) duur - duurder - duurste ✓\n(d) baie - meer - meeste ✓"}, {"id": "ea_2", "num": "1.2", "type": "short", "q": "Gee die intensiewe vorme van:\n(a) baie nat = _____\n(b) baie oud = _____\n(c) baie klein = _____\n(d) baie rooi = _____", "expectedKeywords": ["sopnat", "stokoud", "piepklein", "bloedrooi"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) sopnat ✓\n(b) stokoud ✓\n(c) piepklein ✓\n(d) bloedrooi ✓ (Elkeen moet as EEN woord geskryf wees!)"}, {"id": "ea_3", "num": "1.3", "type": "short", "q": "Wat is die verskil tussen 'n attributiewe en 'n predikatiewe byvoeglike naamwoord? Gee 'n voorbeeld van elkeen met die woord 'koud'.", "expectedKeywords": ["attributief voor", "koue water", "predikatief na", "water is koud"], "marks": 2, "cogLevel": "Begrip", "memo": "1 punt: Attributief staan VOOR die naamwoord en kry 'n -e (bv. die koue water) ✓\n1 punt: Predikatief staan NÁ die werkwoord sonder -e (bv. die water is koud) ✓"}]}, {"sectionTitle": "Afdeling B: Werkwoorde, Tye & Ontkenning", "totalSectionMarks": 10, "questions": [{"id": "ea_4", "num": "2.1", "type": "short", "q": "Skryf die sin in die Verlede Tyd: 'Ons vergeet die Afrikaans-boek by die huis.'", "expectedKeywords": ["het die afrikaans-boek by die huis vergeet"], "marks": 2, "cogLevel": "Toepassing (Strikvraag)", "memo": "1 punt vir 'het' in v1-posisie ✓\n1 punt vir 'vergeet' aan die einde SONDER ge- (BE-GE-ER-HER-ONT-VER kry geen ge- nie!) ✓"}, {"id": "ea_5", "num": "2.2", "type": "short", "q": "Gee die verlede tyd van die volgende spesiale werkwoorde:\n(a) Hy is siek. → Gister _____ hy siek.\n(b) Hulle het 'n hond. → Verlede jaar _____ hulle 'n hond _____. \n(c) Sy wil huis toe gaan. → Sy _____ huis toe gaan.", "expectedKeywords": ["was", "het", "gehad", "wou"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) was ✓\n(b) het ... gehad [2 punte] ✓✓\n(c) wou ✓"}, {"id": "ea_6", "num": "2.3", "type": "short", "q": "Skryf die sin in die Ontkennende Vorm (negatief):\n'Iemand het iets in die klaskamer laat val.'", "expectedKeywords": ["niemand het niks in die klaskamer laat val nie"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt vir Niemand het niks... ✓\n1 punt vir die dubbele 'nie' aan die einde ✓"}, {"id": "ea_7", "num": "2.4", "type": "short", "q": "Rangskik die woorde volgens die T-M-P reël:\n'Die kinders ry (skool toe / met die bus / elke oggend).'", "expectedKeywords": ["elke oggend met die bus skool toe"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt vir Tyd (elke oggend) voor Manier (met die bus) ✓\n1 punt vir Plek (skool toe) laaste ✓"}]}, {"sectionTitle": "Afdeling C: Voegwoorde & Saamgestelde Sinne", "totalSectionMarks": 10, "questions": [{"id": "ea_8", "num": "3.1", "type": "short", "q": "Verbind met 'want' (Groep 1 EMOW): 'Sy leer hard. Sy wil goeie punte kry.'", "expectedKeywords": ["sy leer hard, want sy wil goeie punte kry"], "marks": 2, "cogLevel": "Toepassing", "memo": "2 punte: Sy leer hard, want sy wil goeie punte kry. (Woordorde bly presies dieselfde!) ✓✓"}, {"id": "ea_9", "num": "3.2", "type": "short", "q": "Verbind met 'daarom' (Groep 2): 'Dit reën baie hard. Ons kan nie buite speel nie.'", "expectedKeywords": ["daarom kan ons nie buite speel nie"], "marks": 2, "cogLevel": "Toepassing", "memo": "2 punte: Dit reën baie hard, daarom KAN ons nie buite speel nie. (Werkwoord 'kan' kom direk ná daarom!) ✓✓"}, {"id": "ea_10", "num": "3.3", "type": "short", "q": "Verbind met 'omdat' (Groep 3): 'Hy kom laat by die skool aan. Hy het sy wekker afgeskakel.'", "expectedKeywords": ["omdat hy sy wekker afgeskakel het"], "marks": 2, "cogLevel": "Toepassing", "memo": "2 punte: Hy kom laat by die skool aan omdat hy sy wekker afgeskakel HET. (Werkwoord 'het' skuif stert-toe!) ✓✓"}, {"id": "ea_11", "num": "3.4", "type": "short", "q": "Vul die korrekte vaste voorsetsels in:\n(a) Die seun is baie bang _____ slange.\n(b) Sy ma is trots _____ haar prestasie.\n(c) Ek dink dikwels _____ my oupa.\n(d) Ons glo _____ harde werk.", "expectedKeywords": ["vir", "op", "aan", "in"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) vir ✓\n(b) op ✓\n(c) aan ✓\n(d) in ✓"}]}, {"sectionTitle": "Afdeling D: Skryftekens & Foutkorreksie", "totalSectionMarks": 10, "questions": [{"id": "ea_12", "num": "4.1", "type": "short", "q": "STRIKVRAAG: Korrigeer die volgende sin sodat al die hoofletters en skryftekens reg is:\n'N hond blaf baie hard in die reen.", "expectedKeywords": ["'n hond", "'n Hond", "reën"], "marks": 3, "cogLevel": "Toepassing (Strikvraag)", "memo": "1 punt: 'n bly klein ✓\n1 punt: Hond kry die hoofletter ('n Hond...) ✓\n1 punt: deelteken op reën ✓"}, {"id": "ea_13", "num": "4.2", "type": "short", "q": "Verduidelik die funksie van 'n deelteken (trema) en 'n kappie, met een voorbeeld van elkeen.", "expectedKeywords": ["skei klanke", "vokale apart", "geëet", "kappie lank", "môre"], "marks": 4, "cogLevel": "Begrip", "memo": "2 punte vir deelteken (skei twee klinkers sodat hulle apart uitgespreek word, bv. reën, geëet) ✓✓\n2 punte vir kappie (maak die klank lank en gerek, bv. môre, wêreld) ✓✓"}, {"id": "ea_14", "num": "4.3", "type": "short", "q": "Watter sinsoort is elkeen van die volgende:\n(a) Maak dadelik die deur toe!\n(b) Wat 'n pragtige sonsondergang!", "expectedKeywords": ["bevelsin", "uitroepsin"], "marks": 3, "cogLevel": "Kennis", "memo": "(a) Bevelsin (gee opdrag) [1 punt] ✓\n(b) Uitroepsin (wys sterk gevoel) [2 punte] ✓✓"}]}]}, {"id": "exam_nwt", "title": "NW & Tegnologie – Model Eindeksamen", "subject": "Natuurwetenskappe en Tegnologie", "term": "Kwartaal 3 & 4 (Stroombane & Ruimte)", "timeMinutes": 60, "totalMarks": 40, "instructions": ["Beantwoord alle vrae volledig.", "Teken stroombaansimbole netjies met 'n LINIAAL.", "Onthou om onderskeid te tref tussen roteer en wentel."], "sections": [{"sectionTitle": "Afdeling A: Stroombane & Simbole", "totalSectionMarks": 12, "questions": [{"id": "en_1", "num": "1.1", "type": "short", "q": "Wat is 'n elektriese stroombaan en wat is die verskil tussen 'n oop en geslote stroombaan?", "expectedKeywords": ["volledige pad", "geslote vloei lamp brand", "oop gaping niks werk"], "marks": 3, "cogLevel": "Kennis & Begrip", "memo": "1 punt: 'n Volledige pad waardeur elektrisiteit kan vloei ✓\n1 punt: Geslote stroombaan het geen gapings nie, stroom vloei, lamp brand ✓\n1 punt: Oop stroombaan het 'n gaping (skakelaar oop/draad los), geen stroom vloei nie ✓"}, {"id": "en_2", "num": "1.2", "type": "short", "q": "Beskryf hoe jy die simbool vir 'n elektriese sel teken en dui aan watter lyn positief (+) en watter negatief (−) is.", "expectedKeywords": ["lang dun lyn positief", "kort dik lyn negatief"], "marks": 2, "cogLevel": "Kennis", "memo": "1 punt: Twee parallelle lyne: lang dun lyn is die positiewe (+) pool ✓\n1 punt: Kort dik lyn is die negatiewe (−) pool ✓"}, {"id": "en_3", "num": "1.3", "type": "short", "q": "Wat is die energie-omskakeling in 'n brandende flitslig?", "expectedKeywords": ["chemies", "elektries", "lig", "hitte"], "marks": 3, "cogLevel": "Begrip", "memo": "1 punt: Chemiese energie (in sel) ✓\n1 punt: na Elektriese energie (in drade) ✓\n1 punt: na Lig- en Hitte-energie (in gloeilamp) ✓"}, {"id": "en_4", "num": "1.4", "type": "short", "q": "Noem twee elektriese geleiers en twee isoleerders. Waarom het 'n kragdraad koper binne en plastiek buite?", "expectedKeywords": ["koper", "grafiet", "plastiek", "rubber", "isoleerder beskerm skokke"], "marks": 4, "cogLevel": "Toepassing", "memo": "1 punt vir geleiers (koper, aluminium, yster, grafiet) ✓\n1 punt vir isoleerders (plastiek, rubber, glas, hout) ✓\n2 punte: Koper binne gelei die stroom maklik; plastiek buite isoleer en beskerm mense teen elektriese skokke ✓✓"}]}, {"sectionTitle": "Afdeling B: Tegnologie & Kragstasies", "totalSectionMarks": 14, "questions": [{"id": "en_5", "num": "2.1", "type": "short", "q": "Noem die 5 stappe van die Tegnologiese Ontwerpproses (O-O-M-E-K) volgens die rympie 'Ons Ontwerp, Maak, Evalueer en Kommunikeer'.", "expectedKeywords": ["ondersoek", "ontwerp", "maak", "evalueer", "kommunikeer"], "marks": 5, "cogLevel": "Kennis", "memo": "1. Ondersoek ✓\n2. Ontwerp ✓\n3. Maak ✓\n4. Evalueer ✓\n5. Kommunikeer ✓"}, {"id": "en_6", "num": "2.2", "type": "short", "q": "Beskryf stap-vir-stap hoe elektrisiteit in 'n steenkoolkragstasie (soos Eskom) opgewek word totdat dit by jou huis kom.", "expectedKeywords": ["steenkool brand", "water kook stoom", "turbine draai", "generator", "kragdrade substasie"], "marks": 5, "cogLevel": "Toepassing", "memo": "1 punt: Steenkool brand in 'n oond ✓\n1 punt: Kook water in groot ketels om hoëdruk stoom te vorm ✓\n1 punt: Stoom laat turbine draai ✓\n1 punt: Turbine dryf generator aan om elektrisiteit op te wek ✓\n1 punt: Hoogspanningsdrade en substasies neem krag na huise ✓"}, {"id": "en_7", "num": "2.3", "type": "short", "q": "Wat is Suid-Afrika se enigste kernkragstasie en noem 2 voordele van hernubare energie (soos son en wind) bo steenkool.", "expectedKeywords": ["koeberg", "raak nie op nie", "geen besoedeling", "skoon"], "marks": 4, "cogLevel": "Begrip", "memo": "2 punte: Koeberg naby Kaapstad ✓✓\n2 punte vir voordele: Hernubare bronne raak nooit op nie en veroorsaak geen lugbesoedeling of kweekhuisgasse nie ✓✓"}]}, {"sectionTitle": "Afdeling C: Sonnestelsel & Ruimteverkenning", "totalSectionMarks": 14, "questions": [{"id": "en_8", "num": "3.1", "type": "short", "q": "Noem die 8 planete in volgorde van die Son af met behulp van die rympie 'Ma Vat Elke Môre Jellie Saam Uit Nylstroom'.", "expectedKeywords": ["mercurius", "venus", "aarde", "mars", "jupiter", "saturnus", "uranus", "neptunus"], "marks": 4, "cogLevel": "Kennis", "memo": "4 punte (½ punt elk): Mercurius, Venus, Aarde, Mars, Jupiter, Saturnus, Uranus, Neptunus ✓✓✓✓"}, {"id": "en_9", "num": "3.2", "type": "short", "q": "Verduidelik die verskil tussen die Aarde se ROTASIE en WENTELING. Wat veroorsaak elkeen?", "expectedKeywords": ["roteer om eie as 24 uur dag en nag", "wentel om son 365 dae seisoene"], "marks": 4, "cogLevel": "Begrip", "memo": "2 punte: Roteer = Aarde draai om eie as elke 24 uur → veroorsaak DAG EN NAG ✓✓\n2 punte: Wentel = Aarde beweeg om die Son in 365¼ dae → veroorsaak SEISOENE (saam met skuins as) ✓✓"}, {"id": "en_10", "num": "3.3", "type": "short", "q": "Noem twee groot teleskope in Suid-Afrika en gee 2 redes waarom die Karoo (Noord-Kaap) ideaal is vir ruimte-waarneming.", "expectedKeywords": ["salt", "meerkat", "ska", "donker lug geen ligbesoedeling", "wolkloos droog"], "marks": 4, "cogLevel": "Toepassing", "memo": "2 punte: SALT (by Sutherland) en MeerKAT / SKA (by Carnarvon) ✓✓\n2 punte vir redes: Donker lug sonder ligbesoedeling, wolklose nagte, droë helder lug, baie min radiosein-steurings ✓✓"}, {"id": "en_11", "num": "3.4", "type": "short", "q": "Waarom het wetenskaplikes tot dusver slegs robotte (soos Curiosity en Perseverance) na Mars gestuur en nog geen mense nie?", "expectedKeywords": ["goedkoper", "veiliger", "geen kos water lug", "baie ver 7 maande"], "marks": 2, "cogLevel": "Analise & Redenering", "memo": "1 punt: Dit is baie goedkoper en veiliger ✓\n1 punt: Die reis duur 7 maande, Mars is yskoud met min suurstof; robotte het nie kos, water of asemhaling nodig nie ✓"}]}]}];
 
 // --- TOESTANDSBESTUUR (LOCALSTORAGE) ---
 let state = {
@@ -789,15 +858,16 @@ let state = {
   missionFilter: 'all',
   quizMission: 'm1',
   quizIdx: 0,
-  quizAnswers: {},
-  cardBoxes: {}, // card_id -> 1, 2, 3
-  weaknessStats: {}, // subtopic -> { correct: 0, total: 0 }
+  activeExamId: 'exam_history',
+  simTimerSec: 60 * 60,
+  simRunning: false,
+  cardBoxes: {},
+  weaknessStats: {},
   currentCardIdx: 0,
   filteredCards: [],
   muted: false
 };
 
-// Laai gestoorde toestand
 function loadSavedState() {
   const saved = localStorage.getItem('hermanstad_gr6_state');
   if (saved) {
@@ -805,10 +875,8 @@ function loadSavedState() {
       const parsed = JSON.parse(saved);
       state.cardBoxes = parsed.cardBoxes || {};
       state.weaknessStats = parsed.weaknessStats || {};
-      state.quizAnswers = parsed.quizAnswers || {};
     } catch(e) {}
   }
-  // Inisialiseer bokse vir nuwe kaarte
   flashcards.forEach(c => {
     if (!state.cardBoxes[c.id]) state.cardBoxes[c.id] = 1;
   });
@@ -817,17 +885,14 @@ function loadSavedState() {
 function saveState() {
   localStorage.setItem('hermanstad_gr6_state', JSON.stringify({
     cardBoxes: state.cardBoxes,
-    weaknessStats: state.weaknessStats,
-    quizAnswers: state.quizAnswers
+    weaknessStats: state.weaknessStats
   }));
 }
 
-// --- KLANK-EFFEKTE (WEB AUDIO API - ZERO ASSETS) ---
+// --- KLANK-EFFEKTE (WEB AUDIO API) ---
 let audioCtx = null;
 function getAudioCtx() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return audioCtx;
 }
 
@@ -850,9 +915,9 @@ function playTone(freq, type, duration) {
 }
 
 function playSuccessChime() {
-  playTone(523.25, 'sine', 0.15); // C5
-  setTimeout(() => playTone(659.25, 'sine', 0.2), 100); // E5
-  setTimeout(() => playTone(783.99, 'sine', 0.35), 200); // G5
+  playTone(523.25, 'sine', 0.15);
+  setTimeout(() => playTone(659.25, 'sine', 0.2), 100);
+  setTimeout(() => playTone(783.99, 'sine', 0.35), 200);
 }
 
 function playAlertChime() {
@@ -865,16 +930,21 @@ function toggleMute() {
   document.getElementById('mute-btn').innerText = state.muted ? '🔇' : '🔔';
 }
 
-// --- 15:30 WEEKSDAE STUDIE-ALARM & KENNISGEWINGS ---
+// --- 15:30 WEEKSDAE STUDIE-ALARM ---
 function checkWeekdayAlarm() {
   const now = new Date();
-  const day = now.getDay(); // 0 = So, 1 = Ma, ... 5 = Vr
+  const day = now.getDay();
   const hours = now.getHours();
   const minutes = now.getMinutes();
 
-  // Weeksdae tussen 15:30 en 15:31
   if (day >= 1 && day <= 5 && hours === 15 && minutes === 30) {
-    triggerAlarmNotification();
+    playAlertChime();
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("⏰ 15:30 - Tyd vir Studie!", {
+        body: "Klim in jou 25 minute studiesessie vir vandag se eksamenvraestel! Jy kan dit doen!",
+        icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"
+      });
+    }
   }
 }
 setInterval(checkWeekdayAlarm, 30000);
@@ -890,16 +960,6 @@ function requestNotificationPermission() {
           icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏰</text></svg>"
         });
       }
-    });
-  }
-}
-
-function triggerAlarmNotification() {
-  playAlertChime();
-  if ("Notification" in window && Notification.permission === "granted") {
-    new Notification("⏰ 15:30 - Tyd vir Studie!", {
-      body: "Klim in jou 25 minute studiesessie vir vandag se eksamenvraestel! Jy kan dit doen!",
-      icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"
     });
   }
 }
@@ -927,12 +987,10 @@ function tickPomodoro() {
   } else {
     playAlertChime();
     if (!state.pomoIsBreak) {
-      // Studie klaar -> rus
       state.pomoIsBreak = true;
       state.pomoTime = 5 * 60;
       alert("🎉 Mooi so! 25 minute studietyd is verby. Neem 'n 5 minute pouse: drink water en spring 20 keer!");
     } else {
-      // Pouse klaar -> volgende rondte
       state.pomoIsBreak = false;
       state.pomoRound++;
       state.pomoTime = 25 * 60;
@@ -973,24 +1031,22 @@ function renderMissions() {
   const container = document.getElementById('mission-list-container');
   container.innerHTML = '';
 
-  const todayStr = "2026-11-07"; // Gehegde huidige datum
-
   missions.forEach(m => {
     const card = document.createElement('div');
     card.className = 'mission-card';
     card.style.borderLeft = `5px solid ${m.color}`;
 
     card.innerHTML = `
-      <div class="mission-card-header">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
         <span class="mission-badge" style="background:${m.bgLight}; color:${m.color};">
           ${m.icon} ${m.shortName}
         </span>
         <span style="font-size:0.75rem; font-weight:700; color:${m.color};">${m.dateStr}</span>
       </div>
-      <div class="mission-title">${m.name}</div>
-      <div class="mission-desc">${m.topics}</div>
-      <div class="mission-footer">
-        <span style="color:var(--text-muted); font-size:0.75rem;">📖 ${m.pages}</span>
+      <div style="font-weight:800; font-size:1.05rem; margin-top:0.2rem;">${m.name}</div>
+      <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.4;">${m.topics}</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.4rem; padding-top:0.6rem; border-top:1px dashed var(--border); font-size:0.78rem;">
+        <span style="color:var(--text-muted);">📖 ${m.pages}</span>
         <div style="display:flex; gap:0.4rem;">
           <button class="btn-pomo" onclick="openMissionQuiz('${m.id}')">Toets 📝</button>
           <button class="btn-mission" onclick="openMissionCards('${m.id}')">Leer Kaarte 🃏</button>
@@ -1001,7 +1057,7 @@ function renderMissions() {
   });
 }
 
-// --- FLITSKAARTENJIN (LEITNER 3-BOKSIE) ---
+// --- FLITSKAARTE ENJIN ---
 function initFlashcardFilters() {
   const missionFilterContainer = document.getElementById('fc-mission-filters');
   missionFilterContainer.innerHTML = '<button class="filter-btn active" onclick="setMissionFilter(\'all\')">Alle Vakke</button>';
@@ -1011,7 +1067,6 @@ function initFlashcardFilters() {
     btn.className = 'filter-btn';
     btn.innerText = `${m.icon} ${m.shortName}`;
     btn.onclick = () => setMissionFilter(m.id);
-    btn.id = `fc-filter-${m.id}`;
     missionFilterContainer.appendChild(btn);
   });
 }
@@ -1048,7 +1103,7 @@ function renderCurrentCard() {
 
   if (state.filteredCards.length === 0) {
     document.getElementById('card-mission-tag').innerText = "Geen";
-    document.getElementById('card-q-text').innerText = "Geen kaarte pas by hierdie filter nie. Kies 'Alle' om meer te sien!";
+    document.getElementById('card-q-text').innerText = "Geen kaarte in hierdie kategorie nie.";
     document.getElementById('card-a-text').innerText = "";
     document.getElementById('card-trick-text').style.display = 'none';
     document.getElementById('fc-progress-label').innerText = "0 van 0";
@@ -1146,7 +1201,6 @@ function selectQuizMission(mid) {
 
 function renderQuizQuestion() {
   const qList = quizzes[state.quizMission] || [];
-  const container = document.getElementById('quiz-container');
   const optContainer = document.getElementById('quiz-options-container');
   const expl = document.getElementById('quiz-explanation');
   const nextBtn = document.getElementById('quiz-next-btn');
@@ -1178,13 +1232,12 @@ function renderQuizQuestion() {
 
 function selectQuizAnswer(selectedIdx, correctIdx, explanation, subtopic) {
   const options = document.querySelectorAll('.quiz-option');
-  options.forEach(btn => btn.onclick = null); // verhoed herhaalde klieks
+  options.forEach(btn => btn.onclick = null);
 
   const isCorrect = (selectedIdx === correctIdx);
   options[selectedIdx].classList.add(isCorrect ? 'correct' : 'incorrect');
   options[correctIdx].classList.add('correct');
 
-  // Teken swakplek-statistiek aan
   if (!state.weaknessStats[subtopic]) state.weaknessStats[subtopic] = { correct: 0, total: 0 };
   state.weaknessStats[subtopic].total++;
   if (isCorrect) {
@@ -1209,9 +1262,140 @@ function nextQuizQuestion() {
     state.quizIdx++;
     renderQuizQuestion();
   } else {
-    alert("🎉 Baie geluk! Jy het al die vrae vir hierdie missie voltooi. Kyk na jou Afrigter-oortjie vir jou sterk- en swakplekke!");
+    alert("🎉 Baie geluk! Jy het al die vrae vir hierdie missie voltooi.");
     switchTab('weakness');
   }
+}
+
+// --- VOLWAARDIGE EKSAMEN-SIMULATOR (NUUT!) ---
+let simInterval = null;
+
+function initExamSimulator() {
+  const selector = document.getElementById('sim-paper-selector');
+  selector.innerHTML = '';
+  examPapers.forEach(ep => {
+    const btn = document.createElement('button');
+    btn.className = `filter-btn ${ep.id === state.activeExamId ? 'active' : ''}`;
+    btn.innerText = ep.title;
+    btn.onclick = () => loadExamPaper(ep.id);
+    selector.appendChild(btn);
+  });
+  loadExamPaper(state.activeExamId);
+}
+
+function loadExamPaper(paperId) {
+  state.activeExamId = paperId;
+  const paper = examPapers.find(p => p.id === paperId);
+  if (!paper) return;
+
+  document.querySelectorAll('#sim-paper-selector .filter-btn').forEach(b => b.classList.remove('active'));
+  event.target && event.target.classList.add('active');
+
+  document.getElementById('sim-paper-title').innerText = paper.title;
+  document.getElementById('sim-paper-term').innerText = `${paper.subject} • ${paper.term}`;
+  document.getElementById('sim-paper-total-marks').innerText = `${paper.totalMarks} Punte`;
+  document.getElementById('sim-paper-duration').innerText = `${paper.timeMinutes} Minute`;
+
+  // Stel timer
+  clearInterval(simInterval);
+  state.simTimerSec = paper.timeMinutes * 60;
+  state.simRunning = false;
+  updateSimTimerDisplay();
+  document.getElementById('sim-timer-toggle').innerText = "Begin Tydtoets ▶️";
+
+  // Instruksies
+  const instList = document.getElementById('sim-instructions-list');
+  instList.innerHTML = '';
+  paper.instructions.forEach(ins => {
+    const li = document.createElement('li');
+    li.innerText = ins;
+    instList.appendChild(li);
+  });
+
+  // Bou vrae per afdeling
+  const body = document.getElementById('sim-questions-body');
+  body.innerHTML = '';
+
+  paper.sections.forEach(sec => {
+    const banner = document.createElement('div');
+    banner.className = 'exam-section-banner';
+    banner.innerText = `${sec.sectionTitle} [${sec.totalSectionMarks} Punte]`;
+    body.appendChild(banner);
+
+    sec.questions.forEach(q => {
+      const qBlock = document.createElement('div');
+      qBlock.className = 'sim-q-block';
+
+      let inputHtml = '';
+      if (q.type === 'mcq') {
+        inputHtml = '<div style="margin-top:0.4rem;">';
+        q.options.forEach((opt, oIdx) => {
+          inputHtml += `
+            <label style="display:block; margin:0.35rem 0; font-size:0.88rem; cursor:pointer;">
+              <input type="radio" name="sim_${q.id}" value="${oIdx}"> ${opt}
+            </label>
+          `;
+        });
+        inputHtml += '</div>';
+      } else {
+        inputHtml = `<textarea class="sim-input" id="input_${q.id}" rows="2" placeholder="Skryf jou bewerking en antwoord hier..."></textarea>`;
+      }
+
+      qBlock.innerHTML = `
+        <div class="sim-q-header">
+          <span>Vraag ${q.num}</span>
+          <span style="display:flex; gap:0.4rem; align-items:center;">
+            <span class="sim-q-badge">${q.cogLevel}</span>
+            <span style="color:#b91c1c;">[${q.marks} ${q.marks === 1 ? 'punt' : 'punte'}]</span>
+          </span>
+        </div>
+        <div style="font-size:0.92rem; line-height:1.5;">${q.q}</div>
+        ${inputHtml}
+        <div class="sim-memo-box" id="memo_${q.id}">
+          <strong>Model-Memorandum & Puntetoekenning:</strong><br>${q.memo}
+        </div>
+      `;
+      body.appendChild(qBlock);
+    });
+  });
+}
+
+function toggleSimTimer() {
+  if (state.simRunning) {
+    clearInterval(simInterval);
+    state.simRunning = false;
+    document.getElementById('sim-timer-toggle').innerText = "Hervat ▶️";
+  } else {
+    state.simRunning = true;
+    document.getElementById('sim-timer-toggle').innerText = "Pouseer ⏸️";
+    simInterval = setInterval(() => {
+      if (state.simTimerSec > 0) {
+        state.simTimerSec--;
+        updateSimTimerDisplay();
+      } else {
+        clearInterval(simInterval);
+        state.simRunning = false;
+        playAlertChime();
+        alert("⏰ Tyd is op! Lewer jou vraestel in en vergelyk met die memorandum.");
+        submitExamPaper();
+      }
+    }, 1000);
+  }
+}
+
+function updateSimTimerDisplay() {
+  const m = Math.floor(state.simTimerSec / 60);
+  const s = state.simTimerSec % 60;
+  document.getElementById('sim-time-left').innerText = 
+    `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+}
+
+function submitExamPaper() {
+  clearInterval(simInterval);
+  state.simRunning = false;
+  document.querySelectorAll('.sim-memo-box').forEach(el => el.style.display = 'block');
+  playSuccessChime();
+  alert("🎉 Baie geluk! Die amptelike onderwysers-memorandum en puntetoekenning is nou ontsluit onder elke vraag. Merk jou bewerkings om te sien waar jy punte verdien het!");
 }
 
 // --- DIAGNOSTIESE VERSLAG & RADAR ---
@@ -1225,7 +1409,6 @@ function renderWeaknessList() {
     return;
   }
 
-  // Sorteer van swakste na sterkste
   entries.sort((a, b) => {
     const pctA = (a[1].correct / a[1].total);
     const pctB = (b[1].correct / b[1].total);
@@ -1253,19 +1436,16 @@ function renderWeaknessList() {
 }
 
 function startTargetedDrill() {
-  // Vind onderwerpe met < 80%
   const weakSubs = Object.entries(state.weaknessStats)
     .filter(([_, data]) => (data.correct / data.total) < 0.8)
     .map(([sub]) => sub);
 
   if (weakSubs.length === 0) {
-    // Gebruik Boks 1 kaarte
     state.boxFilter = 1;
     switchTab('flashcards');
     applyCardFilters();
-    alert("⚡ Jy is tans sterk in al die toetse! Ons het Boks 1 (kaarte wat jy nog leer) vir jou oopgemaak.");
+    alert("⚡ Jy is tans sterk in al die toetse! Ons het Boks 1 vir jou oopgemaak.");
   } else {
-    // Filtreer flitskaarte wat pas by swak onderwerpe
     state.filteredCards = flashcards.filter(c => weakSubs.some(s => c.topic.includes(s) || s.includes(c.topic)));
     if (state.filteredCards.length === 0) {
       state.boxFilter = 1;
@@ -1279,7 +1459,7 @@ function startTargetedDrill() {
   }
 }
 
-// --- KALMERENDE ASEMHALING ENJIN ---
+// --- KALMERENDE ASEMHALING ---
 let breatheTimer = null;
 let breatheExpanding = false;
 function startBreathing() {
@@ -1324,7 +1504,7 @@ function switchTab(tabId) {
 
   document.getElementById(`tab-${tabId}`).classList.add('active');
   
-  const navIdx = ['calendar', 'flashcards', 'quizzes', 'weakness', 'cert'].indexOf(tabId);
+  const navIdx = ['calendar', 'flashcards', 'quizzes', 'simulator', 'weakness'].indexOf(tabId);
   if (navIdx >= 0) {
     document.querySelectorAll('.nav-item')[navIdx].classList.add('active');
   }
@@ -1391,6 +1571,7 @@ window.addEventListener('DOMContentLoaded', () => {
   renderMissions();
   initFlashcardFilters();
   initQuizFilters();
+  initExamSimulator();
   applyCardFilters();
   renderQuizQuestion();
   renderWeaknessList();
