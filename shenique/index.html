@@ -13,6 +13,27 @@
 <meta http-equiv="Expires" content="0">
 <link rel="manifest" href="manifest.json">
 <script>
+  // HARDWARE SAFE AREA DETECTION (IPHONE NOTCH & DYNAMIC ISLAND)
+  try {
+    var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (isIos) {
+      document.documentElement.classList.add('is-ios');
+      var sh = Math.max(window.screen.height, window.screen.width);
+      var sw = Math.min(window.screen.height, window.screen.width);
+      // Modern iPhones: Dynamic Island (height >= 852 and width in [393, 402, 430, 440])
+      var isIsland = (sh >= 852 && (sw === 393 || sw === 402 || sw === 430 || sw === 440));
+      var isNotch = sh >= 812;
+      if (isIsland) {
+        document.documentElement.classList.add('ios-dynamic-island');
+      } else if (isNotch) {
+        document.documentElement.classList.add('ios-notch');
+      } else {
+        document.documentElement.classList.add('ios-classic');
+      }
+    }
+  } catch(e) {}
+
   // PURGE STALE CACHES & SERVICE WORKERS IMMEDIATELY
   try {
     if ('serviceWorker' in navigator) {
@@ -66,11 +87,25 @@ html, body {
   overflow: hidden;
 }
 
+/* =======================================================
+   EXACT SAFE AREA & IPHONE NOTCH / DYNAMIC ISLAND CALIBRATION
+   ======================================================= */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --app-header-pt: calc(env(safe-area-inset-top, 0px) + 0.45rem);
+}
+
 /* TOP APP BAR (DEFAULT HOME SCREEN) */
 header.app-bar {
   background: var(--primary-gradient);
   color: #fff;
-  padding: 0.45rem 0.85rem;
+  padding-top: var(--app-header-pt);
+  padding-bottom: 0.45rem;
+  padding-left: max(0.85rem, env(safe-area-inset-left, 0.85rem));
+  padding-right: max(0.85rem, env(safe-area-inset-right, 0.85rem));
   flex-shrink: 0;
   display: flex;
   justify-content: space-between;
@@ -79,7 +114,7 @@ header.app-bar {
   z-index: 100;
 }
 .app-title-wrap h1 {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   display: flex;
@@ -94,50 +129,71 @@ header.app-bar {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.32rem;
 }
 
 /* FULLSCREEN / MODE STICKY TOP BAR */
 .fullscreen-top-nav {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(10px);
-  border-bottom: 1.5px solid var(--border);
-  padding: 0.4rem 0.75rem;
+  background: var(--primary-gradient);
+  color: #fff;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.2);
+  padding-top: var(--app-header-pt);
+  padding-bottom: 0.45rem;
+  padding-left: max(0.75rem, env(safe-area-inset-left, 0.75rem));
+  padding-right: max(0.75rem, env(safe-area-inset-right, 0.75rem));
   flex-shrink: 0;
   display: none;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(219, 39, 119, 0.25);
 }
 body.in-mode header.app-bar { display: none; }
 body.in-mode .fullscreen-top-nav { display: flex; }
 body.in-mode .app-bottom-bar { display: none; }
 
 .btn-fs-nav {
-  background: white;
-  border: 1.5px solid var(--border);
+  background: rgba(255, 255, 255, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
   border-radius: var(--radius-sm);
-  padding: 0.35rem 0.65rem;
+  padding: 0.35rem 0.6rem;
+  min-height: 34px;
   font-size: 0.75rem;
   font-weight: 800;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.25rem;
-  color: var(--text);
+  color: white;
   transition: all 0.15s ease;
+  touch-action: manipulation;
 }
-.btn-fs-nav:active { transform: scale(0.95); background: #fdf2f8; }
+.btn-fs-nav:active { transform: scale(0.95); background: rgba(255, 255, 255, 0.4); }
 .fs-nav-title {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 900;
-  color: #831843;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   text-align: center;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 48%;
+}
+
+/* HARDWARE-CALIBRATED EXACT IPHONE MEASUREMENTS (WHEN ENV() IS 0 IN IN-APP WEBVIEWS) */
+html.ios-dynamic-island header.app-bar,
+html.ios-dynamic-island .fullscreen-top-nav {
+  padding-top: max(calc(env(safe-area-inset-top, 0px) + 0.45rem), 62px);
+}
+html.ios-notch header.app-bar,
+html.ios-notch .fullscreen-top-nav {
+  padding-top: max(calc(env(safe-area-inset-top, 0px) + 0.45rem), 52px);
+}
+html.ios-classic header.app-bar,
+html.ios-classic .fullscreen-top-nav {
+  padding-top: max(calc(env(safe-area-inset-top, 0px) + 0.45rem), 26px);
 }
 
 /* MAIN CONTENT VIEWPORT */
@@ -564,7 +620,10 @@ main.viewport {
 .app-bottom-bar {
   background: white;
   border-top: 1.5px solid var(--border);
-  padding: 0.45rem 0.85rem;
+  padding-top: 0.45rem;
+  padding-bottom: max(0.45rem, calc(env(safe-area-inset-bottom, 0px) + 0.35rem));
+  padding-left: max(0.85rem, env(safe-area-inset-left, 0.85rem));
+  padding-right: max(0.85rem, env(safe-area-inset-right, 0.85rem));
   flex-shrink: 0;
   display: flex;
   gap: 0.5rem;
@@ -573,6 +632,10 @@ main.viewport {
   margin: 0 auto;
   width: 100%;
   z-index: 90;
+}
+html.ios-dynamic-island .app-bottom-bar,
+html.ios-notch .app-bottom-bar {
+  padding-bottom: max(calc(env(safe-area-inset-bottom, 0px) + 0.35rem), 24px);
 }
 .btn-bottom-pappa {
   flex: 2;
@@ -3775,36 +3838,10 @@ END:VCALENDAR`;
   alert("🍏 iOS (iPhone 16e): Die 15:30 Studie-wekker (.ics) is afgelaai! Maak dit oop om dit dadelik by jou Apple Kalender te voeg.");
 }
 
-// --- PERSISTENT STUUR VIR PAPPA WHATSAPP ---
+// --- PERSISTENT STUUR VIR PAPPA WHATSAPP (FORENSIC AUDIT) ---
 function stuurVirPappa() {
-  const b1Count = Object.values(state.boxStats).filter(v => v === 1).length;
-  const b2Count = Object.values(state.boxStats).filter(v => v === 2).length;
-  const b3Count = Object.values(state.boxStats).filter(v => v === 3).length;
-  const skippedCount = Object.keys(state.skippedCards || {}).length;
-  const totalCards = flashcards.length;
-
-  const now = new Date();
-  const timeStr = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')} (${now.getDate()} Nov)`;
-  const sessionMins = Math.floor(sessionSeconds / 60);
-
-  const msg = 
-`🌸 *${CURRENT_STUDENT}: Graad 6 Hersiening Vordering*
-📅 Tyd: ${timeStr}
-⏱️ Studietyd Vandag: ${sessionMins} minute
-🏫 Skool: Laerskool Hermanstad
-
-📊 *FLITSKAARTE STATUS (Totaal ${totalCards} kaarte):*
-• 🟢 Bemeester (Boks 3): ${b3Count} kaarte
-• 🟠 Byna Daar (Boks 2): ${b2Count} kaarte
-• 🔴 Leer nog (Boks 1): ${b1Count} kaarte
-• ⏭️ Oorgeslaan vir later: ${skippedCount} kaarte
-
-📝 *TOETSTELLING:*
-• ${state.quizScore} vrae korrek beantwoord
-
-🏆 Ek leer hard vir my eksamens!`;
-
-  const encoded = encodeURIComponent(msg);
+  const text = buildForensicStudyBriefing(false);
+  const encoded = encodeURIComponent(text);
   window.open(`https://wa.me/${PAPPA_PHONE}?text=${encoded}`, '_blank');
 }
 
@@ -4119,56 +4156,213 @@ function markActiveTaskDone() {
 }
 
 // =======================================================
-// TELEGRAM & WHATSAPP ALERTING SYSTEM
+// FORENSIC EXECUTIVE AUDIT & TELEGRAM / WHATSAPP DISPATCH
 // =======================================================
+function buildForensicStudyBriefing(isHtml) {
+  const status = getStudyPlanStatus();
+  const now = state.simulatedTime ? new Date(state.simulatedTime) : new Date();
+  const appUrl = (CURRENT_STUDENT === "Shenique") ? "https://thekevern.github.io/hermanstad-gr6/" : "https://thekevern.github.io/hermanstad-gr6/jozelle/";
+
+  // 1. Next exam countdown
+  const activeMissions = missions.filter(m => !isExamCompleted(m.date));
+  activeMissions.sort((a, b) => new Date(a.date) - new Date(b.date));
+  let nextExamName = "Geen aktiewe eksamens oor nie (Alles voltooi!)";
+  let countdownStr = "0 dae";
+  let urgencyLevel = "NORMAAL";
+
+  if (activeMissions.length > 0) {
+    const nextExam = activeMissions[0];
+    nextExamName = nextExam.name.replace(/^Missie \d+:\s*/, "");
+    const examDate = new Date(nextExam.date + 'T08:00:00');
+    const diffMs = examDate - now;
+    const diffHours = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60)));
+    const diffDays = Math.floor(diffHours / 24);
+    const remHours = diffHours % 24;
+    countdownStr = `${diffDays} dae en ${remHours} uur oor (${nextExam.dateStr} om 08:00)`;
+
+    if (diffHours <= 36) urgencyLevel = "🚨 KRITIEK (Môreoggend!)";
+    else if (diffHours <= 72) urgencyLevel = "⚠️ HOOG (Oor 2-3 dae)";
+    else urgencyLevel = "MATIG (Voorbereiding aktief)";
+  }
+
+  // 2. Leitner Flashcard metrics
+  let box1 = 0, box2 = 0, box3 = 0;
+  flashcards.forEach(c => {
+    const b = state.cardBoxes[c.id] || 1;
+    if (b === 3) box3++;
+    else if (b === 2) box2++;
+    else box1++;
+  });
+  const totalCards = flashcards.length;
+  const masteryPct = Math.round((box3 / totalCards) * 100);
+
+  // 3. Active Study Time
+  const studyMins = Math.round((state.sessionSeconds || 0) / 60);
+  const studyTimeDisplay = studyMins > 0 ? `${studyMins} minute aktief` : `0 minute (Nog nie begin leer vandag nie)`;
+
+  // 4. Tasks completed & pending
+  const todayTasks = status.todayTasks || [];
+  const completedToday = todayTasks.filter(t => state.taskCompletions[t.id]);
+  const overdueTasks = status.overdueTasks || [];
+
+  // 5. XP and Level
+  const xp = calculateTotalXP();
+  const badgesCount = Object.keys(state.unlockedBadges || {}).length;
+
+  if (isHtml) {
+    let msg = `📊 <b>SPLIZR INTEL • GRAAD 6 EKSAMEN-AODIT</b>
+` +
+      `👤 Student: <b>${CURRENT_STUDENT} Buitendach</b>
+` +
+      `📅 Datum & Tyd: <b>${status.dateDisplay}</b> • ${now.toLocaleTimeString('af-ZA', { hour: '2-digit', minute: '2-digit' })}
+` +
+      `🏫 Skool: <b>Laerskool Hermanstad</b>
+
+` +
+      `🎯 <b>VOLGENDE EKSAMENVRAESTEL:</b>
+` +
+      `   <b>${nextExamName}</b>
+` +
+      `   ⏳ Af-telling: <b>${countdownStr}</b>
+` +
+      `   Gevaarvlak: <b>${urgencyLevel}</b>
+
+` +
+      `⏱️ <b>STUDIETYD & MEESTERSKAP:</b>
+` +
+      `   • Aktiewe Studietyd: <b>${studyTimeDisplay}</b>
+` +
+      `   • Flitskaarte Bemeester: <b>${box3} / ${totalCards} (${masteryPct}%)</b>
+` +
+      `     - 🟢 Boks 3 (Bemeester): ${box3} kaarte
+` +
+      `     - 🟠 Boks 2 (Byna daar): ${box2} kaarte
+` +
+      `     - 🔴 Boks 1 (Leer nog): ${box1} kaarte
+
+` +
+      `📋 <b>VANDAG SE STUDIEPLAN (${completedToday.length} / ${todayTasks.length} Take Voltooi):</b>
+`;
+
+    if (todayTasks.length === 0) {
+      msg += `   <i>Geen geskeduleerde take vir vandag nie.</i>
+`;
+    } else {
+      todayTasks.forEach(t => {
+        const done = !!state.taskCompletions[t.id];
+        msg += `   ${done ? '✅' : '❌'} <b>${t.subjectName}</b>: ${t.title} ${done ? '(Voltooi)' : '<i>(Uitstaande)</i>'}
+`;
+      });
+    }
+
+    if (overdueTasks.length > 0) {
+      msg += `
+🚨 <b>AGTERSTALLIGE INHAAL-WERK (${overdueTasks.length} Take Agter):</b>
+`;
+      overdueTasks.forEach(t => {
+        msg += `   🔴 [${t.dateDisplay}] <b>${t.subjectName}</b>: ${t.title}
+`;
+      });
+      msg += `   <i>⚠️ Hierdie werk is bo-aan haar plan geplaas om dadelik in te haal!</i>
+`;
+    } else {
+      msg += `
+✅ <b>AGTERSTAND-STATUS:</b> Geen agterstallige werk van vorige dae nie.
+`;
+    }
+
+    msg += `
+🐱 <b>KATTE & STRAY KIDS STATUS:</b>
+` +
+      `   • Vordering: <b>${xp} / 2500 XP</b> (${badgesCount} / 8 Kentekens)
+
+` +
+      `🔗 <b>DIREKTE TOEGANG VIR PAPPA:</b>
+` +
+      `   👉 Maak oop: ${appUrl}
+` +
+      `   📱 WhatsApp haar: https://wa.me/${PAPPA_PHONE}`;
+
+    return msg;
+  } else {
+    // WhatsApp Plain Text Formatting
+    let msg = `📊 *SPLIZR INTEL • GRAAD 6 EKSAMEN-AODIT* 📊
+` +
+      `👤 Student: *${CURRENT_STUDENT} Buitendach*
+` +
+      `📅 Datum & Tyd: *${status.dateDisplay}* • ${now.toLocaleTimeString('af-ZA', { hour: '2-digit', minute: '2-digit' })}
+` +
+      `🏫 Skool: *Laerskool Hermanstad*
+
+` +
+      `🎯 *VOLGENDE EKSAMENVRAESTEL:*
+` +
+      `   *${nextExamName}*
+` +
+      `   ⏳ Af-telling: *${countdownStr}*
+` +
+      `   Gevaarvlak: *${urgencyLevel}*
+
+` +
+      `⏱️ *STUDIETYD & MEESTERSKAP:*
+` +
+      `   • Aktiewe Studietyd: *${studyTimeDisplay}*
+` +
+      `   • Flitskaarte Bemeester: *${box3} / ${totalCards} (${masteryPct}%)*
+` +
+      `     - 🟢 Boks 3 (Bemeester): ${box3} kaarte
+` +
+      `     - 🟠 Boks 2 (Byna daar): ${box2} kaarte
+` +
+      `     - 🔴 Boks 1 (Leer nog): ${box1} kaarte
+
+` +
+      `📋 *VANDAG SE STUDIEPLAN (${completedToday.length} / ${todayTasks.length} Take Voltooi):*
+`;
+
+    if (todayTasks.length === 0) {
+      msg += `   _Geen geskeduleerde take vir vandag nie._
+`;
+    } else {
+      todayTasks.forEach(t => {
+        const done = !!state.taskCompletions[t.id];
+        msg += `   ${done ? '✅' : '❌'} *${t.subjectName}*: ${t.title} ${done ? '(Voltooi)' : '_(Uitstaande)_'}
+`;
+      });
+    }
+
+    if (overdueTasks.length > 0) {
+      msg += `
+🚨 *AGTERSTALLIGE INHAAL-WERK (${overdueTasks.length} Take Agter):*
+`;
+      overdueTasks.forEach(t => {
+        msg += `   🔴 [${t.dateDisplay}] *${t.subjectName}*: ${t.title}
+`;
+      });
+      msg += `   _⚠️ Hierdie werk is bo-aan haar plan geplaas om dadelik in te haal!_
+`;
+    } else {
+      msg += `
+✅ *AGTERSTAND-STATUS:* Geen agterstallige werk van vorige dae nie.
+`;
+    }
+
+    msg += `
+🐱 *KATTE & STRAY KIDS STATUS:*
+` +
+      `   • Vordering: *${xp} / 2500 XP* (${badgesCount} / 8 Kentekens)
+
+` +
+      `🔗 *DIREKTE SKAKEL:* ${appUrl}`;
+
+    return msg;
+  }
+}
+
 async function sendTelegramStudyAlert(customMessage) {
   const token = TELEGRAM_TOKEN;
   const chatId = TELEGRAM_CHAT_ID;
-  const status = getStudyPlanStatus();
-
-  let text = customMessage;
-  if (!text) {
-    if (status.isBehind) {
-      text = `🚨 <b>GRAAD 6 STUDIEPLAN: AGTERSTAND-WAARSKUWING</b>
-
-` +
-        `👤 Student: <b>${CURRENT_STUDENT} Buitendach</b>
-` +
-        `📅 Datum: <b>${status.dateDisplay}</b>
-` +
-        `⚠️ Status: <b>${status.totalBehind} TAAK/TAKE AGTER SKEDULE!</b>
-
-` +
-        `<b>🔴 Agterstallige Take om in te haal:</b>
-` +
-        status.overdueTasks.map((t, i) => `${i+1}. [${t.dateDisplay}] <b>${t.subjectName}</b>: ${t.title}`).join(String.fromCharCode(10)) +
-        `
-
-<b>📋 Vandag se Geplande Take:</b>
-` +
-        status.todayTasks.map((t, i) => `${i+1}. [${state.taskCompletions[t.id] ? '✅' : '⏳'}] <b>${t.subjectName}</b>: ${t.title}`).join(String.fromCharCode(10)) +
-        `
-
-<i>${CURRENT_STUDENT} is herinner om dadelik te begin inhaal! 🚀</i>`;
-    } else {
-      text = `✅ <b>GRAAD 6 STUDIEPLAN: OP SKEDULE</b>
-
-` +
-        `👤 Student: <b>${CURRENT_STUDENT} Buitendach</b>
-` +
-        `📅 Datum: <b>${status.dateDisplay}</b>
-` +
-        `📊 Vandag se Vorderings-status: <b>${status.todayCompleted} / ${status.todayTasks.length} take voltooi</b>
-
-` +
-        `<b>📋 Take vir Vandag:</b>
-` +
-        status.todayTasks.map((t, i) => `${i+1}. [${state.taskCompletions[t.id] ? '✅' : '⏳'}] <b>${t.subjectName}</b>: ${t.title}`).join(String.fromCharCode(10)) +
-        `
-
-<i>Geen agterstallige werk nie! 🌟</i>`;
-    }
-  }
+  const text = customMessage || buildForensicStudyBriefing(true);
 
   try {
     const resp = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -4182,8 +4376,8 @@ async function sendTelegramStudyAlert(customMessage) {
     });
     const resData = await resp.json();
     if (resData.ok) {
-      alert("✈️ Kennisgewing suksesvol gestuur na Pa Kevern se Telegram (@splizr_admin_bot)!");
-      state.lastTelegramAutoAlertDate = status.todayStr;
+      alert("✈️ Uitvoerende eksamen-aodit suksesvol gestuur na Pa Kevern se Telegram (@splizr_admin_bot)!");
+      state.lastTelegramAutoAlertDate = getStudyPlanStatus().todayStr;
       saveState();
       return true;
     } else {
@@ -4196,85 +4390,23 @@ async function sendTelegramStudyAlert(customMessage) {
 }
 
 function sendBehindWhatsApp() {
-  const status = getStudyPlanStatus();
-  let msg = `🚨 *GRAAD 6 STUDIEPLAN AGTERSTAND-WAARSKUWING* 🚨
-` +
-    `👤 Student: *${CURRENT_STUDENT} Buitendach*
-` +
-    `📅 Datum: ${status.dateDisplay}
-
-` +
-    `⚠️ *STATUS: AGTER MET STUDIEPLAN (+${status.totalBehind} inhaal-take)*
-
-` +
-    `🔴 *AGTERSTALLIGE WERK WAT INGEHAAL MOET WORD:*
-`;
-
-  status.overdueTasks.forEach((t, i) => {
-    msg += `  ${i+1}. [${t.dateDisplay}] ${t.subjectName}: ${t.title}
-`;
-  });
-
-  msg += `
-📋 *VANDAG SE PLAN:*
-`;
-  status.todayTasks.forEach((t, i) => {
-    msg += `  • [${state.taskCompletions[t.id] ? 'VOLTOOI' : 'BESIG'}] ${t.subjectName}: ${t.title}
-`;
-  });
-
-  msg += `
-Ek is besig om my agterstand nou dadelik in te haal! 📚🚀`;
-
-  const encoded = encodeURIComponent(msg);
+  const text = buildForensicStudyBriefing(false);
+  const encoded = encodeURIComponent(text);
   window.open(`https://wa.me/${PAPPA_PHONE}?text=${encoded}`, '_blank');
 }
 
 function sendStudyProgressWhatsApp() {
-  const status = getStudyPlanStatus();
-  let b3 = 0;
-  flashcards.forEach(c => { if ((state.cardBoxes[c.id] || 1) === 3) b3++; });
-  const masteryPct = Math.round((b3 / flashcards.length) * 100);
-
-  let msg = `🌸 *GRAAD 6 STUDIE-VORDERING* 🌸
-` +
-    `👤 Student: *${CURRENT_STUDENT} Buitendach*
-` +
-    `📅 Datum: ${status.dateDisplay}
-
-` +
-    `✅ *STATUS: OP SKEDULE! Geen agterstallige take nie.*
-` +
-    `📋 Take Vandag Voltooi: ${status.todayCompleted} / ${status.todayTasks.length}
-` +
-    `🟢 Flitskaarte Bemeester: ${b3} / ${flashcards.length} (${masteryPct}%)
-
-` +
-    `Ek werk hard en my toekoms is blink! 🚀✨`;
-
-  const encoded = encodeURIComponent(msg);
+  const text = buildForensicStudyBriefing(false);
+  const encoded = encodeURIComponent(text);
   window.open(`https://wa.me/${PAPPA_PHONE}?text=${encoded}`, '_blank');
 }
 
 function checkAutomaticBehindAlerts() {
   const status = getStudyPlanStatus();
   if (status.isBehind && state.lastTelegramAutoAlertDate !== status.todayStr) {
-    // Non-blocking auto alert to Telegram bot
     const token = TELEGRAM_TOKEN;
     const chatId = TELEGRAM_CHAT_ID;
-    const text = `⚠️ <b>AUTO-ALERT: ${CURRENT_STUDENT} IS AGTER MET STUDIEPLAN</b>
-
-` +
-      `📅 Datum: ${status.dateDisplay}
-` +
-      `🔴 Agterstand: <b>${status.totalBehind} take agter</b>
-` +
-      `Inhaal-taak lys:
-` +
-      status.overdueTasks.map((t, i) => `${i+1}. [${t.dateDisplay}] ${t.subjectName}: ${t.title}`).join(String.fromCharCode(10)) +
-      `
-
-<i>${CURRENT_STUDENT} het die app oopgemaak en begin nou inhaal!</i>`;
+    const text = buildForensicStudyBriefing(true);
 
     fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
