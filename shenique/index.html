@@ -132,6 +132,116 @@ header.app-bar {
   gap: 0.32rem;
 }
 
+/* INTERACTIVE TERMINOLOGY HIGHLIGHTS */
+.term-highlight {
+  background: #fdf2f8;
+  color: #be185d;
+  border-bottom: 2px dashed #ec4899;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+}
+.term-highlight:active {
+  background: #fbcfe8;
+  transform: scale(0.98);
+}
+.term-highlight::after {
+  content: ' 💡';
+  font-size: 0.72em;
+}
+body.theme-dark .term-highlight {
+  background: rgba(236, 72, 153, 0.22);
+  color: #f472b6;
+  border-bottom-color: #f472b6;
+}
+
+/* PROGRESS TRACKER STYLES */
+.progress-summary-card {
+  background: white;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  padding: 0.75rem 0.85rem;
+  margin-bottom: 0.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.progress-stat-pill {
+  background: #fdf2f8;
+  border: 1px solid #fbcfe8;
+  border-radius: 20px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #be185d;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.scorecard-grid {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-bottom: 0.6rem;
+}
+.scorecard-item {
+  background: white;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  box-shadow: var(--shadow-sm);
+}
+.scorecard-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.scorecard-bars {
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* QUIZ REVIEW LIST */
+.quiz-review-scroll {
+  max-height: 220px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0.5rem 0;
+  padding-right: 0.2rem;
+}
+.review-item {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  text-align: left;
+}
+.review-item.correct {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+.review-item.wrong {
+  border-color: #fca5a5;
+  background: #fef2f2;
+}
+
 /* FULLSCREEN / MODE STICKY TOP BAR */
 .fullscreen-top-nav {
   background: var(--primary-gradient);
@@ -1174,6 +1284,12 @@ body.theme-dark .badge-skz-tag {
       <p>Graad 6 Eindeksamens (Laerskool Hermanstad)</p>
     </div>
     <div class="header-actions">
+      <button class="btn-fs-nav" onclick="openProgressView()" style="background:rgba(255,255,255,0.28); color:white; border-color:rgba(255,255,255,0.45); font-size:0.72rem; font-weight:900;" title="My Punte & Eksamenvordering">
+        📊 Punte
+      </button>
+      <button class="btn-fs-nav" onclick="openGlossaryModal()" style="background:rgba(255,255,255,0.28); color:white; border-color:rgba(255,255,255,0.45); font-size:0.72rem; font-weight:900;" title="Vak-Begrippe & Woordeboek">
+        📖
+      </button>
       <button class="btn-fs-nav" onclick="openRewardsView()" style="background:rgba(255,255,255,0.28); color:white; border-color:rgba(255,255,255,0.45); font-size:0.72rem; font-weight:900;" title="Katte & Stray Kids Belonings">
         🐱🏆
       </button>
@@ -1372,6 +1488,11 @@ body.theme-dark .badge-skz-tag {
       </div>
     </section>
 
+    <!-- SCREEN: MY PUNTE & EKSAMENVORDERING -->
+    <section id="tab-progress" class="tab-content">
+      <div id="progress-view-container" style="height:100%; display:flex; flex-direction:column; overflow:hidden;"></div>
+    </section>
+
     <!-- SCREEN 4: STRAY KIDS & CATS REWARDS & BADGES -->
     <section id="tab-rewards" class="tab-content">
       <div class="rewards-container">
@@ -1505,6 +1626,48 @@ body.theme-dark .badge-skz-tag {
     </div>
   </div>
 
+  <!-- TERMINOLOGY CLICK DEFINITION POPUP MODAL -->
+  <div id="term-modal" style="display:none; position:fixed; inset:0; z-index:1600; background:rgba(10,14,26,0.7); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:1.25rem;">
+    <div class="term-modal-box" style="background:white; border-radius:18px; max-width:380px; width:100%; padding:1.2rem; border:2.5px solid #ec4899; box-shadow:0 12px 35px rgba(236,72,153,0.3); position:relative;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.4rem;">
+        <div>
+          <span id="term-modal-subject" style="font-size:0.68rem; font-weight:800; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:10px;">Vak</span>
+          <h3 id="term-modal-title" style="font-size:1.1rem; font-weight:900; color:var(--text); margin-top:0.25rem;">Term</h3>
+        </div>
+        <button onclick="closeTermModal()" style="background:#f1f5f9; border:none; border-radius:50%; width:28px; height:28px; font-size:1rem; font-weight:900; cursor:pointer; color:#64748b;">✕</button>
+      </div>
+      <div style="background:#fdf2f8; border-left:3.5px solid #ec4899; padding:0.55rem 0.75rem; border-radius:6px; margin:0.45rem 0;">
+        <div style="font-size:0.66rem; font-weight:800; color:#9d174d; text-transform:uppercase;">Wat beteken dit vir Graad 6?</div>
+        <p id="term-modal-def" style="font-size:0.8rem; font-weight:600; color:#1f2937; line-height:1.35; margin-top:0.2rem;"></p>
+      </div>
+      <div style="background:#f0fdf4; border-left:3.5px solid #10b981; padding:0.55rem 0.75rem; border-radius:6px; margin:0.45rem 0;">
+        <div style="font-size:0.66rem; font-weight:800; color:#166534; text-transform:uppercase;">💡 Eenvoudige Voorbeeld:</div>
+        <p id="term-modal-example" style="font-size:0.78rem; font-weight:600; color:#166534; line-height:1.35; margin-top:0.2rem;"></p>
+      </div>
+      <button class="btn-fs-nav" style="width:100%; justify-content:center; background:var(--primary-gradient); color:white; border:none; padding:0.55rem; font-weight:800; margin-top:0.5rem; font-size:0.82rem;" onclick="closeTermModal()">
+        Ek Verstaan! 👍
+      </button>
+    </div>
+  </div>
+
+  <!-- FULL SUBJECT GLOSSARY & SEARCH MODAL -->
+  <div id="glossary-modal" style="display:none; position:fixed; inset:0; z-index:1550; background:rgba(10,14,26,0.7); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:1rem;">
+    <div style="background:white; border-radius:20px; max-width:440px; width:100%; max-height:86vh; display:flex; flex-direction:column; padding:1rem; border:2px solid var(--border); box-shadow:0 10px 30px rgba(0,0,0,0.25);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+        <div style="display:flex; align-items:center; gap:0.4rem;">
+          <span style="font-size:1.3rem;">📖</span>
+          <h3 style="font-size:1rem; font-weight:900; color:var(--text);">Vak-Woordeboek & Begrippe</h3>
+        </div>
+        <button onclick="closeGlossaryModal()" style="background:#f1f5f9; border:none; border-radius:50%; width:28px; height:28px; font-size:1rem; font-weight:900; cursor:pointer; color:#64748b;">✕</button>
+      </div>
+      <input type="text" id="glossary-search-input" placeholder="🔍 Soek enige moeilike woord (bv. ewewydig)..." oninput="filterGlossaryTerms()" style="width:100%; padding:0.45rem 0.65rem; border:1.5px solid var(--border); border-radius:8px; font-size:0.78rem; margin-bottom:0.5rem;">
+      <div id="glossary-terms-list" style="flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column; gap:0.4rem; padding-right:0.2rem;"></div>
+      <button class="btn-fs-nav" style="width:100%; justify-content:center; background:#1e293b; color:white; border:none; padding:0.5rem; font-weight:800; margin-top:0.5rem; font-size:0.8rem;" onclick="closeGlossaryModal()">
+        Maak Toe ✕
+      </button>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -1530,6 +1693,9 @@ function escQuotes(str) {
   return (str || '').split(String.fromCharCode(39)).join(String.fromCharCode(92) + String.fromCharCode(39));
 }
 
+// --- CURRICULUM TERMINOLOGY EMBEDDED ENGINE ---
+const GRADE6_TERMINOLOGY = {"ewewydig": {"title": "Ewewydige Lyne", "subject": "📐 Wiskunde", "def": "Lyne wat altyd ewe ver van mekaar af loop en mekaar NOOIT sal kruis nie, al loop hulle vir ewig aan.", "example": "Dink aan 'n treinpoor se spore of die twee lang kante van 'n liniaal."}, "loodreg": {"title": "Loodregte Lyne", "subject": "📐 Wiskunde", "def": "Twee lyne wat mekaar kruis teen 'n perfekte regte hoek van presies 90 grade.", "example": "Dink aan die hoek van 'n vel papier of die letter 'T'."}, "teller": {"title": "Teller (in 'n Breuk)", "subject": "📐 Wiskunde", "def": "Die boonste getal in 'n breuk. Dit vertel vir jou hoeveel dele jy het.", "example": "In die breuk 3/4 is die getal 3 die teller (jy het 3 van die 4 snytjies pizza)."}, "noemer": {"title": "Noemer (in 'n Breuk)", "subject": "📐 Wiskunde", "def": "Die onderste getal in 'n breuk. Dit vertel in hoeveel gelyke dele die geheel verdeel is.", "example": "In die breuk 3/4 is 4 die noemer (die pizza is in 4 gelyke snye gesny)."}, "priemgetal": {"title": "Priemgetal", "subject": "📐 Wiskunde", "def": "'n Heelgetal wat slegs deur homself en deur 1 gedeel kan word sonder 'n res.", "example": "2, 3, 5, 7, 11, 13, 17 en 19 is almal priemgetalle. (Let op: 2 is die enigste ewe priemgetal!)"}, "desimaal": {"title": "Desimale Breuk", "subject": "📐 Wiskunde", "def": "'n Getal wat met 'n komma geskryf word om dele kleiner as 1 voor te stel.", "example": "0,5 is presies dieselfde as 'n halwe (1/2), en 0,25 is dieselfde as 'n kwart (1/4)."}, "omtrek": {"title": "Omtrek", "subject": "📐 Wiskunde", "def": "Die totale afstand al reg rondom die buitekant van 'n vorm. Jy kry dit deur al die sye bymekaar te tel.", "example": "As 'n vierkant se vier sye almal 3 cm lank is, is die omtrek 3 + 3 + 3 + 3 = 12 cm."}, "oppervlakte": {"title": "Oppervlakte", "subject": "📐 Wiskunde", "def": "Die hoeveelheid plat spasie wat 'n vorm binne-in toemaak, gemeet in vierkante eenhede (soos cm²).", "example": "Vir 'n reghoek van 4 cm lank en 2 cm breed, is oppervlakte = lengte × breedte = 8 cm²."}, "simmetrie": {"title": "Simmetrielyn", "subject": "📐 Wiskunde", "def": "'n Lyn wat 'n vorm presies in die middel verdeel sodat albei kante identies op mekaar pas as jy dit toevou.", "example": "'n Skoenlapper of 'n hartjie het 'n simmetrielyn reg in die middel af."}, "skerphoek": {"title": "Skerphoek", "subject": "📐 Wiskunde", "def": "'n Hoek wat kleiner as 90 grade is. Dit lyk skerp soos die punt van 'n skêr of potlood.", "example": "Enige hoek tussen 0° en 89° is 'n skerphoek (bv. 45°)."}, "stomphoek": {"title": "Stomphoek", "subject": "📐 Wiskunde", "def": "'n Wye hoek wat groter as 90 grade is, maar kleiner as 180 grade.", "example": "Enige hoek tussen 91° en 179° (bv. 120°)."}, "koördinaat": {"title": "Koördinate", "subject": "📐 Wiskunde", "def": "Twee getalle wat presies wys waar 'n punt op 'n rooster of kaart lê (eerste die x-waarde dwars, dan die y-waarde op).", "example": "By (3, 5) tel jy eers 3 blokkies regs en dan 5 blokkies op."}, "ontdekkingsreisiger": {"title": "Ontdekkingsreisiger", "subject": "🌍 Geskiedenis", "def": "'n Dapper reisiger wat oor onbekende seë en lande geseil het om nuwe handelsroetes en wêrelddele te ontdek.", "example": "Bartolomeu Dias en Vasco da Gama was beroemde Portugese ontdekkingsreisigers."}, "karveel": {"title": "Karveel (Karveelskeep)", "subject": "🌍 Geskiedenis", "def": "'n Vinnige, ligte Portugese seilskip met driehoekige seile wat skepe gehelp het om teen die wind te seil.", "example": "Dias en Da Gama het met karvele om die suidpunt van Afrika geseil."}, "kompas": {"title": "Kompas", "subject": "🌍 Geskiedenis", "def": "'n Navigasie-instrument met 'n magnetiese naald wat altyd na die magnetiese Noordpool wys.", "example": "Seevaarders het die kompas gebruik sodat hulle nie op die oop oseaan verdwaal nie."}, "astrolabium": {"title": "Astrolabium", "subject": "🌍 Geskiedenis", "def": "'n Oudtydse wetenskaplike instrument wat die hoogte van die son en sterre bo die horison gemeet het om 'n skip se posisie op see te bepaal.", "example": "Seevaarders het saans na die Suiderkruis of Noordster gekyk met die astrolabium."}, "speserye": {"title": "Speserye & Speseryroete", "subject": "🌍 Geskiedenis", "def": "Geurmiddels soos peper, kaneel, neutmuskaat en naeltjies wat in Asië gegroei het en baie waardevol was om kos lekker te laat smaak en te bewaar.", "example": "Omdat speserye so duur was soos goud, het Europa nuwe seeroetes na Indië gesoek."}, "renaissance": {"title": "Die Renaissance", "subject": "🌍 Geskiedenis", "def": "'n Tydperk van wedergeboorte in Europa (ongeveer 1400-1600) toe mense nuwe nuuskierigheid gekry het oor wetenskap, kuns, skepe en die wêreld.", "example": "Gedurende die Renaissance het mense besef die aarde is rond en nie plat nie."}, "demokrasie": {"title": "Demokrasie", "subject": "🌍 Geskiedenis", "def": "'n Regeringstelsel waar die burgers van 'n land self hul leiers stem deur 'n vrye verkiesing.", "example": "In Suid-Afrika het alle volwassenes die reg om elke 5 jaar vir hul leiers te stem."}, "magna carta": {"title": "Magna Carta (Groot Vryheidsbrief)", "subject": "🌍 Geskiedenis", "def": "'n Beroemde ooreenkoms wat Koning Jan van Engeland in 1215 onderteken het waarin bepaal is dat niemand, selfs die koning nie, bo die wet is nie.", "example": "Dit was die heel eerste stap na menseregte en billike regstelsels in die wêreld."}, "ewenaar": {"title": "Die Ewenaar", "subject": "🧭 Geografie", "def": "Die denkbeeldige lyn wat reg in die middel om die aarde loop en die wêreld in die Noordelike en Suidelike Halfrond verdeel (0° breedtegraad).", "example": "Lande naby die ewenaar, soos Kenia en Brasilië, is die hele jaar deur warm."}, "lengtelyne": {"title": "Lengtelyne (Meridiane)", "subject": "🧭 Geografie", "def": "Denkbeeldige lyne wat van bo na onder loop, vanaf die Noordpool tot by die Suidpool.", "example": "Die Nulmeridiaan (0°) wat deur Greenwich in Londen loop, is die hoof-lengtelyn."}, "breedtelyne": {"title": "Breedtelyne (Breedtegrade)", "subject": "🧭 Geografie", "def": "Denkbeeldige lyne wat ewewydig aan mekaar rondom die aarde loop, dwars van oos na wes.", "example": "Die Ewenaar (0°) en die Steenbokskeerkring (23.5° S) is breedtelyne."}, "skaal": {"title": "Kaartskaal", "subject": "🧭 Geografie", "def": "Wys hoeveel keer 'n afstand op 'n kaart kleiner gemaak is as die regte afstand buite in die wêreld.", "example": "As die skaal 1 cm = 100 km is, beteken 2 cm op die liniaal 'n afstand van 200 km buite."}, "hoogte bo seevlak": {"title": "Hoogte bo Seevlak", "subject": "🧭 Geografie", "def": "Hoeveel meter 'n berg of plek bo die oseaan se wateroppervlak uitstyg.", "example": "Tafelberg is 1 086 meter bo seevlak."}, "fotosintese": {"title": "Fotosintese", "subject": "🔬 NW&T", "def": "Die wonderlike proses waardeur groen plante sonlig, water en koolstofdioksied gebruik om hul eie kos (glukose) te maak en vars suurstof vry te stel.", "example": "Plante gebruik hul groen blare (chlorofil) soos klein sonkragfabrieke om kos te maak."}, "ekosisteem": {"title": "Ekosisteem", "subject": "🔬 NW&T", "def": "'n Omvangryke gemeenskap waar lewende dinge (plante, insekte, diere) en nie-lewende dinge (sonlig, water, grond) saamwerk om lewe te onderhou.", "example": "'n Vleiland, 'n bosveld of selfs 'n klein rotspoel by die see is 'n ekosisteem."}, "geleier": {"title": "Elektriese Geleier", "subject": "🔬 NW&T", "def": "'n Stof waardeur elektrisiteit of hitte baie maklik kan beweeg.", "example": "Koperdrade en yster is goeie geleiers van elektrisiteit."}, "isoleerder": {"title": "Isoleerder (Elektries / Termies)", "subject": "🔬 NW&T", "def": "'n Stof wat elektrisiteit of hitte KEER sodat dit nie daardeur kan vloei nie.", "example": "Plastiek om 'n elektriese draad of rubberhandskoene keer dat jy 'n skok kry."}, "stroombaan": {"title": "Elektriese Stroombaan", "subject": "🔬 NW&T", "def": "'n Volledige geslote paadjie waardeur elektriese stroom van 'n battery deur drade na 'n gloeilampie of motor vloei.", "example": "As die skakelaar af is, is die stroombaan oop en die liggie skyn nie."}, "oplosbaar": {"title": "Oplosbare Stof", "subject": "🔬 NW&T", "def": "'n Stof wat heeltemal in 'n vloeistof soos water kan wegraak sodat jy dit nie meer kan sien nie.", "example": "Suiker en sout is oplosbaar in water."}, "onoplosbaar": {"title": "Onoplosbare Stof", "subject": "🔬 NW&T", "def": "'n Stof wat NIE in water kan oplos nie en korrels of stukkies bly.", "example": "Sand, meel en olie is onoplosbaar in water."}, "kondensasie": {"title": "Kondensasie", "subject": "🔬 NW&T", "def": "Wanneer warm, onsigbare waterdamp afkoel en weer verander in sigbare druppels vloeibare water.", "example": "Die waterdruppeltjies teen die spieël as jy warm stort, of dou op die gras soggens."}, "verdamping": {"title": "Verdamping", "subject": "🔬 NW&T", "def": "Wanneer water warm word en verander in onsigbare gas (waterdamp) wat in die lug opstyg.", "example": "Nat wasgoed wat buite in die warm son droog word omdat die water verdamp."}, "selfstandige naamwoord": {"title": "Selfstandige Naamwoord", "subject": "📖 Afrikaans", "def": "'n Woord wat 'n naam gee aan 'n mens, dier, ding of plek waaraan jy kan vat of dink.", "example": "tafel, kat, skool, dogter, Pretoria."}, "byvoeglike naamwoord": {"title": "Byvoeglike Naamwoord", "subject": "📖 Afrikaans", "def": "'n Beskrywende woord wat vir ons meer vertel van die selfstandige naamwoord.", "example": "Die *oulike* katjie eet die *lekker* kos."}, "werkwoord": {"title": "Werkwoord", "subject": "📖 Afrikaans", "def": "'n Aksiewoord wat sê wat iemand DOEN.", "example": "hardloop, leer, sing, slaap, lag."}, "sinoniem": {"title": "Sinoniem", "subject": "📖 Afrikaans", "def": "Twee woorde wat dieselfde of baie amper dieselfde betekenis het.", "example": "*vinnig* en *gousnel*, of *bly* en *gelukkig*."}, "antoniem": {"title": "Antoniem", "subject": "📖 Afrikaans", "def": "Twee woorde wat presies die TEENGESTELDE van mekaar beteken.", "example": "*warm* en *koud*, of *hoog* en *laag*."}, "homoniem": {"title": "Homoniem", "subject": "📖 Afrikaans", "def": "Woorde wat presies dieselfde gespel en uitgespreek word, maar heel verskillende betekenisse het.", "example": "*veer* ('n voël se veer OF 'n veer in 'n matras)."}, "homofoon": {"title": "Homofoon", "subject": "📖 Afrikaans", "def": "Woorde wat presies dieselfde KLINK as jy hulle sê, maar verskillend gespel word en verskillend beteken.", "example": "*haal* (om iets te gaan kry) en *hael* (ystrokies wat uit die lug val)."}, "direkte rede": {"title": "Direkte Rede", "subject": "📖 Afrikaans", "def": "Die presiese woorde wat iemand sê, geskryf met 'n dubbelpunt en aanhalingstekens.", "example": "Pappa sê: \"Ek is baie trots op jou, my skat!\""}, "indirekte rede": {"title": "Indirekte Rede", "subject": "📖 Afrikaans", "def": "Wanneer jy in jou eie woorde oorvertel wat iemand gesê het sonder aanhalingstekens (gebruik gewoonlik die woord 'dat').", "example": "Pappa sê dat hy baie trots op my is."}, "groepsdruk": {"title": "Groepsdruk", "subject": "❤️ PSW", "def": "Wanneer maats of maatskaplike groepe jou probeer forseer of oorreed om dinge te doen wat jy nie wil doen nie of weet verkeerd is.", "example": "'n Ware vriend sal jou nooit forseer om iets teen jou wil te doen nie. Sê ferm en rustig 'Nee'."}, "selfbeeld": {"title": "Positiewe Selfbeeld", "subject": "❤️ PSW", "def": "Hoe jy oor jouself dink en voel. Om te weet jy is spesiaal, talentvol en baie werd net soos jy is.", "example": "Fokus op jou sterkpunte en wees gaaf met jouself as jy 'n foutjie maak."}, "konflikhantering": {"title": "Konflikhantering", "subject": "❤️ PSW", "def": "Om 'n argument of meningsverskil op 'n vreedsame, rustige manier uit te praat sonder om te skree of lelik te wees.", "example": "Luister eers na die ander persoon se kant voor jy kwaad word."}};
+
 // --- STATE MANAGEMENT ---
 let state = {
   simulatedTime: null,
@@ -1548,6 +1714,7 @@ let state = {
   currentCardIdx: 0,
   isFlipped: false,
   boxStats: {},
+  cardBoxes: {},
   skippedCards: {},
   sessionSeconds: 0,
 
@@ -1556,6 +1723,8 @@ let state = {
   quizIdx: 0,
   quizScore: 0,
   quizAnswered: false,
+  quizHistory: {},
+  quizReviewList: [],
 
   // Klas state
   activeLessonId: 'les_m1_demokrasie',
@@ -2615,15 +2784,29 @@ function loadSavedState() {
     if (s) {
       const parsed = JSON.parse(s);
       state.boxStats = parsed.boxStats || {};
+      state.cardBoxes = parsed.cardBoxes || parsed.boxStats || {};
       state.weaknessStats = parsed.weaknessStats || {};
+      state.taskCompletions = parsed.taskCompletions || {};
+      state.unlockedBadges = parsed.unlockedBadges || {};
+      state.sessionSeconds = parsed.sessionSeconds || 0;
+      state.quizHistory = parsed.quizHistory || {};
+      state.lastTelegramAutoAlertDate = parsed.lastTelegramAutoAlertDate || null;
+      state.themeMode = parsed.themeMode || 'auto';
     }
   } catch(e) {}
 }
 function saveState() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      boxStats: state.boxStats,
-      weaknessStats: state.weaknessStats
+      boxStats: state.boxStats || {},
+      cardBoxes: state.boxStats || {},
+      weaknessStats: state.weaknessStats || {},
+      taskCompletions: state.taskCompletions || {},
+      unlockedBadges: state.unlockedBadges || {},
+      sessionSeconds: state.sessionSeconds || 0,
+      quizHistory: state.quizHistory || {},
+      lastTelegramAutoAlertDate: state.lastTelegramAutoAlertDate || null,
+      themeMode: state.themeMode || 'auto'
     }));
   } catch(e) {}
 }
@@ -3433,6 +3616,23 @@ function startQuizForSubject(mid) {
   renderQuizQuestion();
 }
 
+function formatWithTermHighlights(text) {
+  if (!text) return '';
+  let out = String(text);
+  const wb = String.fromCharCode(92) + 'b';
+  const sq = String.fromCharCode(39);
+  const keys = Object.keys(GRADE6_TERMINOLOGY).sort((a, b) => b.length - a.length);
+  keys.forEach(k => {
+    try {
+      const reg = new RegExp(wb + k + '(e|s|de|te)?' + wb, 'gi');
+      out = out.replace(reg, function(match) {
+        return '<span class="term-highlight" onclick="event.stopPropagation(); showTermDefinition(' + sq + k + sq + ')">' + match + '</span>';
+      });
+    } catch(e) {}
+  });
+  return out;
+}
+
 function renderQuizQuestion() {
   const list = quizzes[state.quizMission] || [];
   const qTitleEl = document.getElementById('quiz-q-title');
@@ -3442,16 +3642,99 @@ function renderQuizQuestion() {
   const progText = document.getElementById('quiz-progress-text');
   const scoreText = document.getElementById('quiz-score-text');
 
+  // WHEN QUIZ COMPLETES
   if (state.quizIdx >= list.length || list.length === 0) {
     const pct = list.length > 0 ? Math.round((state.quizScore / list.length) * 100) : 0;
-    qTitleEl.innerText = `🎉 Toets Voltooi!`;
+    
+    // PERSIST RESULT TO QUIZ HISTORY
+    const subObj = missions.find(m => m.id === state.quizMission) || { name: state.quizMission };
+    const now = new Date();
+    state.quizHistory[state.quizMission] = {
+      subjectId: state.quizMission,
+      subjectName: subObj.name,
+      score: state.quizScore,
+      total: list.length,
+      pct: pct,
+      date: now.toLocaleDateString('af-ZA'),
+      time: now.toLocaleTimeString('af-ZA', { hour: '2-digit', minute: '2-digit' }),
+      review: state.quizReviewList || []
+    };
+    saveState();
+    markActiveTaskDone();
+    checkBadgeUnlocks();
+
+    // Motivational messaging in child-friendly Afrikaans
+    let badgeColor = "#10b981";
+    let messageHeading = `🌟 Skitterend gedoen, ${CURRENT_STUDENT}!`;
+    let messageBody = `Jy ken hierdie werk soos die palm van jou hand! Pappa gaan baie trots wees op hierdie uitslag.`;
+    
+    if (pct < 60) {
+      badgeColor = "#ef4444";
+      messageHeading = `💪 Goeie probeerslag, ${CURRENT_STUDENT}!`;
+      messageBody = `Moenie moed opgee nie! Kyk na die vrae wat jy gemis het hieronder. Elke fout help jou om slimmer te word vir die eksamen.`;
+    } else if (pct < 80) {
+      badgeColor = "#f59e0b";
+      messageHeading = `👍 Baie mooi, ${CURRENT_STUDENT}!`;
+      messageBody = `Jy is baie naby aan 'n onderskeiding! Hersien net die paar vragies hieronder en probeer weer om 100% te kry.`;
+    }
+
+    qTitleEl.innerText = `🎉 Toets Suksesvol Voltooi!`;
+    
+    // Build question-by-question review items
+    let reviewHtml = '';
+    (state.quizReviewList || []).forEach((item, i) => {
+      reviewHtml += `
+        <div class="review-item ${item.isCorrect ? 'correct' : 'wrong'}">
+          <div style="font-weight:800; margin-bottom:0.15rem;">
+            ${item.isCorrect ? '✅' : '❌'} Vraag ${i + 1}: ${item.question}
+          </div>
+          <div style="color:${item.isCorrect ? '#15803d' : '#b91c1c'};">
+            <strong>Jou antwoord:</strong> ${item.selected}
+          </div>
+          ${!item.isCorrect ? `<div style="color:#15803d; margin-top:0.1rem;"><strong>Regte antwoord:</strong> ${item.correct}</div>` : ''}
+          <div style="font-size:0.7rem; color:#475569; margin-top:0.2rem; background:rgba(255,255,255,0.7); padding:0.25rem 0.4rem; border-radius:4px;">
+            💡 <strong>Verduideliking:</strong> ${formatWithTermHighlights(item.explanation)}
+          </div>
+        </div>
+      `;
+    });
+
     optBox.innerHTML = `
-      <div style="text-align:center; padding:1.25rem;">
-        <div style="font-size:2.5rem;">🌟</div>
-        <h3 style="font-size:1.15rem; font-weight:900; color:#15803d; margin-top:0.3rem;">Punt: ${state.quizScore} / ${list.length} (${pct}%)</h3>
-        <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.25rem;">Baie geluk! Stuur jou punt dadelik vir Pappa:</p>
-        <button class="btn-fs-nav" style="margin-top:0.6rem; background:#10b981; color:white; border:none; padding:0.6rem 1.25rem; font-size:0.85rem;" onclick="stuurVirPappa()">
-          📱 Stuur Punt vir Pappa
+      <div style="text-align:center; padding:0.5rem 0.2rem; flex:1; display:flex; flex-direction:column; overflow:hidden;">
+        <div style="display:flex; justify-content:center; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
+          <span style="font-size:2rem;">${pct >= 80 ? '🌟' : (pct >= 60 ? '👍' : '💪')}</span>
+          <div style="text-align:left;">
+            <div style="font-size:1.15rem; font-weight:900; color:${badgeColor};">
+              Punt: ${state.quizScore} / ${list.length} (${pct}%)
+            </div>
+            <div style="font-size:0.68rem; font-weight:800; color:#38bdf8; background:#0f172a; padding:1px 6px; border-radius:6px; display:inline-block;">
+              +50 Kat & Stray Kids XP Gewen! 🐱⚡
+            </div>
+          </div>
+        </div>
+        
+        <p style="font-size:0.75rem; font-weight:700; color:var(--text); line-height:1.3; margin-bottom:0.4rem;">
+          <strong>${messageHeading}</strong> ${messageBody}
+        </p>
+
+        <div style="font-size:0.72rem; font-weight:800; color:var(--text-muted); text-align:left; margin-bottom:0.2rem;">
+          📋 Vraag-vir-Vraag Hersiening (Tik op ligpienk woorde vir betekenis):
+        </div>
+        
+        <div class="quiz-review-scroll" style="flex:1;">
+          ${reviewHtml}
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.35rem; margin-top:0.4rem;">
+          <button class="btn-fs-nav" style="background:#10b981; color:white; border:none; padding:0.55rem; font-size:0.78rem; font-weight:900; justify-content:center;" onclick="stuurVirPappa()">
+            📱 Deel met Pappa
+          </button>
+          <button class="btn-fs-nav" style="background:#3b82f6; color:white; border:none; padding:0.55rem; font-size:0.78rem; font-weight:800; justify-content:center;" onclick="startQuizForSubject('${state.quizMission}')">
+            🔄 Doen Weer
+          </button>
+        </div>
+        <button class="btn-fs-nav" style="margin-top:0.35rem; background:#1e293b; color:white; border:none; padding:0.5rem; font-size:0.78rem; font-weight:800; justify-content:center;" onclick="openProgressView()">
+          📊 Kyk na My Volle Rapport & Punte
         </button>
       </div>
     `;
@@ -3464,7 +3747,7 @@ function renderQuizQuestion() {
   state.quizAnswered = false;
   progText.innerText = `Vraag ${state.quizIdx + 1} van ${list.length} (${q.sub || ''})`;
   scoreText.innerText = `Punt: ${state.quizScore}`;
-  qTitleEl.innerText = q.q;
+  qTitleEl.innerHTML = formatWithTermHighlights(q.q);
 
   optBox.innerHTML = '';
   feedBox.style.display = 'none';
@@ -3483,7 +3766,7 @@ function renderQuizQuestion() {
     btn.style.justifyContent = 'flex-start';
     btn.style.fontSize = '0.82rem';
     btn.style.fontWeight = '700';
-    btn.innerText = opt;
+    btn.innerHTML = formatWithTermHighlights(opt);
     btn.onclick = () => selectQuizAnswer(idx, q);
     optBox.appendChild(btn);
   });
@@ -3497,6 +3780,17 @@ function selectQuizAnswer(selectedIdx, q) {
   const optBox = document.getElementById('quiz-options-container');
   const feedBox = document.getElementById('quiz-feedback-box');
   const nextBtn = document.getElementById('btn-next-quiz');
+
+  // Log to review list
+  if (!state.quizReviewList) state.quizReviewList = [];
+  state.quizReviewList.push({
+    question: q.q,
+    selected: q.options[selectedIdx],
+    correct: q.options[q.answer],
+    isCorrect: isCorrect,
+    explanation: q.expl,
+    sub: q.sub || ''
+  });
 
   Array.from(optBox.children).forEach((btn, idx) => {
     if (idx === q.answer) {
@@ -3518,12 +3812,12 @@ function selectQuizAnswer(selectedIdx, q) {
     feedBox.style.background = '#f0fdf4';
     feedBox.style.border = '1px solid #86efac';
     feedBox.style.color = '#166534';
-    feedBox.innerHTML = `<strong>Uitstekend! 🎉</strong> ${q.expl}`;
+    feedBox.innerHTML = `<strong>Uitstekend! 🎉</strong> ${formatWithTermHighlights(q.expl)}`;
   } else {
     feedBox.style.background = '#fef2f2';
     feedBox.style.border = '1px solid #fca5a5';
     feedBox.style.color = '#991b1b';
-    feedBox.innerHTML = `<strong>Kyk mooi:</strong> ${q.expl}`;
+    feedBox.innerHTML = `<strong>Kyk mooi:</strong> ${formatWithTermHighlights(q.expl)}`;
     
     // Log weakness
     state.weaknessStats[q.sub] = (state.weaknessStats[q.sub] || 0) + 1;
@@ -4210,7 +4504,7 @@ function buildForensicStudyBriefing(isHtml) {
   const badgesCount = Object.keys(state.unlockedBadges || {}).length;
 
   if (isHtml) {
-    let msg = `📊 <b>SPLIZR INTEL • GRAAD 6 EKSAMEN-AODIT</b>
+    let msg = `📊 <b>SPLIZR INTEL • GRAAD 6 EKSAMENOORSIG</b>
 ` +
       `👤 Student: <b>${CURRENT_STUDENT} Buitendach</b>
 ` +
@@ -4286,7 +4580,7 @@ function buildForensicStudyBriefing(isHtml) {
     return msg;
   } else {
     // WhatsApp Plain Text Formatting
-    let msg = `📊 *SPLIZR INTEL • GRAAD 6 EKSAMEN-AODIT* 📊
+    let msg = `📊 *SPLIZR INTEL • GRAAD 6 EKSAMENOORSIG* 📊
 ` +
       `👤 Student: *${CURRENT_STUDENT} Buitendach*
 ` +
@@ -4376,7 +4670,7 @@ async function sendTelegramStudyAlert(customMessage) {
     });
     const resData = await resp.json();
     if (resData.ok) {
-      alert("✈️ Uitvoerende eksamen-aodit suksesvol gestuur na Pa Kevern se Telegram (@splizr_admin_bot)!");
+      alert("✈️ Uitvoerende eksamenoorsig suksesvol gestuur na Pa Kevern se Telegram (@splizr_admin_bot)!");
       state.lastTelegramAutoAlertDate = getStudyPlanStatus().todayStr;
       saveState();
       return true;
@@ -4524,6 +4818,215 @@ function renderBadges() {
   });
 
   grid.innerHTML = html;
+}
+
+// =======================================================
+// PROGRESS TRACKER ENGINE (MY PUNTE & EKSAMENRAPPORT)
+// =======================================================
+function openProgressView() {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  const progTab = document.getElementById('tab-progress');
+  if (progTab) progTab.classList.add('active');
+
+  document.body.classList.add('in-mode');
+  const topNav = document.getElementById('fullscreen-top-nav');
+  if (topNav) topNav.style.display = 'flex';
+  const title = document.getElementById('fs-nav-title');
+  if (title) title.textContent = '📊 My Punte & Rapport';
+
+  const backBtn = document.getElementById('btn-fs-back');
+  if (backBtn) {
+    backBtn.innerHTML = "← Tuis";
+    backBtn.onclick = goHome;
+  }
+
+  renderProgressReport();
+}
+
+function renderProgressReport() {
+  const container = document.getElementById('progress-view-container');
+  if (!container) return;
+
+  const history = state.quizHistory || {};
+  const attemptedMissions = Object.keys(history);
+  
+  // Calculate average
+  let totalPctSum = 0;
+  attemptedMissions.forEach(mid => {
+    totalPctSum += (history[mid].pct || 0);
+  });
+  const avgPct = attemptedMissions.length > 0 ? Math.round(totalPctSum / attemptedMissions.length) : 0;
+  
+  // Flashcard Leitner counts
+  let b1 = 0, b2 = 0, b3 = 0;
+  flashcards.forEach(c => {
+    const b = state.boxStats[c.id] || 1;
+    if (b === 3) b3++;
+    else if (b === 2) b2++;
+    else b1++;
+  });
+  const totalCards = flashcards.length;
+  const cardsMasteredPct = Math.round((b3 / totalCards) * 100);
+
+  // Status badge
+  let statusBadge = "🌱 Begin Oefen";
+  let statusColor = "#3b82f6";
+  if (avgPct >= 80) {
+    statusBadge = "🏆 Eksamen-Gereed (Onderskeiding-Vlak!)";
+    statusColor = "#10b981";
+  } else if (avgPct >= 65) {
+    statusBadge = "📈 Baie Goeie Vordering (Byna Gereed)";
+    statusColor = "#f59e0b";
+  } else if (attemptedMissions.length > 0) {
+    statusBadge = "💪 Hersien Swakker Vakke";
+    statusColor = "#ef4444";
+  }
+
+  let itemsHtml = '';
+  missions.forEach(m => {
+    const qh = history[m.id];
+    const subCards = flashcards.filter(c => c.mid === m.id);
+    const subB3 = subCards.filter(c => (state.boxStats[c.id] || 1) === 3).length;
+    const subPct = subCards.length > 0 ? Math.round((subB3 / subCards.length) * 100) : 0;
+
+    itemsHtml += `
+      <div class="scorecard-item">
+        <div class="scorecard-row-top">
+          <div style="font-weight:900; font-size:0.85rem; color:${m.textDark};">
+            ${m.icon} ${m.name}
+          </div>
+          <span style="font-size:0.68rem; font-weight:800; padding:2px 8px; border-radius:10px; background:${qh ? (qh.pct >= 80 ? '#dcfce7' : (qh.pct >= 60 ? '#fef3c7' : '#fee2e2')) : '#f1f5f9'}; color:${qh ? (qh.pct >= 80 ? '#15803d' : (qh.pct >= 60 ? '#b45309' : '#b91c1c')) : '#64748b'};">
+            ${qh ? `${qh.score}/${qh.total} (${qh.pct}%)` : 'Nog nie getoets nie'}
+          </span>
+        </div>
+        <div class="scorecard-bars">
+          <span>🗂️ Flitskaarte: <strong>${subB3} / ${subCards.length} (${subPct}%)</strong></span>
+          ${qh ? `<span>📅 Getoets: ${qh.date}</span>` : ''}
+        </div>
+        <div style="display:flex; gap:0.35rem; margin-top:0.15rem;">
+          <button class="btn-sim-chip" style="flex:1; background:#f0fdf4; color:#15803d; border-color:#86efac; font-size:0.68rem; font-weight:800;" onclick="startQuizForSubject('${m.id}'); launchSubjectActivity('${m.id}', 'quizzes');">
+            ${qh ? 'Verbeter Punt ↺' : 'Doen Toets ✍️'}
+          </button>
+          <button class="btn-sim-chip" style="flex:1; background:#e0f2fe; color:#0369a1; border-color:#bae6fd; font-size:0.68rem; font-weight:800;" onclick="openSubjectHub('${m.id}')">
+            Vak-Spyskaart ➔
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = `
+    <!-- OVERALL SUMMARY HEADER -->
+    <div class="progress-summary-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:0.68rem; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Eksamenvordering • Hermanstad Gr 6</span>
+          <h2 style="font-size:1.15rem; font-weight:900; color:var(--text);">${CURRENT_STUDENT} se Rapport</h2>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:1.4rem; font-weight:900; color:${avgPct >= 80 ? '#10b981' : (avgPct >= 60 ? '#f59e0b' : '#3b82f6')};">
+            ${avgPct}%
+          </div>
+          <span style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">Gemiddelde Toetspunt</span>
+        </div>
+      </div>
+
+      <div style="margin:0.4rem 0 0.2rem 0; display:flex; gap:0.35rem; flex-wrap:wrap;">
+        <span class="progress-stat-pill" style="color:${statusColor}; border-color:${statusColor};">
+          ${statusBadge}
+        </span>
+        <span class="progress-stat-pill">
+          📝 ${attemptedMissions.length} / 8 Toetse Voltooi
+        </span>
+        <span class="progress-stat-pill">
+          🟢 ${b3} / ${totalCards} Kaarte Bemeester (${cardsMasteredPct}%)
+        </span>
+      </div>
+    </div>
+
+    <!-- SUBJECT SCORECARDS LIST -->
+    <div class="scorecard-grid">
+      ${itemsHtml}
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div style="padding-top:0.4rem; display:flex; gap:0.4rem; flex-shrink:0;">
+      <button class="btn-fs-nav" style="flex:1; justify-content:center; background:#10b981; color:white; border:none; padding:0.55rem; font-weight:900; font-size:0.8rem;" onclick="stuurVirPappa()">
+        📱 Deel Rapport met Pa
+      </button>
+      <button class="btn-fs-nav" style="flex:1; justify-content:center; background:var(--primary-gradient); color:white; border:none; padding:0.55rem; font-weight:800; font-size:0.8rem;" onclick="goHome()">
+        🏠 Terug na Tuis
+      </button>
+    </div>
+  `;
+}
+
+// =======================================================
+// CURRICULUM TERMINOLOGY MODAL & GLOSSARY BROWSER
+// =======================================================
+function showTermDefinition(termKey) {
+  const term = GRADE6_TERMINOLOGY[termKey.toLowerCase()];
+  if (!term) return;
+
+  document.getElementById('term-modal-subject').innerText = term.subject;
+  document.getElementById('term-modal-title').innerText = term.title;
+  document.getElementById('term-modal-def').innerText = term.def;
+  document.getElementById('term-modal-example').innerText = term.example;
+
+  const modal = document.getElementById('term-modal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeTermModal() {
+  const modal = document.getElementById('term-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function openGlossaryModal(filterSubject) {
+  const modal = document.getElementById('glossary-modal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  renderGlossaryList(filterSubject);
+}
+
+function closeGlossaryModal() {
+  const modal = document.getElementById('glossary-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function renderGlossaryList(filterSubject) {
+  const listEl = document.getElementById('glossary-terms-list');
+  if (!listEl) return;
+
+  const search = (document.getElementById('glossary-search-input')?.value || '').toLowerCase().trim();
+  let html = '';
+
+  Object.keys(GRADE6_TERMINOLOGY).forEach(k => {
+    const item = GRADE6_TERMINOLOGY[k];
+    if (filterSubject && !item.subject.toLowerCase().includes(filterSubject.toLowerCase())) return;
+    if (search && !item.title.toLowerCase().includes(search) && !item.def.toLowerCase().includes(search)) return;
+
+    html += `
+      <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:8px; padding:0.5rem 0.65rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:0.85rem; font-weight:900; color:#9d174d;">${item.title}</span>
+          <span style="font-size:0.65rem; font-weight:800; color:#be185d; background:white; padding:1px 6px; border-radius:10px;">${item.subject}</span>
+        </div>
+        <p style="font-size:0.75rem; color:#1f2937; line-height:1.3; margin-top:0.2rem;">${item.def}</p>
+        <p style="font-size:0.72rem; color:#15803d; font-weight:700; margin-top:0.15rem;">💡 ${item.example}</p>
+      </div>
+    `;
+  });
+
+  if (!html) {
+    html = `<p style="font-size:0.78rem; color:#64748b; text-align:center; padding:1rem;">Geen begrippe gevind vir '${search}' nie.</p>`;
+  }
+
+  listEl.innerHTML = html;
+}
+
+function filterGlossaryTerms() {
+  renderGlossaryList();
 }
 
 function openRewardsView() {
