@@ -1,9 +1,8 @@
 {
-  "name": "Shenique Buitendach – Graad 6 Eksamen-Afrigter",
+  "name": "Shenique Graad 6 Eksamen",
   "short_name": "Shenique Gr6",
   "start_url": "./index.html",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#fdf2f8",
   "theme_color": "#ec4899",
   "icons": [
