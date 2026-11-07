@@ -1,0 +1,27 @@
+{
+  "name": "Graad 6 Eksamen-Afrigter – Laerskool Hermanstad",
+  "short_name": "Gr6 Eksamen",
+  "description": "Amptelike Graad 6 Eksamen Hersieningstoepassing vir Laerskool Hermanstad",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fdf2f8",
+  "theme_color": "#ec4899",
+  "lang": "af",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
