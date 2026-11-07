@@ -178,6 +178,59 @@ main.viewport {
   border-color: #0284c7;
 }
 
+
+/* DAILY REMINDER CARD (WHAT TO DO FOR THE DAY PRESENT) */
+.daily-reminder-card {
+  background: linear-gradient(135deg, #fff1f2 0%, #fdf2f8 100%);
+  border: 1.5px solid #fbcfe8;
+  border-left: 5px solid #ec4899;
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.35rem;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+.daily-reminder-badge {
+  font-size: 0.62rem;
+  font-weight: 900;
+  color: #be185d;
+  background: #fce7f3;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.02em;
+}
+.daily-reminder-title {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #831843;
+  line-height: 1.25;
+}
+.daily-reminder-task {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #475569;
+  margin: 0.2rem 0 0.35rem 0;
+  line-height: 1.35;
+}
+.btn-daily-action {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: 0 1px 4px rgba(236, 72, 153, 0.25);
+  transition: all 0.15s ease;
+}
+.btn-daily-action:active { transform: scale(0.96); }
+
 /* SCREEN 1: COMPACT SUBJECT LIST */
 .subject-list-wrap {
   flex: 1;
@@ -625,17 +678,19 @@ main.viewport {
         </div>
         <div class="sim-test-buttons">
           <button class="btn-sim-chip active" id="chip-today" onclick="setSimulatedTime(null)">Vandag</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-10T14:05:00')">10 Nov 14:05 (Geskiedenis klaar)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-11T14:05:00')">11 Nov 14:05 (Wiskunde V1 klaar)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-12T14:05:00')">12 Nov 14:05 (Afrikaans klaar)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-13T14:05:00')">13 Nov 14:05 (English klaar)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-16T14:05:00')">16 Nov 14:05 (Geografie klaar)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-17T14:05:00')">17 Nov 14:05 (Wiskunde V2 klaar)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-19T14:05:00')">19 Nov 14:05 (NW&T klaar)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-24T14:05:00')">24 Nov 14:05 (Alles klaar 🎉)</button>
+          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-10T14:05:00')">10 Nov 14:05 (Geskiedenis)</button>
+          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-11T14:05:00')">11 Nov 14:05 (Wiskunde V1)</button>
+          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-12T14:05:00')">12 Nov 14:05 (Afrikaans)</button>
+          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-13T14:05:00')">13 Nov 14:05 (English)</button>
+          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-16T14:05:00')">16 Nov 14:05 (Geografie)</button>
+          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-17T14:05:00')">17 Nov 14:05 (Wiskunde V2)</button>
+          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-19T14:05:00')">19 Nov 14:05 (NW&T)</button>
+          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-24T14:05:00')">24 Nov 14:05 (Eksamens Voltooi 🎉)</button>
         </div>
       </div>
 
+      <!-- DAILY REMINDER CARD (WHAT TO DO FOR THE DAY PRESENT) -->
+      <div class="daily-reminder-card" id="daily-reminder-card"></div>
       <!-- THE COMPACT SUBJECT LIST (FITS ON SCREEN, NEXT SUBJECT AT TOP) -->
       <div class="subject-list-wrap" id="mission-list-container"></div>
     </section>
@@ -1726,8 +1781,74 @@ function setSimulatedTime(timeStr) {
   renderMissions();
 }
 
+
+// --- DAILY ACTION PLAN: REMIND HER WHAT TO DO FOR THE DAY PRESENT ---
+function renderDailyReminder() {
+  const container = document.getElementById('daily-reminder-card');
+  if (!container) return;
+
+  const now = state.simulatedTime ? new Date(state.simulatedTime) : new Date();
+  const activeMissions = missions.filter(m => !isExamCompleted(m.date));
+  activeMissions.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const daysOfWeek = ['Sondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrydag', 'Saterdag'];
+  const months = ['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'];
+  const dayName = daysOfWeek[now.getDay()];
+  const dateStr = `${dayName} ${now.getDate()} ${months[now.getMonth()]}`;
+
+  if (activeMissions.length === 0) {
+    container.innerHTML = `
+      <div class="daily-reminder-badge" style="background:#dcfce7; color:#15803d;">🎉 ALLES VOLTOOI</div>
+      <div class="daily-reminder-title">Baie Geluk, ${CURRENT_STUDENT}! 🏆</div>
+      <div class="daily-reminder-task">Al jou Graad 6 eksamens is suksesvol voltooi! Jy het soos 'n kampioen gewerk. Rus lekker uit!</div>
+    `;
+    return;
+  }
+
+  const nextExam = activeMissions[0];
+  const examStart = new Date(nextExam.date + 'T08:00:00');
+  const todayZero = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const examZero = new Date(examStart.getFullYear(), examStart.getMonth(), examStart.getDate());
+  const diffDays = Math.round((examZero - todayZero) / (1000 * 60 * 60 * 24));
+
+  let badge = '';
+  let title = '';
+  let task = '';
+  let btnText = 'Begin Vandag se Hersiening 🚀';
+
+  if (diffDays === 0) {
+    badge = '🚨 VANDAG SE EKSAMEN';
+    title = `${dateStr}: ${nextExam.icon} ${nextExam.name.replace(/^Missie \d+:\s*/, "")}`;
+    task = `Jy skryf ${nextExam.name} vanoggend om 08:00! Haal diep asem, lees elke vraag twee keer, en onthou: Pappa glo in jou!`;
+    btnText = `Open ${nextExam.name.replace(/^Missie \d+:\s*/, "")} 📝`;
+  } else if (diffDays === 1) {
+    badge = '⚠️ MÔRE IS EKSAMEN';
+    title = `${dateStr}: ${nextExam.icon} ${nextExam.name.replace(/^Missie \d+:\s*/, "")}`;
+    task = `Môreoggend 08:00 skryf jy ${nextExam.name}! Kyk vandag die video, skuif 10 kaarte na Groen en slaap vroeg.`;
+    btnText = `Oefen ${nextExam.name.replace(/^Missie \d+:\s*/, "")} NOU ⚡`;
+  } else {
+    badge = `🎯 VANDAG SE HERINNERING (${diffDays} dae oor)`;
+    title = `${dateStr}: ${nextExam.icon} ${nextExam.name.replace(/^Missie \d+:\s*/, "")}`;
+    task = `Vandag se fokus: Kyk die ${nextExam.name.replace(/^Missie \d+:\s*/, "")} klas-video en bemeester minstens 10 flitskaarte voor 15:30!`;
+    btnText = `Begin ${nextExam.name.replace(/^Missie \d+:\s*/, "")} 🚀`;
+  }
+
+  container.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span class="daily-reminder-badge">${badge}</span>
+      <span style="font-size:0.68rem; font-weight:800; color:#db2777;">📖 ${nextExam.pages.startsWith("Bl.") ? nextExam.pages : "Bl. " + nextExam.pages}</span>
+    </div>
+    <div class="daily-reminder-title">${title}</div>
+    <div class="daily-reminder-task">${task}</div>
+    <button class="btn-daily-action" onclick="openSubjectHub('${nextExam.id}')">
+      ${btnText}
+    </button>
+  `;
+}
+
 // --- SCREEN 1: RENDER MISSIONS (UPCOMING EXAM ON TOP) ---
 function renderMissions() {
+  renderDailyReminder();
   const container = document.getElementById('mission-list-container');
   if (!container) return;
   container.innerHTML = '';
@@ -1787,7 +1908,7 @@ function renderMissions() {
     toggleBtn.style.margin = '0.3rem 0';
     toggleBtn.style.width = '100%';
     toggleBtn.style.justifyContent = 'center';
-    toggleBtn.innerHTML = state.showCompletedExams ? '🙈 Versteek klaargeskrewe vakke' : `📂 Wys ${completedMissions.length} klaargeskrewe vakke`;
+    toggleBtn.innerHTML = state.showCompletedExams ? '🙈 Versteek vorige vakke' : `📂 Wys ${completedMissions.length} vorige vakke`;
     toggleBtn.onclick = () => {
       state.showCompletedExams = !state.showCompletedExams;
       renderMissions();
@@ -1808,11 +1929,11 @@ function renderMissions() {
             </div>
             <div class="subject-card-info">
               <h3>${m.name}</h3>
-              <p>📅 Klaar op ${m.dateStr}</p>
+              <p>📅 ${m.dateStr}</p>
             </div>
           </div>
           <div class="subject-card-right">
-            <span class="countdown-badge badge-done">✓ Klaar</span>
+            <span class="countdown-badge badge-done">✓ Geskryf</span>
             <span style="color:#64748b; font-weight:900;">➔</span>
           </div>
         `;
