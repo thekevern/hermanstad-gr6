@@ -132,6 +132,274 @@ header.app-bar {
   gap: 0.32rem;
 }
 
+/* BULLETPROOF QUESTION BOX & OPTIONS VISIBILITY (LIGHT & DARK MODE) */
+.quiz-question-box {
+  background: #ffffff !important;
+  border: 2px solid #cbd5e1 !important;
+  border-radius: 14px !important;
+  padding: 0.85rem !important;
+  margin-bottom: 0.45rem !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+.quiz-question-text {
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+  color: #0f172a !important; /* Deep slate black for 100% readability */
+}
+body.theme-dark .quiz-question-box {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+}
+body.theme-dark .quiz-question-text {
+  color: #f8fafc !important; /* Crisp brilliant white */
+}
+
+.quiz-opt-card {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 2px solid #cbd5e1 !important;
+  border-radius: 12px !important;
+  padding: 0.65rem 0.85rem !important;
+  text-align: left !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.55rem !important;
+  cursor: pointer !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+  transition: all 0.15s ease !important;
+  touch-action: manipulation !important;
+}
+.quiz-opt-card:active {
+  transform: scale(0.985) !important;
+}
+.quiz-opt-badge {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 7px !important;
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+  font-size: 0.78rem !important;
+  font-weight: 900 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+.quiz-opt-label {
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.35 !important;
+}
+
+body.theme-dark .quiz-opt-card {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #475569 !important;
+}
+body.theme-dark .quiz-opt-badge {
+  background: #334155 !important;
+  color: #f1f5f9 !important;
+}
+body.theme-dark .quiz-opt-label {
+  color: #f8fafc !important;
+}
+
+/* Feedback states */
+.quiz-opt-card.is-correct {
+  background: #dcfce7 !important;
+  border-color: #10b981 !important;
+  color: #14532d !important;
+}
+.quiz-opt-card.is-correct .quiz-opt-badge {
+  background: #10b981 !important;
+  color: white !important;
+}
+.quiz-opt-card.is-correct .quiz-opt-label {
+  color: #14532d !important;
+}
+body.theme-dark .quiz-opt-card.is-correct {
+  background: rgba(16, 185, 129, 0.28) !important;
+  border-color: #34d399 !important;
+  color: #86efac !important;
+}
+body.theme-dark .quiz-opt-card.is-correct .quiz-opt-label {
+  color: #86efac !important;
+}
+
+.quiz-opt-card.is-wrong {
+  background: #fee2e2 !important;
+  border-color: #ef4444 !important;
+  color: #7f1d1d !important;
+}
+.quiz-opt-card.is-wrong .quiz-opt-badge {
+  background: #ef4444 !important;
+  color: white !important;
+}
+.quiz-opt-card.is-wrong .quiz-opt-label {
+  color: #7f1d1d !important;
+}
+body.theme-dark .quiz-opt-card.is-wrong {
+  background: rgba(239, 68, 68, 0.28) !important;
+  border-color: #f87171 !important;
+  color: #fca5a5 !important;
+}
+body.theme-dark .quiz-opt-card.is-wrong .quiz-opt-label {
+  color: #fca5a5 !important;
+}
+
+/* FLASHCARD VISIBILITY */
+.fc-card-box {
+  background: #ffffff !important;
+  border: 2px solid #cbd5e1 !important;
+}
+body.theme-dark .fc-card-box {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+#card-q-text {
+  color: #0f172a !important;
+}
+body.theme-dark #card-q-text {
+  color: #f8fafc !important;
+}
+
+/* SIMULATOR QUESTION CARD VISIBILITY */
+.sim-question-card {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 2px solid #cbd5e1 !important;
+}
+body.theme-dark .sim-question-card {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+.sim-question-card label {
+  color: inherit !important;
+}
+.sim-question-card textarea {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+}
+body.theme-dark .sim-question-card textarea {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  border-color: #475569 !important;
+}
+
+/* FUN & UNCLUTTERED HERO CARD */
+.fun-math-hero-card {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fae8ff 50%, #eff6ff 100%);
+  border: 2px solid #f472b6;
+  border-radius: var(--radius-lg);
+  padding: 0.85rem;
+  margin-bottom: 0.55rem;
+  box-shadow: 0 4px 14px rgba(236, 72, 153, 0.15);
+}
+body.theme-dark .fun-math-hero-card {
+  background: linear-gradient(135deg, rgba(131, 24, 67, 0.35) 0%, rgba(30, 27, 75, 0.45) 100%);
+  border-color: #ec4899;
+}
+.fun-hero-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+}
+.fun-xp-badge {
+  font-size: 0.65rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ec4899, #f59e0b);
+  color: white;
+  padding: 0.2rem 0.55rem;
+  border-radius: 12px;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.fun-progress-box {
+  background: white;
+  border-radius: 10px;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #fbcfe8;
+  margin: 0.4rem 0;
+}
+body.theme-dark .fun-progress-box {
+  background: #1e1e2d;
+  border-color: #4c1d24;
+}
+.fun-progress-track {
+  width: 100%;
+  height: 10px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+}
+body.theme-dark .fun-progress-track {
+  background: #334155;
+  border-color: #475569;
+}
+.fun-progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6);
+  transition: width 0.4s ease;
+}
+.btn-fun-hero {
+  flex: 1;
+  padding: 0.55rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.15s ease;
+  touch-action: manipulation;
+}
+.btn-fun-hero.primary {
+  background: var(--primary-gradient);
+  color: white;
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.3);
+}
+.btn-fun-hero.secondary {
+  background: #0284c7;
+  color: white;
+}
+.btn-fun-hero:active {
+  transform: scale(0.97);
+}
+
+/* SECONDARY SUBJECTS ACCORDION (UNCLUTTERED) */
+.secondary-subjects-accordion {
+  margin-top: 0.5rem;
+}
+.btn-toggle-secondary {
+  width: 100%;
+  background: #f8fafc;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #475569;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+body.theme-dark .btn-toggle-secondary {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
 /* STATUTORY CODE RED WISKUNDE & PROMOTION CSS */
 .statutory-emergency-box {
   background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
@@ -1588,40 +1856,53 @@ body.theme-dark .badge-skz-tag {
   <!-- MAIN VIEWPORT CONTAINER -->
   <main class="viewport">
 
-    <!-- SCREEN 1: SUBJECT PICKER (KALENDER & VAKKE LYS) -->
+    <!-- SCREEN 1: UNCLUTTERED, FUN & FOCUSED ON MATH -->
     <section id="tab-calendar" class="tab-content active">
-      <!-- 14:00 CUTOFF TEST BAR -->
-      <div class="sim-test-bar">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.15rem;">
-          <span style="font-weight:700; color:#475569;">🧪 14:00 Afsny Toets:</span>
-          <span style="color:#0369a1; font-weight:800;" id="sim-time-label">Werklike Tyd (Vandag)</span>
-        </div>
-        <div class="sim-test-buttons">
-          <button class="btn-sim-chip active" id="chip-today" onclick="setSimulatedTime(null)">Vandag</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-10T14:05:00')">10 Nov 14:05 (Geskiedenis)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-11T14:05:00')">11 Nov 14:05 (Wiskunde V1)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-12T14:05:00')">12 Nov 14:05 (Afrikaans)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-13T14:05:00')">13 Nov 14:05 (English)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-16T14:05:00')">16 Nov 14:05 (Geografie)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-17T14:05:00')">17 Nov 14:05 (Wiskunde V2)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-19T14:05:00')">19 Nov 14:05 (NW&T)</button>
-          <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-24T14:05:00')">24 Nov 14:05 (Eksamens Voltooi 🎉)</button>
-        </div>
-      </div>
-
-      <!-- STATUTORY EMERGENCY WISKUNDE BANNER -->
+      <!-- HERO: FUN STRAY KIDS & CAT MATH ADVENTURE (UNCLUTTERED) -->
       <div id="statutory-wiskunde-banner"></div>
 
-      <!-- DYNAMIC DAILY STUDY PLAN & CATCH-UP ENGINE -->
+      <!-- 3-STEP DAILY MATH QUESTS (CLEAN & NON-INTIMIDATING) -->
       <div id="daily-study-plan-card"></div>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin:0.35rem 0 0.15rem 0;">
-        <span style="font-size:0.75rem; font-weight:800; color:#475569;">📚 Eksamenvakke (08:00 - 14:00)</span>
-        <button class="btn-sim-chip" style="background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5; font-size:0.68rem; font-weight:800; padding:0.22rem 0.5rem;" onclick="clearProgressAndRestart()">
-          🔄 Begin Oor / Maak Skoon
+
+      <!-- COLLAPSIBLE SECONDARY SUBJECTS (TUCKED AWAY SO SCREEN IS SERENE) -->
+      <div class="secondary-subjects-accordion">
+        <button class="btn-toggle-secondary" onclick="toggleSecondarySubjects()">
+          <span>📚 Ander Eksamenvakke (Geskiedenis, Geografie, NWT, Tale)</span>
+          <span id="secondary-arrow-icon" style="transition:transform 0.2s;">▼</span>
         </button>
+        <div id="secondary-subjects-tray" style="display:none; margin-top:0.4rem;">
+          <div class="subject-list-wrap" id="mission-list-container"></div>
+        </div>
       </div>
-      <!-- THE COMPACT SUBJECT LIST (FITS ON SCREEN, NEXT SUBJECT AT TOP) -->
-      <div class="subject-list-wrap" id="mission-list-container"></div>
+
+      <!-- DISCREET DEV OPTIONS (COLLAPSED AT BOTTOM OUT OF CHILD'S VIEW) -->
+      <details style="margin-top:1rem; opacity:0.65;">
+        <summary style="font-size:0.68rem; color:var(--text-muted); cursor:pointer; text-align:center;">
+          ⚙️ Toets & Simulasie Opsies (Ontwikkelaar)
+        </summary>
+        <div class="sim-test-bar" style="margin-top:0.3rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.15rem;">
+            <span style="font-weight:700; color:#475569;">🧪 14:00 Afsny Toets:</span>
+            <span style="color:#0369a1; font-weight:800;" id="sim-time-label">Werklike Tyd (Vandag)</span>
+          </div>
+          <div class="sim-test-buttons">
+            <button class="btn-sim-chip active" id="chip-today" onclick="setSimulatedTime(null)">Vandag</button>
+            <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-10T14:05:00')">10 Nov 14:05 (Geskiedenis)</button>
+            <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-11T14:05:00')">11 Nov 14:05 (Wiskunde V1)</button>
+            <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-12T14:05:00')">12 Nov 14:05 (Afrikaans)</button>
+            <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-13T14:05:00')">13 Nov 14:05 (English)</button>
+            <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-16T14:05:00')">16 Nov 14:05 (Geografie)</button>
+            <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-17T14:05:00')">17 Nov 14:05 (Wiskunde V2)</button>
+            <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-19T14:05:00')">19 Nov 14:05 (NW&T)</button>
+            <button class="btn-sim-chip" onclick="setSimulatedTime('2026-11-24T14:05:00')">24 Nov 14:05 (Eksamens Voltooi 🎉)</button>
+          </div>
+          <div style="text-align:right; margin-top:0.3rem;">
+            <button class="btn-sim-chip" style="background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5;" onclick="clearProgressAndRestart()">
+              🔄 Begin Oor / Maak Skoon
+            </button>
+          </div>
+        </div>
+      </details>
     </section>
 
     <!-- SCREEN 2: SUBJECT HUB (DIE VAK-KEUSESKERM) -->
@@ -1703,21 +1984,24 @@ body.theme-dark .badge-skz-tag {
 
     <!-- SCREEN 3C: TOETS / VASVRA -->
     <section id="tab-quizzes" class="tab-content">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem; flex-shrink:0;">
-        <span style="font-size:0.75rem; font-weight:800; color:var(--primary-dark);" id="quiz-progress-text">Vraag</span>
-        <span style="font-size:0.75rem; font-weight:800; color:#10b981;" id="quiz-score-text">Punt: 0</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem; flex-shrink:0;">
+        <span style="font-size:0.78rem; font-weight:800; color:var(--primary-dark);" id="quiz-progress-text">Vraag</span>
+        <span style="font-size:0.78rem; font-weight:900; color:#10b981;" id="quiz-score-text">Punt: 0</span>
       </div>
 
-      <div style="background:white; border-radius:10px; border:1.5px solid var(--border); padding:0.75rem; margin-bottom:0.4rem; flex-shrink:0;">
-        <h4 style="font-size:0.92rem; font-weight:800; line-height:1.35; color:var(--text);" id="quiz-q-title"></h4>
+      <!-- HIGH-CONTRAST QUESTION BOX (100% VISIBLE TEXT IN LIGHT & DARK MODE) -->
+      <div class="quiz-question-box">
+        <h4 class="quiz-question-text" id="quiz-q-title"></h4>
       </div>
 
-      <div id="quiz-options-container" style="display:flex; flex-direction:column; gap:0.35rem; flex:1;"></div>
+      <!-- HIGH-CONTRAST OPTIONS CONTAINER -->
+      <div id="quiz-options-container" style="display:flex; flex-direction:column; gap:0.4rem; flex:1;"></div>
       
-      <div id="quiz-feedback-box" style="display:none; margin:0.35rem 0; padding:0.6rem; border-radius:8px; font-size:0.78rem; line-height:1.4; flex-shrink:0;"></div>
+      <!-- FEEDBACK BOX -->
+      <div id="quiz-feedback-box" style="display:none; margin:0.35rem 0; padding:0.65rem; border-radius:10px; font-size:0.82rem; line-height:1.4; flex-shrink:0;"></div>
 
       <div style="padding-top:0.35rem; flex-shrink:0;">
-        <button class="btn-fs-nav" id="btn-next-quiz" style="width:100%; justify-content:center; padding:0.6rem; background:var(--primary-gradient); color:white; border:none; font-size:0.85rem;" onclick="nextQuizQuestion()">
+        <button class="btn-fs-nav" id="btn-next-quiz" style="width:100%; justify-content:center; padding:0.65rem; background:var(--primary-gradient); color:white; border:none; font-size:0.88rem; font-weight:900;" onclick="nextQuizQuestion()">
           Volgende Vraag ➔
         </button>
       </div>
@@ -4044,18 +4328,8 @@ function renderQuizQuestion() {
 
   q.options.forEach((opt, idx) => {
     const btn = document.createElement('button');
-    btn.className = 'btn-hub-arrow';
-    btn.style.background = 'white';
-    btn.style.color = 'var(--text)';
-    btn.style.border = '1.5px solid var(--border)';
-    btn.style.borderRadius = 'var(--radius-md)';
-    btn.style.padding = '0.55rem 0.75rem';
-    btn.style.textAlign = 'left';
-    btn.style.width = '100%';
-    btn.style.justifyContent = 'flex-start';
-    btn.style.fontSize = '0.82rem';
-    btn.style.fontWeight = '700';
-    btn.innerHTML = formatWithTermHighlights(opt);
+    btn.className = 'quiz-opt-card';
+    btn.innerHTML = `<span class="quiz-opt-badge">${String.fromCharCode(65 + idx)}</span> <span class="quiz-opt-label">${formatWithTermHighlights(opt)}</span>`;
     btn.onclick = () => selectQuizAnswer(idx, q);
     optBox.appendChild(btn);
   });
@@ -4082,16 +4356,14 @@ function selectQuizAnswer(selectedIdx, q) {
   });
 
   Array.from(optBox.children).forEach((btn, idx) => {
+    btn.disabled = true;
+    const badge = btn.querySelector('.quiz-opt-badge');
     if (idx === q.answer) {
-      btn.style.background = '#dcfce7';
-      btn.style.borderColor = '#10b981';
-      btn.style.color = '#15803d';
-      btn.innerText += ' ✓';
+      btn.classList.add('is-correct');
+      if (badge) badge.innerText = '✓';
     } else if (idx === selectedIdx && !isCorrect) {
-      btn.style.background = '#fee2e2';
-      btn.style.borderColor = '#ef4444';
-      btn.style.color = '#b91c1c';
-      btn.innerText += ' ✗';
+      btn.classList.add('is-wrong');
+      if (badge) badge.innerText = '✗';
     }
   });
 
@@ -4563,87 +4835,84 @@ function playSound(type) {
 
 // =======================================================
 // =======================================================
-// STATUTORY WISKUNDE EMERGENCY BANNER & 71% TARGET TRACKER
+// FUN STRAY KIDS & CAT MATH ADVENTURE (UNCLUTTERED)
 // =======================================================
 function renderStatutoryWiskundeBanner() {
   const container = document.getElementById('statutory-wiskunde-banner');
   if (!container) return;
 
   const history = state.quizHistory || {};
-  const qhM2 = history['m2']; // Wiskunde V1
-  const qhM6 = history['m6']; // Wiskunde V2
+  const qhM2 = history['m2'];
+  const qhM6 = history['m6'];
 
   let mathPctSum = 0;
   let mathCount = 0;
   if (qhM2) { mathPctSum += qhM2.pct; mathCount++; }
   if (qhM6) { mathPctSum += qhM6.pct; mathCount++; }
   const currentMathAvg = mathCount > 0 ? Math.round(mathPctSum / mathCount) : 0;
-
-  // SBA calculation (80% SBA / 20% Exam):
-  // SBA = 32.33%
-  // Projected Final = (32.33 * 0.80) + (currentMathAvg * 0.20)
   const projectedFinal = Math.round((32.33 * 0.80) + (currentMathAvg * 0.20));
-  const targetExamPct = 71; // 70.7% rounded
-  const targetFinalPct = 40;
 
-  const isPassing = projectedFinal >= targetFinalPct;
+  const targetExamPct = 71;
+  const isPassing = projectedFinal >= 40;
   const targetReached = currentMathAvg >= targetExamPct;
   const gaugeFillPct = Math.min(100, Math.round((currentMathAvg / targetExamPct) * 100));
 
   let html = `
-    <div class="statutory-emergency-box">
-      <div class="stat-banner-top">
+    <div class="fun-math-hero-card">
+      <div class="fun-hero-header">
         <div style="display:flex; align-items:center; gap:0.4rem;">
-          <span class="stat-pulse-circle"></span>
-          <span style="font-size:0.78rem; font-weight:900; color:#b91c1c; letter-spacing:0.02em;">
-            🚨 STATUTÊRE NOOD-AANDAG: WISKUNDE KODE ROOI (HEKKIEVAK)
-          </span>
+          <span style="font-size:1.4rem;">🐱</span>
+          <div>
+            <h2 style="font-size:0.95rem; font-weight:900; color:#831843; margin:0;">
+              ${CURRENT_STUDENT} se Wiskunde Avontuur! ✨
+            </h2>
+            <span style="font-size:0.68rem; font-weight:700; color:#be185d;">
+              Soonie, Doongie & Stray Kids vuur jou aan! 🐾
+            </span>
+          </div>
         </div>
-        <span class="stat-badge-crit">DOELWIT: 71%</span>
+        <span class="fun-xp-badge">🔥 2X DUBBEL XP</span>
       </div>
 
-      <p class="stat-banner-desc">
-        Wiskunde is 'n <strong>verpligte slaagvak</strong> om na Graad 7 bevorder te word. 
-        Weens jou Kwartaal 3 afwesigheid (12 dae siek) is jou SBA <strong>32.3%</strong>. 
-        Jy moet <strong>minstens 71% op Vraestel 1 & 2 kry</strong> om jou 40% finale slaagpunt te verseker!
+      <p style="font-size:0.75rem; color:#475569; line-height:1.35; margin:0.4rem 0;">
+        Wiskunde is jou superkrag-vak! Ons mik vir <strong>${targetExamPct}%</strong> op die eksamen sodat jy met vlieënde vaandels na Graad 7 gaan.
       </p>
 
-      <div class="stat-gauge-card">
-        <div class="stat-gauge-header">
-          <span>🎯 Wiskunde Eksamendoel: <strong>${targetExamPct}%</strong></span>
-          <span style="color:${targetReached ? '#15803d' : '#b91c1c'}; font-weight:900;">
-            ${mathCount > 0 ? `Huidige App-Gemiddeld: ${currentMathAvg}%` : 'Nog nie getoets nie (0%)'}
-          </span>
+      <div class="fun-progress-box">
+        <div style="display:flex; justify-content:space-between; font-size:0.7rem; font-weight:800; margin-bottom:0.25rem;">
+          <span style="color:#1e293b;">🎯 Eksamendoelwit: <strong>${targetExamPct}%</strong></span>
+          <span style="color:#0284c7;">Huidige Toetspunt: <strong>${currentMathAvg > 0 ? currentMathAvg + '%' : 'Begin nou!'}</strong></span>
         </div>
-        <div class="stat-bar-track">
-          <div class="stat-bar-fill" style="width: ${gaugeFillPct}%; background:${targetReached ? '#10b981' : (currentMathAvg >= 50 ? '#f59e0b' : '#ef4444')};"></div>
-          <div class="stat-bar-target-marker" style="left: 100%;" title="Eksamendoelwit: 71%"></div>
+        <div class="fun-progress-track">
+          <div class="fun-progress-fill" style="width:${gaugeFillPct}%;"></div>
         </div>
-        <div class="stat-gauge-footer">
-          <span>Geprojekteerde Finale Jaarpunt: <strong style="color:${isPassing ? '#15803d' : '#b91c1c'};">${projectedFinal}%</strong> (Min. benodig: 40%)</span>
-          <span>${isPassing ? '✅ Slaag-vlak bereik!' : `⚠️ Benodig nog ${Math.max(0, targetExamPct - currentMathAvg)}% op eksamen`}</span>
+        <div style="display:flex; justify-content:space-between; font-size:0.65rem; font-weight:700; color:#64748b; margin-top:0.2rem;">
+          <span>Geprojekteerde Jaarpunt: <strong style="color:${isPassing ? '#15803d' : '#e11d48'};">${projectedFinal}%</strong> (Min. benodig: 40%)</span>
+          <span>${targetReached ? '🎉 Doelwit bereik!' : 'Bly vorder!'}</span>
         </div>
       </div>
 
-      <div class="stat-xp-multiplier-pill">
-        <span>🔥 <strong>2X DUBBEL XP AKTIEF:</strong> Verdien dubbele punte en spesiale kentekens vir alle Wiskunde-oefening!</span>
-      </div>
-
-      <div class="stat-actions-row">
-        <button class="btn-stat-act primary" onclick="launchTaskActivity('m2', 'quizzes', 'math_v1_drill')">
-          ⚡ Wiskunde V1 (11 Nov)
+      <div style="display:flex; gap:0.35rem; margin-top:0.5rem;">
+        <button class="btn-fun-hero primary" onclick="launchTaskActivity('m2', 'klas', 'quick_math_v1')">
+          🚀 Speel Wiskunde V1 (11 Nov) ▶
         </button>
-        <button class="btn-stat-act secondary" onclick="launchTaskActivity('m6', 'quizzes', 'math_v2_drill')">
+        <button class="btn-fun-hero secondary" onclick="launchTaskActivity('m6', 'klas', 'quick_math_v2')">
           ⚡ Wiskunde V2 (17 Nov)
-        </button>
-        <button class="btn-stat-act outline" onclick="openProgressView()">
-          📊 Statutêre Rapport ➔
         </button>
       </div>
     </div>
   `;
 
   container.innerHTML = html;
+}
+
+function toggleSecondarySubjects() {
+  const tray = document.getElementById('secondary-subjects-tray');
+  const arrow = document.getElementById('secondary-arrow-icon');
+  if (!tray) return;
+  const isHidden = tray.style.display === 'none';
+  tray.style.display = isHidden ? 'block' : 'none';
+  if (arrow) arrow.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
 }
 
 // DAILY STUDY PLAN & STRICT CATCH-UP ENGINE
@@ -4684,111 +4953,69 @@ function renderDailyStudyPlan() {
 
   const status = getStudyPlanStatus();
 
+  // Show up to 3 prioritized quests for today (leaning heavily on Math)
+  const allAvailable = [...status.overdueTasks, ...status.todayTasks];
+  // Sort so Math (m2, m6) is always top
+  allAvailable.sort((a, b) => {
+    const aMath = (a.subjectId === 'm2' || a.subjectId === 'm6') ? 1 : 0;
+    const bMath = (b.subjectId === 'm2' || b.subjectId === 'm6') ? 1 : 0;
+    return bMath - aMath;
+  });
+  const focusTasks = allAvailable.slice(0, 3);
+  const doneCount = focusTasks.filter(t => state.taskCompletions[t.id]).length;
+
   let html = `
-    <div class="study-plan-card">
-      <div class="plan-header">
-        <div class="plan-title-badge">
-          <span>📋</span>
-          <span>VANDAG SE STUDIEPLAN (${status.dateDisplay})</span>
+    <div class="study-plan-card" style="border:1.5px solid #fbcfe8; background:white; border-radius:14px; padding:0.75rem 0.85rem; margin-bottom:0.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+        <div style="display:flex; align-items:center; gap:0.35rem;">
+          <span style="font-size:1rem;">⭐</span>
+          <span style="font-size:0.78rem; font-weight:900; color:#831843;">VANDAG SE 3 PRET-TAKE (${status.dateDisplay})</span>
         </div>
-        <span style="font-size:0.68rem; font-weight:800; background:#fce7f3; color:#db2777; padding:0.15rem 0.45rem; border-radius:10px;">
-          ${status.todayCompleted} / ${status.todayTasks.length} Voltooi
+        <span style="font-size:0.68rem; font-weight:800; background:#fce7f3; color:#db2777; padding:0.15rem 0.5rem; border-radius:10px;">
+          ${doneCount} / ${focusTasks.length} Voltooi
         </span>
       </div>
+
+      <div class="task-list" style="display:flex; flex-direction:column; gap:0.35rem;">
   `;
 
-  // OVERDUE / CATCH-UP WARNING SECTION
-  if (status.isBehind) {
+  if (focusTasks.length === 0) {
     html += `
-      <div class="behind-alert-box">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-size:0.75rem; font-weight:900; color:#b91c1c;">⚠️ JY IS AGTER MET JOU STUDIEPLAN!</span>
-          <span style="font-size:0.65rem; font-weight:900; background:#ef4444; color:white; padding:0.15rem 0.45rem; border-radius:8px;">
-            ${status.totalBehind} INHAAL-TAAK${status.totalBehind > 1 ? 'E' : ''}
-          </span>
-        </div>
-        <p style="font-size:0.68rem; color:#7f1d1d; line-height:1.25;">
-          Moenie stres nie! Die agterstallige werk is hieronder bo-aan jou plan bygevoeg sodat jy dadelik kan inhaal.
-        </p>
-        <div class="plan-actions-bar">
-          <button class="btn-plan-alert" style="background:#25D366;" onclick="sendBehindWhatsApp()">
-            📱 Stuur Agterstand vir Pa
-          </button>
-          <button class="btn-plan-alert" style="background:#0088cc;" onclick="sendTelegramStudyAlert()">
-            ✈️ Rapporteer na Telegram
-          </button>
-        </div>
+      <div style="text-align:center; padding:0.6rem; color:#15803d; font-size:0.78rem; font-weight:800;">
+        🎉 Al vandag se take is voltooi! Jy is 'n superster!
       </div>
     `;
-  }
-
-  // TASK LIST
-  html += `<div class="task-list">`;
-
-  // Render Overdue Tasks FIRST
-  if (status.overdueTasks.length > 0) {
-    status.overdueTasks.forEach(t => {
-      html += `
-        <div class="task-row overdue">
-          <div class="task-left">
-            <button class="task-check-btn" onclick="toggleTaskComplete('${t.id}')">⬜</button>
-            <div class="task-info">
-              <span class="task-subject-tag" style="color:#ef4444;">🚨 AGTERSTALLIG (${t.dateDisplay}) • ${t.subjectName}</span>
-              <span class="task-name">${t.title}</span>
-            </div>
-          </div>
-          <button class="btn-task-action overdue-act" onclick="launchTaskActivity('${t.subjectId}', '${t.activity}', '${t.id}')">
-            Haal In 🚀
-          </button>
-        </div>
-      `;
-    });
-  }
-
-  // Render Today's Tasks
-  if (status.todayTasks.length > 0) {
-    status.todayTasks.forEach(t => {
+  } else {
+    focusTasks.forEach((t, i) => {
       const isDone = !!state.taskCompletions[t.id];
+      const isMath = (t.subjectId === 'm2' || t.subjectId === 'm6');
       html += `
-        <div class="task-row ${isDone ? 'completed' : ''}">
-          <div class="task-left">
-            <button class="task-check-btn" onclick="toggleTaskComplete('${t.id}')">${isDone ? '✅' : '⬜'}</button>
-            <div class="task-info">
-              <span class="task-subject-tag">${t.subjectName}</span>
-              <span class="task-name">${t.title}</span>
+        <div class="task-row ${isDone ? 'completed' : ''}" style="display:flex; justify-content:space-between; align-items:center; padding:0.45rem 0.55rem; background:${isDone ? '#f0fdf4' : (isMath ? '#fff5f7' : '#f8fafc')}; border:1.5px solid ${isDone ? '#86efac' : (isMath ? '#fbcfe8' : '#e2e8f0')}; border-radius:10px;">
+          <div style="display:flex; align-items:center; gap:0.45rem; flex:1; min-width:0;">
+            <button class="task-check-btn" style="background:none; border:none; font-size:1.1rem; cursor:pointer;" onclick="toggleTaskComplete('${t.id}')">
+              ${isDone ? '✅' : '⬜'}
+            </button>
+            <div style="display:flex; flex-direction:column; overflow:hidden;">
+              <span style="font-size:0.65rem; font-weight:900; color:${isMath ? '#e11d48' : '#475569'};">
+                ${isMath ? '🐱 WISKUNDE (2X XP)' : t.subjectName}
+              </span>
+              <span style="font-size:0.75rem; font-weight:800; color:#1e293b; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                ${t.title}
+              </span>
             </div>
           </div>
-          <button class="btn-task-action" onclick="launchTaskActivity('${t.subjectId}', '${t.activity}', '${t.id}')">
-            ${isDone ? 'Oordoen ↺' : 'Doen Dit ▶'}
+          <button class="btn-sim-chip" style="background:${isDone ? '#10b981' : (isMath ? 'var(--primary-gradient)' : '#0284c7')}; color:white; border:none; font-size:0.7rem; font-weight:900; padding:0.28rem 0.6rem; border-radius:8px; margin-left:0.4rem;" onclick="launchTaskActivity('${t.subjectId}', '${t.activity}', '${t.id}')">
+            ${isDone ? 'Weer ▶' : 'Speel ▶'}
           </button>
         </div>
       `;
     });
-  } else if (!status.isBehind) {
-    html += `
-      <div style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:0.5rem;">
-        🌟 Geen geskeduleerde take vir vandag nie! Rus lekker uit of hersien vrye flitskaarte.
-      </div>
-    `;
   }
 
-  html += `</div>`; // end task-list
-
-  // Bottom action bar (if not behind, give quick update button to Dad)
-  if (!status.isBehind) {
-    html += `
-      <div class="plan-actions-bar">
-        <button class="btn-plan-alert" style="background:#25D366; flex:1;" onclick="sendStudyProgressWhatsApp()">
-          📱 Deel Vorderingsverslag met Pa
-        </button>
-        <button class="btn-plan-alert" style="background:#0088cc; flex:1;" onclick="sendTelegramStudyAlert()">
-          ✈️ Rapporteer aan Telegram
-        </button>
+  html += `
       </div>
-    `;
-  }
-
-  html += `</div>`; // end study-plan-card
+    </div>
+  `;
 
   container.innerHTML = html;
 }
