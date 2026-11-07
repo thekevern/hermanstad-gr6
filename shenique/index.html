@@ -8,7 +8,25 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Shenique Gr 6">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <link rel="manifest" href="manifest.json">
+<script>
+  // PURGE STALE CACHES & SERVICE WORKERS IMMEDIATELY
+  try {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var i = 0; i < regs.length; i++) regs[i].unregister();
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var i = 0; i < names.length; i++) caches.delete(names[i]);
+      });
+    }
+  } catch(e) { console.warn(e); }
+</script>
 <title>Shenique - Graad 6 Eksamen Hersiening | Laerskool Hermanstad</title>
 <style>
 :root {
@@ -641,10 +659,13 @@ main.viewport {
   <!-- TOP HEADER (DEFAULT HOME SCREEN) -->
   <header class="app-bar">
     <div class="app-title-wrap">
-      <h1>🌸 Shenique</h1>
+      <h1>🌸 Shenique <span style="font-size:0.62rem; background:rgba(255,255,255,0.25); padding:2px 6px; border-radius:10px; font-weight:800; vertical-align:middle; margin-left:4px;">v9.1 NUUTSTE</span></h1>
       <p>Graad 6 Eindeksamens (Laerskool Hermanstad)</p>
     </div>
     <div class="header-actions">
+      <button class="btn-fs-nav" onclick="forcePurgeAndReload()" style="background:rgba(255,255,255,0.2); color:white; border-color:rgba(255,255,255,0.35); font-size:0.72rem;" title="Herlaai nuutste weergawe">
+        🔄 Verfris
+      </button>
       <button class="btn-fs-nav" onclick="triggerAlarmPrompt()" style="background:rgba(255,255,255,0.2); color:white; border-color:rgba(255,255,255,0.35); font-size:0.72rem;">
         ⏰ 15:30 Wekker
       </button>
@@ -3146,6 +3167,22 @@ function renderWeaknessList() {
 function startTargetedDrill() {
   state.activeBoxFilter = '1';
   launchSubjectActivity(state.currentSubjectId || 'm1', 'flashcards');
+}
+
+// --- FORCE REFRESH & CACHE PURGE ---
+function forcePurgeAndReload() {
+  if ('caches' in window) {
+    caches.keys().then(function(names) {
+      return Promise.all(names.map(function(n) { return caches.delete(n); }));
+    }).catch(function(e) { console.warn(e); });
+  }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(regs) {
+      for (var i = 0; i < regs.length; i++) regs[i].unregister();
+    }).catch(function(e) { console.warn(e); });
+  }
+  var cleanUrl = window.location.origin + window.location.pathname + '?v=' + Date.now();
+  window.location.replace(cleanUrl);
 }
 
 // --- ALARM DIALOG: ANDROID & IOS BUTTONS ---
