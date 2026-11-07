@@ -95,7 +95,7 @@ html, body {
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
-  --app-header-pt: calc(env(safe-area-inset-top, 0px) + 0.45rem);
+  --app-header-pt: max(env(safe-area-inset-top, 0px), 48px);
 }
 
 /* TOP APP BAR (DEFAULT HOME SCREEN) */
@@ -1817,6 +1817,7 @@ body.theme-dark .badge-skz-tag {
       <p>Graad 6 Eindeksamens (Laerskool Hermanstad)</p>
     </div>
     <div class="header-actions">
+      <button class="btn-fs-nav" id="btn-sound-toggle" onclick="toggleSound()" style="background:rgba(255,255,255,0.28); color:white; border-color:rgba(255,255,255,0.45); font-size:0.72rem; font-weight:900;" title="Klank Aan/Af">🔊 Klank</button>
       <button class="btn-fs-nav" onclick="openProgressView()" style="background:rgba(255,255,255,0.28); color:white; border-color:rgba(255,255,255,0.45); font-size:0.72rem; font-weight:900;" title="My Punte & Eksamenvordering">
         📊 Punte
       </button>
@@ -1956,30 +1957,77 @@ body.theme-dark .badge-skz-tag {
 
     <!-- SCREEN 3B: KLAS & GEÏLLUSTREERDE WITBORD-VIDEO -->
     <section id="tab-klas" class="tab-content">
+      <!-- MODULE SELECTOR CHIPS -->
       <div class="klas-chips-scroll" id="klas-chips-bar"></div>
-      
-      <!-- ILLUSTRATED ANIMATED SVG VIDEO PLAYER -->
-      <div class="video-canvas-box" id="video-svg-canvas"></div>
 
-      <!-- VIDEO CONTROLS -->
-      <div class="video-controls-bar">
-        <button class="btn-sim-chip" onclick="prevVideoStep()">◀ Vorige</button>
-        <div style="display:flex; gap:0.3rem;">
-          <button class="btn-sim-chip" id="btn-video-play" style="background:#0284c7; color:white; border:none; font-weight:900;" onclick="togglePlayVideo()">▶ Speel Video</button>
-          <button class="btn-sim-chip" onclick="replayVideo()">🔄 Herhaal</button>
+      <!-- WORKSHOP HEADER CARD -->
+      <div class="workshop-header-card" id="workshop-header-card" style="margin-bottom:0.75rem; padding:0.85rem; border-radius:14px; background:linear-gradient(135deg, #eff6ff, #fdf2f8); border:2px solid #c7d2fe; box-shadow:0 4px 12px rgba(99,102,241,0.08);">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:0.6rem;">
+            <span id="ws-header-icon" style="font-size:1.8rem;">📐</span>
+            <div>
+              <div id="ws-header-title" style="font-size:1.05rem; font-weight:900; color:#1e1b4b;">2D-Vorms, Sye & Hoeke</div>
+              <div id="ws-header-subtitle" style="font-size:0.78rem; font-weight:700; color:#6366f1;">Vraestel 1 • Meetkunde & Ruimte</div>
+            </div>
+          </div>
+          <span id="ws-header-badge" style="font-size:0.72rem; font-weight:900; padding:0.25rem 0.6rem; border-radius:999px; background:#4f46e5; color:white;">VRAESTEL 1</span>
         </div>
-        <button class="btn-sim-chip" onclick="nextVideoStep()">Volgende ▶</button>
       </div>
 
-      <!-- EXPLANATION TABS -->
-      <div class="lesson-tabs-bar">
-        <button class="btn-lesson-tab active" id="btn-ltab-story" onclick="setLessonTab('story')">🧸 7-Jaar Storie</button>
-        <button class="btn-lesson-tab" id="btn-ltab-methods" onclick="setLessonTab('methods')">📐 Metodes</button>
-        <button class="btn-lesson-tab" id="btn-ltab-practice" onclick="setLessonTab('practice')">✏️ Toets jouself</button>
+      <!-- 4-STEP MISSION PROGRESS PIPELINE -->
+      <div class="workshop-stepper-bar" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.35rem; margin-bottom:0.85rem;">
+        <button class="btn-ws-step active" id="btn-ws-lab" onclick="setWorkshopStep('lab')">
+          <span class="step-num">1</span>
+          <span class="step-txt">🎮 Speel</span>
+        </button>
+        <button class="btn-ws-step" id="btn-ws-explanations" onclick="setWorkshopStep('explanations')">
+          <span class="step-num">2</span>
+          <span class="step-txt">🧸 Leer</span>
+        </button>
+        <button class="btn-ws-step" id="btn-ws-examples" onclick="setWorkshopStep('examples')">
+          <span class="step-num">3</span>
+          <span class="step-txt">📐 Voorbeelde</span>
+        </button>
+        <button class="btn-ws-step" id="btn-ws-practice" onclick="setWorkshopStep('practice')">
+          <span class="step-num">4</span>
+          <span class="step-txt">✏️ Oefen</span>
+        </button>
       </div>
 
-      <!-- SCROLLABLE TEXT PANE -->
-      <div class="lesson-scroll-pane" id="klas-lesson-content"></div>
+      <!-- STEP CONTAINER 1: INTERACTIVE LAB (MANIPULATIVES) -->
+      <div class="ws-step-pane active" id="ws-pane-lab">
+        <div id="interactive-lab-container" style="background:#ffffff; border:2px solid #e0e7ff; border-radius:14px; padding:0.85rem; box-shadow:0 4px 14px rgba(0,0,0,0.05); margin-bottom:0.75rem;"></div>
+        <div class="ws-next-nav-bar" style="text-align:center;">
+          <button class="btn-ws-next-action" onclick="setWorkshopStep('explanations')" style="width:100%; padding:0.85rem; font-size:0.95rem; font-weight:900; background:linear-gradient(135deg, #4f46e5, #7c3aed); color:white; border:none; border-radius:12px; box-shadow:0 4px 14px rgba(79,70,229,0.3); cursor:pointer; transition:transform 0.15s ease;">
+            👉 VOLGENDE STAP: Lees 5 Geheime Verduidelikings ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP CONTAINER 2: 5 EXPLANATIONS ACCORDION -->
+      <div class="ws-step-pane" id="ws-pane-explanations" style="display:none;">
+        <div id="workshop-explanations-list"></div>
+        <div class="ws-next-nav-bar" style="text-align:center; margin-top:0.75rem;">
+          <button class="btn-ws-next-action" onclick="setWorkshopStep('examples')" style="width:100%; padding:0.85rem; font-size:0.95rem; font-weight:900; background:linear-gradient(135deg, #0284c7, #2563eb); color:white; border:none; border-radius:12px; box-shadow:0 4px 14px rgba(2,132,199,0.3); cursor:pointer;">
+            👉 VOLGENDE STAP: Sien 5 Uitgewerkte Voorbeelde ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP CONTAINER 3: 5 WORKED EXAMPLES ACCORDION -->
+      <div class="ws-step-pane" id="ws-pane-examples" style="display:none;">
+        <div id="workshop-examples-list"></div>
+        <div class="ws-next-nav-bar" style="text-align:center; margin-top:0.75rem;">
+          <button class="btn-ws-next-action" onclick="setWorkshopStep('practice')" style="width:100%; padding:0.85rem; font-size:0.95rem; font-weight:900; background:linear-gradient(135deg, #16a34a, #059669); color:white; border:none; border-radius:12px; box-shadow:0 4px 14px rgba(22,163,74,0.3); cursor:pointer;">
+            👉 VOLGENDE STAP: Toets Jouself met 5 Vrae ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP CONTAINER 4: 5 INTERACTIVE PRACTICE DRILLS -->
+      <div class="ws-step-pane" id="ws-pane-practice" style="display:none;">
+        <div id="workshop-practice-container"></div>
+      </div>
     </section>
 
     <!-- SCREEN 3C: TOETS / VASVRA -->
@@ -2117,6 +2165,20 @@ body.theme-dark .badge-skz-tag {
         </div>
       </div>
 
+      <!-- Cat DJ Beat Studio -->
+      <div style="background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.3); border-radius:12px; padding:0.6rem; margin:0.6rem 0; text-align:center;">
+        <div style="font-size:0.75rem; font-weight:900; color:#fde047; margin-bottom:0.4rem;">
+          🎧 KAT DJ & STRAY KIDS KLANK-ATELJEE 🎶
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.35rem;">
+          <button class="btn-sim-chip" onclick="SoundFX.playTone(130, 'triangle', 0.25); SoundFX.playTone(65, 'sine', 0.35);" style="background:#be185d; color:white; border:none; font-size:0.72rem; font-weight:900; padding:0.45rem 0.2rem;">🥁 K-Pop Beat</button>
+          <button class="btn-sim-chip" onclick="SoundFX.playTone(880, 'sine', 0.15); SoundFX.playTone(1320, 'triangle', 0.25, 0.08);" style="background:#4338ca; color:white; border:none; font-size:0.72rem; font-weight:900; padding:0.45rem 0.2rem;">✨ Maniac Chime</button>
+          <button class="btn-sim-chip" onclick="SoundFX.meow();" style="background:#047857; color:white; border:none; font-size:0.72rem; font-weight:900; padding:0.45rem 0.2rem;">🐱 Soonie Miaauw</button>
+          <button class="btn-sim-chip" onclick="SoundFX.correct();" style="background:#b45309; color:white; border:none; font-size:0.72rem; font-weight:900; padding:0.45rem 0.2rem;">🎸 Felix Akkoord</button>
+          <button class="btn-sim-chip" onclick="SoundFX.levelUp();" style="background:#7c3aed; color:white; border:none; font-size:0.72rem; font-weight:900; padding:0.45rem 0.2rem;">🎺 S-Class Fanfare</button>
+          <button class="btn-sim-chip" onclick="SoundFX.playTone(330, 'sine', 0.1, 0); SoundFX.playTone(440, 'triangle', 0.15, 0.08); SoundFX.playTone(550, 'sine', 0.2, 0.16);" style="background:#db2777; color:white; border:none; font-size:0.72rem; font-weight:900; padding:0.45rem 0.2rem;">🌟 God's Menu</button>
+        </div>
+      </div>
       <button class="btn-daily-action" style="background:#10b981; padding:0.5rem; font-size:0.8rem; margin-top:0.25rem;" onclick="sendFinaleCelebrationToDad()">
         📱 Deel Hierdie Oorwinning met Pa Kevern! 🚀
       </button>
@@ -2231,6 +2293,7 @@ const klasLessons = [{"id": "les_m1_demokrasie", "mid": "m1", "subject": "SW: Ge
 const examPapers = [{"id": "exam_history", "title": "SW: Geskiedenis", "subject": "Sosiale Wetenskappe: Geskiedenis", "term": "Kwartaal 3 & 4 (Demokrasie & Medisyne)", "timeMinutes": 60, "totalMarks": 40, "instructions": ["Beantwoord alle vrae volledig en netjies.", "Lees elke vraag twee keer deur voor jy antwoord.", "Let op die puntetoekenning: 2 punte = 2 feite of volsinne.", "Onthou die strikvrae: antibiotika werk nie teen virusse nie; ons stem nie direk vir die President nie."], "sections": [{"sectionTitle": "Afdeling A: Kortvrae & Begrip (Feitekennis)", "totalSectionMarks": 10, "questions": [{"id": "eh_1", "num": "1.1", "type": "mcq", "q": "Waarvan is die woord 'demokrasie' afgelei?", "options": ["Van die Romeinse regters", "Van die Griekse woorde 'demos' (die mense) en 'kratos' (mag/gesag)", "Van die Franse wetgewers", "Van die Suid-Afrikaanse Grondwet"], "answer": 1, "marks": 1, "cogLevel": "Kennis", "memo": "1 punt vir die korrekte Griekse oorsprong (demos + kratos)."}, {"id": "eh_2", "num": "1.2", "type": "mcq", "q": "Wanneer het Suid-Afrika se huidige Grondwet amptelik in werking getree?", "options": ["27 April 1994", "8 Mei 1996", "4 Februarie 1997", "10 Desember 1996"], "answer": 2, "marks": 1, "cogLevel": "Kennis", "memo": "1 punt vir 4 Februarie 1997. (Aanvaar op 8 Mei 1996; onderteken 10 Des 1996; in werking 4 Feb 1997)."}, {"id": "eh_3", "num": "1.3", "type": "mcq", "q": "Watter nasionale simbool word deur die rympie 'Springende Bloukrane Kyk Geel Galjoene' verteenwoordig vir die nasionale boom?", "options": ["Maroelakboom", "Opregte Geelhout", "Kremetartboom", "Proteabos"], "answer": 1, "marks": 1, "cogLevel": "Kennis", "memo": "1 punt vir Opregte Geelhout (Geel = Geelhout)."}, {"id": "eh_4", "num": "1.4", "type": "mcq", "q": "Waarom het Dr. Edward Jenner koeipokke gebruik in sy inentingstoets in 1796?", "options": ["Koeipokke was dodeliker as regte pokke", "Hy het gesien melkmeisies met koeipokke kry nooit die dodelike menslike pokke nie", "Koeie het baie melk gegee", "Die koning het hom beveel om koeie te bestudeer"], "answer": 1, "marks": 1, "cogLevel": "Begrip", "memo": "1 punt vir die waarneming van melkmeisies se immuniteit."}, {"id": "eh_5", "num": "1.5", "type": "mcq", "q": "STRIKVRAAG: Waarteen werk antibiotika soos penisillien?", "options": ["Slegs teen virusse soos griep en verkoue", "Slegs teen bakterieë", "Teen beide bakterieë en virusse", "Teen suikersiekte en hartkwale"], "answer": 1, "marks": 1, "cogLevel": "Kennis (Strikvraag)", "memo": "1 punt vir SLEGS bakterieë. Antibiotika maak NIE virusse dood nie!"}, {"id": "eh_6", "num": "1.6", "type": "short", "q": "Noem die Drie Sfere (vlakke) van die Suid-Afrikaanse regering.", "expectedKeywords": ["nasionaal", "provinsiaal", "plaaslik", "munisipaliteit"], "marks": 3, "cogLevel": "Kennis", "memo": "1 punt vir Nasionaal ✓\n1 punt vir Provinsiaal ✓\n1 punt vir Plaaslik (munisipaliteite) ✓"}, {"id": "eh_7", "num": "1.7", "type": "short", "q": "Wat is die verskil tussen 'n inyanga en 'n sangoma?", "expectedKeywords": ["kruiedokter", "plante", "waarseer", "voorouers"], "marks": 2, "cogLevel": "Begrip", "memo": "1 punt: Inyanga is 'n kruiedokter wat met plante, bas en natuurlike medisyne werk ✓\n1 punt: Sangoma is 'n waarsêer wat met voorouers kommunikeer ✓"}]}, {"sectionTitle": "Afdeling B: Demokrasie, Parlement & Wette", "totalSectionMarks": 15, "questions": [{"id": "eh_8", "num": "2.1", "type": "short", "q": "Verduidelik die drie arms van die regering aan die hand van die leuse: 'MAAK - DOEN - BEOORDEEL'. Noem wie elkeen is en waar hulle gesetel is.", "expectedKeywords": ["wetgewend", "parlement", "kaapstad", "uitvoerend", "president", "pretoria", "regsprekend", "howe", "bloemfontein"], "marks": 6, "cogLevel": "Toepassing", "memo": "• Wetgewend (MAAK wette): Parlement in Kaapstad [2 punte]\n• Uitvoerend (DOEN/bestuur die land): President & Kabinet in Pretoria (Uniegebou) [2 punte]\n• Regsprekend (BEOORDEEL/pas wette toe): Howe & regters in Bloemfontein / Konstitusionele Hof JHB [2 punte]"}, {"id": "eh_9", "num": "2.2", "type": "short", "q": "STRIKVRAAG: Verduidelik hoe die President van Suid-Afrika verkies word. Stem gewone landsburgers direk vir hom?", "expectedKeywords": ["nee", "stem vir party", "nasionale vergadering", "parlement kies"], "marks": 3, "cogLevel": "Begrip (Strikvraag)", "memo": "1 punt: Nee, burgers stem nie direk vir die President nie ✓\n1 punt: Burgers stem vir politieke partye ✓\n1 punt: Die Nasionale Vergadering (Parlement) kies dan die President ✓"}, {"id": "eh_10", "num": "2.3", "type": "short", "q": "Beskryf die rangorde van die howe in Suid-Afrika vanaf die laagste hof tot die heel hoogste hof.", "expectedKeywords": ["landdroshof", "hoe hof", "hoogste hof van appel", "konstitusionele hof"], "marks": 4, "cogLevel": "Kennis", "memo": "1. Landdroshof (laagste) ✓\n2. Hoë Hof ✓\n3. Hoogste Hof van Appèl (Bloemfontein) ✓\n4. Konstitusionele Hof (hoogste wag oor Grondwet) ✓"}, {"id": "eh_11", "num": "2.4", "type": "short", "q": "Hoeveel lede dien in die Nasionale Vergadering en hoeveel in die NRVP?", "expectedKeywords": ["400", "90", "10 per provinsie"], "marks": 2, "cogLevel": "Kennis", "memo": "1 punt vir NV = 400 lede ✓\n1 punt vir NRVP = 90 lede (10 per provinsie) ✓"}]}, {"sectionTitle": "Afdeling C: Mediese Deurbrake & Brongebaseerde Vraag", "totalSectionMarks": 15, "questions": [{"id": "eh_12", "num": "3.1", "type": "short", "q": "Pas die mediese ontdekking by die regte wetenskaplike:\n(a) Ontdekking van Penisillien (1928)\n(b) Karbolsuur as Antiseptiese middel (1867)\n(c) Eerste menslike hartoorplanting (1967)\n(d) Ontdekking van X-strale (1895)", "expectedKeywords": ["fleming", "lister", "barnard", "rontgen"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) Alexander Fleming ✓\n(b) Joseph Lister ✓\n(c) Prof. Chris Barnard ✓\n(d) Wilhelm Röntgen ✓"}, {"id": "eh_13", "num": "3.2", "type": "short", "q": "Gevallestudie Boegoe: Waar in Suid-Afrika groei boegoe natuurlik, wie het dit tradisioneel gebruik, en hoekom het 'n mens vandag 'n permit nodig om dit te oes?", "expectedKeywords": ["wes-kaap", "sederberge", "fynbos", "khoi", "san", "beskerm", "permit"], "marks": 4, "cogLevel": "Begrip & Toepassing", "memo": "1 punt: Groei in die Wes-Kaap fynbos / Sederberge ✓\n1 punt: Die Khoi en San het dit tradisioneel gebruik ✓\n2 punte: Dit is 'n beskermde spesie teen oor-oes, en wetgewing beskerm inheemse kennis van Khoi/San ✓"}, {"id": "eh_14", "num": "3.3", "type": "short", "q": "Prof. Chris Barnard: Noem die datum, die hospitaal, die pasiënt (ontvanger) en die skenker van die wêreld se eerste mens-tot-mens hartoorplanting.", "expectedKeywords": ["3 desember 1967", "groote schuur", "washkansky", "darvall"], "marks": 4, "cogLevel": "Kennis", "memo": "1 punt: 3 Desember 1967 ✓\n1 punt: Groote Schuur-hospitaal (Kaapstad) ✓\n1 punt: Ontvanger = Louis Washkansky ✓\n1 punt: Skenker = Denise Darvall ✓"}, {"id": "eh_15", "num": "3.4", "type": "short", "q": "HOË ORDE EVALUERING: Dr. Edward Jenner het in 1796 etter uit 'n koeipok-blaas geneem en in die arm van 'n 8-jarige seun (James Phipps) gesit. Sou dokters vandag so 'n proef op 'n kind kon doen? Gee jou mening en motiveer met 'n rede.", "expectedKeywords": ["nee", "eties", "toestemming", "veiligheid", "gevaarlik"], "marks": 3, "cogLevel": "Analise & Evaluering (Hoë Orde)", "memo": "1 punt vir duidelike standpunt ('Nee') ✓\n2 punte vir motivering: Vandag vereis mediese proewe streng etiese komitees, ingeligte toestemming, en kinders mag nie aan dodelike risiko's blootgestel word nie ✓✓"}]}], "mid": "m1"}, {"id": "exam_math_p1", "title": "Wiskunde Vraestel 1", "subject": "Wiskunde Vraestel 1", "term": "Vorms, Mates, Tyd & Data", "timeMinutes": 75, "totalMarks": 50, "instructions": ["Beantwoord alle vrae op die vraestel.", "Wys AL jou bewerkings stap-vir-stap – jy kry punte vir jou metode!", "Skryf ALTYD die regte eenheid neer (cm, cm², cm³, g, ml). 'n Vergete eenheid kos jou 'n punt!", "Teken vorms netjies met 'n liniaal en potlood."], "sections": [{"sectionTitle": "Afdeling A: Persentasies & Lengte", "totalSectionMarks": 12, "questions": [{"id": "em1_1", "num": "1.1", "type": "short", "q": "Skakel om na 'n persentasie: Marna behaal 18 uit 20 vir haar Wiskunde-toets. Bereken haar persentasie.", "expectedKeywords": ["90%"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt: 18/20 = (18 × 5) / (20 × 5) = 90/100 ✓\n1 punt vir finale persentasie: 90% ✓"}, {"id": "em1_2", "num": "1.2", "type": "short", "q": "Bereken 15% van R60 met behulp van die 10% truuk.", "expectedKeywords": ["9", "R9"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt: 10% van 60 = 6, en 5% = 3 ✓\n1 punt: 6 + 3 = R9 ✓"}, {"id": "em1_3", "num": "1.3", "type": "short", "q": "'n Paar tekkies kos R400. Die winkel bied 25% afslag aan. Bereken: (a) die afslagbedrag (b) die bedrag wat jy betaal.", "expectedKeywords": ["100", "300"], "marks": 3, "cogLevel": "Toepassing", "memo": "1 punt: 25% van R400 = R400 ÷ 4 = R100 afslag ✓\n2 punte: R400 − R100 = R300 betaalbaar ✓✓"}, {"id": "em1_4", "num": "1.4", "type": "short", "q": "Voltooi die omskakelings:\n(a) 3,5 km = _____ m\n(b) 245 cm = _____ m\n(c) 68 mm = _____ cm", "expectedKeywords": ["3500", "2.45", "6.8"], "marks": 3, "cogLevel": "Kennis & Toepassing", "memo": "(a) 3 500 m ✓\n(b) 2,45 m ✓\n(c) 6,8 cm ✓"}, {"id": "em1_5", "num": "1.5", "type": "short", "q": "STRIKVRAAG: Bereken: 2 m + 40 cm. Skryf jou finale antwoord in sentimeter (cm).", "expectedKeywords": ["240", "240 cm"], "marks": 2, "cogLevel": "Begrip (Strikvraag)", "memo": "1 punt: 2 m = 200 cm ✓\n1 punt: 200 cm + 40 cm = 240 cm ✓"}]}, {"sectionTitle": "Afdeling B: 2D-Vorms, 3D-Voorwerpe & Euler", "totalSectionMarks": 14, "questions": [{"id": "em1_6", "num": "2.1", "type": "short", "q": "Benoem die volgende hoeke volgens hul grootte:\n(a) 'n Hoek van 65°\n(b) 'n Hoek van 90°\n(c) 'n Hoek van 135°\n(d) 'n Hoek van 180°", "expectedKeywords": ["skerphoek", "regte hoek", "stomphoek", "gestrekte hoek"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) Skerphoek ✓\n(b) Regte hoek ✓\n(c) Stomphoek ✓\n(d) Gestrekte hoek / Reguitlynhoek ✓"}, {"id": "em1_7", "num": "2.2", "type": "short", "q": "Twee binnehoeke van 'n driehoek is 55° en 65°. Bereken die grootte van die derde hoek.", "expectedKeywords": ["60", "60°"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt: 55° + 65° = 120° (som is 180°) ✓\n1 punt: 180° − 120° = 60° ✓"}, {"id": "em1_8", "num": "2.3", "type": "short", "q": "Watter vierhoek het presies net EEN paar ewewydige sye?", "expectedKeywords": ["trapesium"], "marks": 1, "cogLevel": "Kennis", "memo": "1 punt vir Trapesium ✓"}, {"id": "em1_9", "num": "2.4", "type": "short", "q": "Voltooi die tabel vir 'n Driehoekige Prisma:\n(a) Aantal vlakke = _____\n(b) Aantal rande = _____\n(c) Aantal hoekpunte = _____", "expectedKeywords": ["5", "9", "6"], "marks": 3, "cogLevel": "Kennis", "memo": "(a) 5 vlakke (2 driehoeke, 3 reghoeke) ✓\n(b) 9 rande ✓\n(c) 6 hoekpunte ✓"}, {"id": "em1_10", "num": "2.5", "type": "short", "q": "Toets Euler se toorformule (V + H − R = 2) op 'n kubus. Wys jou syfers en bewerking.", "expectedKeywords": ["6 + 8 - 12 = 2", "14 - 12 = 2"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt vir die waardes: V = 6, H = 8, R = 12 ✓\n1 punt vir berekening: 6 + 8 − 12 = 14 − 12 = 2 ✓"}, {"id": "em1_11", "num": "2.6", "type": "short", "q": "Hoeveel simmetrielyne het: (a) 'n vierkant (b) 'n reghoek?", "expectedKeywords": ["4", "2"], "marks": 2, "cogLevel": "Kennis", "memo": "(a) Vierkant = 4 simmetrielyne ✓\n(b) Reghoek = 2 simmetrielyne ✓"}]}, {"sectionTitle": "Afdeling C: Meting (Omtrek, Oppervlakte & Volume)", "totalSectionMarks": 14, "questions": [{"id": "em1_12", "num": "3.1", "type": "short", "q": "'n Sokkerveld is 100 m lank en 60 m breed.\n(a) Skryf die formule vir omtrek neer en bereken die omtrek.\n(b) Skryf die formule vir oppervlakte neer en bereken die oppervlakte.", "expectedKeywords": ["320", "320 m", "6000", "6000 m²"], "marks": 6, "cogLevel": "Toepassing", "memo": "(a) Formule: 2 × (L + B) [1 punt]; Berekening: 2 × 160 = 320 m [2 punte met eenheid]\n(b) Formule: L × B [1 punt]; Berekening: 100 × 60 = 6 000 m² [2 punte met eenheid m²]"}, {"id": "em1_13", "num": "3.2", "type": "short", "q": "'n Graankosboks is 20 cm hoog, 15 cm lank en 5 cm breed. Bereken die volume van die boks.", "expectedKeywords": ["1500", "1500 cm³"], "marks": 3, "cogLevel": "Toepassing", "memo": "1 punt vir formule: L × B × H ✓\n1 punt vir bewerking: 15 × 5 × 20 ✓\n1 punt vir finale antwoord met eenheid: 1 500 cm³ ✓"}, {"id": "em1_14", "num": "3.3", "type": "short", "q": "Omskakeling van kapasiteit:\n(a) 1 cm³ = _____ ml\n(b) 2,5 liter = _____ ml\n(c) 3 200 ml = _____ liter", "expectedKeywords": ["1", "2500", "3.2"], "marks": 3, "cogLevel": "Kennis", "memo": "(a) 1 ml ✓\n(b) 2 500 ml ✓\n(c) 3,2 liter (of 3 ℓ 200 ml) ✓"}, {"id": "em1_15", "num": "3.4", "type": "short", "q": "RAAISEL: Wat weeg swaarder – 1 kg vere of 1 kg bakstene? Verduidelik jou antwoord.", "expectedKeywords": ["ewe swaar", "albei 1 kg"], "marks": 2, "cogLevel": "Begrip & Redenering", "memo": "1 punt: Hulle weeg presies ewe swaar ✓\n1 punt: Albei weeg presies 1 kg (1 000 g) ongeag die digtheid of materiaal ✓"}]}, {"sectionTitle": "Afdeling D: Tyd & Datahantering", "totalSectionMarks": 10, "questions": [{"id": "em1_16", "num": "4.1", "type": "short", "q": "Skakel die tye om na 24-uur notasie:\n(a) 07:15 vm. = _____\n(b) 02:30 nm. = _____\n(c) 11:45 nm. = _____", "expectedKeywords": ["07:15", "14:30", "23:45"], "marks": 3, "cogLevel": "Kennis", "memo": "(a) 07:15 ✓\n(b) 14:30 ✓\n(c) 23:45 ✓"}, {"id": "em1_17", "num": "4.2", "type": "short", "q": "Die netbalwedstryd begin 08:45 en eindig om 11:20. Bereken die tydsverloop in ure en minute.", "expectedKeywords": ["2 h 35 min", "2 uur 35 minute"], "marks": 3, "cogLevel": "Toepassing", "memo": "1 punt vir metode (08:45 na 09:00 = 15 min; 09:00 na 11:00 = 2 h; 11:00 na 11:20 = 20 min) ✓\n2 punte vir finale antwoord: 2 uur 35 minute (of 2 h 35 min) ✓✓"}, {"id": "em1_18", "num": "4.3", "type": "short", "q": "STRIKVRAAG: Gegee die getallereeks: 12, 8, 15, 8, 10, 7, 10, 8\n(a) Vind die modus.\n(b) Sorteer die getalle en vind die mediaan.", "expectedKeywords": ["modus = 8", "mediaan = 9", "7, 8, 8, 8, 10, 10, 12, 15"], "marks": 4, "cogLevel": "Toepassing (Strikvraag)", "memo": "(a) Modus = 8 (kom 3 keer voor) [1 punt] ✓\n(b) Gesorteer: 7, 8, 8, 8, 10, 10, 12, 15 [1 punt] ✓\nMediaan lê tussen 8 en 10: (8 + 10) ÷ 2 = 9 [2 punte] ✓✓"}]}], "mid": "m2"}, {"id": "exam_afr", "title": "Afrikaans Huistaal", "subject": "Afrikaans Huistaal", "term": "Taalstrukture en -konvensies (Kwartaal 3 & 4)", "timeMinutes": 60, "totalMarks": 40, "instructions": ["Beantwoord alle vrae in netjiese, korrekte Afrikaans.", "Let op jou spelling en leestekens.", "Onthou: 'n kry NOOIT 'n hoofletter nie; intensiewe vorme is ALTYD een woord."], "sections": [{"sectionTitle": "Afdeling A: Byvoeglike Naamwoorde & Trappe van Vergelyking", "totalSectionMarks": 10, "questions": [{"id": "ea_1", "num": "1.1", "type": "short", "q": "Gee die trappe van vergelyking van die volgende woorde:\n(a) goed → _____ → _____\n(b) hoog → _____ → _____\n(c) duur → _____ → _____\n(d) baie → _____ → _____", "expectedKeywords": ["beter", "beste", "hoër", "hoogste", "duurder", "duurste", "meer", "meeste"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) goed - beter - beste ✓\n(b) hoog - hoër - hoogste (deelteken op hoër!) ✓\n(c) duur - duurder - duurste ✓\n(d) baie - meer - meeste ✓"}, {"id": "ea_2", "num": "1.2", "type": "short", "q": "Gee die intensiewe vorme van:\n(a) baie nat = _____\n(b) baie oud = _____\n(c) baie klein = _____\n(d) baie rooi = _____", "expectedKeywords": ["sopnat", "stokoud", "piepklein", "bloedrooi"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) sopnat ✓\n(b) stokoud ✓\n(c) piepklein ✓\n(d) bloedrooi ✓ (Elkeen moet as EEN woord geskryf wees!)"}, {"id": "ea_3", "num": "1.3", "type": "short", "q": "Wat is die verskil tussen 'n attributiewe en 'n predikatiewe byvoeglike naamwoord? Gee 'n voorbeeld van elkeen met die woord 'koud'.", "expectedKeywords": ["attributief voor", "koue water", "predikatief na", "water is koud"], "marks": 2, "cogLevel": "Begrip", "memo": "1 punt: Attributief staan VOOR die naamwoord en kry 'n -e (bv. die koue water) ✓\n1 punt: Predikatief staan NÁ die werkwoord sonder -e (bv. die water is koud) ✓"}]}, {"sectionTitle": "Afdeling B: Werkwoorde, Tye & Ontkenning", "totalSectionMarks": 10, "questions": [{"id": "ea_4", "num": "2.1", "type": "short", "q": "Skryf die sin in die Verlede Tyd: 'Ons vergeet die Afrikaans-boek by die huis.'", "expectedKeywords": ["het die afrikaans-boek by die huis vergeet"], "marks": 2, "cogLevel": "Toepassing (Strikvraag)", "memo": "1 punt vir 'het' in v1-posisie ✓\n1 punt vir 'vergeet' aan die einde SONDER ge- (BE-GE-ER-HER-ONT-VER kry geen ge- nie!) ✓"}, {"id": "ea_5", "num": "2.2", "type": "short", "q": "Gee die verlede tyd van die volgende spesiale werkwoorde:\n(a) Hy is siek. → Gister _____ hy siek.\n(b) Hulle het 'n hond. → Verlede jaar _____ hulle 'n hond _____. \n(c) Sy wil huis toe gaan. → Sy _____ huis toe gaan.", "expectedKeywords": ["was", "het", "gehad", "wou"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) was ✓\n(b) het ... gehad [2 punte] ✓✓\n(c) wou ✓"}, {"id": "ea_6", "num": "2.3", "type": "short", "q": "Skryf die sin in die Ontkennende Vorm (negatief):\n'Iemand het iets in die klaskamer laat val.'", "expectedKeywords": ["niemand het niks in die klaskamer laat val nie"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt vir Niemand het niks... ✓\n1 punt vir die dubbele 'nie' aan die einde ✓"}, {"id": "ea_7", "num": "2.4", "type": "short", "q": "Rangskik die woorde volgens die T-M-P reël:\n'Die kinders ry (skool toe / met die bus / elke oggend).'", "expectedKeywords": ["elke oggend met die bus skool toe"], "marks": 2, "cogLevel": "Toepassing", "memo": "1 punt vir Tyd (elke oggend) voor Manier (met die bus) ✓\n1 punt vir Plek (skool toe) laaste ✓"}]}, {"sectionTitle": "Afdeling C: Voegwoorde & Saamgestelde Sinne", "totalSectionMarks": 10, "questions": [{"id": "ea_8", "num": "3.1", "type": "short", "q": "Verbind met 'want' (Groep 1 EMOW): 'Sy leer hard. Sy wil goeie punte kry.'", "expectedKeywords": ["sy leer hard, want sy wil goeie punte kry"], "marks": 2, "cogLevel": "Toepassing", "memo": "2 punte: Sy leer hard, want sy wil goeie punte kry. (Woordorde bly presies dieselfde!) ✓✓"}, {"id": "ea_9", "num": "3.2", "type": "short", "q": "Verbind met 'daarom' (Groep 2): 'Dit reën baie hard. Ons kan nie buite speel nie.'", "expectedKeywords": ["daarom kan ons nie buite speel nie"], "marks": 2, "cogLevel": "Toepassing", "memo": "2 punte: Dit reën baie hard, daarom KAN ons nie buite speel nie. (Werkwoord 'kan' kom direk ná daarom!) ✓✓"}, {"id": "ea_10", "num": "3.3", "type": "short", "q": "Verbind met 'omdat' (Groep 3): 'Hy kom laat by die skool aan. Hy het sy wekker afgeskakel.'", "expectedKeywords": ["omdat hy sy wekker afgeskakel het"], "marks": 2, "cogLevel": "Toepassing", "memo": "2 punte: Hy kom laat by die skool aan omdat hy sy wekker afgeskakel HET. (Werkwoord 'het' skuif stert-toe!) ✓✓"}, {"id": "ea_11", "num": "3.4", "type": "short", "q": "Vul die korrekte vaste voorsetsels in:\n(a) Die seun is baie bang _____ slange.\n(b) Sy ma is trots _____ haar prestasie.\n(c) Ek dink dikwels _____ my oupa.\n(d) Ons glo _____ harde werk.", "expectedKeywords": ["vir", "op", "aan", "in"], "marks": 4, "cogLevel": "Kennis", "memo": "(a) vir ✓\n(b) op ✓\n(c) aan ✓\n(d) in ✓"}]}, {"sectionTitle": "Afdeling D: Skryftekens & Foutkorreksie", "totalSectionMarks": 10, "questions": [{"id": "ea_12", "num": "4.1", "type": "short", "q": "STRIKVRAAG: Korrigeer die volgende sin sodat al die hoofletters en skryftekens reg is:\n'N hond blaf baie hard in die reen.", "expectedKeywords": ["'n hond", "'n Hond", "reën"], "marks": 3, "cogLevel": "Toepassing (Strikvraag)", "memo": "1 punt: 'n bly klein ✓\n1 punt: Hond kry die hoofletter ('n Hond...) ✓\n1 punt: deelteken op reën ✓"}, {"id": "ea_13", "num": "4.2", "type": "short", "q": "Verduidelik die funksie van 'n deelteken (trema) en 'n kappie, met een voorbeeld van elkeen.", "expectedKeywords": ["skei klanke", "vokale apart", "geëet", "kappie lank", "môre"], "marks": 4, "cogLevel": "Begrip", "memo": "2 punte vir deelteken (skei twee klinkers sodat hulle apart uitgespreek word, bv. reën, geëet) ✓✓\n2 punte vir kappie (maak die klank lank en gerek, bv. môre, wêreld) ✓✓"}, {"id": "ea_14", "num": "4.3", "type": "short", "q": "Watter sinsoort is elkeen van die volgende:\n(a) Maak dadelik die deur toe!\n(b) Wat 'n pragtige sonsondergang!", "expectedKeywords": ["bevelsin", "uitroepsin"], "marks": 3, "cogLevel": "Kennis", "memo": "(a) Bevelsin (gee opdrag) [1 punt] ✓\n(b) Uitroepsin (wys sterk gevoel) [2 punte] ✓✓"}]}], "mid": "m3"}, {"id": "exam_nwt", "title": "NW & Tegnologie", "subject": "Natuurwetenskappe en Tegnologie", "term": "Kwartaal 3 & 4 (Stroombane & Ruimte)", "timeMinutes": 60, "totalMarks": 40, "instructions": ["Beantwoord alle vrae volledig.", "Teken stroombaansimbole netjies met 'n LINIAAL.", "Onthou om onderskeid te tref tussen roteer en wentel."], "sections": [{"sectionTitle": "Afdeling A: Stroombane & Simbole", "totalSectionMarks": 12, "questions": [{"id": "en_1", "num": "1.1", "type": "short", "q": "Wat is 'n elektriese stroombaan en wat is die verskil tussen 'n oop en geslote stroombaan?", "expectedKeywords": ["volledige pad", "geslote vloei lamp brand", "oop gaping niks werk"], "marks": 3, "cogLevel": "Kennis & Begrip", "memo": "1 punt: 'n Volledige pad waardeur elektrisiteit kan vloei ✓\n1 punt: Geslote stroombaan het geen gapings nie, stroom vloei, lamp brand ✓\n1 punt: Oop stroombaan het 'n gaping (skakelaar oop/draad los), geen stroom vloei nie ✓"}, {"id": "en_2", "num": "1.2", "type": "short", "q": "Beskryf hoe jy die simbool vir 'n elektriese sel teken en dui aan watter lyn positief (+) en watter negatief (−) is.", "expectedKeywords": ["lang dun lyn positief", "kort dik lyn negatief"], "marks": 2, "cogLevel": "Kennis", "memo": "1 punt: Twee parallelle lyne: lang dun lyn is die positiewe (+) pool ✓\n1 punt: Kort dik lyn is die negatiewe (−) pool ✓"}, {"id": "en_3", "num": "1.3", "type": "short", "q": "Wat is die energie-omskakeling in 'n brandende flitslig?", "expectedKeywords": ["chemies", "elektries", "lig", "hitte"], "marks": 3, "cogLevel": "Begrip", "memo": "1 punt: Chemiese energie (in sel) ✓\n1 punt: na Elektriese energie (in drade) ✓\n1 punt: na Lig- en Hitte-energie (in gloeilamp) ✓"}, {"id": "en_4", "num": "1.4", "type": "short", "q": "Noem twee elektriese geleiers en twee isoleerders. Waarom het 'n kragdraad koper binne en plastiek buite?", "expectedKeywords": ["koper", "grafiet", "plastiek", "rubber", "isoleerder beskerm skokke"], "marks": 4, "cogLevel": "Toepassing", "memo": "1 punt vir geleiers (koper, aluminium, yster, grafiet) ✓\n1 punt vir isoleerders (plastiek, rubber, glas, hout) ✓\n2 punte: Koper binne gelei die stroom maklik; plastiek buite isoleer en beskerm mense teen elektriese skokke ✓✓"}]}, {"sectionTitle": "Afdeling B: Tegnologie & Kragstasies", "totalSectionMarks": 14, "questions": [{"id": "en_5", "num": "2.1", "type": "short", "q": "Noem die 5 stappe van die Tegnologiese Ontwerpproses (O-O-M-E-K) volgens die rympie 'Ons Ontwerp, Maak, Evalueer en Kommunikeer'.", "expectedKeywords": ["ondersoek", "ontwerp", "maak", "evalueer", "kommunikeer"], "marks": 5, "cogLevel": "Kennis", "memo": "1. Ondersoek ✓\n2. Ontwerp ✓\n3. Maak ✓\n4. Evalueer ✓\n5. Kommunikeer ✓"}, {"id": "en_6", "num": "2.2", "type": "short", "q": "Beskryf stap-vir-stap hoe elektrisiteit in 'n steenkoolkragstasie (soos Eskom) opgewek word totdat dit by jou huis kom.", "expectedKeywords": ["steenkool brand", "water kook stoom", "turbine draai", "generator", "kragdrade substasie"], "marks": 5, "cogLevel": "Toepassing", "memo": "1 punt: Steenkool brand in 'n oond ✓\n1 punt: Kook water in groot ketels om hoëdruk stoom te vorm ✓\n1 punt: Stoom laat turbine draai ✓\n1 punt: Turbine dryf generator aan om elektrisiteit op te wek ✓\n1 punt: Hoogspanningsdrade en substasies neem krag na huise ✓"}, {"id": "en_7", "num": "2.3", "type": "short", "q": "Wat is Suid-Afrika se enigste kernkragstasie en noem 2 voordele van hernubare energie (soos son en wind) bo steenkool.", "expectedKeywords": ["koeberg", "raak nie op nie", "geen besoedeling", "skoon"], "marks": 4, "cogLevel": "Begrip", "memo": "2 punte: Koeberg naby Kaapstad ✓✓\n2 punte vir voordele: Hernubare bronne raak nooit op nie en veroorsaak geen lugbesoedeling of kweekhuisgasse nie ✓✓"}]}, {"sectionTitle": "Afdeling C: Sonnestelsel & Ruimteverkenning", "totalSectionMarks": 14, "questions": [{"id": "en_8", "num": "3.1", "type": "short", "q": "Noem die 8 planete in volgorde van die Son af met behulp van die rympie 'Ma Vat Elke Môre Jellie Saam Uit Nylstroom'.", "expectedKeywords": ["mercurius", "venus", "aarde", "mars", "jupiter", "saturnus", "uranus", "neptunus"], "marks": 4, "cogLevel": "Kennis", "memo": "4 punte (½ punt elk): Mercurius, Venus, Aarde, Mars, Jupiter, Saturnus, Uranus, Neptunus ✓✓✓✓"}, {"id": "en_9", "num": "3.2", "type": "short", "q": "Verduidelik die verskil tussen die Aarde se ROTASIE en WENTELING. Wat veroorsaak elkeen?", "expectedKeywords": ["roteer om eie as 24 uur dag en nag", "wentel om son 365 dae seisoene"], "marks": 4, "cogLevel": "Begrip", "memo": "2 punte: Roteer = Aarde draai om eie as elke 24 uur → veroorsaak DAG EN NAG ✓✓\n2 punte: Wentel = Aarde beweeg om die Son in 365¼ dae → veroorsaak SEISOENE (saam met skuins as) ✓✓"}, {"id": "en_10", "num": "3.3", "type": "short", "q": "Noem twee groot teleskope in Suid-Afrika en gee 2 redes waarom die Karoo (Noord-Kaap) ideaal is vir ruimte-waarneming.", "expectedKeywords": ["salt", "meerkat", "ska", "donker lug geen ligbesoedeling", "wolkloos droog"], "marks": 4, "cogLevel": "Toepassing", "memo": "2 punte: SALT (by Sutherland) en MeerKAT / SKA (by Carnarvon) ✓✓\n2 punte vir redes: Donker lug sonder ligbesoedeling, wolklose nagte, droë helder lug, baie min radiosein-steurings ✓✓"}, {"id": "en_11", "num": "3.4", "type": "short", "q": "Waarom het wetenskaplikes tot dusver slegs robotte (soos Curiosity en Perseverance) na Mars gestuur en nog geen mense nie?", "expectedKeywords": ["goedkoper", "veiliger", "geen kos water lug", "baie ver 7 maande"], "marks": 2, "cogLevel": "Analise & Redenering", "memo": "1 punt: Dit is baie goedkoper en veiliger ✓\n1 punt: Die reis duur 7 maande, Mars is yskoud met min suurstof; robotte het nie kos, water of asemhaling nodig nie ✓"}]}], "mid": "m7"}, {"id": "exam_eng", "mid": "m4", "title": "English FAL", "subject": "English First Additional Language", "term": "Terms 1, 3 & 4 (Language Structures & Conventions)", "timeMinutes": 60, "totalMarks": 40, "instructions": ["Answer all questions carefully.", "Pay close attention to spelling, punctuation and capital letters.", "Remember FANBOYS conjunctions and T-M-P order in sentences."], "sections": [{"sectionTitle": "Section A: Grammar & Language Conventions", "totalSectionMarks": 20, "questions": [{"id": "eng_1", "num": "1.1", "type": "mcq", "q": "Which coordinating conjunction correctly completes the sentence: 'She wanted to play outside, _____ it was raining heavily.'?", "options": ["so", "and", "but", "or"], "answer": 2, "marks": 1, "cogLevel": "Knowledge", "memo": "1 mark for 'but' (shows contrast between wanting to play and the rain)."}, {"id": "eng_2", "num": "1.2", "type": "mcq", "q": "What is the passive voice of: 'The chef baked a delicious cake'?", "options": ["A delicious cake baked the chef.", "A delicious cake was baked by the chef.", "The cake was baking the chef.", "The chef was baking a cake."], "answer": 1, "marks": 1, "cogLevel": "Understanding", "memo": "1 mark for 'A delicious cake was baked by the chef.' (Past tense was + past participle baked)."}, {"id": "eng_3", "num": "1.3", "type": "mcq", "q": "Choose the correct pronoun: 'This pencil belongs to me. It is _____.'", "options": ["mine", "my", "me", "myself"], "answer": 0, "marks": 1, "cogLevel": "Knowledge", "memo": "1 mark for possessive pronoun 'mine'."}, {"id": "eng_4", "num": "1.4", "type": "mcq", "q": "Identify the adverb of manner in: 'The brave firefighter quickly climbed the high ladder.'", "options": ["brave", "quickly", "high", "climbed"], "answer": 1, "marks": 1, "cogLevel": "Application", "memo": "1 mark for 'quickly' (describes HOW the ladder was climbed)."}]}, {"sectionTitle": "Section B: Sentence Structures & Punctuation", "totalSectionMarks": 20, "questions": [{"id": "eng_5", "num": "2.1", "type": "short", "q": "Rewrite the following in indirect (reported) speech: 'I am studying for my exams,' said Lisa.", "expectedKeywords": ["lisa said that she was studying for her exams"], "marks": 3, "cogLevel": "Application", "memo": "Lisa said that she was studying for her exams. (1 mark pronoun she/her, 1 mark tense was studying, 1 mark removing speech marks)."}, {"id": "eng_6", "num": "2.2", "type": "short", "q": "List the seven FANBOYS conjunctions in order of the letters.", "expectedKeywords": ["for and nor but or yet so"], "marks": 4, "cogLevel": "Knowledge", "memo": "For, And, Nor, But, Or, Yet, So (½ mark each)."}]}]}, {"id": "exam_geo", "mid": "m5", "title": "SW: Geografie", "subject": "Sosiale Wetenskappe: Geografie", "term": "Kwartaal 3 & 4 (Klimaat & Bevolking)", "timeMinutes": 60, "totalMarks": 40, "instructions": ["Beantwoord alle vrae in volsinne waar nodig.", "Dink aan die verskil tussen stoot- en trekfaktore."], "sections": [{"sectionTitle": "Afdeling A: Klimaatstreke & Wêreldbiome", "totalSectionMarks": 20, "questions": [{"id": "geo_1", "num": "1.1", "type": "mcq", "q": "Watter laag van die tropiese reënwoud vorm 'n digte groen dak van 30 meter hoog wat die sonlig opvang?", "options": ["Die bosvloer", "Die onderlaag", "Die blaredak (canopy)", "Die uitsteeklaag (emergents)"], "answer": 2, "marks": 1, "cogLevel": "Kennis", "memo": "Die blaredak (canopy) is die hooflaag van die reënwoud."}, {"id": "geo_2", "num": "1.2", "type": "mcq", "q": "Waarom is naaldwoude (Taiga) se blare soos naalde met 'n waslagie gevorm?", "options": ["Om waterverlies te keer en swaar sneeu te laat afgly", "Om ape kos te gee", "Om meer sonlig te vang", "Omdat die bome min water drink"], "answer": 0, "marks": 1, "cogLevel": "Begrip", "memo": "Die naaldvorm en waslaag beskerm teen uiterste koue en sneeu."}]}, {"sectionTitle": "Afdeling B: Bevolking, Trek- en Stootfaktore", "totalSectionMarks": 20, "questions": [{"id": "geo_3", "num": "2.1", "type": "short", "q": "Verduidelik die verskil tussen 'n STOOTFAKTOR en 'n TREKFAKTOR en gee 1 voorbeeld van elkeen.", "expectedKeywords": ["stootfaktor dwing weg droogte werkloosheid", "trekfaktor lok aan goeie skole werksgeleenthede"], "marks": 4, "cogLevel": "Begrip", "memo": "2 punte: Stootfaktor dwing mense weg uit 'n gebied (bv. droogte, misdaad, armoede) ✓✓\n2 punte: Trekfaktor lok mense na 'n nuwe gebied (bv. werk, goeie skole, hospitale) ✓✓"}, {"id": "geo_4", "num": "2.2", "type": "short", "q": "Watter provinsie in Suid-Afrika is die kleinste maar het die hoogste bevolkingsdigtheid?", "expectedKeywords": ["gauteng"], "marks": 2, "cogLevel": "Kennis", "memo": "Gauteng (2 punte) – kleinste oppervlakte, maar die ekonomiese hart van SA."}]}]}, {"id": "exam_math_p2", "mid": "m6", "title": "Wiskunde Vraestel 2 – 4 Bewerkings & Getalle", "subject": "Wiskunde Vraestel 2", "term": "Kwartaal 1–4 (Bewerkingstegnieke & Hoofrekene)", "timeMinutes": 60, "totalMarks": 50, "instructions": ["Wys alle bewerkings en stappe duidelik.", "Moenie die Ninja Nul vergeet wanneer jy met tiene vermenigvuldig nie!", "Volg die D-V-A-B familie vir langdeling."], "sections": [{"sectionTitle": "Afdeling A: Plekwaarde, Afronding & Optel/Aftrek", "totalSectionMarks": 25, "questions": [{"id": "mp2_1", "num": "1.1", "type": "mcq", "q": "Wat is die plekwaarde van die onderstreepte syfer 7 in: 4 725 890?", "options": ["Sewe duisend", "Sewe honderd duisend", "Sewe honderd", "Sewe miljoen"], "answer": 1, "marks": 1, "cogLevel": "Kennis", "memo": "Die 7 is in die Honderd-Duisende (HD) plekwaarde kolom."}, {"id": "mp2_2", "num": "1.2", "type": "mcq", "q": "Wat is 648 932 afgerond tot die naaste 1 000?", "options": ["648 000", "649 000", "650 000", "648 900"], "answer": 1, "marks": 1, "cogLevel": "Toepassing", "memo": "Kyk na die honderde (9). Omdat 9 >= 5, tel die duisende met 1 op -> 649 000."}]}, {"sectionTitle": "Afdeling B: Langvermenigvuldiging & Langdeling", "totalSectionMarks": 25, "questions": [{"id": "mp2_3", "num": "2.1", "type": "short", "q": "Bereken met kolommetode: 345 × 26. Wat is die finale antwoord?", "expectedKeywords": ["8970"], "marks": 4, "cogLevel": "Toepassing", "memo": "Stap 1: 345 × 6 = 2 070 ✓✓\nStap 2: 345 × 20 = 6 900 (met Ninja Nul!) ✓\nStap 3: 2 070 + 6 900 = 8 970 ✓"}, {"id": "mp2_4", "num": "2.2", "type": "short", "q": "Bereken met D-V-A-B: 756 ÷ 6. Wat is die antwoord?", "expectedKeywords": ["126"], "marks": 3, "cogLevel": "Toepassing", "memo": "756 ÷ 6 = 126 sonder enige res ✓✓✓"}]}]}, {"id": "exam_psw", "mid": "m8", "title": "PSW (Lewensoriëntering)", "subject": "Persoonlike en Sosiale Welsyn (PSW)", "term": "Kwartaal 3 & 4 (Gesondheid, Noodhulp & Veiligheid)", "timeMinutes": 60, "totalMarks": 40, "instructions": ["Beantwoord alle vrae eerlik en noukeurig.", "Onthou die 4 reëls van voedselhigiëne en basiese noodhulp."], "sections": [{"sectionTitle": "Afdeling A: Noodhulp & Higiëne", "totalSectionMarks": 20, "questions": [{"id": "psw_1", "num": "1.1", "type": "mcq", "q": "Waarvoor staan die noodhulp-afkorting R-Y-V-O vir verstuikings?", "options": ["Ruk, Ys, Verband, Oefen", "Rus, Ys, Verband, Oplig", "Rem, Water, Vasbind, Ontspan", "Roep, Ys, Verf, Ondersoek"], "answer": 1, "marks": 1, "cogLevel": "Kennis", "memo": "Rus, Ys, Verband, Oplig."}, {"id": "psw_2", "num": "1.2", "type": "mcq", "q": "Wat is die regte eerstehulp vir 'n warmtee brandwond?", "options": ["Smeer botter of tandepasta op die wond", "Hou dadelik vir minstens 10–20 minute onder koel, lopende kraanwater", "Druk dadelik 'n yskoue ysblokkie direk op die vel", "Prik enige blase oop met 'n naald"], "answer": 1, "marks": 1, "cogLevel": "Begrip", "memo": "Koel lopende water vir minstens 10-20 minute. Moet nooit botter of tandepasta opsmeer nie!"}]}, {"sectionTitle": "Afdeling B: Nasiebou & Gesondheid", "totalSectionMarks": 20, "questions": [{"id": "psw_3", "num": "2.1", "type": "short", "q": "Noem die 4 goue reëls van voedselveiligheid om voedselvergiftiging te voorkom.", "expectedKeywords": ["skoonmaak was skei rou gaar kook bere yskas"], "marks": 4, "cogLevel": "Kennis", "memo": "1. Maak skoon (was hande en oppervlaktes)\n2. Skei (rou vleis weg van gaar kos)\n3. Kook (kook deeglik deur)\n4. Verkoel / Bêre (sit bederfbare kos dadelik in die yskas) ✓✓✓✓"}]}]}];
 const studyPlanSchedule = [{"id": "task_20261107_1", "date": "2026-11-07", "dateDisplay": "Saterdag 7 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "K3-Herstel: Euler se Formule & 2D/3D Vorms", "detail": "KODE ROOI: Leer V + H - R = 2 vir kubus, prisma en piramides. Moet 71% haal!", "activity": "klas", "priority": "code_red", "targetCount": 1}, {"id": "task_20261107_2", "date": "2026-11-07", "dateDisplay": "Saterdag 7 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "20 Flitskaarte: Omtrek, Oppervlakte & Volume", "detail": "Reghoek omtrek = 2(L+B), Oppervlakte = L × B, Volume = L × B × H.", "activity": "flashcards", "priority": "code_red", "targetCount": 20}, {"id": "task_20261107_3", "date": "2026-11-07", "dateDisplay": "Saterdag 7 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "Diagnostiese Toets: Meetkunde & Formules", "detail": "Doen die 10 diagnostiese vrae oor hoeke, vorms en transformasies.", "activity": "quizzes", "priority": "code_red", "targetCount": 10}, {"id": "task_20261107_4", "date": "2026-11-07", "dateDisplay": "Saterdag 7 Nov", "subjectId": "m1", "subjectName": "SW (Geskiedenis)", "title": "Keusevak 2: Demokrasie & Regering (Benodig 32%)", "detail": "Kyk die geanimeerde les oor die 3 Regeringsarms (Maak-Doen-Beoordeel) en Grondwet.", "activity": "klas", "priority": "code_orange", "targetCount": 1}, {"id": "task_20261107_5", "date": "2026-11-07", "dateDisplay": "Saterdag 7 Nov", "subjectId": "m1", "subjectName": "SW (Geskiedenis)", "title": "15 Flitskaarte: Grondwet & Simbole", "detail": "Bemeester die Grondwet (4 Feb 1997), Parlement (400 NV, 90 NRVP) en Nasionale simbole.", "activity": "flashcards", "priority": "code_orange", "targetCount": 15}, {"id": "task_20261108_1", "date": "2026-11-08", "dateDisplay": "Sondag 8 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "K3-Herstel: Breuke na Desimale na Persentasies", "detail": "Bemeester 1/2 = 0.5 = 50%, 1/4 = 0.25 = 25%, 3/4 = 0.75 = 75%, 1/10 = 10%.", "activity": "flashcards", "priority": "code_red", "targetCount": 20}, {"id": "task_20261108_2", "date": "2026-11-08", "dateDisplay": "Sondag 8 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "Wiskunde V1: Eenhede & Tyd Omskakelings", "detail": "km na m (×1000), kg na g (×1000), liter na ml (×1000), ure na minute (×60).", "activity": "quizzes", "priority": "code_red", "targetCount": 10}, {"id": "task_20261108_3", "date": "2026-11-08", "dateDisplay": "Sondag 8 Nov", "subjectId": "m1", "subjectName": "SW (Geskiedenis)", "title": "Mediese Helde & Ontdekkings (Geskiedenis)", "detail": "Bemeester Fleming (Penisillien), Jenner (Pokke-entstof), Pasteur (Kieme).", "activity": "flashcards", "priority": "code_orange", "targetCount": 20}, {"id": "task_20261108_4", "date": "2026-11-08", "dateDisplay": "Sondag 8 Nov", "subjectId": "m1", "subjectName": "SW (Geskiedenis)", "title": "Geskiedenis Diagnostiese Toets", "detail": "Toets jou kennis oor Demokrasie en Medisyne sodat jy die 32% drempel maklik oortref.", "activity": "quizzes", "priority": "code_orange", "targetCount": 15}, {"id": "task_20261109_1", "date": "2026-11-09", "dateDisplay": "Maandag 9 Nov", "subjectId": "m1", "subjectName": "SW (Geskiedenis)", "title": "Finale Geskiedenis Eksamen-Simulasie", "detail": "Skryf die volle Geskiedenis-modelvraestel onder 60-minute tydtoets.", "activity": "simulator", "priority": "code_orange", "targetCount": 1}, {"id": "task_20261109_2", "date": "2026-11-09", "dateDisplay": "Maandag 9 Nov", "subjectId": "m1", "subjectName": "SW (Geskiedenis)", "title": "Skerp Geskiedenis Flitskaarte op na Groen", "detail": "Skuif alle oorblywende Rooi en Oranje kaarte na Boks 3 Groen.", "activity": "flashcards", "priority": "code_orange", "targetCount": 25}, {"id": "task_20261109_3", "date": "2026-11-09", "dateDisplay": "Maandag 9 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "Wiskunde V1: Vinnige Formule-Hersiening", "detail": "Moenie Wiskunde afskeep nie! Hersien 15 formules vir Meetkunde en Omtrek.", "activity": "flashcards", "priority": "code_red", "targetCount": 15}, {"id": "task_20261110_1", "date": "2026-11-10", "dateDisplay": "Dinsdag 10 Nov", "subjectId": "m1", "subjectName": "SW (Geskiedenis)", "title": "08:00 - Skryf SW Geskiedenis Eksamen! 🎯", "detail": "Skryf met selfvertroue. Jy benodig net 32% om Keusevak 2 in te palm!", "activity": "simulator", "priority": "code_orange", "targetCount": 1}, {"id": "task_20261110_2", "date": "2026-11-10", "dateDisplay": "Dinsdag 10 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "14:30 - Wiskunde V1 Nood-Hersiening: Meetkunde & Euler", "detail": "Kyk klaskamerles en oefen 2D/3D vorms, simmetrie en transformasies.", "activity": "klas", "priority": "code_red", "targetCount": 1}, {"id": "task_20261110_3", "date": "2026-11-10", "dateDisplay": "Dinsdag 10 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "15:30 - Wiskunde V1: 25 Formule Flitskaarte na Groen", "detail": "Maak seker elke enkele formule vir omtrek, oppervlakte en volume is in Boks 3.", "activity": "flashcards", "priority": "code_red", "targetCount": 25}, {"id": "task_20261110_4", "date": "2026-11-10", "dateDisplay": "Dinsdag 10 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "16:30 - Wiskunde V1: Volle Model Vraestel 1 Simulasie", "detail": "Skryf die 60-minuut Model Vraestel 1. Mik vir minstens 71%!", "activity": "simulator", "priority": "code_red", "targetCount": 1}, {"id": "task_20261111_1", "date": "2026-11-11", "dateDisplay": "Woensdag 11 Nov", "subjectId": "m2", "subjectName": "🚨 Wiskunde V1 (Kode Rooi)", "title": "08:00 - SKRYF WISKUNDE VRAESTEL 1 EKSAMEN! 🚀", "detail": "KRITIEKE STATUTÊRE MISSIE: Tel vinnige punte op met meetkunde, vorms en formules!", "activity": "simulator", "priority": "code_red", "targetCount": 1}, {"id": "task_20261111_2", "date": "2026-11-11", "dateDisplay": "Woensdag 11 Nov", "subjectId": "m3", "subjectName": "Afrikaans Huistaal", "title": "14:30 - Afrikaans STOMPI-trein & Taalleer", "detail": "Kyk STOMPI-klaskamerles. Jy benodig slegs 7.3% op eksamen om finaal te slaag.", "activity": "klas", "priority": "code_green", "targetCount": 1}, {"id": "task_20261111_3", "date": "2026-11-11", "dateDisplay": "Woensdag 11 Nov", "subjectId": "m3", "subjectName": "Afrikaans Huistaal", "title": "15:30 - Afrikaans 20 Flitskaarte (Direkte Rede & Sinonieme)", "detail": "Gaan vinnig deur die direkte rede en woordsoorte flitskaarte.", "activity": "flashcards", "priority": "code_green", "targetCount": 20}, {"id": "task_20261112_1", "date": "2026-11-12", "dateDisplay": "Donderdag 12 Nov", "subjectId": "m3", "subjectName": "Afrikaans Huistaal", "title": "08:00 - Skryf Afrikaans Huistaal Eksamen! 📝", "detail": "Jou SBA is 60.7% — jy is baie veilig! Skryf rustig en netjies.", "activity": "simulator", "priority": "code_green", "targetCount": 1}, {"id": "task_20261112_2", "date": "2026-11-12", "dateDisplay": "Donderdag 12 Nov", "subjectId": "m6", "subjectName": "🚨 Wiskunde V2 (Kode Rooi)", "title": "14:30 - Wiskunde V2: Langdeling & Kolom-Maalwerk Herstel", "detail": "Begin dadelik met Vraestel 2 voorbereiding. Oefen langdeling en 2-syfer maalwerk.", "activity": "klas", "priority": "code_red", "targetCount": 1}, {"id": "task_20261112_3", "date": "2026-11-12", "dateDisplay": "Donderdag 12 Nov", "subjectId": "m4", "subjectName": "English FAL", "title": "16:00 - English FAL: 15 Quick Flashcards", "detail": "Jou SBA is 67.3% — jy het English reeds geslaag! Hersien net 15 tenses & prepositions.", "activity": "flashcards", "priority": "code_green", "targetCount": 15}, {"id": "task_20261113_1", "date": "2026-11-13", "dateDisplay": "Vrydag 13 Nov", "subjectId": "m4", "subjectName": "English FAL", "title": "08:00 - Write English FAL Exam! 🌟", "detail": "English is already 100% passed on SBA. Enjoy the paper!", "activity": "simulator", "priority": "code_green", "targetCount": 1}, {"id": "task_20261113_2", "date": "2026-11-13", "dateDisplay": "Vrydag 13 Nov", "subjectId": "m6", "subjectName": "🚨 Wiskunde V2 (Kode Rooi)", "title": "14:30 - Wiskunde V2: 25 Flitskaarte (Breuke & Desimale)", "detail": "Optel en aftrek van breuke met dieselfde noemer, en desimale komma-optel.", "activity": "flashcards", "priority": "code_red", "targetCount": 25}, {"id": "task_20261114_1", "date": "2026-11-14", "dateDisplay": "Saterdag 14 Nov", "subjectId": "m6", "subjectName": "🚨 Wiskunde V2 (Kode Rooi)", "title": "Wiskunde V2: Kolom-Vermenigvuldiging Meesterskap", "detail": "Oefen 10 groot bewerkingsvrae: 3-syfer maal 2-syfer sonder foute.", "activity": "quizzes", "priority": "code_red", "targetCount": 10}, {"id": "task_20261114_2", "date": "2026-11-14", "dateDisplay": "Saterdag 14 Nov", "subjectId": "m6", "subjectName": "🚨 Wiskunde V2 (Kode Rooi)", "title": "Wiskunde V2: Langdeling Stappe (Deel, Maal, Trek-af, Bring-af)", "detail": "Volg die 4 stappe van langdeling soos 'n kampioen.", "activity": "klas", "priority": "code_red", "targetCount": 1}, {"id": "task_20261114_3", "date": "2026-11-14", "dateDisplay": "Saterdag 14 Nov", "subjectId": "m5", "subjectName": "SW (Geografie)", "title": "Geografie: Breedtelyne, Lengtelyne & Skaal", "detail": "Ewenaar (0°), Nulmeridiaan (0°), Kaartskaal en Koördinate. Sluit Keusevak 2 finaal!", "activity": "flashcards", "priority": "code_orange", "targetCount": 20}, {"id": "task_20261115_1", "date": "2026-11-15", "dateDisplay": "Sondag 15 Nov", "subjectId": "m5", "subjectName": "SW (Geografie)", "title": "Geografie Model Vraestel Simulasie", "detail": "Skryf die Geografie toets om seker te maak jou SW-gemiddeld is ver bo 32%.", "activity": "simulator", "priority": "code_orange", "targetCount": 1}, {"id": "task_20261115_2", "date": "2026-11-15", "dateDisplay": "Sondag 15 Nov", "subjectId": "m6", "subjectName": "🚨 Wiskunde V2 (Kode Rooi)", "title": "Wiskunde V2: 30 Hoofrekene & Verhoudings Flitskaarte", "detail": "Skuif alle Vraestel 2 kaarte na Groen Boks 3. Môre is die laaste voorbereidingsdag!", "activity": "flashcards", "priority": "code_red", "targetCount": 30}, {"id": "task_20261116_1", "date": "2026-11-16", "dateDisplay": "Maandag 16 Nov", "subjectId": "m5", "subjectName": "SW (Geografie)", "title": "08:00 - Skryf SW Geografie Eksamen! 🧭", "detail": "Hiermee is Sosiale Wetenskappe afgehandel en Keusevak 2 amptelik geslaag!", "activity": "simulator", "priority": "code_orange", "targetCount": 1}, {"id": "task_20261116_2", "date": "2026-11-16", "dateDisplay": "Maandag 16 Nov", "subjectId": "m6", "subjectName": "🚨 Wiskunde V2 (Kode Rooi)", "title": "14:30 - Wiskunde V2: Finale Model Vraestel 2 Simulasie", "detail": "KODE ROOI FINALE SLAG: Skryf die volle 60-minuut Vraestel 2 en behaal minstens 71%!", "activity": "simulator", "priority": "code_red", "targetCount": 1}, {"id": "task_20261116_3", "date": "2026-11-16", "dateDisplay": "Maandag 16 Nov", "subjectId": "m6", "subjectName": "🚨 Wiskunde V2 (Kode Rooi)", "title": "16:00 - Wiskunde V2: Hersien Alle Foute & Swakpunte", "detail": "Kyk na elke foutjie wat jy gemaak het sodat jy môreoggend 100% foutloos skryf.", "activity": "quizzes", "priority": "code_red", "targetCount": 15}, {"id": "task_20261117_1", "date": "2026-11-17", "dateDisplay": "Dinsdag 17 Nov", "subjectId": "m6", "subjectName": "🚨 Wiskunde V2 (Kode Rooi)", "title": "08:00 - SKRYF WISKUNDE VRAESTEL 2 EKSAMEN! 🏆", "detail": "DIE FINALE HEKKIE: Skryf jou bewerkings netjies uit, stap-vir-stap. Jy het dit!", "activity": "simulator", "priority": "code_red", "targetCount": 1}, {"id": "task_20261117_2", "date": "2026-11-17", "dateDisplay": "Dinsdag 17 Nov", "subjectId": "m7", "subjectName": "NW&T (Natuurwetenskappe)", "title": "14:30 - NW&T: Fotosintese & Ekosisteme Klaskamer", "detail": "Begin NW&T voorbereiding (Donderdag eksamen). Jy benodig 52% as ekstra buffer.", "activity": "klas", "priority": "code_yellow", "targetCount": 1}, {"id": "task_20261118_1", "date": "2026-11-18", "dateDisplay": "Woensdag 18 Nov", "subjectId": "m7", "subjectName": "NW&T (Natuurwetenskappe)", "title": "NW&T: 25 Flitskaarte (Stroombane, Geleiers & Isoleerders)", "detail": "Bemeester serie-stroombane, kopergeleiers en plastiek-isoleerders.", "activity": "flashcards", "priority": "code_yellow", "targetCount": 25}, {"id": "task_20261118_2", "date": "2026-11-18", "dateDisplay": "Woensdag 18 Nov", "subjectId": "m7", "subjectName": "NW&T (Natuurwetenskappe)", "title": "NW&T: Model Vraestel Simulasie", "detail": "Skryf die NW&T modeltoets om seker te maak jy behaal bo 52%.", "activity": "simulator", "priority": "code_yellow", "targetCount": 1}, {"id": "task_20261119_1", "date": "2026-11-19", "dateDisplay": "Donderdag 19 Nov", "subjectId": "m7", "subjectName": "NW&T (Natuurwetenskappe)", "title": "08:00 - Skryf NW&T Eksamen! 🔬", "detail": "Doen jou bes op NW&T. Onthou fotosintese en die komponente van 'n stroombaan.", "activity": "simulator", "priority": "code_yellow", "targetCount": 1}, {"id": "task_20261119_2", "date": "2026-11-19", "dateDisplay": "Donderdag 19 Nov", "subjectId": "m8", "subjectName": "Lewensvaardighede (PSW)", "title": "14:30 - Lewensvaardighede (PSW): Groepsdruk & Selfbeeld", "detail": "Jou SBA is 66.7% — Keusevak 1 is reeds gewaarborg! Hersien net vinnig die les.", "activity": "klas", "priority": "code_green", "targetCount": 1}, {"id": "task_20261123_1", "date": "2026-11-23", "dateDisplay": "Maandag 23 Nov", "subjectId": "m8", "subjectName": "Lewensvaardighede (PSW)", "title": "PSW Flitskaarte & Diagnostiese Toets", "detail": "Hersien 20 flitskaarte oor voeding, emosies en konflikhantering.", "activity": "flashcards", "priority": "code_green", "targetCount": 20}, {"id": "task_20261124_1", "date": "2026-11-24", "dateDisplay": "Dinsdag 24 Nov", "subjectId": "m8", "subjectName": "Lewensvaardighede (PSW)", "title": "08:00 - Skryf Lewensvaardighede (PSW) Eksamen! 🎉", "detail": "Die heel laaste eksamen van jou Graad 6-jaar! Geniet elke oomblik.", "activity": "simulator", "priority": "code_green", "targetCount": 1}, {"id": "task_20261124_2", "date": "2026-11-24", "dateDisplay": "Dinsdag 24 Nov", "subjectId": "m8", "subjectName": "Eksamens Voltooi! 🏆", "title": "14:05 - Grand Finale Stray Kids & Katte Konsert! 🎊", "detail": "ALLES VOLTOOI! Ontsluit jou VIP Backstage Pas en vier fees saam met Pa Kevern!", "activity": "klas", "priority": "celebration", "targetCount": 1}];
 const badgesData = [{"id": "badge_1_trainee", "title": "Soonie se Eerste Treë", "skzTheme": "🐾 Trainee Era (Lee Know se Katjie)", "icon": "🐱", "quote": "Elke groot Stay begin by stap een! Soonie gee jou 'n high-five met haar pootjie.", "desc": "Beweeg jou eerste 5 flitskaarte na die Groen Boks.", "xp": 100, "color": "#ec4899", "svg": "<svg viewBox=\"0 0 100 100\" class=\"badge-svg\">\n  <circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"#fdf2f8\" stroke=\"#ec4899\" stroke-width=\"4\"/>\n  <!-- Cat Ears -->\n  <polygon points=\"26,38 34,16 44,32\" fill=\"#ec4899\"/>\n  <polygon points=\"30,34 35,22 40,32\" fill=\"#fbcfe8\"/>\n  <polygon points=\"74,38 66,16 56,32\" fill=\"#ec4899\"/>\n  <polygon points=\"70,34 65,22 60,32\" fill=\"#fbcfe8\"/>\n  <!-- Cat Face -->\n  <ellipse cx=\"50\" cy=\"56\" rx=\"26\" ry=\"22\" fill=\"#ffffff\" stroke=\"#ec4899\" stroke-width=\"2.5\"/>\n  <circle cx=\"40\" cy=\"52\" r=\"3.5\" fill=\"#1e293b\"/>\n  <circle cx=\"60\" cy=\"52\" r=\"3.5\" fill=\"#1e293b\"/>\n  <polygon points=\"48,58 52,58 50,61\" fill=\"#ec4899\"/>\n  <path d=\"M46,62 Q50,65 50,61 Q50,65 54,62\" fill=\"none\" stroke=\"#ec4899\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>\n  <!-- Whiskers -->\n  <line x1=\"28\" y1=\"54\" x2=\"36\" y2=\"55\" stroke=\"#ec4899\" stroke-width=\"1.5\"/>\n  <line x1=\"27\" y1=\"60\" x2=\"36\" y2=\"59\" stroke=\"#ec4899\" stroke-width=\"1.5\"/>\n  <line x1=\"72\" y1=\"54\" x2=\"64\" y2=\"55\" stroke=\"#ec4899\" stroke-width=\"1.5\"/>\n  <line x1=\"73\" y1=\"60\" x2=\"64\" y2=\"59\" stroke=\"#ec4899\" stroke-width=\"1.5\"/>\n  <!-- Paw Print -->\n  <circle cx=\"50\" cy=\"74\" r=\"3\" fill=\"#ec4899\"/>\n  <circle cx=\"44\" cy=\"71\" r=\"1.5\" fill=\"#ec4899\"/>\n  <circle cx=\"48\" cy=\"69\" r=\"1.5\" fill=\"#ec4899\"/>\n  <circle cx=\"52\" cy=\"69\" r=\"1.5\" fill=\"#ec4899\"/>\n  <circle cx=\"56\" cy=\"71\" r=\"1.5\" fill=\"#ec4899\"/>\n</svg>"}, {"id": "badge_2_maniac", "title": "Maniac Wiskunde Kat", "skzTheme": "🔩 MANIAC Era (Neon Frankenstein Paws)", "icon": "⚡", "quote": "'Maniac, going crazy!' Jou wiskunde-brein draai soos 'n ratwerk-kampioen!", "desc": "Kyk enige 2 Klaskamer video-lesse en leer die meetkunde/deling truuks.", "xp": 200, "color": "#10b981", "svg": "<svg viewBox=\"0 0 100 100\" class=\"badge-svg\">\n  <circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"#ecfdf5\" stroke=\"#10b981\" stroke-width=\"4\"/>\n  <!-- Cat with Screws / Neon theme -->\n  <polygon points=\"26,36 34,14 44,30\" fill=\"#10b981\"/>\n  <polygon points=\"74,36 66,14 56,30\" fill=\"#10b981\"/>\n  <!-- Screws -->\n  <rect x=\"18\" y=\"48\" width=\"8\" height=\"4\" rx=\"2\" fill=\"#64748b\"/>\n  <rect x=\"74\" y=\"48\" width=\"8\" height=\"4\" rx=\"2\" fill=\"#64748b\"/>\n  <!-- Head -->\n  <ellipse cx=\"50\" cy=\"54\" rx=\"26\" ry=\"22\" fill=\"#ffffff\" stroke=\"#10b981\" stroke-width=\"2.5\"/>\n  <circle cx=\"41\" cy=\"50\" r=\"4\" fill=\"#059669\"/>\n  <circle cx=\"59\" cy=\"50\" r=\"4\" fill=\"#059669\"/>\n  <circle cx=\"42\" cy=\"49\" r=\"1.5\" fill=\"#ffffff\"/>\n  <circle cx=\"60\" cy=\"49\" r=\"1.5\" fill=\"#ffffff\"/>\n  <polygon points=\"48,56 52,56 50,59\" fill=\"#10b981\"/>\n  <path d=\"M46,60 Q50,64 50,59 Q50,64 54,60\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"1.8\"/>\n  <text x=\"50\" y=\"74\" font-size=\"7\" font-weight=\"900\" fill=\"#047857\" text-anchor=\"middle\">MANIAC ⚡</text>\n</svg>"}, {"id": "badge_3_godsmenu", "title": "God's Menu Meester-Chef", "skzTheme": "🍳 God's Menu Era (Du Du Du!)", "icon": "🔥", "quote": "'Cookin' like a chef, I'm a 5-star Michelin!' Jy kook 100% in jou toetse!", "desc": "Beantwoord minstens 20 diagnostiese meerkeusevrae korrek.", "xp": 350, "color": "#f97316", "svg": "<svg viewBox=\"0 0 100 100\" class=\"badge-svg\">\n  <circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"#fff7ed\" stroke=\"#f97316\" stroke-width=\"4\"/>\n  <!-- Chef Hat on Kitty -->\n  <path d=\"M38,32 C34,22 46,16 50,22 C54,16 66,22 62,32 Z\" fill=\"#ffffff\" stroke=\"#f97316\" stroke-width=\"2\"/>\n  <rect x=\"38\" y=\"30\" width=\"24\" height=\"6\" fill=\"#f97316\" rx=\"2\"/>\n  <!-- Cat Ears poking -->\n  <polygon points=\"26,38 32,22 38,34\" fill=\"#f97316\"/>\n  <polygon points=\"74,38 68,22 62,34\" fill=\"#f97316\"/>\n  <!-- Head -->\n  <ellipse cx=\"50\" cy=\"56\" rx=\"25\" ry=\"21\" fill=\"#ffffff\" stroke=\"#f97316\" stroke-width=\"2.5\"/>\n  <circle cx=\"41\" cy=\"52\" r=\"3.5\" fill=\"#1e293b\"/>\n  <circle cx=\"59\" cy=\"52\" r=\"3.5\" fill=\"#1e293b\"/>\n  <polygon points=\"48,58 52,58 50,61\" fill=\"#f97316\"/>\n  <path d=\"M46,62 Q50,65 50,61 Q50,65 54,62\" fill=\"none\" stroke=\"#f97316\" stroke-width=\"1.8\"/>\n  <text x=\"50\" y=\"74\" font-size=\"6.5\" font-weight=\"900\" fill=\"#c2410c\" text-anchor=\"middle\">DU-DU-DU 5★</text>\n</svg>"}, {"id": "badge_4_wolfchan", "title": "Wolf Chan Leierskap", "skzTheme": "🐺 Bang Chan & SKZOO Leader", "icon": "🌟", "quote": "Bly kalm, fokus en lei die pad vorentoe soos 'n ware leier!", "desc": "Skuif 40 of meer flitskaarte na die Groen Boks (Bemeester).", "xp": 500, "color": "#3b82f6", "svg": "<svg viewBox=\"0 0 100 100\" class=\"badge-svg\">\n  <circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"#eff6ff\" stroke=\"#3b82f6\" stroke-width=\"4\"/>\n  <!-- Wolf Ears with Fluff -->\n  <polygon points=\"24,40 32,16 46,32\" fill=\"#3b82f6\"/>\n  <polygon points=\"28,36 34,22 42,32\" fill=\"#bfdbfe\"/>\n  <polygon points=\"76,40 68,16 54,32\" fill=\"#3b82f6\"/>\n  <polygon points=\"72,36 66,22 58,32\" fill=\"#bfdbfe\"/>\n  <!-- Face -->\n  <ellipse cx=\"50\" cy=\"56\" rx=\"26\" ry=\"22\" fill=\"#ffffff\" stroke=\"#3b82f6\" stroke-width=\"2.5\"/>\n  <circle cx=\"40\" cy=\"52\" r=\"4\" fill=\"#1e3a8a\"/>\n  <circle cx=\"60\" cy=\"52\" r=\"4\" fill=\"#1e3a8a\"/>\n  <circle cx=\"42\" cy=\"50\" r=\"1.5\" fill=\"#ffffff\"/>\n  <circle cx=\"62\" cy=\"50\" r=\"1.5\" fill=\"#ffffff\"/>\n  <ellipse cx=\"50\" cy=\"59\" rx=\"3\" ry=\"2\" fill=\"#1e3a8a\"/>\n  <path d=\"M46,62 Q50,66 50,62 Q50,66 54,62\" fill=\"none\" stroke=\"#3b82f6\" stroke-width=\"2\"/>\n  <text x=\"50\" y=\"74\" font-size=\"6.5\" font-weight=\"900\" fill=\"#1d4ed8\" text-anchor=\"middle\">LEADER CHAN</text>\n</svg>"}, {"id": "badge_5_case143", "title": "Case 143 Hartjie-Kat", "skzTheme": "💖 CASE 143 Era (I Love You Pappa Code)", "icon": "💌", "quote": "'1-4-3 I love you!' Jy stuur jou studie-vordering getrou vir Pappa Kevern!", "desc": "Stuur jou studie-uitslae na Pappa via WhatsApp of Telegram.", "xp": 650, "color": "#f43f5e", "svg": "<svg viewBox=\"0 0 100 100\" class=\"badge-svg\">\n  <circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"#fff1f2\" stroke=\"#f43f5e\" stroke-width=\"4\"/>\n  <!-- Heart Antennas -->\n  <path d=\"M35,22 C30,16 38,10 40,16 C42,10 50,16 45,22 Z\" fill=\"#f43f5e\" transform=\"scale(0.55) translate(40, 10)\"/>\n  <!-- Cat Ears -->\n  <polygon points=\"26,38 34,16 44,32\" fill=\"#f43f5e\"/>\n  <polygon points=\"74,38 66,16 56,32\" fill=\"#f43f5e\"/>\n  <!-- Face -->\n  <ellipse cx=\"50\" cy=\"56\" rx=\"26\" ry=\"22\" fill=\"#ffffff\" stroke=\"#f43f5e\" stroke-width=\"2.5\"/>\n  <!-- Heart Eyes -->\n  <path d=\"M37,48 C34,44 40,40 41,45 C42,40 48,44 45,48 L41,53 Z\" fill=\"#e11d48\"/>\n  <path d=\"M55,48 C52,44 58,40 59,45 C60,40 66,44 63,48 L59,53 Z\" fill=\"#e11d48\"/>\n  <polygon points=\"48,58 52,58 50,61\" fill=\"#f43f5e\"/>\n  <path d=\"M46,62 Q50,65 50,61 Q50,65 54,62\" fill=\"none\" stroke=\"#f43f5e\" stroke-width=\"1.8\"/>\n  <text x=\"50\" y=\"74\" font-size=\"7\" font-weight=\"900\" fill=\"#be123c\" text-anchor=\"middle\">CASE 143 💖</text>\n</svg>"}, {"id": "badge_6_thunderous", "title": "Thunderous Blits-Kat", "skzTheme": "⚡ THUNDEROUS Era (Sorikkun Spitfire)", "icon": "🌩️", "quote": "'Man I'm not sorry, I'm dirty!' Jy slaan eksamenvrae met weerlig-spoed neer!", "desc": "Voltooi enige Model-Eindeksamen simulasie vraestel.", "xp": 800, "color": "#8b5cf6", "svg": "<svg viewBox=\"0 0 100 100\" class=\"badge-svg\">\n  <circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"#f5f3ff\" stroke=\"#8b5cf6\" stroke-width=\"4\"/>\n  <!-- Traditional Ribbon & Lightning -->\n  <polygon points=\"26,36 34,14 44,30\" fill=\"#8b5cf6\"/>\n  <polygon points=\"74,36 66,14 56,30\" fill=\"#8b5cf6\"/>\n  <!-- Lightning bolt on forehead -->\n  <ellipse cx=\"50\" cy=\"55\" rx=\"26\" ry=\"22\" fill=\"#ffffff\" stroke=\"#8b5cf6\" stroke-width=\"2.5\"/>\n  <polygon points=\"50,38 46,47 51,47 48,55 55,45 50,45\" fill=\"#eab308\" stroke=\"#ca8a04\" stroke-width=\"0.8\"/>\n  <circle cx=\"41\" cy=\"53\" r=\"3.5\" fill=\"#1e293b\"/>\n  <circle cx=\"59\" cy=\"53\" r=\"3.5\" fill=\"#1e293b\"/>\n  <polygon points=\"48,59 52,59 50,62\" fill=\"#8b5cf6\"/>\n  <path d=\"M46,63 Q50,66 50,63 Q50,66 54,63\" fill=\"none\" stroke=\"#8b5cf6\" stroke-width=\"1.8\"/>\n  <text x=\"50\" y=\"74\" font-size=\"6.5\" font-weight=\"900\" fill=\"#6d28d9\" text-anchor=\"middle\">SORIKKUN ⚡</text>\n</svg>"}, {"id": "badge_7_sclass", "title": "S-Class Skitter-Kat", "skzTheme": "⭐ 5-STAR S-CLASS Era (Special & Shining)", "icon": "👑", "quote": "'Everyday we're sparkling!' Jy is die blinkste ster in die hele Laerskool Hermanstad!", "desc": "Voltooi minstens 10 take op die amptelike studieplan sonder agterstand.", "xp": 1000, "color": "#eab308", "svg": "<svg viewBox=\"0 0 100 100\" class=\"badge-svg\">\n  <circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"#fefce8\" stroke=\"#eab308\" stroke-width=\"4\"/>\n  <!-- Gold Crown on Kitty -->\n  <polygon points=\"36,32 40,20 46,27 50,18 54,27 60,20 64,32\" fill=\"#eab308\" stroke=\"#ca8a04\" stroke-width=\"1.5\"/>\n  <circle cx=\"50\" cy=\"18\" r=\"1.5\" fill=\"#ef4444\"/>\n  <!-- Cat Ears -->\n  <polygon points=\"26,38 32,24 38,34\" fill=\"#eab308\"/>\n  <polygon points=\"74,38 68,24 62,34\" fill=\"#eab308\"/>\n  <!-- Face -->\n  <ellipse cx=\"50\" cy=\"56\" rx=\"26\" ry=\"22\" fill=\"#ffffff\" stroke=\"#eab308\" stroke-width=\"2.5\"/>\n  <circle cx=\"41\" cy=\"52\" r=\"4\" fill=\"#854d0e\"/>\n  <circle cx=\"59\" cy=\"52\" r=\"4\" fill=\"#854d0e\"/>\n  <circle cx=\"42\" cy=\"50\" r=\"1.5\" fill=\"#ffffff\"/>\n  <circle cx=\"60\" cy=\"50\" r=\"1.5\" fill=\"#ffffff\"/>\n  <polygon points=\"48,58 52,58 50,61\" fill=\"#eab308\"/>\n  <path d=\"M46,62 Q50,65 50,61 Q50,65 54,62\" fill=\"none\" stroke=\"#eab308\" stroke-width=\"1.8\"/>\n  <text x=\"50\" y=\"74\" font-size=\"7\" font-weight=\"900\" fill=\"#a16207\" text-anchor=\"middle\">S-CLASS 5★</text>\n</svg>"}, {"id": "badge_8_grand_stay", "title": "Stray Kids VIP Ere-Stay Koningin", "skzTheme": "🏆 ULTIMATE GRAND FINALE (Graad 6 Legende)", "icon": "💎", "quote": "'Stray Kids everywhere all around the world, you make Stray Kids STAY!' Jy het die hele Graad 6 eksamenprogram voltooi!", "desc": "Voltooi al 8 vakke en skryf die finale PSW eksamen op 24 November.", "xp": 2500, "color": "#db2777", "svg": "<svg viewBox=\"0 0 100 100\" class=\"badge-svg\">\n  <defs>\n    <linearGradient id=\"skzGold\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#f59e0b\"/>\n      <stop offset=\"50%\" stop-color=\"#ec4899\"/>\n      <stop offset=\"100%\" stop-color=\"#8b5cf6\"/>\n    </linearGradient>\n  </defs>\n  <circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"#fdf2f8\" stroke=\"url(#skzGold)\" stroke-width=\"5\"/>\n  <!-- Big Royal Crown with Jewels -->\n  <polygon points=\"30,30 36,14 44,24 50,10 56,24 64,14 70,30\" fill=\"url(#skzGold)\" stroke=\"#be185d\" stroke-width=\"1.8\"/>\n  <circle cx=\"50\" cy=\"10\" r=\"2.5\" fill=\"#38bdf8\"/>\n  <circle cx=\"36\" cy=\"14\" r=\"2\" fill=\"#f43f5e\"/>\n  <circle cx=\"64\" cy=\"14\" r=\"2\" fill=\"#a855f7\"/>\n  <!-- Golden Cat Ears -->\n  <polygon points=\"24,38 32,22 40,34\" fill=\"#ec4899\"/>\n  <polygon points=\"76,38 68,22 60,34\" fill=\"#ec4899\"/>\n  <!-- Royal Cat Face -->\n  <ellipse cx=\"50\" cy=\"56\" rx=\"26\" ry=\"22\" fill=\"#ffffff\" stroke=\"#db2777\" stroke-width=\"2.5\"/>\n  <circle cx=\"41\" cy=\"52\" r=\"4\" fill=\"#be185d\"/>\n  <circle cx=\"59\" cy=\"52\" r=\"4\" fill=\"#be185d\"/>\n  <circle cx=\"42\" cy=\"50\" r=\"1.5\" fill=\"#ffffff\"/>\n  <circle cx=\"60\" cy=\"50\" r=\"1.5\" fill=\"#ffffff\"/>\n  <!-- Rosy Cheeks -->\n  <circle cx=\"33\" cy=\"58\" r=\"3.5\" fill=\"#fbcfe8\"/>\n  <circle cx=\"67\" cy=\"58\" r=\"3.5\" fill=\"#fbcfe8\"/>\n  <polygon points=\"48,58 52,58 50,61\" fill=\"#ec4899\"/>\n  <path d=\"M46,62 Q50,66 50,62 Q50,66 54,62\" fill=\"none\" stroke=\"#ec4899\" stroke-width=\"2\"/>\n  <text x=\"50\" y=\"74\" font-size=\"6.5\" font-weight=\"900\" fill=\"#be185d\" text-anchor=\"middle\">👑 VIP STAY QUEEN 💎</text>\n</svg>"}];
+const mathModulesData = [{"id": "math_2d_hoeke", "paper": 1, "title": "2D-Vorms, Sye & Hoeke", "subtitle": "Veelhoeke, Driehoeke, Vierhoeke en die 4 Tipes Hoeke", "badge": "Vraestel 1 • Meetkunde", "icon": "📐", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die Haaibek & Die Skootrekenaar", "content": "Dink aan 'n haai se bek. As die bek net 'n klein bietjie oop is om 'n klein vissie te hap, is dit 'n SKERPHOEK (minder as 90° - skerp soos 'n potloodpunt!). As hy sy bek oopmaak presies soos die hoek van 'n kamer se muur of 'n skootrekenaar wat regop staan, is dit 'n REGTE HOEK (presies 90°, met 'n klein vierkantige blokkie). As hy sy bek wawyd oopmaak vir 'n reuse walvis, is dit 'n STOMPHOEK (stomperig, tussen 90° en 180°). En as hy plat op die sand lê soos 'n reguit liniaal, is dit 'n GESTREKTE HOEK (presies 180°)."}, {"type": "visual", "title": "2. Visuele Anatomie: Die Gradeboog & Grade", "content": "Elke hoek word gemeet in grade (°).\n• Skerphoek: 1° tot 89° (Smal soos 'n sny pizza).\n• Regte hoek: Presies 90° (Herken aan die vierkantige blokkie in die hoek!).\n• Stomphoek: 91° tot 179° (Oop en breed soos 'n sonsambreel).\n• Gestrekte hoek: Presies 180° ('n Reguit lyn).\n• Omwenteling: 360° ('n Volle sirkel draai!).\n\nDriehoeke se binnehoeke tel ALTYD saam op na 180°. Vierhoeke se binnehoeke tel ALTYD saam op na 360°!"}, {"type": "formal", "title": "3. Die Formele KABV Reël: Driehoeke & Vierhoeke", "content": "DRIEHOEKE (Klassifikasie volgens sye):\n1. Gelyksydig: Al 3 sye ewe lank, al 3 hoeke presies 60°.\n2. Gelykbenig: 2 sye ewe lank, 2 basishoeke ewe groot.\n3. Ongelyksydig: Geen sye ewe lank nie, alle hoeke verskil.\n4. Reghoekige driehoek: Een hoek is presies 90°.\n\nVIERHOEKE (4 reguit sye):\n• Vierkant: 4 gelyke sye, 4 regte hoeke (90°).\n• Reghoek: Teenoorstaande sye gelyk en ewewydig, 4 regte hoeke.\n• Parallelogram: Teenoorstaande sye gelyk en ewewydig, teenoorstaande hoeke gelyk.\n• Ruit (Rhombus): 4 gelyke sye (soos 'n skuins vierkant), teenoorstaande hoeke gelyk.\n• Trapesium: SLEGS EEN paar teenoorstaande sye is ewewydig (soos 'n dak)."}, {"type": "traps", "title": "4. Die Grootste Valkuile & Strikvrae", "content": "⚠️ STRIKVRAAG 1: Moenie dink 'n ruit is 'n vierkant nie! 'n Vierkant het hoeke van 90°, maar 'n ruit het skewe hoeke (twee skerp, twee stomp).\n⚠️ STRIKVRAAG 2: As 'n eksamenvraag vra: 'Kan 'n driehoek twee regte hoeke (90°) hê?', is die antwoord beslis NEE! Want 90° + 90° = 180°, dan is daar 0° oor vir die derde hoek!\n⚠️ STRIKVRAAG 3: 'n Trapesium het net 1 paar ewewydige sye, nie 2 soos 'n parallelogram nie."}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: 'S-R-S-G'", "content": "Onthou Felix se danspassie: 'Skerp hap, Regop sit, Stomp oop, Gestrek plat!'\n• Skerp (<90°)\n• Regte (=90°)\n• Stomp (>90°)\n• Gestrek (=180°)\nEn vir driehoeke: 'Gelyksydig = Drieelinge, Gelykbenig = Tweeling bene, Ongelyksydig = Vreemdelinge!'"}], "examples": [{"type": "standard", "title": "Voorbeeld 1: Basiese Hoek-Identifikasie", "q": "Watse tipe hoek is 115° en watse tipe hoek is 48°?", "steps": ["Stap 1: Kyk na die getal en vergelyk met 90°.", "Stap 2: 115° is groter as 90° maar kleiner as 180° ➔ STOMPHOEK.", "Stap 3: 48° is kleiner as 90° ➔ SKERPHOEK."], "answer": "115° is 'n Stomphoek; 48° is 'n Skerphoek."}, {"type": "visual", "title": "Voorbeeld 2: Ontbrekende Hoek in 'n Driehoek", "q": "'n Driehoek het hoeke van 65° en 75°. Bereken die grootte van die derde hoek x.", "steps": ["Stap 1: Onthou die goue reël: Die hoeke van 'n driehoek tel ALTYD 180°.", "Stap 2: Tel die twee bekende hoeke bymekaar: 65° + 75° = 140°.", "Stap 3: Trek af van 180°: 180° - 140° = 40°."], "answer": "x = 40°"}, {"type": "inverted", "title": "Voorbeeld 3: Omgekeerde Vraag (Gelykbenige Driehoek)", "q": "'n Gelykbenige driehoek het 'n tophoek van 50°. Wat is die grootte van die twee gelyke basishoeke?", "steps": ["Stap 1: Totale hoeke = 180°.", "Stap 2: Trek die tophoek af: 180° - 50° = 130° oor vir albei basishoeke saam.", "Stap 3: Omdat dit 'n gelykbenige driehoek is, is die twee basishoeke PRESYS GELYK.", "Stap 4: Deel deur 2: 130° ÷ 2 = 65°."], "answer": "Elke basishoek is 65°."}, {"type": "word_problem", "title": "Voorbeeld 4: Realistiese Woordsom (Dak van 'n Huis)", "q": "'n Argitek ontwerp 'n dak wat die vorm van 'n gelyksydige driehoek het. Die bouer moet die hoeke stel. Hoe groot moet elke hoek wees?", "steps": ["Stap 1: Identifiseer die vorm: Gelyksydige driehoek.", "Stap 2: Eienskap: Al 3 hoeke is ewe groot.", "Stap 3: Berekening: 180° ÷ 3 = 60°."], "answer": "Elke hoek moet presies 60° wees."}, {"type": "trap", "title": "Voorbeeld 5: Gevorderde Vierhoek Strikvraag", "q": "'n Vierhoek het drie hoeke: 90°, 110° en 70°. Is die vierde hoek 'n skerp-, regte of stomphoek?", "steps": ["Stap 1: 'n Vierhoek se hoeke tel altyd op na 360° (twee driehoeke saam!).", "Stap 2: Tel die drie bekende hoeke op: 90° + 110° + 70° = 270°.", "Stap 3: Trek af van 360°: 360° - 270° = 90°.", "Stap 4: Klassifiseer 90°: Dit is presies 'n REGTE HOEK."], "answer": "Die vierde hoek is 90° ('n Regte hoek)."}], "svgCanvas": "angles", "labType": "angles_radar", "practice": [{"q": "Watse tipe hoek is presies 90°?", "options": ["Skerphoek", "Regte hoek", "Stomphoek", "Gestrekte hoek"], "ans": 1, "exp": "'n Hoek van presies 90° is 'n REGTE HOEK, gemerk met 'n klein vierkantige blokkie in die hoek.", "hint": "Dink aan die hoek van 'n kamer se muur of 'n skootrekenaar wat regop staan!"}, {"q": "'n Driehoek het twee hoeke van 50° en 70°. Hoe groot is die derde hoek?", "options": ["60°", "70°", "80°", "180°"], "ans": 0, "exp": "Die binnehoeke van 'n driehoek tel ALTYD op na 180°. 50° + 70° = 120°. 180° - 120° = 60°!", "hint": "Trek die twee bekende hoeke af van 180°!"}, {"q": "Hoeveel ewewydige sye het 'n trapesium?", "options": ["Geen", "Presies een paar (2 sye)", "Twee pare (4 sye)", "Al vier sye"], "ans": 1, "exp": "'n Trapesium het SLEGS EEN paar teenoorstaande ewewydige sye (soos 'n dak of 'n handsak).", "hint": "Kyk na die dak van 'n huis — net die bo- en onderkant loop parallel!"}, {"q": "Wat noem ons 'n hoek van 135°?", "options": ["Skerphoek", "Regte hoek", "Stomphoek", "Omwenteling"], "ans": 2, "exp": "Omdat 135° groter as 90° maar kleiner as 180° is, is dit 'n STOMPHOEK.", "hint": "Die haai se bek is wawyd oop — stomperig en wyd!"}, {"q": "Wat is die som van die binnehoeke van ENIGE vierhoek?", "options": ["180°", "270°", "360°", "540°"], "ans": 2, "exp": "Enige vierhoek bestaan uit 2 driehoeke (2 × 180° = 360°). Die binnehoeke is ALTYD 360°!", "hint": "Vierkant het vier 90° hoeke: 4 × 90° = 360°!"}]}, {"id": "math_3d_euler", "paper": 1, "title": "3D-Voorwerpe & Euler se Formule", "subtitle": "Vlakke, Hoekpunte, Rande en Prismas vs Piramides", "badge": "Vraestel 1 • Ruimte & Vorm (K3 Herstel)", "icon": "📦", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die Skoenboks & Die Piramide van Egipte", "content": "Dink aan 'n gewone kartondoos of skoenboks (Reghoekige Prisma). Die plat kante wat jy kan verf, noem ons VLAKKE (V). Die skerp hoekies waar jou elmboog stamp, noem ons HOEKPUNTE (H). Die skerp reguit vou-lyne wat die kante verbind, noem ons RANDE (R). 'n Prisma het twee identiese punte (soos 'n skoenboks of Toblerone-sjokolade). 'n Piramide het 'n plat basis onder en kom bo in EEN skerp punt bymekaar (soos die piramides in Egipte!)."}, {"type": "visual", "title": "2. Visuele Anatomie: V + H - R = 2", "content": "Die groot wiskundige Leonhard Euler het ontdek dat ELKE konvekse 3D-vorm 'n geheime wet volg:\n• V = Aantal plat Vlakke (Faces)\n• H = Aantal skerp Hoekpunte (Vertices)\n• R = Aantal reguit Rande (Edges)\n\nFORMULE: Vlakke + Hoekpunte - Rande is ALTYD gelyk aan 2!\n(V + H - R = 2)\n\nKom ons toets dit op 'n Kubus:\n• Vlakke (V) = 6 plat sye\n• Hoekpunte (H) = 8 skerp hoeke\n• Rande (R) = 12 lyne\n• Toets: 6 + 8 = 14. En 14 - 12 = 2! Dit werk ALTYD!"}, {"type": "formal", "title": "3. Die Formele KABV Reël: Prismas vs Piramides", "content": "PRISMAS:\n• Het 2 identiese, ewewydige basisse.\n• Die sye tussen die basisse is altyd reghoeke.\n• Voorbeelde: Driehoekige prisma (Toblerone), Reghoekige prisma (Boks), Kubus (al 6 vlakke is vierkante).\n\nPIRAMIDES:\n• Het SLEGS 1 basis onder (bv. driehoek, vierkant, seshoek).\n• Al die ander vlakke is DRIEHOEKE wat bymekaarkom by een toppunt (apeks).\n• Voorbeelde: Vierkantige piramide (basis vierkant, 4 driehoek-sye), Driehoekige piramide (basis driehoek, 3 driehoek-sye)."}, {"type": "traps", "title": "4. Die Grootste Valkuile & Strikvrae", "content": "⚠️ STRIKVRAAG 1: Moenie Hoekpunte en Rande omruil nie! Hoekpunte is punte (dots), rande is lyne (lines).\n⚠️ STRIKVRAAG 2: Silinders en keëls volg NIE Euler se formule nie, want hulle het geboë (ronde) vlakke. Euler werk net vir veelvlakke met PLAT reguit vlakke!\n⚠️ STRIKVRAAG 3: As die vraag sê: 'n Vorm het 5 vlakke en 6 hoekpunte, hoeveel rande het dit? Moenie raai nie, gebruik Euler se formule!"}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: 'Vriende Hou Regtig van 2!'", "content": "Bang Chan sê: 'V + H - R = 2' ➔ 'Vriende Hou Regtig van 2!'\n• V (Vlakke) + H (Hoekpunte) minus R (Rande) gee ALTYD 2!\nAs jy R soek: R = V + H - 2!"}], "examples": [{"type": "standard", "title": "Voorbeeld 1: Kubus & Reghoekige Prisma", "q": "Hoeveel vlakke, hoekpunte en rande het 'n kubus?", "steps": ["Stap 1: Vlakke (sye van die boks) = bo, onder, voor, agter, links, regs = 6 vlakke.", "Stap 2: Hoekpunte (skerp hoeke) = 4 bo + 4 onder = 8 hoekpunte.", "Stap 3: Rande (voulyne) = 4 bo + 4 onder + 4 regop = 12 rande.", "Stap 4: Toets Euler: 6 + 8 - 12 = 2. Klop 100%!"], "answer": "Vlakke = 6, Hoekpunte = 8, Rande = 12."}, {"type": "visual", "title": "Voorbeeld 2: Vierkantige Piramide", "q": "Bepaal V, H en R vir 'n piramide met 'n vierkantige basis.", "steps": ["Stap 1: Vlakke: 1 vierkant onder + 4 driehoeke aan die kante = 5 vlakke.", "Stap 2: Hoekpunte: 4 hoeke op die grond + 1 skerp toppunt bo = 5 hoekpunte.", "Stap 3: Rande: 4 lyne op die grond + 4 lyne wat boontoe gaan = 8 rande.", "Stap 4: Toets: 5 + 5 - 8 = 10 - 8 = 2!"], "answer": "Vlakke = 5, Hoekpunte = 5, Rande = 8."}, {"type": "inverted", "title": "Voorbeeld 3: Omgekeerde Euler Vraag (Soek die Rande)", "q": "'n Veelvlak het 7 vlakke en 10 hoekpunte. Hoeveel rande (R) het die voorwerp?", "steps": ["Stap 1: Skryf Euler se formule neer: V + H - R = 2.", "Stap 2: Vervang die getalle: 7 + 10 - R = 2.", "Stap 3: Vereenvoudig: 17 - R = 2.", "Stap 4: Wat moet jy van 17 aftrek om 2 te kry? 17 - 2 = 15."], "answer": "Rande (R) = 15."}, {"type": "word_problem", "title": "Voorbeeld 4: Realistiese Woordsom (Toblerone Boks)", "q": "Shenique koop 'n Toblerone-sjokolade ('n driehoekige prisma). Sy wil weet hoeveel rande die karton het sodat sy lint om al die rande kan plak. Hoeveel rande is daar?", "steps": ["Stap 1: Driehoekige prisma het twee driehoek-basisse en 3 reghoek-sye.", "Stap 2: Rande: 3 rande op voorste driehoek + 3 rande op agterste driehoek + 3 reguit verbindingslyne.", "Stap 3: 3 + 3 + 3 = 9 rande.", "Stap 4: Toets met Euler: V=5 (2 driehoeke + 3 reghoeke), H=6 (3 voor + 3 agter). 5 + 6 - 9 = 2!"], "answer": "Daar is 9 rande (sy benodig lint vir 9 rande)."}, {"type": "trap", "title": "Voorbeeld 5: Seshoekige Piramide Strikvraag", "q": "'n Piramide het 'n seshoekige basis (6 sye). Hoeveel vlakke en hoeveel hoekpunte het dit?", "steps": ["Stap 1: Piramides het altyd (Aantal basissye + 1) vlakke. 6 + 1 = 7 vlakke (1 seshoek + 6 driehoeke).", "Stap 2: Hoekpunte: 6 hoeke op die grond + 1 toppunt = 7 hoekpunte.", "Stap 3: Rande: 6 op die grond + 6 na bo = 12 rande.", "Stap 4: Euler toets: 7 + 7 - 12 = 14 - 12 = 2."], "answer": "Vlakke = 7, Hoekpunte = 7 (en 12 rande)."}], "svgCanvas": "cube3d", "labType": "euler_3d", "practice": [{"q": "Wat is Euler se formule vir enige 3D konvekse veelvlak?", "options": ["V + H - R = 2", "V + R - H = 2", "V × H = R", "V + H + R = 180"], "ans": 0, "exp": "Euler se goue formule is V + H - R = 2 (Vlakke + Hoekpunte minus Rante is gelyk aan 2)!", "hint": "Onthou: Vlakke + Hoekpunte wen altyd met 2 teen die Rante!"}, {"q": "Hoeveel vlakke, hoekpunte en rante het 'n Driehoekige Prisma?", "options": ["5 vlakke, 6 hoekpunte, 9 rante", "6 vlakke, 8 hoekpunte, 12 rante", "4 vlakke, 4 hoekpunte, 6 rante", "5 vlakke, 5 hoekpunte, 8 rante"], "ans": 0, "exp": "'n Driehoekige prisma het 5 vlakke (2 driehoeke + 3 reghoeke), 6 hoekpunte en 9 rante. Toets: 5 + 6 - 9 = 2!", "hint": "Dink aan 'n Toblerone-sjokoladeboksie!"}, {"q": "Wat is die verskil tussen 'n prisma en 'n piramide?", "options": ["'n Prisma het 2 identiese basisse; 'n piramide loop op na 1 skerp apeks/spits", "'n Piramide het ronde sye; 'n prisma nie", "'n Prisma het altyd net 4 kante", "Daar is geen verskil nie"], "ans": 0, "exp": "'n Prisma het 2 identiese teenoorstaande basisse (soos 'n boks), terwyl 'n piramide opgaan na een enkele punt bo (die apeks)!", "hint": "Dink aan die Egiptiese piramides wat opgaan na een spits punt!"}, {"q": "'n 3D-vorm het 6 vlakke en 8 hoekpunte. Hoeveel rante het dit volgens Euler se formule?", "options": ["10", "12", "14", "16"], "ans": 1, "exp": "Euler: V + H - R = 2. Dus 6 + 8 - R = 2 => 14 - R = 2 => R = 12 rante! (Dis 'n kubus of reghoekige prisma).", "hint": "Trek 2 af van (6 + 8)!"}, {"q": "Hoeveel vlakke ontmoet by elke hoekpunt van 'n kubus?", "options": ["2", "3", "4", "6"], "ans": 1, "exp": "By elke hoekpunt van 'n kubus ontmoet presies 3 vlakke (bv. boonste vlak, voorste vlak, en syvlak).", "hint": "Kyk na die hoek van 'n dobbelsteen!"}]}, {"id": "math_omtrek_oppervl_volume", "paper": 1, "title": "Omtrek, Oppervlakte & Volume", "subtitle": "Die verskil tussen Draad heining (cm), Teëls (cm²) en Bokse (cm³)", "badge": "Vraestel 1 • Meting", "icon": "📏", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die Hondjie, Die Mat & Die Swembad", "content": "• OMTREK is soos 'n heining vir 'n hondjie. As die hondjie al om die buitekant van die erf hardloop, hoe ver het hy gehardloop? Jy tel net al die buite-lyne bymekaar! (Gemeet in cm of m).\n• OPPERVLAKTE is soos die gras of 'n mat binne-in die erf. Hoeveel vierkante teëls het jy nodig om die hele vloer toe te maak? Lengte × Breedte! (Gemeet in cm² of m²).\n• VOLUME is soos water in 'n swembad of speelgoed in 'n speelgoedkas. Hoeveel 3D-blokkies pas binne-in die hele houer? Lengte × Breedte × Hoogte! (Gemeet in cm³ of m³)."}, {"type": "visual", "title": "2. Visuele Anatomie: 1D vs 2D vs 3D Eenhede", "content": "Kyk na die krag van die eksponente:\n1. Omtrek (1D lyn): cm, m, km (Geen klein getalletjie bo nie, net lengte!).\n2. Oppervlakte (2D plat vloer): cm², m² (Die klein ² beteken twee dimensies: L × B).\n3. Volume (3D ruimte): cm³, m³ (Die klein ³ beteken drie dimensies: L × B × H).\n\nFormules:\n• Vierkant Omtrek = 4 × Sy; Oppervlakte = Sy × Sy.\n• Reghoek Omtrek = 2 × (L + B) of L + L + B + B; Oppervlakte = L × B.\n• Reghoekige Prisma Volume = Lengte × Breedte × Hoogte."}, {"type": "formal", "title": "3. Die Formele KABV Reël & Eenhede-Omskakeling", "content": "Reëls vir die eksamen:\n1. MOET ALTYD EERSTE KYK na die eenhede! As een sy 2 m is en die ander 50 cm is, MOET jy eers omskakel sodat albei dieselfde is voor jy maal!\n   (2 m = 200 cm, dan 200 cm × 50 cm = 10,000 cm²).\n2. Omtrek van saamgestelde vorms (L-vorm): Tel AL die buitesye bymekaar. Moenie binnelyne tel nie!\n3. Volume van kubus: Sy × Sy × Sy (bv. 3 cm × 3 cm × 3 cm = 27 cm³)."}, {"type": "traps", "title": "4. Die Grootste Valkuile & Strikvrae", "content": "⚠️ VALKUIL 1: Kinders vergeet die ² of ³! As die antwoord 24 is en jy skryf net '24 cm' in plaas van '24 cm²', verloor jy die hele punt!\n⚠️ VALKUIL 2: By 'n L-vormige tuin vergeet leerders dikwels om die twee onbekende binne-sye te bereken voor hulle omtrek uitwerk.\n⚠️ VALKUIL 3: Moenie Omtrek en Oppervlakte omruil nie: Omtrek is Optel van buitekante (+), Oppervlakte is Maal van twee sye (×)!"}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: 'Omtrek stap, Vloer teël, Boks vol!'", "content": "• Omtrek = 'Om die blok stap' (Tel sye bymekaar +)\n• Oppervlakte = 'Teëls op die vloer lê' (Lengte × Breedte)\n• Volume = 'Vragmotor vol pak' (Lengte × Breedte × Hoogte)"}], "examples": [{"type": "standard", "title": "Voorbeeld 1: Reghoek Omtrek & Oppervlakte", "q": "'n Reghoek het 'n lengte van 8 cm en 'n breedte van 5 cm. Bereken (a) die omtrek en (b) die oppervlakte.", "steps": ["Deel (a) Omtrek: 2 × (Lengte + Breedte) = 2 × (8 + 5) = 2 × 13 = 26 cm.", "Deel (b) Oppervlakte: Lengte × Breedte = 8 cm × 5 cm = 40 cm²."], "answer": "Omtrek = 26 cm; Oppervlakte = 40 cm²."}, {"type": "visual", "title": "Voorbeeld 2: L-Vormige Saamgestelde Vloer", "q": "'n L-vormige kamer het 'n totale onderkant van 10 m, regop linkerkant van 7 m, boonste horisontale deel van 4 m en regop regterkant van 3 m. Bereken die omtrek.", "steps": ["Stap 1: Vind die twee ontbrekende sye:", "Horisontale binnelyne: Totale onderkant (10 m) - boonste deel (4 m) = 6 m.", "Vertikale binnelyne: Totale linkerkant (7 m) - regterkant (3 m) = 4 m.", "Stap 2: Tel al 6 sye om die buitekant op: 10 + 7 + 4 + 4 + 6 + 3 = 34 m."], "answer": "Omtrek = 34 m."}, {"type": "inverted", "title": "Voorbeeld 3: Omgekeerde Oppervlakte Vraag (Soek die Breedte)", "q": "Die oppervlakte van 'n reghoekige klaskamer is 48 m². Die lengte is 8 m. Wat is die breedte van die kamer?", "steps": ["Stap 1: Formule: Oppervlakte = Lengte × Breedte.", "Stap 2: 48 = 8 × Breedte.", "Stap 3: Deel om die onbekende te kry: Breedte = 48 ÷ 8 = 6 m."], "answer": "Breedte = 6 m."}, {"type": "word_problem", "title": "Voorbeeld 4: Volume van 'n Vis-Tenk", "q": "'n Vistenk is 50 cm lank, 30 cm breed en 20 cm hoog. Wat is die volume water wat die tenk kan hou in cm³?", "steps": ["Stap 1: Formule: Volume = Lengte × Breedte × Hoogte.", "Stap 2: 50 cm × 30 cm = 1,500 cm².", "Stap 3: 1,500 cm² × 20 cm = 30,000 cm³."], "answer": "Volume = 30,000 cm³ (wat gelyk is aan 30 liter!)."}, {"type": "trap", "title": "Voorbeeld 5: Gevorderde Strikvraag met Gemengde Eenhede", "q": "'n Tuinier wil 'n heining om 'n reghoekige blomtuin sit. Die lengte is 3 m en die breedte is 80 cm. Hoeveel meter heining benodig hy?", "steps": ["Stap 1: Eenhede verskil! Lengte is in meter (3 m), maar breedte is in sentimeter (80 cm).", "Stap 2: Skakel 80 cm om na meter: 80 ÷ 100 = 0.8 m.", "Stap 3: Bereken omtrek: 2 × (3 m + 0.8 m) = 2 × 3.8 m = 7.6 m."], "answer": "Hy benodig 7.6 meter heining (of 760 cm)."}], "svgCanvas": "perimeter_area", "labType": "perimeter_area_volume", "practice": [{"q": "Wat is die omtrek van 'n reghoek met lengte 7 cm en breedte 4 cm?", "options": ["28 cm", "22 cm", "11 cm", "28 cm²"], "ans": 1, "exp": "Omtrek is die heining reg rondom: 2 × (L + B) = 2 × (7 + 4) = 2 × 11 = 22 cm! Eenheid is cm, nie cm² nie.", "hint": "Tel al vier sye bymekaar: 7 + 4 + 7 + 4!"}, {"q": "Wat is die oppervlakte van 'n reghoek met lengte 8 cm en breedte 5 cm?", "options": ["26 cm", "40 cm", "40 cm²", "40 cm³"], "ans": 2, "exp": "Oppervlakte is die teëls binne-in: L × B = 8 × 5 = 40 cm²! Oppervlakte kry ALTYD 'n klein tweetjie (vierkante eenhede).", "hint": "Oppervlakte het 2 dimensies (lengte en breedte), so die eenheid het 'n 2!"}, {"q": "'n Vierkant het 'n oppervlakte van 36 cm². Hoe lank is een sy?", "options": ["6 cm", "9 cm", "18 cm", "144 cm"], "ans": 0, "exp": "Vir 'n vierkant is Oppervlakte = sy × sy. Watter getal met homself gemaal gee 36? 6 × 6 = 36, dus is die sy 6 cm!", "hint": "Vra jouself: ? × ? = 36!"}, {"q": "Bereken die volume van 'n boks met lengte 5 cm, breedte 3 cm en hoogte 4 cm.", "options": ["12 cm³", "60 cm³", "60 cm²", "24 cm³"], "ans": 1, "exp": "Volume = L × B × H = 5 × 3 × 4 = 15 × 4 = 60 cm³! Volume kry ALTYD 'n klein drietjie (kubieke eenhede).", "hint": "Maal al 3 afmetings saam: 5 × 3 × 4!"}, {"q": "Hoeveel milliliter (ml) is in 2,5 liter water?", "options": ["25 ml", "250 ml", "2 500 ml", "25 000 ml"], "ans": 2, "exp": "1 liter = 1 000 ml. Dus 2,5 × 1 000 = 2 500 ml! Skuif die komma 3 plekke na regs.", "hint": "1 liter het 1 000 ml, so 2 liter is 2 000 ml plus nog 'n halwe liter (500 ml)!"}]}, {"id": "math_breuke_desimale_persentasies", "paper": 1, "title": "Gewone Breuke, Desimale & Persentasies", "subtitle": "Die Driehoek van Omskakeling (1/2 = 0.5 = 50%)", "badge": "Vraestel 1 • Getalle & Breuke", "icon": "🍕", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die Pizza & Die Sakgeld", "content": "• 'n Gewone breuk is soos 'n pizza: Die onderste getal (NOEMER) sê in hoeveel gelyke snye die hele pizza gesny is. Die boonste getal (TELLER) tel hoeveel snye jy op jou bord het!\n• 'n Persentasie (%) beteken letterlik 'uit 100'. As jy R100 sakgeld het en jy spandeer R50, het jy 50% spandeer.\n• 'n Desimaal is die sent-weergawe: R0.50 is presies dieselfde as die helfte van 'n rand (1/2) en dieselfde as 50%!"}, {"type": "visual", "title": "2. Visuele Anatomie: Die 5 Goue Omskakelings wat jy MOET ken", "content": "Hierdie 5 pare kom in ELKE eksamenvraestel voor:\n1. 1/2 = 0.5 = 50% (Die helfte)\n2. 1/4 = 0.25 = 25% ('n Kwart)\n3. 3/4 = 0.75 = 75% (Driekwart)\n4. 1/10 = 0.1 = 10% (Een tiende)\n5. 1/5 = 0.2 = 20% (Een vyfde)\n\nOptel van breuke:\n• As die noemers dieselfde is: Tel net die tellers bymekaar! (1/5 + 2/5 = 3/5).\n• Vereenvoudiging: Deel bo en onder deur dieselfde getal (bv. 4/8 ➔ deel bo en onder deur 4 ➔ 1/2)."}, {"type": "formal", "title": "3. Die Formele KABV Reël: Ekwivalente Breuke & 'n Breuk van 'n Getal", "content": "1. Ekwivalente breuke: Wat jy onder doen, MOET jy bo doen! (1/3 × 2/2 = 2/6 = 3/9).\n2. Bereken 'n breuk van 'n heelgetal: 'Deel deur die onderkant, maal met die bokant!':\n   Vb: Bereken 3/4 van 24.\n   Stap 1: 24 ÷ 4 (onderkant) = 6.\n   Stap 2: 6 × 3 (bokant) = 18!\n3. Onegte breuk na Gemengde getal: 7/3 = 2 heel pizzas en 1/3 oor."}, {"type": "traps", "title": "4. Die Grootste Valkuile & Strikvrae", "content": "⚠️ DUIDELIKE DRUIP-FOUT: Moet NOOIT die noemers bymekaartel nie! 1/4 + 1/4 is NIE 2/8 nie! Dit is 2/4 (wat 1/2 is)!\n⚠️ PERSENTASIE-VALKUIL: 0.05 is NIE 50% nie! 0.05 is 5%. 0.5 is 50%!\n⚠️ VERWARRING: Teller is BO (Top), Noemer is ONDER (Noem die familie)."}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: 'Teller bo sit op die perd, Noemer onder dra die gewig!'", "content": "• T = Top = Teller\n• N = Neder (onder) = Noemer\nEn vir 'Breuk van 'n Getal': 'Deel onder, maal bo, en die antwoord is so!'"}], "examples": [{"type": "standard", "title": "Voorbeeld 1: Optel van Breuke & Vereenvoudiging", "q": "Bereken en vereenvoudig: 2/8 + 4/8.", "steps": ["Stap 1: Die noemers is reeds dieselfde (albei is 8).", "Stap 2: Tel net die boonste getalle (tellers) op: 2 + 4 = 6. Dus 6/8.", "Stap 3: Vereenvoudig deur bo en onder deur 2 te deel: 6 ÷ 2 = 3; 8 ÷ 2 = 4."], "answer": "3/4"}, {"type": "visual", "title": "Voorbeeld 2: Breuk na Desimaal na Persentasie", "q": "Skryf 3/5 as 'n desimale breuk en as 'n persentasie.", "steps": ["Stap 1: Maak die noemer 10 of 100: Maal bo en onder met 2 ➔ 6/10.", "Stap 2: 6/10 as 'n desimaal is 0.6.", "Stap 3: As 'n persentasie: Maal bo en onder met 20 ➔ 60/100 = 60%."], "answer": "0.6 en 60%"}, {"type": "inverted", "title": "Voorbeeld 3: 'n Breuk van 'n Getal", "q": "Bereken 3/5 van 45 leerders in 'n klas.", "steps": ["Stap 1: Onthou die resep: Deel deur die onderkant, maal met die bokant.", "Stap 2: 45 ÷ 5 = 9.", "Stap 3: 9 × 3 = 27."], "answer": "27 leerders"}, {"type": "word_problem", "title": "Voorbeeld 4: Realistiese Woordsom (Afslag in die Winkel)", "q": "'n Stray Kids hoodie kos gewoonlik R400. Vandag is daar 25% afslag. Hoeveel rand afslag kry Shenique, en wat betaal sy?", "steps": ["Stap 1: Onthou dat 25% gelyk is aan 1/4.", "Stap 2: Bereken 1/4 van R400: R400 ÷ 4 = R100 afslag.", "Stap 3: Trek afslag af van oorspronklike prys: R400 - R100 = R300."], "answer": "Afslag = R100; Sy betaal R300."}, {"type": "trap", "title": "Voorbeeld 5: Gevorderde Onegte Breuk Strikvraag", "q": "Skakel 17/5 om na 'n gemengde getal.", "steps": ["Stap 1: Vra jouself af: Hoeveel keer gaan 5 heeltemal in 17 in?", "Stap 2: 5 × 3 = 15. Dus gaan dit 3 hele kere in.", "Stap 3: Hoeveel bly oor? 17 - 15 = 2.", "Stap 4: Skryf as gemengde getal: 3 heel en 2/5."], "answer": "3 en 2/5"}], "svgCanvas": "pizza", "labType": "fractions_pizza", "practice": [{"q": "Vereenvoudig die breuk 12/16 na sy eenvoudigste vorm:", "options": ["6/8", "3/4", "2/3", "4/5"], "ans": 1, "exp": "Deel teller en noemer met hul Grootste Gemene Deler (4): 12 ÷ 4 = 3 en 16 ÷ 4 = 4. Dus 3/4!", "hint": "Deel bo en onder deur 4!"}, {"q": "Wat is 3/5 as 'n persentasie?", "options": ["35%", "50%", "60%", "75%"], "ans": 2, "exp": "Om na 'n persentasie om te skakel, maak die noemer 100: 5 × 20 = 100, so 3 × 20 = 60/100 = 60%!", "hint": "Vermenigvuldig die noemer met 20 om 100 te kry, en doen dieselfde bo!"}, {"q": "Wat is 0,75 geskryf as 'n gewone breuk in sy eenvoudigste vorm?", "options": ["75/10", "7/5", "3/4", "1/4"], "ans": 2, "exp": "0,75 = 75/100. Deel bo en onder deur 25: 75 ÷ 25 = 3, 100 ÷ 25 = 4. Dus 3/4!", "hint": "Dink aan 75 sent uit 'n rand — dis 3 kwartiere van 'n rand!"}, {"q": "Bereken: 2/7 + 3/7 =", "options": ["5/14", "5/7", "6/7", "5/49"], "ans": 1, "exp": "Wanneer noemers dieselfde is, tel SLEGS die tellers bymekaar: 2 + 3 = 5. Die noemer bly 7! Dus 5/7.", "hint": "Moet NOOIT die onderste getalle bymekaartel nie!"}, {"q": "Bereken 25% van R240:", "options": ["R24", "R48", "R60", "R120"], "ans": 2, "exp": "25% is gelyk aan 'n kwart (1/4). Deel R240 deur 4 = R60!", "hint": "25% is dieselfde as deel deur 4 (of halveer en halveer weer)!"}]}, {"id": "math_lang_maal", "paper": 2, "title": "Lang Vermenigvuldiging (Kolom-Maalwerk)", "subtitle": "3-syfer met 2-syfer Vermenigvuldiging sonder foute", "badge": "Vraestel 2 • Bewerkings", "icon": "✖️", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die Twee Gas-Katte wat kom kuier", "content": "Dink aan 'n som soos 346 × 25. Die onderste getal (25) het twee maats: die EENHEDE-kat (5) en die TIENE-kat (20). Eers kuier die EENHEDE-kat (5): hy maal met al drie getalle bo (6, dan 4, dan 3). Toe is hy moeg en gaan slaap. Nou kom die TIENE-kat (2)! Maar omdat hy 'n TIENE-kat is, MOET hy altyd 'n reuse KUSSING neerlê voor hy begin: daardie kussing is 'n NUL (0)! Daarna maal hy ook met al drie getalle bo. Aan die einde tel ons albei katte se somme bymekaar!"}, {"type": "visual", "title": "2. Visuele Anatomie: Die Kolom-Rooster & Die Noodsaaklike NUL", "content": "Kyk na die presiese stappe vir 342 × 26:\n      3 4 2\n    ×   2 6\n    -------\n    2 0 5 2   ➔ (Reël 1: 342 × 6)\n  + 6 8 4 0   ➔ (Reël 2: Sit eers die 0 neer! Dan 342 × 2)\n    -------\n    8 8 9 2   ➔ (Reël 3: Tel die twee lyne bymekaar!)\n\nAs jy daardie nul op lyn 2 vergeet, is die hele antwoord verkeerd!"}, {"type": "formal", "title": "3. Die Formele KABV Reël: Plekwaarde & Oordra", "content": "1. Skryf die getalle netjies onder mekaar volgens hul plekwaardes (Honderde, Tiene, Eenhede).\n2. Vermenigvuldig die boonste getal met die EENHEDE van die onderste getal. Onthou om tiene bo-oor te dra na die volgende kolom.\n3. Skryf 'n 0 (nul) in die eenhede-kolom op die tweede lyn as plekhouer, want jy vermenigvuldig nou met TIENE.\n4. Vermenigvuldig die boonste getal met die TIENE van die onderste getal.\n5. Trek 'n lyn en tel die twee rye met mekaar op met behulp van kolom-optelling."}, {"type": "traps", "title": "4. Die Grootste Valkuile & Strikvrae", "content": "⚠️ DIE NOMMER 1 DRUIP-FOUT: Om die NUL op die tweede lyn te vergeet! 90% van Graad 6 kinders wat punte verloor op maalwerk, vergeet die 0.\n⚠️ VERGEET OM OORDRAG BY TE TEL: As jy 5 × 6 = 30 doen, skryf 0 en dra 3 oor. As jy 5 × 4 = 20 doen, MOET jy die 3 bytel (20 + 3 = 23)!\n⚠️ ONNETJIESE KOLOMME: As jou syfers nie reg onder mekaar staan nie, tel jy die verkeerde getalle bymekaar."}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: 'Goue Nul voor Jy Maal met Tien!'", "content": "Hyunjin sê: 'Tweede lyn? Sit eers die Goue Nul neer!'\n• Lyn 1: Maal met Eenhede\n• Lyn 2: SIT DIE NUL NEER! Dan maal met Tiene\n• Lyn 3: Tel bymekaar!"}], "examples": [{"type": "standard", "title": "Voorbeeld 1: 3-Syfer met 2-Syfer (234 × 15)", "q": "Bereken met behulp van die kolommetode: 234 × 15.", "steps": ["Lyn 1: Maal met 5: 5 × 4 = 20 (skryf 0, dra 2 oor). 5 × 3 = 15 + 2 = 17 (skryf 7, dra 1 oor). 5 × 2 = 10 + 1 = 11. Lyn 1 = 1170.", "Lyn 2: SIT DIE 0 NEER! Maal nou met 1: 1 × 4 = 4. 1 × 3 = 3. 1 × 2 = 2. Lyn 2 = 2340.", "Lyn 3: Tel op: 1170 + 2340 = 3510."], "answer": "3,510"}, {"type": "visual", "title": "Voorbeeld 2: Vermenigvuldiging met Nulle (408 × 23)", "q": "Bereken: 408 × 23.", "steps": ["Lyn 1 (× 3): 3 × 8 = 24 (skryf 4, dra 2 oor). 3 × 0 = 0 + 2 = 2. 3 × 4 = 12. Lyn 1 = 1224.", "Lyn 2 (× 20): Sit eers 0 neer! 2 × 8 = 16 (skryf 6, dra 1 oor). 2 × 0 = 0 + 1 = 1. 2 × 4 = 8. Lyn 2 = 8160.", "Lyn 3 (Optel): 1224 + 8160 = 9384."], "answer": "9,384"}, {"type": "inverted", "title": "Voorbeeld 3: Skatting / Afrondingstoets", "q": "Skat die antwoord van 489 × 32 deur af te rond na die naaste 10 voor jy bereken.", "steps": ["Stap 1: Rond 489 af na naaste 10 ➔ 490 (of 500 naaste 100).", "Stap 2: Rond 32 af na naaste 10 ➔ 30.", "Stap 3: Bereken die skatting: 500 × 30 = 15,000."], "answer": "Geskatte antwoord ≈ 15,000 (Werklik: 15,648)."}, {"type": "word_problem", "title": "Voorbeeld 4: Realistiese Woordsom (Skool-Konsert Kaartjies)", "q": "Laerskool Hermanstad verkoop 145 konsertkaartjies teen R35 elk. Hoeveel geld het die skool altesaam ingesamel?", "steps": ["Stap 1: Formuleer die som: 145 × 35.", "Stap 2: Lyn 1 (× 5): 145 × 5 = 725.", "Stap 3: Lyn 2 (× 30): Sit 0 neer! 145 × 3 = 435. Dus 4350.", "Stap 4: Tel op: 725 + 4350 = 5075."], "answer": "R5,075"}, {"type": "trap", "title": "Voorbeeld 5: Gevorderde Strikvraag (Groot Getalle)", "q": "Bereken: 524 × 60.", "steps": ["Stap 1: Let op dat 60 'n nul op die einde het!", "Stap 2: Slim metode: Sit dadelik die 0 op die einde neer en maal net met 6!", "Stap 3: 524 × 6 = 3144.", "Stap 4: Voeg die nul by: 31,440."], "answer": "31,440"}], "svgCanvas": "multiplication", "labType": "column_mult_stepper", "practice": [{"q": "Wat is die heel belangrikste stap voor jy met die TIENE maal in kolom-vermenigvuldiging?", "options": ["Skryf 'n 0 neer in die ene-plek (die Spook-Nul)", "Trek 1 af", "Tel die getalle bymekaar", "Deel deur 10"], "ans": 0, "exp": "Jy MOET altyd eers die plekhouer 0 (Spook-Nul) neersit, want jy maal met 'n tiene-waarde, nie met ene nie!", "hint": "As jy met 20 maal, begin die antwoord met 'n 0!"}, {"q": "Bereken: 25 × 40 =", "options": ["100", "500", "1 000", "10 000"], "ans": 2, "exp": "25 × 4 = 100. Sit die ekstra nul van die 40 by: 100 en nog 'n nul = 1 000!", "hint": "Maal 25 × 4, en sit dan die nul agteraan!"}, {"q": "In die som 145 × 6, wat doen jy met die 3 as 5 × 6 = 30?", "options": ["Gooi dit weg", "Dra die 3 oor na die tiene-kolom bo die 4", "Skryf 30 in die ene", "Maal die 3 met 6"], "ans": 1, "exp": "Skryf die 0 neer onder die ene en dra die 3 tiene oor na die tiene-kolom om by te tel na jy 4 × 6 gemaal het!", "hint": "Ene bly onder, tiene vlieg boontoe na die volgende kolom!"}, {"q": "Bereken: 120 × 30 =", "options": ["360", "3 600", "36 000", "1 500"], "ans": 1, "exp": "12 × 3 = 36. Tel die twee nulle by (een van 120 en een van 30) = 3 600!", "hint": "12 × 3 = 36, met 2 nulle agteraan!"}, {"q": "'n Konsertkaartjie kos R150. Hoeveel kos 12 kaartjies?", "options": ["R1 500", "R1 650", "R1 800", "R2 000"], "ans": 2, "exp": "150 × 10 = 1 500. 150 × 2 = 300. 1 500 + 300 = R1 800!", "hint": "Breek 12 op in 10 en 2!"}]}, {"id": "math_lang_deling", "paper": 2, "title": "Langdeling & Kortdeling", "subtitle": "Die D-M-A-B Familie (Deel, Maal, Aftrek, Bring Af)", "badge": "Vraestel 2 • Bewerkings (Kritiek)", "icon": "➗", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die D-M-A-B Gesin", "content": "Langdeling is glad nie moeilik as jy die D-M-A-B gesin ken nie:\n• Pappa DEEL (D): Hoeveel keer pas die getal in?\n• Mamma MAAL (M): Maal die antwoord met die deler.\n• Ousus AFTREK (A): Trek af om die res te kry.\n• Boetie BRING AF (B): Bring die volgende syfertjie af!\nEn dan begin Pappa net weer van voor af! Deel ➔ Maal ➔ Aftrek ➔ Bring af!"}, {"type": "visual", "title": "2. Visuele Anatomie: Die Deelhuisie", "content": "Kyk na 492 ÷ 4:\n       1 2 3\n    4 ) 4 9 2\n      - 4      ➔ (Deel: 4÷4=1, Maal: 1×4=4, Aftrek: 4-4=0)\n      ----\n        0 9    ➔ (Bring af: die 9 kom af!)\n      -   8    ➔ (Deel: 9÷4=2, Maal: 2×4=8, Aftrek: 9-8=1)\n        ----\n          1 2  ➔ (Bring af: die 2 kom af!)\n        - 1 2  ➔ (Deel: 12÷4=3, Maal: 3×4=12, Aftrek: 0)\n          ---\n            0  ➔ Geen res nie! Antwoord = 123."}, {"type": "formal", "title": "3. Die Formele KABV Reël: Deling met 'n Res", "content": "1. Begin altyd van LINKS na REGS (die teenoorgestelde van optel en maal!).\n2. As 'n getal nie presies indeel nie, skryf ons die oorblywende deel as 'n RES (r).\n   Vb: 25 ÷ 4 = 6 res 1 (want 4 × 6 = 24, en 25 - 24 = 1).\n3. Toets jou deling altyd met maalwerk: (Kwosiënt × Deler) + Res = Deeltal!"}, {"type": "traps", "title": "4. Die Grootste Valkuile & Strikvrae", "content": "⚠️ STRIKVRAAG MET NUL BINNE-IN: As jy 618 ÷ 6 deel: 6 ÷ 6 = 1. Nou bring jy die 1 af. 6 gaan 0 keer in 1 in! Jy MOET die 0 bo skryf voor jy die 8 afbring! Baie kinders skryf 13 in plaas van 103! (103 × 6 = 618).\n⚠️ DIE RES MOET ALTYD KLEINER WEES AS DIE DELER: As jou deler 6 is en jou res is 7, het jy 'n fout gemaak – 6 kan nog 'n keer ingaan!"}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: 'D-M-A-B: Dan Maak Almal Biltong!'", "content": "• D = Deel\n• M = Maal\n• A = Aftrek\n• B = Bring af!\nSê dit hardop terwyl jy skryf: 'Deel, Maal, Trek af, Bring af!'"}], "examples": [{"type": "standard", "title": "Voorbeeld 1: Eenvoudige 3-Syfer Deur 1-Syfer (856 ÷ 4)", "q": "Bereken: 856 ÷ 4.", "steps": ["Stap 1: 8 ÷ 4 = 2 (geen res).", "Stap 2: Bring 5 af: 5 ÷ 4 = 1 (1 × 4 = 4; 5 - 4 = 1 oor).", "Stap 3: Bring 6 af na die 1 toe: 16 ÷ 4 = 4 (4 × 4 = 16; res 0).", "Stap 4: Skryf die syfers bo neer: 2, 1, 4."], "answer": "214"}, {"type": "visual", "title": "Voorbeeld 2: Die Gevaarlike Nul-In-Die-Middel (927 ÷ 9)", "q": "Bereken: 927 ÷ 9.", "steps": ["Stap 1: 9 ÷ 9 = 1.", "Stap 2: Bring 2 af. Hoeveel keer gaan 9 in 2 in? 0 KEER! Skryf '0' bo neer!", "Stap 3: Bring nou 7 af langs die 2: 27 ÷ 9 = 3.", "Stap 4: Antwoord = 103 (Moet NIE 13 skryf nie!)."], "answer": "103"}, {"type": "inverted", "title": "Voorbeeld 3: Deling met 'n Res (374 ÷ 5)", "q": "Bereken: 374 ÷ 5.", "steps": ["Stap 1: 5 gaan nie in 3 in nie, kyk na 37: 37 ÷ 5 = 7 (want 5 × 7 = 35).", "Stap 2: Trek af: 37 - 35 = 2.", "Stap 3: Bring 4 af: 24 ÷ 5 = 4 (want 5 × 4 = 20).", "Stap 4: Trek af: 24 - 20 = 4 res."], "answer": "74 res 4"}, {"type": "word_problem", "title": "Voorbeeld 4: Realistiese Woordsom (Snoepie Koekies)", "q": "'n Bakker bak 450 koekies vir die skoolbasaar. Hy pak hulle in boksies van 6 koekies elk. Hoeveel boksies kan hy volmaak?", "steps": ["Stap 1: Som: 450 ÷ 6.", "Stap 2: 45 ÷ 6 = 7 (7 × 6 = 42).", "Stap 3: 45 - 42 = 3. Bring 0 af ➔ 30.", "Stap 4: 30 ÷ 6 = 5 (5 × 6 = 30; res 0)."], "answer": "75 boksies"}, {"type": "trap", "title": "Voorbeeld 5: Toets van Deling (Omgekeerde Berekening)", "q": "As 'n getal gedeel word deur 8, is die antwoord 23 met 'n res van 5. Wat was die oorspronklike getal?", "steps": ["Stap 1: Gebruik die omgekeerde formule: (Kwosiënt × Deler) + Res = Oorspronklike getal.", "Stap 2: 23 × 8 = 184.", "Stap 3: Tel die res by: 184 + 5 = 189."], "answer": "189"}], "svgCanvas": "division", "labType": "long_division_stepper", "practice": [{"q": "Wat is die 4 goue stappe van langdeling in volgorde?", "options": ["Deel, Maal, Aftrek, Bring af", "Maal, Deel, Optel, Aftrek", "Bring af, Deel, Maal, Aftrek", "Optel, Aftrek, Deel, Maal"], "ans": 0, "exp": "Die 4 stappe is DMSB: Deel, Maal, Subtraheer (Aftrek), Bring af! (Dwaekki, Maniac, Stray kids, Bang chan!)", "hint": "D-M-S-B: Deel, Maal, Subtraheer, Bring af!"}, {"q": "Bereken: 848 ÷ 4 =", "options": ["212", "224", "424", "112"], "ans": 0, "exp": "8 ÷ 4 = 2, 4 ÷ 4 = 1, 8 ÷ 4 = 2. Antwoord is 212!", "hint": "Deel elke syfer van links na regs deur 4!"}, {"q": "Wat is die kwosiënt en res van 25 ÷ 4?", "options": ["Kwosiënt 6, res 1", "Kwosiënt 5, res 5", "Kwosiënt 6, res 2", "Kwosiënt 7, res 0"], "ans": 0, "exp": "4 pas 6 keer in 25 in (4 × 6 = 24). Daar bly 1 oor: Kwosiënt 6, res 1!", "hint": "4 × 6 = 24. Hoeveel kort om by 25 te kom?"}, {"q": "As 3 000 ÷ 50 bereken word, kan jy:", "options": ["Een nul by albei kanselleer sodat dit 300 ÷ 5 word", "Die somme bymekaartel", "Maal met 50", "Nie deel nie"], "ans": 0, "exp": "Kanselleer een 0 by albei getalle: 3 000 ÷ 50 = 300 ÷ 5 = 60!", "hint": "Kanselleer 'n nul bo en onder om die som super maklik te maak!"}, {"q": "Hoeveel busse van 40 sitplekke elk word benodig vir 250 kinders?", "options": ["6 busse", "7 busse", "6 busse en 'n halwe", "5 busse"], "ans": 1, "exp": "250 ÷ 40 = 6 met 'n res van 10 kinders. Omdat die 10 kinders nie kan agterbly nie, benodig ons 7 busse!", "hint": "Jy kan nie 10 kinders by die skool los nie — rond op na die volgende hele bus!"}]}, {"id": "math_optel_aftrek_groot", "paper": 2, "title": "Optel & Aftrek (Leen oor Nulle)", "subtitle": "Kolom-metode met Groot Getalle tot 100,000 en die Leen-Geheim", "badge": "Vraestel 2 • Bewerkings", "icon": "➕", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die Bure wat nie suiker het nie", "content": "Dink aan 5000 - 2487. Jy staan by die Eenhede-deur (0) en wil 7 aftrek. Jy het niks! Jy klop by jou buurman (Tiene, ook 0) – hy het ook niks. Jy klop by Honderde (0) – hy het ook niks! Uiteindelik klop jy by Duisende (5). Hy sê: 'Geen probleem, ek leen vir jou!' Die 5 word 'n 4, hy gee 1 vir die Honderde (word 10), wat 1 gee vir die Tiene (word 9 en 10), wat 1 gee vir die Eenhede (word 9 en 10)! Al die nulle in die middel word 9, en die laaste nul word 10!"}, {"type": "visual", "title": "2. Visuele Anatomie: Die 9-9-10 Reël", "content": "As jy van 'n ronde getal soos 1,000 of 5,000 of 10,000 aftrek:\n      4  9  9 10\n      5  0  0  0\n    - 2  4  8  7\n    ------------\n      2  5  1  3\n\nKyk hoe mooi werk dit:\n• 10 - 7 = 3\n• 9 - 8 = 1\n• 9 - 4 = 5\n• 4 - 2 = 2\nAntwoord = 2,513!"}, {"type": "formal", "title": "3. Die Formele KABV Reël: Plekwaarde Belyning", "content": "1. Belyn altyd die syfers van REGS na LINKS (Eenhede onder Eenhede, Tiene onder Tiene, Honderde onder Honderde).\n2. By optel: As 'n kolom 10 of meer is, skryf die eenhede neer en dra die tien oor na bo van die volgende linkerkolom.\n3. By aftrek: As die boonste getal kleiner as die onderste getal is, MOET jy leen by die linkerkolom. Moet NOOIT sommer net van onder na bo aftrek nie!"}, {"type": "traps", "title": "4. Die Grootste Valkuile & Strikvrae", "content": "⚠️ DIE GROOTSTE AFTREK-FOUT: As daar 0 bo staan en 7 onder, skryf kinders dikwels '7'! Dit is heeltemal verkeerd: 0 - 7 is NIE 7 nie! Jy MOET leen!\n⚠️ ONBELEENDE KOLOMME: As jy 14,500 + 320 doen en jy sit die 3 onder die 1 van die 14 duisend, kry jy 'n reuse fout."}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: '9-9-10 Truuk!'", "content": "As jy van nulle aftrek:\n• Maak die eerste nie-nul getal 1 kleiner.\n• Al die middel-nulle word 9's!\n• Die heel laaste nul word 'n 10!"}], "examples": [{"type": "standard", "title": "Voorbeeld 1: Kolom-Optelling met Oordrag (45,876 + 28,459)", "q": "Bereken: 45,876 + 28,459.", "steps": ["Eenhede: 6 + 9 = 15 (skryf 5, dra 1 oor).", "Tiene: 7 + 5 + 1 = 13 (skryf 3, dra 1 oor).", "Honderde: 8 + 4 + 1 = 13 (skryf 3, dra 1 oor).", "Duisende: 5 + 8 + 1 = 14 (skryf 4, dra 1 oor).", "Tienduisende: 4 + 2 + 1 = 7."], "answer": "74,335"}, {"type": "visual", "title": "Voorbeeld 2: Leen oor Nulle (6,000 - 2,748)", "q": "Bereken: 6,000 - 2,748.", "steps": ["Stap 1: Pas die 9-9-10 reël toe: 6 word 5, nulle word 9, 9, 10.", "Eenhede: 10 - 8 = 2.", "Tiene: 9 - 4 = 5.", "Honderde: 9 - 7 = 2.", "Duisende: 5 - 2 = 3."], "answer": "3,252"}, {"type": "inverted", "title": "Voorbeeld 3: Ontbrekende Getal in 'n Som", "q": "Wat moet by 18,450 getel word om 25,000 te kry?", "steps": ["Stap 1: Dit is 'n omgekeerde som: Trek af! 25,000 - 18,450.", "Stap 2: 25,000 - 18,000 = 7,000.", "Stap 3: 7,000 - 450 = 6,550."], "answer": "6,550"}, {"type": "word_problem", "title": "Voorbeeld 4: Realistiese Woordsom (Vliegtuig Myl)", "q": "'n Vliegtuig vlieg altesaam 12,450 km van Johannesburg na New York. Hy het reeds 8,780 km afgelê. Hoeveel kilometer moet hy nog vlieg?", "steps": ["Stap 1: Trek af: 12,450 - 8,780.", "Eenhede: 0 - 0 = 0.", "Tiene: 5 - 8 kan nie ➔ leen by 4 ➔ 15 - 8 = 7.", "Honderde: 3 - 7 kan nie ➔ leen by 2 ➔ 13 - 7 = 6.", "Duisende: 11 - 8 = 3."], "answer": "3,670 km"}, {"type": "trap", "title": "Voorbeeld 5: Toets van Aftrek met Optelling", "q": "Toets of 8,005 - 3,428 = 4,577 korrek is.", "steps": ["Stap 1: Tel die verskil en die afgetrekte getal bymekaar: 4,577 + 3,428.", "Stap 2: 7 + 8 = 15 (skryf 5, dra 1).", "Stap 3: 7 + 2 + 1 = 10 (skryf 0, dra 1).", "Stap 4: 5 + 4 + 1 = 10 (skryf 0, dra 1).", "Stap 5: 4 + 3 + 1 = 8.", "Stap 6: Totaal = 8,005. Dit klop presies!"], "answer": "Ja, dit is 100% korrek getoets."}], "svgCanvas": "addition", "labType": "column_sub_stepper", "practice": [{"q": "Bereken: 5 000 - 2 345 =", "options": ["2 655", "3 655", "2 755", "3 345"], "ans": 0, "exp": "Leen oor die nulle: 5 000 word 4 duisend, 9 honderde, 9 tiene en 10 ene. 10-5=5, 9-4=5, 9-3=6, 4-2=2 => 2 655!", "hint": "Onthou: Die laaste 0 word 10, die middelste nulle word 9, en die voorste 5 word 4!"}, {"q": "Bereken: 34 580 + 12 420 =", "options": ["46 000", "47 000", "46 900", "48 000"], "ans": 1, "exp": "34 580 + 12 420 = 47 000 (580 + 420 = 1 000, 34 000 + 12 000 + 1 000 = 47 000)!", "hint": "580 + 420 maak 'n vol duisend!"}, {"q": "Hoe toets jy of jou aftreksom korrek is?", "options": ["Tel die antwoord by die onderste getal om die boonste getal te kry", "Trek weer af", "Deel deur 2", "Maal die twee getalle"], "ans": 0, "exp": "Die omgekeerde bewerking van aftrek is optel: Verskil + Aftrekker = Oorspronklike getal!", "hint": "Optel en aftrek is beste vriende wat mekaar toets!"}, {"q": "Wat is die waarde van die syfer 7 in die getal 472 815?", "options": ["700", "7 000", "70 000", "700 000"], "ans": 2, "exp": "Die 7 staan in die Tienduisende-kolom (TD), so sy plekwaarde is 70 000!", "hint": "Kyk na die posisie: Ene, Tiene, Honderde, Duisende, TIENDUISENDE!"}, {"q": "Rond 384 672 af tot die naaste 1 000:", "options": ["384 000", "385 000", "380 000", "384 700"], "ans": 1, "exp": "Kyk na die syfer regs van die duisende (honderde): dis 'n 6. Omdat 6 ≥ 5, rond die duisende op van 4 na 5 => 385 000!", "hint": "5 of meer tel een by boontoe!"}]}, {"id": "math_tyd_tydsverloop", "paper": 1, "title": "Tyd, 24-Uur Notasie & Tydsduur", "subtitle": "Analitiese Horlosies, Tydsverloop, Sekondes, Minute & Dae", "badge": "Vraestel 1 • Meting", "icon": "⏰", "labType": "clock_timeline", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die Twee Horlosie-Vriende", "content": "Dink aan 'n gewone horlosie wat net tot 12 tel. In die oggend sê hy 08:00 (ontbyttyd), maar in die aand sê hy weer 08:00 (slaaptyd)! Om te keer dat die polisie of 'n vliegtuig verward raak, gebruik die wêreld die 24-uur horlosie. Na 12:00 die middag hou hy net aan tel: 13:00 (1-uur), 14:00 (2-uur), tot 20:00 (8-uur vanaand). Tel net 12 by enige namiddaguur om sy 24-uur naam te kry!"}, {"type": "visual", "title": "2. Visuele Tydlyn & Spronge", "content": "Wanneer jy tydsduur bereken (hoe lank iets gevat het), moenie probeer om met kolom-aftrek te werk nie, want 'n uur het 60 minute, NIE 100 minute nie!\n\nGebruik die Spring-Tydlyn:\nByvoorbeeld van 14:45 tot 17:20:\n• Sprong 1: Spring 15 minute na die volgende vol uur (15:00).\n• Sprong 2: Spring 2 ure na 17:00.\n• Sprong 3: Spring 20 minute na 17:20.\n• Tel die spronge bymekaar: 2 ure + (15 + 20) minute = 2 ure 35 minute!"}, {"type": "formal", "title": "3. Die Formele KABV Reël & Omskakelings", "content": "STATUTÊRE KABV OMSKAKELINGS:\n• 1 minuut = 60 sekondes\n• 1 uur = 60 minute = 3 600 sekondes\n• 1 dag = 24 uur\n• 1 week = 7 dae\n• 1 gewone jaar = 365 dae (Skrikkeljaar = 366 dae)\n• 1 dekade = 10 jaar | 1 eeu = 100 jaar | 1 millennium = 1 000 jaar.\n\n24-UUR FORMAAT REËL:\nSkryf altyd met 4 syfers en 'n dubbelpunt: bv. 07:15 of 19:40. Moenie 'vm' of 'nm' by 'n 24-uur tyd skryf nie!"}, {"type": "traps", "title": "4. Grootste Valkuile & Strikvrae", "content": "⚠️ VALKUIL 1: Om 60 minute te behandel soos 100 minute! As jy 1 uur leen, leen jy 60 MINUTE, nie 100 nie!\n⚠️ VALKUIL 2: Skrikkeljare: Februarie het 29 dae in 'n skrikkeljaar (jaartalle deelbaar deur 4, soos 2024 of 2028).\n⚠️ VALKUIL 3: Middagnag is 00:00 (nie 24:00 nie)."}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: 'Felix se +12 Sprong'", "content": "Stray Kids begin hulle wêreldtoer konsert om 7 nm. Wat is dit op die 24-uur horlosie? Vra vir Felix: 7 + 12 = 19:00! As dit na 12 middag is, tel net 12 by! En vir tydsverloop, spring soos 'n kat van klip tot klip na die volgende vol uur!"}], "examples": [{"type": "standard", "q": "Skryf 08:35 nm. in 24-uur tydnotasie.", "ans": "20:35", "steps": "1. Omdat dit nm. (aand) is, tel 12 by die ure: 8 + 12 = 20.\n2. Die minute bly presies dieselfde: 35.\n3. Antwoord: 20:35."}, {"type": "visual", "q": "'n Fliek begin om 15:40 en eindig om 18:15. Hoe lank was die fliek?", "ans": "2 ure 35 minute", "steps": "1. Spring vanaf 15:40 na 16:00 (+20 minute).\n2. Spring vanaf 16:00 na 18:00 (+2 ure).\n3. Spring vanaf 18:00 na 18:15 (+15 minute).\n4. Totale tyd = 2 ure + 20 min + 15 min = 2 ure 35 minute."}, {"type": "inverted", "q": "'n Rugbywedstryd duur 1 uur 45 minute en eindig om 16:30. Hoe laat het dit begin?", "ans": "14:45", "steps": "1. Spring 1 uur terug vanaf 16:30 na 15:30.\n2. Spring nou 45 minute terug vanaf 15:30: 30 minute terug bring ons by 15:00, en nog 15 minute terug bring ons by 14:45.\n3. Antwoord: 14:45 (of 02:45 nm.)."}, {"type": "word_problem", "q": "Shenique oefen dans vir 45 minute elke dag van Maandag tot Vrydag. Hoeveel ure en minute oefen sy altesaam?", "ans": "3 ure 45 minute", "steps": "1. 5 dae × 45 minute = 225 minute altesaam.\n2. Hoeveel ure is 225 minute? 60 min = 1 uur, 120 min = 2 ure, 180 min = 3 ure.\n3. 225 - 180 = 45 minute oor.\n4. Antwoord: 3 ure 45 minute."}, {"type": "trap", "q": "Hoeveel sekondes is daar in 2 en 'n half minute?", "ans": "150 sekondes", "steps": "1. 1 minuut = 60 sekondes.\n2. 2 minute = 2 × 60 = 120 sekondes.\n3. 'n Halwe minuut = 30 sekondes.\n4. 120 + 30 = 150 sekondes (Nie 250 sekondes nie!)."}], "practice": [{"q": "Hoe laat is 09:15 nm. in 24-uur tyd?", "options": ["09:15", "19:15", "21:15", "22:15"], "ans": 2, "exp": "9 + 12 = 21, so 09:15 nm. is 21:15 in 24-uur tyd!", "hint": "Tel 12 by die 9!"}, {"q": "'n Bus vertrek om 07:50 en ry vir 1 uur 25 minute. Hoe laat kom die bus aan?", "options": ["08:75", "09:15", "09:25", "08:15"], "ans": 1, "exp": "07:50 + 10 min = 08:00. Oorblywende 1 uur 15 min bring ons by 09:15!", "hint": "Spring eers 10 minute na 08:00!"}, {"q": "Hoeveel minute is daar in 3 en 'n driekwart uur?", "options": ["225 minute", "180 minute", "215 minute", "240 minute"], "ans": 0, "exp": "3 ure = 3 × 60 = 180 min. 3/4 uur = 45 min. 180 + 45 = 225 minute!", "hint": "3 × 60 plus 45 minute!"}, {"q": "Watter jaar is 'n skrikkeljaar (Februarie het 29 dae)?", "options": ["2022", "2023", "2024", "2025"], "ans": 2, "exp": "2024 is deelbaar deur 4 (24 ÷ 4 = 6), so dis 'n skrikkeljaar met 366 dae!", "hint": "Kyk na die laaste twee syfers — is 24 in die 4-maal-tafel?"}, {"q": "Hoeveel dae is daar in 5 weke en 4 dae?", "options": ["35 dae", "39 dae", "54 dae", "40 dae"], "ans": 1, "exp": "5 weke × 7 dae = 35 dae. 35 + 4 = 39 dae altesaam!", "hint": "5 × 7 dae plus 4 dae!"}]}, {"id": "math_datahantering", "paper": 1, "title": "Datahantering & Statistiek", "subtitle": "Gemiddeld, Modus, Mediaan, Variasiewydte & Staafgrafieke", "badge": "Vraestel 1 • Data", "icon": "📊", "labType": "data_stats", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die 4 Katte-Inspekteurs", "content": "Stel voor 5 katte weeg: 3 kg, 4 kg, 4 kg, 5 kg, 9 kg.\n• MODUS (Die Gewildste): Watter gewig kom die MEESTE voor? 4 kg (daar's twee van hulle!). Modus = Meeste!\n• MEDIAAN (Die Middelste): Laat die katte in 'n ry sit van lig na swaar. Wie sit presies in die middel? Die 4 kg kat! Mediaan = Middel!\n• GEMIDDELD (Regverdige Deel): Tel al die gewigte bymekaar (3+4+4+5+9 = 25 kg) en deel gelykop tussen al 5 katte (25 ÷ 5 = 5 kg).\n• VARIASIEWYDTE (Die Spasiewydte): Hoogste gewig minus laagste gewig (9 kg - 3 kg = 6 kg)."}, {"type": "visual", "title": "2. Visuele Grafieke & Frekwensietabelle", "content": "• Frekwensietabel: Tel strepies (tally marks) in groepies van 5 (vier regaf strepies en die vyfde een skuins daardeur: 卌).\n• Staafgrafiek: Los spasies tussen die kolomme! Elke kolom toon 'n kategorie.\n• Histogram: Kolomme raak aan mekaar (vir aaneenlopende intervalle).\n• Piktograaf: Gebruik prentjies (bv. een katgesig = 10 leerders. Kyk ALTYD na die sleutel!)."}, {"type": "formal", "title": "3. Die Formele KABV Reëls & Formules", "content": "STATUTÊRE DEFINISIES:\n1. Gemiddeld = (Som van al die waardes) ÷ (Aantal waardes).\n2. Modus = Die getal wat die hoogste frekwensie het (meeste kere voorkom). Let wel: 'n Datastel kan meer as een modus hê, of GEEN modus as almal net een keer voorkom.\n3. Mediaan = Die middelste getal van 'n GESORTEERDE lys (van klein na groot). As daar 'n ewe getal data is, neem die gemiddeld van die middelste twee getalle.\n4. Variasiewydte (Omvang) = Hoogste waarde - Laagste waarde."}, {"type": "traps", "title": "4. Grootste Valkuile & Strikvrae", "content": "⚠️ VALKUIL 1: Om die mediaan te kry SONDER om die getalle eers van klein na groot te rangskik!\n⚠️ VALKUIL 2: Piktograaf Sleutel: 'n Leerder tel 4 katte en skryf 4, maar die sleutel sê 1 kat = 5 kinders (antwoord is 20!).\n⚠️ VALKUIL 3: Deel deur die verkeerde getal wanneer jy gemiddeld bereken."}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: 'M-M-M-V'", "content": "• MOdus = MEESTE (beide begin met M-E!)\n• MEdiaan = MIDDEL (beide het 'n M-I!)\n• GEmiddeld = GELYKOP deel (almal kry dieselfde sny)\n• Variasiewydte = Verste wydte (Hoogste - Laagste)!"}], "examples": [{"type": "standard", "q": "Vind die modus van hierdie toetspunte: 14, 18, 15, 18, 12, 18, 20.", "ans": "18", "steps": "1. Tel hoe gereeld elke getal voorkom:\n12: een keer, 14: een keer, 15: een keer, 20: een keer, 18: DRIE keer.\n2. 18 kom die meeste voor.\n3. Modus = 18."}, {"type": "visual", "q": "Vind die mediaan van: 9, 3, 7, 12, 5.", "ans": "7", "steps": "1. RANGSKIK EERS van klein na groot: 3, 5, 7, 9, 12.\n2. Vind die middelste getal: daar is 5 getalle, die 3de een is in die middel.\n3. Mediaan = 7."}, {"type": "inverted", "q": "Vier leerders se gemiddelde punt is 15. Drie van die leerders het 12, 16 en 14 gekry. Wat het die vierde leerder gekry?", "ans": "18", "steps": "1. As die gemiddeld van 4 leerders 15 is, is die totale som = 4 × 15 = 60.\n2. Som van die bekende 3 leerders = 12 + 16 + 14 = 42.\n3. Vierde leerder = 60 - 42 = 18."}, {"type": "word_problem", "q": "Die maksimum temperature vir 'n week was: 24°C, 28°C, 26°C, 30°C, 22°C. Bereken die variasiewydte.", "ans": "8°C", "steps": "1. Hoogste temperatuur = 30°C.\n2. Laagste temperatuur = 22°C.\n3. Variasiewydte = Hoogste - Laagste = 30 - 22 = 8°C."}, {"type": "trap", "q": "Bereken die mediaan van hierdie 6 getalle: 4, 8, 2, 10, 6, 12.", "ans": "7", "steps": "1. Rangskik: 2, 4, 6, 8, 10, 12.\n2. Omdat daar 6 getalle is (ewe getal), is daar twee getalle in die middel: 6 en 8.\n3. Bereken die gemiddeld van die twee: (6 + 8) ÷ 2 = 14 ÷ 2 = 7.\n4. Mediaan = 7."}], "practice": [{"q": "Wat is die modus van: 5, 7, 8, 5, 9, 5, 8?", "options": ["5", "7", "8", "9"], "ans": 0, "exp": "5 kom drie keer voor, wat meer is as enige ander getal. Dus Modus = 5!", "hint": "Modus = Meeste kere!"}, {"q": "Wat is die mediaan van: 12, 4, 8, 15, 6?", "options": ["4", "8", "12", "9"], "ans": 1, "exp": "Rangskik eers: 4, 6, 8, 12, 15. Die middelste getal is 8!", "hint": "Rangskik eers van klein na groot!"}, {"q": "Bereken die gemiddeld van: 10, 20, 30:", "options": ["15", "20", "25", "60"], "ans": 1, "exp": "Tel bymekaar: 10 + 20 + 30 = 60. Deel deur 3 getalle: 60 ÷ 3 = 20!", "hint": "Tel almal bymekaar en deel deur 3!"}, {"q": "Wat is die variasiewydte van: 14, 25, 11, 38, 19?", "options": ["24", "27", "38", "11"], "ans": 1, "exp": "Hoogste (38) minus Laagste (11) = 38 - 11 = 27!", "hint": "Trek die kleinste van die grootste af!"}, {"q": "Op 'n piktograaf verteenwoordig 1 prentjie van 'n kat 4 leerders. As daar 6 kat-prentjies is, hoeveel leerders is dit?", "options": ["10", "20", "24", "12"], "ans": 2, "exp": "6 prentjies × 4 leerders per prentjie = 24 leerders!", "hint": "Maal 6 met die sleutel (4)!"}]}, {"id": "math_getalpatrone_plekwaarde", "paper": 2, "title": "Plekwaarde, Uitgebreide Notasie & Patrone", "subtitle": "Honderdduisende, Tiendes, Reëls & Vloeidiagramme", "badge": "Vraestel 2 • Getalle", "icon": "🔢", "labType": "place_value_house", "explanations": [{"type": "story", "title": "1. Die 7-Jaar Storie: Die Getalle-Huis van Miljoene", "content": "Stel voor 'n groot woonstelblok met kamers. Elke kamer mag net EEN syfer hou (0 tot 9). As daar 10 mense in 'n kamer kom, trek hulle dadelik na die volgende groter kamer links!\n• Eerste kamer regs: Ene (E)\n• Tweede kamer: Tiene (T) - elke 1 werd 10\n• Derde kamer: Honderde (H) - elke 1 werd 100\n• En dan kom die Duisend-familie: D (Duisende), TD (Tienduisende), HD (Honderdduisende)!\n• As jy 'n getal soos 482 315 breek, sê jy net wat elke kamer werd is: 400 000 + 80 000 + 2 000 + 300 + 10 + 5!"}, {"type": "visual", "title": "2. Visuele Plekwaarde-Tabel & Desimale Komma", "content": "HD | TD | D | H | T | E , t | h\n• Links van die komma: Heelgetalle (Ene, Tiene, Honderde, Duisende)\n• Regs van die komma: Breuke! Eerste plekkie is Tiendes (1/10 of 0,1), tweede plekkie is Honderdstes (1/100 of 0,01).\n\nPATRONE & VLOEIDIAGRAMME:\nKyk na die verskil tussen opeenvolgende terme:\n• Reël: Invoer × Konstante + Verskil.\nBv. 3, 7, 11, 15... Verskil is +4. Reël: Neem posisie n, maal met 4, trek 1 af (4n - 1)!"}, {"type": "formal", "title": "3. Die Formele KABV Reëls & Konvensies", "content": "STATUTÊRE KABV VEREISTES:\n1. Getalwaarde vs Plekwaarde:\n   In 654 321:\n   • Plekwaarde van 5: Tienduisende (TD).\n   • Getalwaarde van 5: 50 000.\n2. Uitgebreide notasie: Skryf as som van waardes (bv. 300 000 + 40 000 + 5 000 + 200 + 10 + 8).\n3. Rangskikking: Stygende volgorde (klein na groot) vs Dalende volgorde (groot na klein).\n4. Eienskappe: Kommutatief (a + b = b + a), Assosiatief ((a + b) + c = a + (b + c)), Verspreidend (a × (b + c) = a×b + a×c)."}, {"type": "traps", "title": "4. Grootste Valkuile & Strikvrae", "content": "⚠️ VALKUIL 1: Verwarring tussen Plekwaarde (die woorde soos Tienduisende) en Getalwaarde (die syfers soos 50 000).\n⚠️ VALKUIL 2: Nulle in uitgebreide notasie: As 'n getal 405 020 is, moenie skryf 400 + 50 nie — dis 400 000 + 5 000 + 20!\n⚠️ VALKUIL 3: Stygend vs Dalend: 'Dalend' beteken jy stap AF teen die berg (groot na klein)."}, {"type": "trick", "title": "5. Die Stray Kids Geheue-Wapen: 'P-W Woorde, G-W Getalle'", "content": "Onthou Felix se goue reël:\n• Plekwaarde = Waar bly hy? (In die Duisende-huis! Woorde!)\n• Getalwaarde = Hoe ryk is hy? (50 000 rande! Getalle!)\n• Dalend = Dans af (groot na klein)!"}], "examples": [{"type": "standard", "q": "Gee die plekwaarde en getalwaarde van die onderstreepte syfer: 4_8_2 516.", "ans": "Plekwaarde: Tienduisende (TD) | Getalwaarde: 80 000", "steps": "1. Posisioneer van regs af: 6(E), 1(T), 5(H), 2(D), 8(TD), 4(HD).\n2. Plekwaarde is die naam van die kolom: Tienduisende.\n3. Getalwaarde is die waarde in syfers: 80 000."}, {"type": "visual", "q": "Skryf die volgende in standaardvorm: (4 × 100 000) + (6 × 1 000) + (3 × 10) + 7.", "ans": "406 037", "steps": "1. Honderdduisende: 4\n2. Tienduisende: 0 (daar is geen TD nie!)\n3. Duisende: 6\n4. Honderde: 0 (geen H nie!)\n5. Tiene: 3\n6. Ene: 7\n7. Kombineer: 406 037."}, {"type": "inverted", "q": "Watter getal is 5 000 kleiner as 402 380?", "ans": "397 380", "steps": "1. Trek 5 000 af van 402 380.\n2. 402 Duisend - 5 Duisend = 397 Duisend.\n3. Die laaste drie syfers (380) bly dieselfde.\n4. Antwoord: 397 380."}, {"type": "word_problem", "q": "Kyk na die patroon: 5, 9, 13, 17, ... Wat is die 10de term in die ry?", "ans": "41", "steps": "1. Vind die verskil tussen terme: 9 - 5 = 4, 13 - 9 = 4. Verskil is +4.\n2. Reël vir posisie n: 4 × n + 1 (toets: 4×1 + 1 = 5, 4×2 + 1 = 9).\n3. Vir die 10de term: (4 × 10) + 1 = 40 + 1 = 41."}, {"type": "trap", "q": "Rangskik in dalende volgorde: 304 500; 340 050; 304 050; 340 500.", "ans": "340 500; 340 050; 304 500; 304 050", "steps": "1. 'Dalend' beteken van GROOTSTE na KLEINSTE.\n2. Vergelyk die 340 000-getalle: 340 500 is groter as 340 050.\n3. Vergelyk die 304 000-getalle: 304 500 is groter as 304 050.\n4. Volgorde: 340 500; 340 050; 304 500; 304 050."}], "practice": [{"q": "Wat is die getalwaarde van die 6 in 562 410?", "options": ["600", "6 000", "60 000", "600 000"], "ans": 2, "exp": "Die 6 staan in die Tienduisende-kolom, so sy getalwaarde is 60 000!", "hint": "Skryf 6 en vervang al die syfers regs daarvan met nulle!"}, {"q": "Wat is die plekwaarde van die 3 in 743 892?", "options": ["Honderde", "Duisende", "Tienduisende", "Ene"], "ans": 1, "exp": "Die 3 staan in die Duisende (D) kolom. Plekwaarde word in woorde geskryf!", "hint": "Waar bly die 3? In die Duisende-kolom!"}, {"q": "Wat is die volgende getal in die ry: 4, 11, 18, 25, ...?", "options": ["29", "31", "32", "35"], "ans": 2, "exp": "Die verskil tussen elke getal is +7. 25 + 7 = 32!", "hint": "Tel elke keer 7 by!"}, {"q": "Skryf as 'n gewone getal: 800 000 + 4 000 + 50 + 2 =", "options": ["845 002", "804 052", "840 052", "804 502"], "ans": 1, "exp": "HD: 8, TD: 0, D: 4, H: 0, T: 5, E: 2 => 804 052!", "hint": "Moenie vergeet om 'n 0 neer te sit waar daar geen Tienduisende of Honderde is nie!"}, {"q": "Watter simbool maak die sin waar: 450 820 [ ? ] 450 802?", "options": ["> (groter as)", "< (kleiner as)", "= (gelyk aan)", "+ (plus)"], "ans": 0, "exp": "450 820 is groter as 450 802 omdat 20 tiene groter as 2 tiene is. Dus 450 820 > 450 802!", "hint": "Die krokodilbek hap altyd na die grootste getal!"}]}];
 
 const CURRENT_STUDENT = "Shenique";
 const PAPPA_PHONE = "27686000549";
@@ -2239,7 +2302,9 @@ const TELEGRAM_CHAT_ID = "8270876531";
 
 
 function nl2br(str) {
-  return (str || '').split(String.fromCharCode(10)).join('<br>');
+  if (Array.isArray(str)) return str.join('<br>');
+  if (typeof str !== 'string') return String(str || '');
+  return str.split(String.fromCharCode(10)).join('<br>');
 }
 function escQuotes(str) {
   return (str || '').split(String.fromCharCode(39)).join(String.fromCharCode(92) + String.fromCharCode(39));
@@ -4022,163 +4087,1084 @@ function clearProgressAndRestart() {
 
 // --- SCREEN 3B: KLAS & GEÏLLUSTREERDE WITBORD ENGINE ---
 let videoTimer = null;
+// =========================================================================
+// =========================================================================
+// SCREEN 3B: INTERAKTIEWE WISKUNDE WERKSSWINKEL & AVONTUUR (V16)
+// =========================================================================
+
+// --- WEB AUDIO SYNTHESIZER (100% OFFLINE, ZERO EXTERNAL DEPENDENCIES) ---
+const SoundFX = {
+  ctx: null,
+  enabled: true,
+  init() {
+    if (!this.ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.ctx = new AudioCtx();
+    }
+  },
+  playTone(freq, type, duration, delay = 0, vol = 0.12) {
+    if (!this.enabled) return;
+    try {
+      this.init();
+      if (!this.ctx) return;
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = type;
+      const t = this.ctx.currentTime + delay;
+      osc.frequency.setValueAtTime(freq, t);
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + duration);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(t);
+      osc.stop(t + duration);
+    } catch(e) {}
+  },
+  click() {
+    this.playTone(600, 'sine', 0.05, 0, 0.08);
+  },
+  correct() {
+    // Joyful major arpeggio
+    this.playTone(523.25, 'sine', 0.15, 0, 0.15);     // C5
+    this.playTone(659.25, 'sine', 0.15, 0.08, 0.15);  // E5
+    this.playTone(783.99, 'sine', 0.25, 0.16, 0.15);  // G5
+    this.playTone(1046.50, 'triangle', 0.35, 0.24, 0.18); // C6
+  },
+  wrong() {
+    this.playTone(240, 'sawtooth', 0.18, 0, 0.12);
+    this.playTone(190, 'sawtooth', 0.25, 0.12, 0.12);
+  },
+  levelUp() {
+    // Royal fanfare
+    [523, 659, 783, 1046, 1318].forEach((f, i) => {
+      this.playTone(f, 'triangle', 0.3, i * 0.09, 0.2);
+    });
+  },
+  meow() {
+    if (!this.enabled) return;
+    try {
+      this.init();
+      if (!this.ctx) return;
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      const t = this.ctx.currentTime;
+      osc.frequency.setValueAtTime(450, t);
+      osc.frequency.exponentialRampToValueAtTime(820, t + 0.16);
+      osc.frequency.exponentialRampToValueAtTime(360, t + 0.36);
+      gain.gain.setValueAtTime(0.12, t);
+      gain.gain.linearRampToValueAtTime(0.18, t + 0.16);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.38);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.4);
+    } catch(e) {}
+  }
+};
+
+function toggleSound() {
+  SoundFX.enabled = !SoundFX.enabled;
+  const btn = document.getElementById('btn-sound-toggle');
+  if (btn) {
+    btn.innerText = SoundFX.enabled ? '🔊 Klank: Aan' : '🔇 Klank: Af';
+  }
+}
+
+// Global Workshop State
+state.workshopActiveModule = null;
+state.workshopActiveStep = 'lab';
+state.practiceScores = state.practiceScores || {};
+
 function loadKlasForSubject(mid) {
-  const subLessons = klasLessons.filter(l => l.mid === mid);
+  const isMath = (mid === 'm1' || mid === 'm2');
   const chipsBar = document.getElementById('klas-chips-bar');
   if (!chipsBar) return;
   chipsBar.innerHTML = '';
 
-  subLessons.forEach((l, idx) => {
-    const chip = document.createElement('button');
-    chip.className = `btn-sim-chip ${idx === 0 ? 'active' : ''}`;
-    chip.innerText = l.title;
-    chip.onclick = () => {
-      chipsBar.querySelectorAll('.btn-sim-chip').forEach(b => b.classList.remove('active'));
-      chip.classList.add('active');
-      renderSingleLesson(l);
-    };
-    chipsBar.appendChild(chip);
-  });
+  if (isMath && typeof mathModulesData !== 'undefined' && mathModulesData.length > 0) {
+    // Filter math modules by paper if appropriate
+    const targetPaper = (mid === 'm1') ? 1 : 2;
+    // Show modules for this paper first, then other paper as bonus
+    const sortedModules = [...mathModulesData].sort((a, b) => {
+      if (a.paper === targetPaper && b.paper !== targetPaper) return -1;
+      if (a.paper !== targetPaper && b.paper === targetPaper) return 1;
+      return 0;
+    });
 
-  if (subLessons.length > 0) {
-    renderSingleLesson(subLessons[0]);
+    sortedModules.forEach((m, idx) => {
+      const chip = document.createElement('button');
+      chip.className = `btn-sim-chip ${idx === 0 ? 'active' : ''}`;
+      chip.innerHTML = `${m.icon} ${m.title}`;
+      chip.onclick = () => {
+        chipsBar.querySelectorAll('.btn-sim-chip').forEach(b => b.classList.remove('active'));
+        chip.classList.add('active');
+        renderMathWorkshop(m);
+        SoundFX.click();
+      };
+      chipsBar.appendChild(chip);
+    });
+
+    renderMathWorkshop(sortedModules[0]);
   } else {
-    const container = document.getElementById('klas-lesson-content');
-    if (container) container.innerHTML = '<p>Geen lesse vir hierdie vak beskikbaar nie.</p>';
+    // Secondary subjects fallback to klasLessons
+    const subLessons = klasLessons.filter(l => l.mid === mid);
+    if (subLessons.length > 0) {
+      subLessons.forEach((l, idx) => {
+        const chip = document.createElement('button');
+        chip.className = `btn-sim-chip ${idx === 0 ? 'active' : ''}`;
+        chip.innerText = l.title;
+        chip.onclick = () => {
+          chipsBar.querySelectorAll('.btn-sim-chip').forEach(b => b.classList.remove('active'));
+          chip.classList.add('active');
+          renderSecondarySubjectLesson(l);
+          SoundFX.click();
+        };
+        chipsBar.appendChild(chip);
+      });
+      renderSecondarySubjectLesson(subLessons[0]);
+    } else {
+      const container = document.getElementById('interactive-lab-container');
+      if (container) container.innerHTML = '<p>Geen lesse vir hierdie vak beskikbaar nie.</p>';
+    }
   }
 }
 
-function renderSingleLesson(lesson) {
-  state.activeLessonId = lesson.id;
-  state.activeVideoStepIdx = 0;
-  state.videoPlaying = false;
-  state.activeLessonTab = 'story';
+function setWorkshopStep(step) {
+  state.workshopActiveStep = step;
+  SoundFX.click();
 
-  updateVideoSvg(lesson);
-  updateLessonTextPane(lesson);
+  // Update Stepper buttons
+  ['lab', 'explanations', 'examples', 'practice'].forEach(s => {
+    const btn = document.getElementById(`btn-ws-${s}`);
+    const pane = document.getElementById(`ws-pane-${s}`);
+    if (btn) btn.classList.toggle('active', s === step);
+    if (pane) pane.style.display = (s === step) ? 'block' : 'none';
+  });
+
+  // Scroll to top of tab
+  const tab = document.getElementById('tab-klas');
+  if (tab) tab.scrollTop = 0;
 }
 
-function updateVideoSvg(lesson) {
-  const canvasType = (lesson && lesson.video && lesson.video.canvasType) ? lesson.video.canvasType : 'default';
-  ClassroomVisualizer.render(canvasType, state.activeVideoStepIdx, 'video-svg-canvas');
+function renderMathWorkshop(m) {
+  state.workshopActiveModule = m;
+  state.activeLessonId = m.id;
+
+  // 1. Update Header Card
+  const iconEl = document.getElementById('ws-header-icon');
+  const titleEl = document.getElementById('ws-header-title');
+  const subEl = document.getElementById('ws-header-subtitle');
+  const badgeEl = document.getElementById('ws-header-badge');
+
+  if (iconEl) iconEl.innerText = m.icon;
+  if (titleEl) titleEl.innerText = m.title;
+  if (subEl) subEl.innerText = m.subtitle;
+  if (badgeEl) {
+    badgeEl.innerText = (m.paper === 1) ? 'VRAESTEL 1 (11 NOV)' : 'VRAESTEL 2 (17 NOV)';
+    badgeEl.style.background = (m.paper === 1) ? '#4f46e5' : '#ea580c';
+  }
+
+  // 2. Render Step 1: Lab
+  renderInteractiveLab(m);
+
+  // 3. Render Step 2: Explanations
+  renderWorkshopExplanations(m);
+
+  // 4. Render Step 3: Examples
+  renderWorkshopExamples(m);
+
+  // 5. Render Step 4: Practice
+  renderWorkshopPractice(m);
+
+  // Set default step to lab
+  setWorkshopStep('lab');
 }
 
-function updateLessonTextPane(lesson) {
-  const container = document.getElementById('klas-lesson-content');
-  if (!container || !lesson) return;
+// =========================================================================
+// 10 HANDS-ON INTERACTIVE MANIPULATIVES (DIE WISKUNDE LABORATORIUM)
+// =========================================================================
+function renderInteractiveLab(m) {
+  const container = document.getElementById('interactive-lab-container');
+  if (!container) return;
 
-  if (state.activeLessonTab === 'story') {
+  const labType = m.labType || 'angles_radar';
+
+  if (labType === 'angles_radar') {
     container.innerHTML = `
-      <div style="font-size:0.75rem; font-weight:900; color:#b45309; text-transform:uppercase; margin-bottom:0.25rem;">
-        🧸 7-Jaar-Oud Storie: ${lesson.title}
+      <div style="text-align:center; margin-bottom:0.6rem;">
+        <span style="font-size:0.75rem; font-weight:900; color:#4f46e5; text-transform:uppercase; letter-spacing:0.5px;">
+          🎮 Hoeke-Radar & Haai-Bek Simuleerder
+        </span>
+        <div style="font-size:0.82rem; color:#475569; margin-top:0.2rem;">
+          Trek die glyer of druk die knoppies om die hoek te verander!
+        </div>
       </div>
-      <div style="font-size:0.84rem; font-weight:700; color:#78350f; line-height:1.45;">
-        ${nl2br(lesson.analogy7yo)}
+
+      <!-- INTERACTIVE SVG ANGLE RADAR -->
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:0.5rem; text-align:center;">
+        <svg id="svg-angle-canvas" viewBox="0 0 320 200" style="width:100%; max-height:220px; display:block; margin:0 auto; overflow:visible;">
+          <!-- Background Grid & Protractor Arc -->
+          <circle cx="160" cy="160" r="130" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="4,4"/>
+          <line x1="20" y1="160" x2="300" y2="160" stroke="#94a3b8" stroke-width="2"/>
+          <line x1="160" y1="20" x2="160" y2="160" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="2,2"/>
+          
+          <!-- Angle Arc Fill -->
+          <path id="angle-arc-path" d="" fill="rgba(99,102,241,0.18)" stroke="#4f46e5" stroke-width="2.5"/>
+          <!-- Right angle square marker -->
+          <rect id="angle-90-box" x="160" y="140" width="20" height="20" fill="none" stroke="#eab308" stroke-width="2.5" style="display:none;"/>
+          
+          <!-- Base Ray (Fixed) -->
+          <line x1="160" y1="160" x2="280" y2="160" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+          <polygon points="285,160 275,155 275,165" fill="#1e293b"/>
+          
+          <!-- Rotating Ray -->
+          <line id="angle-ray-line" x1="160" y1="160" x2="245" y2="75" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+          <polygon id="angle-ray-arrow" points="250,70 240,73 246,81" fill="#ef4444"/>
+
+          <!-- Vertex Point -->
+          <circle cx="160" cy="160" r="6" fill="#4f46e5"/>
+
+          <!-- Cat Avatar Expression in Center -->
+          <g transform="translate(20, 25)">
+            <ellipse cx="25" cy="25" rx="20" ry="17" fill="#ffffff" stroke="#f59e0b" stroke-width="2"/>
+            <polygon points="10,12 15,3 22,10" fill="#f59e0b"/>
+            <polygon points="40,12 35,3 28,10" fill="#f59e0b"/>
+            <circle cx="18" cy="23" r="2.5" fill="#1e293b"/>
+            <circle cx="32" cy="23" r="2.5" fill="#1e293b"/>
+            <polygon points="23,28 27,28 25,31" fill="#ef4444"/>
+            <!-- Speech bubble -->
+            <rect x="52" y="2" width="180" height="46" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="1.5" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))"/>
+            <text id="cat-angle-speech" x="60" y="20" font-size="10.5" font-weight="900" fill="#1e1b4b">Skerphoek (<90°)</text>
+            <text id="cat-angle-sub" x="60" y="36" font-size="9" font-weight="700" fill="#6366f1">Skerp soos my katnaeltjies! 🐾</text>
+          </g>
+
+          <!-- Degree Badge -->
+          <g transform="translate(160, 185)">
+            <rect x="-45" y="-12" width="90" height="24" rx="12" fill="#1e1b4b"/>
+            <text id="angle-degree-text" x="0" y="4" font-size="13" font-weight="900" fill="#38bdf8" text-anchor="middle">45°</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- SLIDER -->
+      <div style="margin:0.75rem 0 0.5rem 0; padding:0 0.5rem;">
+        <input type="range" min="0" max="360" value="45" id="slider-angle" style="width:100%; accent-color:#4f46e5; cursor:pointer;" oninput="updateAngleManipulator(this.value)">
+      </div>
+
+      <!-- PRESET BUTTONS -->
+      <div style="display:flex; flex-wrap:wrap; gap:0.35rem; justify-content:center;">
+        <button class="btn-sim-chip" onclick="setAnglePreset(35)" style="font-size:0.78rem;">35° Skerp</button>
+        <button class="btn-sim-chip" onclick="setAnglePreset(90)" style="font-size:0.78rem; background:#fef3c7; border-color:#f59e0b; color:#92400e; font-weight:900;">90° Regte Hoek</button>
+        <button class="btn-sim-chip" onclick="setAnglePreset(135)" style="font-size:0.78rem;">135° Stomp</button>
+        <button class="btn-sim-chip" onclick="setAnglePreset(180)" style="font-size:0.78rem; background:#e0e7ff; border-color:#6366f1; color:#3730a3;">180° Gestrek</button>
+        <button class="btn-sim-chip" onclick="setAnglePreset(360)" style="font-size:0.78rem; background:#fce7f3; border-color:#ec4899; color:#9d174d;">360° Omwenteling</button>
       </div>
     `;
-  } else if (state.activeLessonTab === 'methods') {
-    const methodsHtml = (lesson.methods || []).map((m, idx) => `
-      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.6rem; margin-bottom:0.4rem;">
+    setTimeout(() => updateAngleManipulator(45), 50);
+  } else if (labType === 'euler_3d') {
+    container.innerHTML = `
+      <div style="text-align:center; margin-bottom:0.6rem;">
+        <span style="font-size:0.75rem; font-weight:900; color:#4f46e5; text-transform:uppercase;">
+          💎 3D-Vorm Ontleder & Euler se Formule (V + H - R = 2)
+        </span>
+      </div>
+
+      <!-- SHAPE SELECTOR -->
+      <div style="display:flex; gap:0.3rem; justify-content:center; margin-bottom:0.6rem; overflow-x:auto;">
+        <button class="btn-sim-chip active" id="btn-euler-tri" onclick="setEulerShape('tri_prism')">🔺 Driehoekige Prisma</button>
+        <button class="btn-sim-chip" id="btn-euler-cube" onclick="setEulerShape('cube')">📦 Kubus / Boks</button>
+        <button class="btn-sim-chip" id="btn-euler-pyr" onclick="setEulerShape('sq_pyramid')">⛺ Vierkantige Piramide</button>
+        <button class="btn-sim-chip" id="btn-euler-tetra" onclick="setEulerShape('tetra')">📐 Tetraëder</button>
+      </div>
+
+      <!-- 3D DISPLAY & HIGHLIGHT BUTTONS -->
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:0.6rem; text-align:center;">
+        <div id="euler-svg-box"></div>
+      </div>
+
+      <!-- HIGHLIGHT FILTER BUTTONS -->
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.4rem; margin:0.6rem 0;">
+        <button class="btn-sim-chip" id="btn-hl-faces" onclick="setEulerHighlight('faces')" style="background:#e0f2fe; color:#0369a1; border-color:#0284c7; font-weight:900;">
+          🟦 Vlakke (V)
+        </button>
+        <button class="btn-sim-chip" id="btn-hl-vertices" onclick="setEulerHighlight('vertices')" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-weight:900;">
+          🔴 Hoekpunte (H)
+        </button>
+        <button class="btn-sim-chip" id="btn-hl-edges" onclick="setEulerHighlight('edges')" style="background:#dcfce7; color:#15803d; border-color:#22c55e; font-weight:900;">
+          🟩 Rante (R)
+        </button>
+      </div>
+
+      <!-- LIVE EULER CALCULATOR CARD -->
+      <div style="background:linear-gradient(135deg, #1e1b4b, #312e81); color:white; border-radius:12px; padding:0.75rem; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+        <div style="font-size:0.75rem; font-weight:800; color:#a5b4fc; text-transform:uppercase;">Euler se Universele Formule</div>
+        <div id="euler-calc-display" style="font-size:1.15rem; font-weight:900; color:#38bdf8; margin:0.3rem 0;">
+          V (5) + H (6) - R (9) = <span style="color:#facc15; font-size:1.35rem;">2</span>! 🎉
+        </div>
+        <div style="font-size:0.75rem; color:#e0e7ff; line-height:1.4;">
+          💡 <b>KABV Eksamen-Geheim:</b> As jy vergeet hoeveel rante 'n vorm het, gebruik net: <b>R = V + H - 2</b>!
+        </div>
+      </div>
+    `;
+    setTimeout(() => setEulerShape('tri_prism'), 50);
+  } else if (labType === 'perimeter_area_volume') {
+    container.innerHTML = `
+      <div style="text-align:center; margin-bottom:0.6rem;">
+        <span style="font-size:0.75rem; font-weight:900; color:#16a34a; text-transform:uppercase;">
+          🐾 Katte-Tuin & Swembad Bouer (Omtrek, Oppervlakte & Volume)
+        </span>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:0.6rem;">
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:0.5rem; text-align:center;">
+          <div style="font-size:0.75rem; font-weight:800; color:#15803d;">Lengte (L): <span id="lbl-pav-l" style="font-size:0.95rem;">5 cm</span></div>
+          <input type="range" min="2" max="8" value="5" id="slider-pav-l" style="width:100%; accent-color:#16a34a;" oninput="updatePavManipulator()">
+        </div>
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:0.5rem; text-align:center;">
+          <div style="font-size:0.75rem; font-weight:800; color:#15803d;">Breedte (B): <span id="lbl-pav-b" style="font-size:0.95rem;">3 cm</span></div>
+          <input type="range" min="2" max="6" value="3" id="slider-pav-b" style="width:100%; accent-color:#16a34a;" oninput="updatePavManipulator()">
+        </div>
+      </div>
+
+      <!-- VISUAL GRID CANVAS -->
+      <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; padding:0.6rem; text-align:center;">
+        <svg id="svg-pav-canvas" viewBox="0 0 300 160" style="width:100%; max-height:180px; display:block; margin:0 auto;"></svg>
+      </div>
+
+      <!-- 3 LIVE METRICS CARDS -->
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.35rem; margin-top:0.6rem;">
+        <div style="background:#eff6ff; border:1.5px solid #3b82f6; border-radius:10px; padding:0.4rem; text-align:center;">
+          <div style="font-size:0.7rem; font-weight:800; color:#1d4ed8;">OMTREK (Hek)</div>
+          <div id="val-pav-omtrek" style="font-size:0.95rem; font-weight:900; color:#1e40af;">16 cm</div>
+          <div style="font-size:0.65rem; color:#60a5fa;">2 × (L + B)</div>
+        </div>
+        <div style="background:#f0fdf4; border:1.5px solid #22c55e; border-radius:10px; padding:0.4rem; text-align:center;">
+          <div style="font-size:0.7rem; font-weight:800; color:#15803d;">OPPERVLAKTE</div>
+          <div id="val-pav-oppervlakte" style="font-size:0.95rem; font-weight:900; color:#166534;">15 cm²</div>
+          <div style="font-size:0.65rem; color:#4ade80;">L × B (Teëls)</div>
+        </div>
+        <div style="background:#fdf2f8; border:1.5px solid #ec4899; border-radius:10px; padding:0.4rem; text-align:center;">
+          <div style="font-size:0.7rem; font-weight:800; color:#be185d;">VOLUME (3D)</div>
+          <div id="val-pav-volume" style="font-size:0.95rem; font-weight:900; color:#9d174d;">30 cm³</div>
+          <div style="font-size:0.65rem; color:#f472b6;">L × B × H (2cm)</div>
+        </div>
+      </div>
+    `;
+    setTimeout(() => updatePavManipulator(), 50);
+  } else if (labType === 'fractions_pizza') {
+    container.innerHTML = `
+      <div style="text-align:center; margin-bottom:0.6rem;">
+        <span style="font-size:0.75rem; font-weight:900; color:#e11d48; text-transform:uppercase;">
+          🍕 Die Stray Kids Pizzeria (Breuke, Desimale & %)
+        </span>
+        <div style="font-size:0.8rem; color:#64748b; margin-top:0.2rem;">
+          Kies die aantal snye en tik op die pizza om snye te eet!
+        </div>
+      </div>
+
+      <!-- SLICES SELECTOR -->
+      <div style="display:flex; gap:0.3rem; justify-content:center; margin-bottom:0.6rem;">
+        <button class="btn-sim-chip" onclick="setPizzaTotalSlices(2)">2 Snye</button>
+        <button class="btn-sim-chip active" id="btn-pizza-4" onclick="setPizzaTotalSlices(4)">4 Snye</button>
+        <button class="btn-sim-chip" onclick="setPizzaTotalSlices(5)">5 Snye</button>
+        <button class="btn-sim-chip" onclick="setPizzaTotalSlices(8)">8 Snye</button>
+        <button class="btn-sim-chip" onclick="setPizzaTotalSlices(10)">10 Snye</button>
+      </div>
+
+      <!-- PIZZA SVG -->
+      <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:12px; padding:0.6rem; text-align:center;">
+        <svg id="svg-pizza-canvas" viewBox="0 0 200 200" style="width:160px; height:160px; display:block; margin:0 auto; cursor:pointer;"></svg>
+      </div>
+
+      <!-- 3-WAY LIVE CONVERTER -->
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.4rem; margin-top:0.6rem;">
+        <div style="background:#ffffff; border:2px solid #e11d48; border-radius:10px; padding:0.5rem; text-align:center;">
+          <div style="font-size:0.7rem; font-weight:800; color:#e11d48;">GEWONE BREUK</div>
+          <div id="pizza-val-frac" style="font-size:1.2rem; font-weight:900; color:#9f1239;">3 / 4</div>
+        </div>
+        <div style="background:#ffffff; border:2px solid #0284c7; border-radius:10px; padding:0.5rem; text-align:center;">
+          <div style="font-size:0.7rem; font-weight:800; color:#0284c7;">DESIMAAL</div>
+          <div id="pizza-val-dec" style="font-size:1.2rem; font-weight:900; color:#0369a1;">0,75</div>
+        </div>
+        <div style="background:#ffffff; border:2px solid #16a34a; border-radius:10px; padding:0.5rem; text-align:center;">
+          <div style="font-size:0.7rem; font-weight:800; color:#16a34a;">PERSENTASIE</div>
+          <div id="pizza-val-perc" style="font-size:1.2rem; font-weight:900; color:#15803d;">75%</div>
+        </div>
+      </div>
+    `;
+    setTimeout(() => setPizzaTotalSlices(4), 50);
+  } else if (labType === 'column_mult_stepper') {
+    container.innerHTML = `
+      <div style="text-align:center; margin-bottom:0.6rem;">
+        <span style="font-size:0.75rem; font-weight:900; color:#d97706; text-transform:uppercase;">
+          🌟 Kolom-Maalwerk & Die Geheime 'Spook-Nul' Simuleerder
+        </span>
+      </div>
+
+      <div style="background:#1e1b4b; color:white; border-radius:12px; padding:0.85rem; font-family:monospace; font-size:1.15rem; line-height:1.6; text-align:center; max-width:280px; margin:0 auto; box-shadow:0 4px 14px rgba(0,0,0,0.15);">
+        <div style="color:#a5b4fc; font-size:0.75rem; font-family:sans-serif; font-weight:800; margin-bottom:0.3rem;">SOM: 348 × 26</div>
+        <div id="mult-step-row-top" style="letter-spacing:4px;">  3 4 8</div>
+        <div id="mult-step-row-op" style="letter-spacing:4px; border-bottom:2px solid #6366f1;">×   2 6</div>
+        <div id="mult-step-row-1" style="color:#4ade80; letter-spacing:4px; margin-top:0.3rem;">2 0 8 8 <span style="font-size:0.7rem; font-family:sans-serif;">(×6)</span></div>
+        <div id="mult-step-row-ghost" style="color:#facc15; letter-spacing:4px; font-weight:900; background:rgba(250,204,21,0.15); border-radius:4px;">
+          6 9 6 <span style="color:#ef4444; font-size:1.3rem; text-decoration:underline;">0</span> <span style="font-size:0.7rem; font-family:sans-serif;">(Spook-0!)</span>
+        </div>
+        <div id="mult-step-row-total" style="color:#38bdf8; letter-spacing:4px; border-top:2px solid #6366f1; border-bottom:3px double #6366f1; margin-top:0.3rem; font-weight:900;">
+          9 0 4 8
+        </div>
+      </div>
+
+      <div style="margin-top:0.75rem; background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:0.6rem; text-align:center;">
+        <div style="font-size:0.8rem; font-weight:900; color:#b45309;">⚠️ DIE GROOTSTE EKSAMEN-VALKUIL:</div>
+        <div style="font-size:0.75rem; color:#78350f; margin-top:0.2rem;">
+          Wanneer jy met die tiene maal (die 2 in 26), sit <b>ALTYD EERS DIE SPOOK-NUL (0)</b> neer voor jy maal!
+        </div>
+      </div>
+    `;
+  } else if (labType === 'long_division_stepper') {
+    container.innerHTML = `
+      <div style="text-align:center; margin-bottom:0.6rem;">
+        <span style="font-size:0.75rem; font-weight:900; color:#0284c7; text-transform:uppercase;">
+          ➗ Langdeling Dansroetine: Deel, Maal, Trek-af, Bring-af!
+        </span>
+      </div>
+
+      <div style="display:flex; justify-content:center; gap:0.4rem; margin-bottom:0.6rem;">
+        <span style="background:#e0f2fe; color:#0369a1; padding:0.25rem 0.5rem; border-radius:6px; font-size:0.75rem; font-weight:900;">1. Deel (D)</span>
+        <span style="background:#fef3c7; color:#92400e; padding:0.25rem 0.5rem; border-radius:6px; font-size:0.75rem; font-weight:900;">2. Maal (M)</span>
+        <span style="background:#fee2e2; color:#b91c1c; padding:0.25rem 0.5rem; border-radius:6px; font-size:0.75rem; font-weight:900;">3. Subtraheer (S)</span>
+        <span style="background:#dcfce7; color:#15803d; padding:0.25rem 0.5rem; border-radius:6px; font-size:0.75rem; font-weight:900;">4. Bring af (B)</span>
+      </div>
+
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:0.85rem; font-family:monospace; font-size:1.1rem; line-height:1.5; max-width:280px; margin:0 auto; text-align:left;">
+        <div style="text-align:right; color:#0284c7; font-weight:900; border-bottom:2px solid #0284c7; padding-bottom:2px;">
+          Kwosiënt = 1 4 1
+        </div>
+        <div style="margin-top:4px;">
+          6 ) 8 4 6
+        </div>
+        <div style="color:#94a3b8; font-size:0.9rem;">
+          - 6 &nbsp; &nbsp; &nbsp; <span style="font-size:0.68rem; font-family:sans-serif; color:#0369a1;">(6×1=6)</span>
+        </div>
+        <div style="border-top:1px solid #cbd5e1; width:60px;">2 4 &nbsp; &nbsp; <span style="font-size:0.68rem; font-family:sans-serif; color:#16a34a;">(bring 4 af)</span></div>
+        <div style="color:#94a3b8; font-size:0.9rem;">
+          - 2 4 &nbsp; &nbsp; <span style="font-size:0.68rem; font-family:sans-serif; color:#0369a1;">(6×4=24)</span>
+        </div>
+        <div style="border-top:1px solid #cbd5e1; width:75px;">&nbsp; 0 6 &nbsp; <span style="font-size:0.68rem; font-family:sans-serif; color:#16a34a;">(bring 6 af)</span></div>
+        <div style="color:#94a3b8; font-size:0.9rem;">
+          &nbsp; - 6 &nbsp; <span style="font-size:0.68rem; font-family:sans-serif; color:#0369a1;">(6×1=6)</span>
+        </div>
+        <div style="border-top:1px solid #cbd5e1; width:75px; color:#16a34a; font-weight:900;">&nbsp; &nbsp; 0 &nbsp; <span style="font-size:0.68rem; font-family:sans-serif;">(Geen res!)</span></div>
+      </div>
+    `;
+  } else if (labType === 'clock_timeline') {
+    container.innerHTML = `
+      <div style="text-align:center; margin-bottom:0.6rem;">
+        <span style="font-size:0.75rem; font-weight:900; color:#4f46e5; text-transform:uppercase;">
+          ⏰ 24-Uur Horlosie & Tydsduur Spronge
+        </span>
+      </div>
+
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:0.6rem; text-align:center;">
+        <div style="display:flex; justify-content:center; align-items:center; gap:1.5rem; margin-bottom:0.5rem;">
+          <div style="background:#1e1b4b; color:#38bdf8; font-family:monospace; font-size:1.4rem; font-weight:900; padding:0.4rem 0.8rem; border-radius:8px;">
+            15:40
+          </div>
+          <span style="font-size:1.2rem;">➔</span>
+          <div style="background:#1e1b4b; color:#4ade80; font-family:monospace; font-size:1.4rem; font-weight:900; padding:0.4rem 0.8rem; border-radius:8px;">
+            18:15
+          </div>
+        </div>
+
+        <!-- TIMELINE JUMP ARCS -->
+        <svg viewBox="0 0 280 80" style="width:100%; max-height:80px; overflow:visible;">
+          <line x1="20" y1="55" x2="260" y2="55" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="30" cy="55" r="4" fill="#3b82f6"/>
+          <text x="30" y="70" font-size="8" font-weight="800" fill="#475569" text-anchor="middle">15:40</text>
+          
+          <path d="M30,55 Q55,20 80,55" fill="none" stroke="#6366f1" stroke-width="2"/>
+          <text x="55" y="25" font-size="7.5" font-weight="900" fill="#4f46e5" text-anchor="middle">+20 min</text>
+          <circle cx="80" cy="55" r="4" fill="#6366f1"/>
+          <text x="80" y="70" font-size="8" font-weight="800" fill="#475569" text-anchor="middle">16:00</text>
+
+          <path d="M80,55 Q145,5 210,55" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+          <text x="145" y="15" font-size="8" font-weight="900" fill="#0284c7" text-anchor="middle">+2 URE</text>
+          <circle cx="210" cy="55" r="4" fill="#0284c7"/>
+          <text x="210" y="70" font-size="8" font-weight="800" fill="#475569" text-anchor="middle">18:00</text>
+
+          <path d="M210,55 Q235,25 260,55" fill="none" stroke="#16a34a" stroke-width="2"/>
+          <text x="235" y="28" font-size="7.5" font-weight="900" fill="#16a34a" text-anchor="middle">+15 min</text>
+          <circle cx="260" cy="55" r="4" fill="#16a34a"/>
+          <text x="260" y="70" font-size="8" font-weight="800" fill="#475569" text-anchor="middle">18:15</text>
+        </svg>
+
+        <div style="font-size:0.85rem; font-weight:900; color:#1e1b4b; margin-top:0.4rem;">
+          Totale Tyd = 2 ure + 20 min + 15 min = <span style="color:#4f46e5;">2 ure 35 minute</span>!
+        </div>
+      </div>
+    `;
+  } else {
+    // Default fallback
+    container.innerHTML = `
+      <div style="text-align:center; padding:1rem; color:#475569;">
+        <div style="font-size:2rem; margin-bottom:0.3rem;">${m.icon}</div>
+        <div style="font-weight:800; font-size:0.95rem; color:#1e1b4b;">${m.title}</div>
+        <div style="font-size:0.8rem; margin-top:0.3rem;">Beweeg na Stap 2 om die 5 Geheime Verduidelikings te lees!</div>
+      </div>
+    `;
+  }
+}
+
+// Angles Radar Slider Helper
+function updateAngleManipulator(deg) {
+  deg = parseInt(deg);
+  const textEl = document.getElementById('angle-degree-text');
+  const rayLine = document.getElementById('angle-ray-line');
+  const rayArrow = document.getElementById('angle-ray-arrow');
+  const arcPath = document.getElementById('angle-arc-path');
+  const box90 = document.getElementById('angle-90-box');
+  const speechTitle = document.getElementById('cat-angle-speech');
+  const speechSub = document.getElementById('cat-angle-sub');
+
+  if (textEl) textEl.innerText = `${deg}°`;
+
+  // Trigonometry: vertex at (160, 160), radius 100
+  const rad = deg * (Math.PI / 180);
+  const x = 160 + 100 * Math.cos(rad);
+  const y = 160 - 100 * Math.sin(rad);
+
+  if (rayLine) {
+    rayLine.setAttribute('x2', x);
+    rayLine.setAttribute('y2', y);
+  }
+
+  // Draw Arc
+  if (arcPath) {
+    const arcRad = 45;
+    const ax = 160 + arcRad * Math.cos(rad);
+    const ay = 160 - arcRad * Math.sin(rad);
+    const largeArc = deg > 180 ? 1 : 0;
+    if (deg > 0 && deg < 360) {
+      arcPath.setAttribute('d', `M160,160 L${160+arcRad},160 A${arcRad},${arcRad} 0 ${largeArc},0 ${ax},${ay} Z`);
+    } else if (deg >= 360) {
+      arcPath.setAttribute('d', `M160,160 m -${arcRad}, 0 a ${arcRad},${arcRad} 0 1,0 ${arcRad*2},0 a ${arcRad},${arcRad} 0 1,0 -${arcRad*2},0`);
+    } else {
+      arcPath.setAttribute('d', '');
+    }
+  }
+
+  // 90 degree box
+  if (box90) {
+    box90.style.display = (deg === 90) ? 'block' : 'none';
+  }
+
+  // Cat Speech Reaction
+  if (speechTitle && speechSub) {
+    if (deg < 90) {
+      speechTitle.innerText = "Skerphoek (<90°)";
+      speechSub.innerText = "Skerp soos my katnaeltjies! 🐾";
+    } else if (deg === 90) {
+      speechTitle.innerText = "REGTE HOEK (90°)!";
+      speechSub.innerText = "Kyk die vierkantige blokkie! 🐱";
+      SoundFX.correct();
+    } else if (deg < 180) {
+      speechTitle.innerText = "Stomphoek (>90°)";
+      speechSub.innerText = "Wawyd oop soos 'n leunstoel! 😺";
+    } else if (deg === 180) {
+      speechTitle.innerText = "Gestrekte Hoek (180°)";
+      speechSub.innerText = "Plat soos 'n liniaal! 😸";
+    } else {
+      speechTitle.innerText = "Omwenteling (360°)";
+      speechSub.innerText = "'n Volle sirkel draai! 🌟";
+    }
+  }
+}
+
+function setAnglePreset(deg) {
+  const slider = document.getElementById('slider-angle');
+  if (slider) {
+    slider.value = deg;
+    updateAngleManipulator(deg);
+    SoundFX.click();
+  }
+}
+
+// Euler 3D Helper
+let currentEulerShape = 'tri_prism';
+function setEulerShape(shape) {
+  currentEulerShape = shape;
+  ['tri', 'cube', 'pyr', 'tetra'].forEach(s => {
+    const btn = document.getElementById(`btn-euler-${s}`);
+    if (btn) btn.classList.toggle('active', shape.includes(s));
+  });
+
+  const box = document.getElementById('euler-svg-box');
+  const calc = document.getElementById('euler-calc-display');
+  if (!box) return;
+
+  if (shape === 'tri_prism') {
+    box.innerHTML = `
+      <svg viewBox="0 0 240 140" style="width:180px; height:120px; display:block; margin:0 auto;">
+        <polygon points="40,100 120,110 80,30" fill="rgba(2,132,199,0.25)" stroke="#0284c7" stroke-width="2.5"/>
+        <polygon points="120,110 200,90 160,20 80,30" fill="rgba(2,132,199,0.35)" stroke="#0284c7" stroke-width="2.5"/>
+        <polygon points="160,20 80,30 120,110" fill="none" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <!-- Vertices -->
+        <circle cx="40" cy="100" r="4.5" fill="#ef4444"/>
+        <circle cx="120" cy="110" r="4.5" fill="#ef4444"/>
+        <circle cx="80" cy="30" r="4.5" fill="#ef4444"/>
+        <circle cx="200" cy="90" r="4.5" fill="#ef4444"/>
+        <circle cx="160" cy="20" r="4.5" fill="#ef4444"/>
+        <circle cx="120" cy="110" r="4.5" fill="#ef4444"/>
+      </svg>
+    `;
+    if (calc) calc.innerHTML = `V (5) + H (6) - R (9) = <span style="color:#facc15; font-size:1.3rem;">2</span>! 🎉`;
+  } else if (shape === 'cube') {
+    box.innerHTML = `
+      <svg viewBox="0 0 240 140" style="width:180px; height:120px; display:block; margin:0 auto;">
+        <rect x="50" y="45" width="70" height="70" fill="rgba(2,132,199,0.25)" stroke="#0284c7" stroke-width="2.5"/>
+        <polygon points="50,45 80,20 150,20 120,45" fill="rgba(2,132,199,0.4)" stroke="#0284c7" stroke-width="2.5"/>
+        <polygon points="120,45 150,20 150,90 120,115" fill="rgba(2,132,199,0.3)" stroke="#0284c7" stroke-width="2.5"/>
+        <!-- Vertices -->
+        <circle cx="50" cy="45" r="4" fill="#ef4444"/>
+        <circle cx="120" cy="45" r="4" fill="#ef4444"/>
+        <circle cx="50" cy="115" r="4" fill="#ef4444"/>
+        <circle cx="120" cy="115" r="4" fill="#ef4444"/>
+        <circle cx="80" cy="20" r="4" fill="#ef4444"/>
+        <circle cx="150" cy="20" r="4" fill="#ef4444"/>
+        <circle cx="150" cy="90" r="4" fill="#ef4444"/>
+      </svg>
+    `;
+    if (calc) calc.innerHTML = `V (6) + H (8) - R (12) = <span style="color:#facc15; font-size:1.3rem;">2</span>! 🎉`;
+  } else if (shape === 'sq_pyramid') {
+    box.innerHTML = `
+      <svg viewBox="0 0 240 140" style="width:180px; height:120px; display:block; margin:0 auto;">
+        <polygon points="50,110 150,110 190,80 90,80" fill="rgba(2,132,199,0.2)" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <polygon points="50,110 150,110 120,20" fill="rgba(2,132,199,0.35)" stroke="#0284c7" stroke-width="2.5"/>
+        <polygon points="150,110 190,80 120,20" fill="rgba(2,132,199,0.45)" stroke="#0284c7" stroke-width="2.5"/>
+        <circle cx="120" cy="20" r="5" fill="#ef4444"/>
+        <circle cx="50" cy="110" r="4" fill="#ef4444"/>
+        <circle cx="150" cy="110" r="4" fill="#ef4444"/>
+        <circle cx="190" cy="80" r="4" fill="#ef4444"/>
+        <circle cx="90" cy="80" r="4" fill="#ef4444"/>
+      </svg>
+    `;
+    if (calc) calc.innerHTML = `V (5) + H (5) - R (8) = <span style="color:#facc15; font-size:1.3rem;">2</span>! 🎉`;
+  } else {
+    // Tetra
+    box.innerHTML = `
+      <svg viewBox="0 0 240 140" style="width:180px; height:120px; display:block; margin:0 auto;">
+        <polygon points="50,110 170,110 110,25" fill="rgba(2,132,199,0.35)" stroke="#0284c7" stroke-width="2.5"/>
+        <polygon points="170,110 120,75 110,25" fill="rgba(2,132,199,0.2)" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <circle cx="110" cy="25" r="4.5" fill="#ef4444"/>
+        <circle cx="50" cy="110" r="4.5" fill="#ef4444"/>
+        <circle cx="170" cy="110" r="4.5" fill="#ef4444"/>
+        <circle cx="120" cy="75" r="4.5" fill="#ef4444"/>
+      </svg>
+    `;
+    if (calc) calc.innerHTML = `V (4) + H (4) - R (6) = <span style="color:#facc15; font-size:1.3rem;">2</span>! 🎉`;
+  }
+}
+
+function setEulerHighlight(mode) {
+  SoundFX.click();
+  const calc = document.getElementById('euler-calc-display');
+  if (mode === 'faces') {
+    calc.style.color = '#38bdf8';
+  } else if (mode === 'vertices') {
+    calc.style.color = '#f87171';
+  } else {
+    calc.style.color = '#4ade80';
+  }
+}
+
+// Perimeter / Area / Volume Helper
+function updatePavManipulator() {
+  const l = parseInt(document.getElementById('slider-pav-l').value);
+  const b = parseInt(document.getElementById('slider-pav-b').value);
+
+  document.getElementById('lbl-pav-l').innerText = `${l} cm`;
+  document.getElementById('lbl-pav-b').innerText = `${b} cm`;
+
+  const omtrek = 2 * (l + b);
+  const opp = l * b;
+  const vol = l * b * 2;
+
+  document.getElementById('val-pav-omtrek').innerText = `${omtrek} cm`;
+  document.getElementById('val-pav-oppervlakte').innerText = `${opp} cm²`;
+  document.getElementById('val-pav-volume').innerText = `${vol} cm³`;
+
+  const svg = document.getElementById('svg-pav-canvas');
+  if (!svg) return;
+
+  const tileSize = 24;
+  const startX = 30;
+  const startY = 25;
+  const w = l * tileSize;
+  const h = b * tileSize;
+
+  let tilesSvg = '';
+  for (let r = 0; r < b; r++) {
+    for (let c = 0; c < l; c++) {
+      tilesSvg += `<rect x="${startX + c*tileSize}" y="${startY + r*tileSize}" width="${tileSize}" height="${tileSize}" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>`;
+    }
+  }
+
+  svg.innerHTML = `
+    <!-- Tiles -->
+    ${tilesSvg}
+    <!-- Outer fence (Perimeter) -->
+    <rect x="${startX}" y="${startY}" width="${w}" height="${h}" fill="none" stroke="#2563eb" stroke-width="3" stroke-dasharray="6,3"/>
+    <!-- Dimensions text -->
+    <text x="${startX + w/2}" y="${startY - 6}" font-size="10" font-weight="900" fill="#2563eb" text-anchor="middle">${l} cm</text>
+    <text x="${startX - 8}" y="${startY + h/2 + 3}" font-size="10" font-weight="900" fill="#2563eb" text-anchor="middle">${b} cm</text>
+    <!-- Cat along fence -->
+    <text x="${startX + w}" y="${startY + h + 14}" font-size="14">🐱🐾</text>
+  `;
+}
+
+// Pizza Slices Helper
+let pizzaTotalSlices = 4;
+let pizzaEatenSlices = 1;
+function setPizzaTotalSlices(n) {
+  pizzaTotalSlices = n;
+  pizzaEatenSlices = Math.min(pizzaEatenSlices, n - 1) || 1;
+  SoundFX.click();
+  renderPizzaSvg();
+}
+
+function renderPizzaSvg() {
+  const svg = document.getElementById('svg-pizza-canvas');
+  if (!svg) return;
+
+  const cx = 100, cy = 100, r = 85;
+  let paths = '';
+  const angleStep = (2 * Math.PI) / pizzaTotalSlices;
+
+  for (let i = 0; i < pizzaTotalSlices; i++) {
+    const a1 = i * angleStep;
+    const a2 = (i + 1) * angleStep;
+    const x1 = cx + r * Math.cos(a1);
+    const y1 = cy + r * Math.sin(a1);
+    const x2 = cx + r * Math.cos(a2);
+    const y2 = cy + r * Math.sin(a2);
+
+    const isEaten = (i < pizzaEatenSlices);
+    const fill = isEaten ? '#fb7185' : '#fef08a';
+    const stroke = '#f43f5e';
+
+    paths += `
+      <path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z"
+            fill="${fill}" stroke="${stroke}" stroke-width="2"
+            onclick="togglePizzaSlice(${i})"
+            style="transition:transform 0.15s ease; cursor:pointer;"/>
+    `;
+  }
+
+  svg.innerHTML = paths;
+
+  // Update converters
+  const fracEl = document.getElementById('pizza-val-frac');
+  const decEl = document.getElementById('pizza-val-dec');
+  const percEl = document.getElementById('pizza-val-perc');
+
+  if (fracEl) fracEl.innerText = `${pizzaEatenSlices} / ${pizzaTotalSlices}`;
+  const dec = (pizzaEatenSlices / pizzaTotalSlices);
+  if (decEl) decEl.innerText = dec.toFixed(2).replace('.', ',');
+  if (percEl) percEl.innerText = `${Math.round(dec * 100)}%`;
+}
+
+function togglePizzaSlice(idx) {
+  pizzaEatenSlices = ((idx + 1) % (pizzaTotalSlices + 1));
+  if (pizzaEatenSlices === 0) pizzaEatenSlices = 1;
+  SoundFX.click();
+  renderPizzaSvg();
+}
+
+// =========================================================================
+// STEP 2: 5 EXPLANATIONS ACCORDION
+// =========================================================================
+function renderWorkshopExplanations(m) {
+  const container = document.getElementById('workshop-explanations-list');
+  if (!container) return;
+
+  const expls = m.explanations || [];
+  container.innerHTML = expls.map((e, idx) => `
+    <div class="quiz-question-box" style="margin-bottom:0.6rem; border-radius:12px; border:1.5px solid #c7d2fe; padding:0.75rem; background:#ffffff;">
+      <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleExplCard(${idx})">
+        <div style="font-size:0.88rem; font-weight:900; color:#1e1b4b;">
+          ${e.title}
+        </div>
+        <span id="expl-arrow-${idx}" style="font-size:0.9rem; color:#6366f1;">▼</span>
+      </div>
+      <div id="expl-body-${idx}" style="font-size:0.82rem; color:#334155; line-height:1.5; margin-top:0.5rem; display:block;">
+        ${formatWithTermHighlights(nl2br(e.content))}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleExplCard(idx) {
+  const body = document.getElementById(`expl-body-${idx}`);
+  const arrow = document.getElementById(`expl-arrow-${idx}`);
+  if (body) {
+    const isHidden = (body.style.display === 'none');
+    body.style.display = isHidden ? 'block' : 'none';
+    if (arrow) arrow.innerText = isHidden ? '▼' : '▶';
+    SoundFX.click();
+  }
+}
+
+// =========================================================================
+// STEP 3: 5 WORKED EXAMPLES ACCORDION (VARIATION THEORY)
+// =========================================================================
+function renderWorkshopExamples(m) {
+  const container = document.getElementById('workshop-examples-list');
+  if (!container) return;
+
+  const examples = m.examples || [];
+  container.innerHTML = examples.map((ex, idx) => `
+    <div class="quiz-question-box" style="margin-bottom:0.7rem; border-radius:12px; border:1.5px solid #bbf7d0; padding:0.75rem; background:#ffffff;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+        <span style="font-size:0.72rem; font-weight:900; padding:0.2rem 0.5rem; border-radius:6px; background:#dcfce7; color:#15803d; text-transform:uppercase;">
+          Voorbeeld ${idx + 1} • ${ex.type}
+        </span>
+      </div>
+      <div style="font-size:0.86rem; font-weight:800; color:#0f172a; margin-bottom:0.5rem; line-height:1.4;">
+        ${formatWithTermHighlights(ex.q)}
+      </div>
+      <button class="btn-sim-chip" onclick="toggleExampleSolution(${idx})" style="font-size:0.78rem; font-weight:900; background:#f0fdf4; border-color:#22c55e; color:#15803d;">
+        👁️ Sien Oplossing & Stap-vir-Stap Resep
+      </button>
+      <div id="ex-sol-${idx}" style="display:none; margin-top:0.6rem; padding:0.6rem; background:#f8fafc; border-radius:8px; border-left:3px solid #16a34a;">
+        <div style="font-size:0.82rem; font-weight:900; color:#16a34a; margin-bottom:0.3rem;">
+          ✅ Korrekte Antwoord: ${ex.ans}
+        </div>
+        <div style="font-size:0.78rem; color:#334155; line-height:1.45; white-space:pre-line;">
+          ${nl2br(ex.steps)}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleExampleSolution(idx) {
+  const sol = document.getElementById(`ex-sol-${idx}`);
+  if (sol) {
+    const isHidden = (sol.style.display === 'none');
+    sol.style.display = isHidden ? 'block' : 'none';
+    SoundFX.click();
+  }
+}
+
+// =========================================================================
+// STEP 4: 5 INTERACTIVE PRACTICE DRILLS (WITH SOUNDS & CONFETTI)
+// =========================================================================
+let currentPracticeAnswers = {};
+
+function renderWorkshopPractice(m) {
+  const container = document.getElementById('workshop-practice-container');
+  if (!container) return;
+
+  const questions = m.practice || [];
+  currentPracticeAnswers = {};
+
+  if (questions.length === 0) {
+    container.innerHTML = '<p>Geen oefenvrae beskikbaar nie.</p>';
+    return;
+  }
+
+  container.innerHTML = `
+    <div style="text-align:center; margin-bottom:0.85rem;">
+      <div style="font-size:0.95rem; font-weight:900; color:#1e1b4b;">
+        ✏️ Toets Jouself: 5 Kits-Vrae
+      </div>
+      <div style="font-size:0.78rem; color:#64748b;">
+        Kies die regte antwoord en wen punte vir jou Katte & Stray Kids Album!
+      </div>
+    </div>
+
+    <div id="practice-questions-list">
+      ${questions.map((q, qIdx) => `
+        <div class="quiz-question-box" id="practice-card-${qIdx}" style="margin-bottom:0.85rem; border-radius:12px; border:2px solid #e2e8f0; padding:0.75rem; background:#ffffff;">
+          <div style="font-size:0.75rem; font-weight:900; color:#6366f1; margin-bottom:0.25rem;">
+            VRAAG ${qIdx + 1} VAN 5
+          </div>
+          <div style="font-size:0.86rem; font-weight:800; color:#0f172a; margin-bottom:0.6rem; line-height:1.4;">
+            ${formatWithTermHighlights(q.q)}
+          </div>
+          
+          <!-- Options -->
+          <div style="display:grid; grid-template-columns:1fr; gap:0.4rem;">
+            ${q.options.map((opt, oIdx) => `
+              <button class="quiz-opt-card" id="btn-pr-opt-${qIdx}-${oIdx}" onclick="selectPracticeOption(${qIdx}, ${oIdx})" style="padding:0.65rem; border-radius:8px; border:1.5px solid #cbd5e1; background:#ffffff; color:#0f172a; font-size:0.82rem; font-weight:700; text-align:left; cursor:pointer; transition:all 0.15s ease;">
+                ${String.fromCharCode(65 + oIdx)}. ${opt}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Feedback Box -->
+          <div id="practice-feedback-${qIdx}" style="display:none; margin-top:0.5rem; padding:0.5rem; border-radius:8px; font-size:0.78rem; line-height:1.4;"></div>
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- COMPLETION CARD (HIDDEN INITIALLY) -->
+    <div id="practice-completion-card" style="display:none; text-align:center; padding:1.2rem; background:linear-gradient(135deg, #fdf2f8, #f0fdf4); border:2px solid #22c55e; border-radius:14px; margin-top:1rem; box-shadow:0 6px 18px rgba(34,197,94,0.15);">
+      <div style="font-size:2.2rem; margin-bottom:0.3rem;">🎉🐾👑</div>
+      <div style="font-size:1.15rem; font-weight:900; color:#15803d;">BAIE GELUK, SHENIQUE!</div>
+      <div id="practice-final-score" style="font-size:0.95rem; font-weight:800; color:#1e1b4b; margin:0.3rem 0;">Jy het 5 / 5 korrek! (+50 XP)</div>
+      <div style="font-size:0.8rem; color:#475569; margin-bottom:0.85rem;">Jou Wiskunde-kragte groei soos 'n ware S-Class ster!</div>
+      
+      <div style="display:flex; flex-direction:column; gap:0.4rem;">
+        <button class="btn-ws-next-action" onclick="advanceToNextMathLesson()" style="padding:0.85rem; font-size:0.95rem; font-weight:900; background:linear-gradient(135deg, #4f46e5, #7c3aed); color:white; border:none; border-radius:12px; cursor:pointer;">
+          🚀 Volgende Wiskunde-Missie ➔
+        </button>
+        <button class="btn-sim-chip" onclick="launchSubjectActivity('m1', 'flashcards')" style="padding:0.7rem; font-size:0.85rem; font-weight:800; background:#ffffff; border:1.5px solid #6366f1; color:#4f46e5;">
+          🎴 Speel Flitskaarte van hierdie Konsep
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function selectPracticeOption(qIdx, oIdx) {
+  const m = state.workshopActiveModule;
+  if (!m || !m.practice) return;
+  const q = m.practice[qIdx];
+  if (!q) return;
+
+  const isCorrect = (oIdx === q.ans);
+  currentPracticeAnswers[qIdx] = isCorrect;
+
+  // Disable options for this question
+  q.options.forEach((_, idx) => {
+    const btn = document.getElementById(`btn-pr-opt-${qIdx}-${idx}`);
+    if (btn) {
+      btn.disabled = true;
+      if (idx === q.ans) {
+        btn.style.background = '#dcfce7';
+        btn.style.borderColor = '#22c55e';
+        btn.style.color = '#15803d';
+        btn.style.fontWeight = '900';
+      } else if (idx === oIdx && !isCorrect) {
+        btn.style.background = '#fee2e2';
+        btn.style.borderColor = '#ef4444';
+        btn.style.color = '#b91c1c';
+      }
+    }
+  });
+
+  // Feedback box
+  const fb = document.getElementById(`practice-feedback-${qIdx}`);
+  if (fb) {
+    fb.style.display = 'block';
+    if (isCorrect) {
+      fb.style.background = '#f0fdf4';
+      fb.style.color = '#15803d';
+      fb.style.border = '1px solid #86efac';
+      fb.innerHTML = `<b>✅ Korrek! (+10 XP)</b> ${q.exp}`;
+      SoundFX.correct();
+      SoundFX.meow();
+    } else {
+      fb.style.background = '#fffbeb';
+      fb.style.color = '#92400e';
+      fb.style.border = '1px solid #fde68a';
+      fb.innerHTML = `<b>💡 Wenk:</b> ${q.hint}<br><span style="color:#334155; margin-top:0.2rem; display:block;">${q.exp}</span>`;
+      SoundFX.wrong();
+    }
+  }
+
+  // Check if all 5 answered
+  const answeredCount = Object.keys(currentPracticeAnswers).length;
+  if (answeredCount === m.practice.length) {
+    let score = 0;
+    Object.values(currentPracticeAnswers).forEach(v => { if (v) score++; });
+    state.practiceScores[m.id] = score;
+
+    // Show completion card
+    setTimeout(() => {
+      const compCard = document.getElementById('practice-completion-card');
+      const scoreEl = document.getElementById('practice-final-score');
+      if (scoreEl) scoreEl.innerText = `Jy het ${score} / ${m.practice.length} korrek! (+${score * 10} XP)`;
+      if (compCard) {
+        compCard.style.display = 'block';
+        compCard.scrollIntoView({ behavior: 'smooth' });
+      }
+      SoundFX.levelUp();
+      startConfetti();
+      markActiveTaskDone();
+      checkBadgeUnlocks();
+    }, 600);
+  }
+}
+
+function advanceToNextMathLesson() {
+  if (typeof mathModulesData === 'undefined') return;
+  const currIdx = mathModulesData.findIndex(m => m.id === state.workshopActiveModule.id);
+  const nextIdx = (currIdx + 1) % mathModulesData.length;
+  const nextMod = mathModulesData[nextIdx];
+
+  // Update chips
+  const chipsBar = document.getElementById('klas-chips-bar');
+  if (chipsBar) {
+    const chips = chipsBar.querySelectorAll('.btn-sim-chip');
+    chips.forEach((c, idx) => c.classList.toggle('active', idx === nextIdx));
+  }
+
+  renderMathWorkshop(nextMod);
+  SoundFX.click();
+}
+
+function renderSecondarySubjectLesson(lesson) {
+  state.activeLessonId = lesson.id;
+  state.workshopActiveModule = {
+    id: lesson.id,
+    title: lesson.title,
+    subtitle: 'KABV Kurrikulum • Hersiening',
+    icon: '📚',
+    paper: 1
+  };
+
+  const iconEl = document.getElementById('ws-header-icon');
+  const titleEl = document.getElementById('ws-header-title');
+  const subEl = document.getElementById('ws-header-subtitle');
+  if (iconEl) iconEl.innerText = '📚';
+  if (titleEl) titleEl.innerText = lesson.title;
+  if (subEl) subEl.innerText = 'KABV Kurrikulum • Hersiening';
+
+  const container = document.getElementById('interactive-lab-container');
+  if (container) {
+    container.innerHTML = `
+      <div style="padding:0.5rem;">
+        <div style="font-size:0.78rem; font-weight:900; color:#b45309; text-transform:uppercase; margin-bottom:0.3rem;">
+          🧸 7-Jaar-Oud Storie: ${lesson.title}
+        </div>
+        <div style="font-size:0.84rem; font-weight:700; color:#78350f; line-height:1.5;">
+          ${nl2br(lesson.analogy7yo)}
+        </div>
+      </div>
+    `;
+  }
+
+  // Explanations
+  const expContainer = document.getElementById('workshop-explanations-list');
+  if (expContainer) {
+    expContainer.innerHTML = (lesson.methods || []).map((m, idx) => `
+      <div class="quiz-question-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.6rem; margin-bottom:0.4rem;">
         <div style="font-size:0.82rem; font-weight:900; color:#0284c7;">${m.title}</div>
         <div style="font-size:0.78rem; color:#334155; margin-top:0.2rem; line-height:1.4;">${nl2br(m.desc)}</div>
         <div style="font-size:0.75rem; font-weight:800; color:#15803d; margin-top:0.3rem;">💡 Reël: ${m.rule}</div>
       </div>
     `).join('');
-    container.innerHTML = methodsHtml;
-  } else if (state.activeLessonTab === 'practice') {
-    const practiceHtml = (lesson.practice || []).map((p, pIdx) => `
-      <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:8px; padding:0.6rem; margin-bottom:0.4rem;">
-        <div style="font-size:0.82rem; font-weight:900; color:#be185d;">Vraag ${pIdx + 1}: ${p.q}</div>
-        <div style="margin-top:0.4rem; display:flex; flex-direction:column; gap:0.3rem;">
-          ${p.options.map((opt, oIdx) => `
-            <button class="btn-sim-chip" style="text-align:left; padding:0.4rem 0.6rem;" onclick="checkPracticeAnswer(this, ${pIdx}, ${oIdx})">
-              ${opt}
-            </button>
-          `).join('')}
-        </div>
-      </div>
-    `).join('');
-    container.innerHTML = practiceHtml || '<p>Geen oefeninge nie.</p>';
   }
+
+  setWorkshopStep('lab');
 }
 
-function checkPracticeAnswer(btn, pIdx, oIdx) {
-  const lesson = klasLessons.find(l => l.id === state.activeLessonId);
-  if (!lesson || !lesson.practice || !lesson.practice[pIdx]) return;
-  const p = lesson.practice[pIdx];
-  const isCorrect = (oIdx === p.answer);
-
-  if (isCorrect) {
-    btn.style.background = '#10b981';
-    btn.style.color = 'white';
-    playSuccessChime();
-    alert(`🎉 Reg! ${p.expl}`);
-  } else {
-    btn.style.background = '#ef4444';
-    btn.style.color = 'white';
-    alert(`❌ Nie heeltemal nie. ${p.expl}`);
-  }
-}
-
-function setLessonTab(tab) {
-  state.activeLessonTab = tab;
-  document.querySelectorAll('.btn-lesson-tab').forEach(b => b.classList.remove('active'));
-  const activeBtn = document.getElementById(`btn-ltab-${tab}`);
-  if (activeBtn) activeBtn.classList.add('active');
-
-  const lesson = klasLessons.find(l => l.id === state.activeLessonId);
-  updateLessonTextPane(lesson);
-}
-
-function togglePlayVideo() {
-  state.videoPlaying = !state.videoPlaying;
-  const btn = document.getElementById('btn-video-play');
-  if (state.videoPlaying) {
-    btn.innerText = "⏸ Pouseer";
-    btn.style.background = "#ea580c";
-    runVideoLoop();
-  } else {
-    btn.innerText = "▶ Speel Video";
-    btn.style.background = "#0284c7";
-    clearTimeout(videoTimer);
-  }
-}
-
-function runVideoLoop() {
-  const lesson = klasLessons.find(l => l.id === state.activeLessonId);
-  if (!lesson || !state.videoPlaying) return;
-  const stepsCount = (lesson.video && lesson.video.steps) ? lesson.video.steps.length : 3;
-
-  videoTimer = setTimeout(() => {
-    if (!state.videoPlaying) return;
-    state.activeVideoStepIdx = (state.activeVideoStepIdx + 1) % stepsCount;
-    updateVideoSvg(lesson);
-    runVideoLoop();
-  }, 3000);
-}
-
-function prevVideoStep() {
-  const lesson = klasLessons.find(l => l.id === state.activeLessonId);
-  if (!lesson) return;
-  const stepsCount = (lesson.video && lesson.video.steps) ? lesson.video.steps.length : 3;
-  state.activeVideoStepIdx = (state.activeVideoStepIdx - 1 + stepsCount) % stepsCount;
-  updateVideoSvg(lesson);
-}
-
-function nextVideoStep() {
-  const lesson = klasLessons.find(l => l.id === state.activeLessonId);
-  if (!lesson) return;
-  const stepsCount = (lesson.video && lesson.video.steps) ? lesson.video.steps.length : 3;
-  state.activeVideoStepIdx = (state.activeVideoStepIdx + 1) % stepsCount;
-  updateVideoSvg(lesson);
-}
-
-function replayVideo() {
-  state.activeVideoStepIdx = 0;
-  const lesson = klasLessons.find(l => l.id === state.activeLessonId);
-  updateVideoSvg(lesson);
-  if (!state.videoPlaying) togglePlayVideo();
-}
+// --- SCREEN 3C: TOETS / VASVRA (GESKIEDENIS IMMIDIATELY INITIALIZED) ---
 
 // --- SCREEN 3C: TOETS / VASVRA (GESKIEDENIS IMMIDIATELY INITIALIZED) ---
 function startQuizForSubject(mid) {
