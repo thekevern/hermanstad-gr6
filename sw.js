@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hermanstad-gr6-v2';
+const CACHE_NAME = 'hermanstad-gr6-shenique-v2';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -33,13 +33,11 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) {
-        // Fetch newer version in background if online
         fetch(event.request).then((networkRes) => {
           if (networkRes && networkRes.status === 200) {
             caches.open(CACHE_NAME).then((cache) => {

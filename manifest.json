@@ -1,7 +1,7 @@
 {
-  "name": "Graad 6 Eksamen-Afrigter – Laerskool Hermanstad",
-  "short_name": "Gr6 Eksamen",
-  "description": "Amptelike Graad 6 Eksamen Hersieningstoepassing vir Laerskool Hermanstad",
+  "name": "Shenique – Graad 6 Eksamen-Afrigter",
+  "short_name": "Shenique Gr6",
+  "description": "Graad 6 Eksamen Hersieningstoepassing vir Shenique Buitendach by Laerskool Hermanstad",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -9,7 +9,9 @@
   "background_color": "#fdf2f8",
   "theme_color": "#ec4899",
   "lang": "af",
-  "categories": ["education"],
+  "categories": [
+    "education"
+  ],
   "icons": [
     {
       "src": "icon-192.png",
