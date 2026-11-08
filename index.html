@@ -4561,7 +4561,7 @@ function getTodayDateKey() {
 
 function initDailyTimer() {
   const todayKey = 'gr6_study_secs_' + getTodayDateKey();
-  const legacyKey = 'hermanstad_study_secs_' + getTodayDateKey(); const savedSecs = parseInt(localStorage.getItem(todayKey) || localStorage.getItem(legacyKey) || '0', 10);
+  const legacyKey = 'gr6_study_secs_' + getTodayDateKey(); const savedSecs = parseInt(localStorage.getItem(todayKey) || localStorage.getItem(legacyKey) || '0', 10);
   state.todayLearnedSeconds = Math.max(state.todayLearnedSeconds || 0, savedSecs);
   state.sessionSeconds = state.todayLearnedSeconds;
 
@@ -4832,7 +4832,7 @@ function clearProgressAndRestart() {
   state.sessionSeconds = 0;
 
   try {
-    localStorage.removeItem(`hermanstad_state_${CURRENT_STUDENT.toLowerCase()}`);
+    localStorage.removeItem(`gr6_state_${CURRENT_STUDENT.toLowerCase()}`);
   } catch(e) {}
   saveState();
   renderMissions();
