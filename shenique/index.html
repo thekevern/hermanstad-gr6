@@ -2053,37 +2053,249 @@ body.theme-dark .badge-sparkle-tag {
   transform: scale(0.92);
   background: #ec4899;
 }
+
+/* =======================================================
+   STEVE JOBS SOVEREIGN HERO & FRONT DOOR (V22)
+   ======================================================= */
+.version-pill-sovereign {
+  font-size: 0.65rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+  color: #831843;
+  padding: 3px 8px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.6);
+  letter-spacing: 0.03em;
+  display: inline-flex;
+  align-items: center;
+}
+.header-live-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: rgba(0, 0, 0, 0.28);
+  color: #fef08a;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(254, 240, 138, 0.4);
+  letter-spacing: 0.02em;
+}
+.sovereign-hero-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fff1f2 40%, #fdf2f8 100%);
+  border: 2px solid #fbcfe8;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.12), 0 2px 6px rgba(0,0,0,0.04);
+}
+.hero-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.hero-greeting {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.hero-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fce7f3;
+  border: 2px solid #ec4899;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 10px rgba(236, 72, 153, 0.2);
+}
+.hero-name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #831843;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #be185d;
+}
+.hero-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #86efac;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+  animation: pulseLive 1.8s infinite;
+}
+@keyframes pulseLive {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.hero-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+  margin-bottom: 0.85rem;
+}
+.hero-metric-tile {
+  background: white;
+  border: 1.5px solid #fce7f3;
+  border-radius: 12px;
+  padding: 0.5rem 0.4rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.metric-icon {
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.metric-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #64748b;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.metric-val {
+  font-size: 0.82rem;
+  font-weight: 900;
+  color: #0f172a;
+  display: block;
+  margin-top: 0.15rem;
+}
+.hero-action-showcase {
+  margin-bottom: 0.75rem;
+}
+.btn-hero-masterpiece {
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #be185d 0%, #ec4899 50%, #f43f5e 100%);
+  color: white;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(236, 72, 153, 0.4), 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+.btn-hero-masterpiece:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(236, 72, 153, 0.5);
+}
+.btn-hero-masterpiece:active {
+  transform: scale(0.985);
+}
+.hero-btn-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-btn-icon-wrap {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+.hero-btn-text-wrap {
+  flex: 1;
+}
+.hero-btn-main {
+  font-size: 0.98rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.hero-btn-desc {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fdf2f8;
+  opacity: 0.95;
+  margin-top: 0.2rem;
+}
+.hero-btn-arrow {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+.hero-audit-row {
+  display: flex;
+  gap: 0.45rem;
+}
+.btn-hero-dispatch {
+  flex: 1;
+  border-radius: 12px;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  transition: all 0.15s;
+}
+.btn-hero-dispatch.telegram {
+  background: #0284c7;
+  color: white;
+  border-color: #0369a1;
+  box-shadow: 0 3px 8px rgba(2, 132, 199, 0.25);
+}
+.btn-hero-dispatch.whatsapp {
+  background: #16a34a;
+  color: white;
+  border-color: #15803d;
+  box-shadow: 0 3px 8px rgba(22, 163, 74, 0.25);
+}
+.btn-hero-dispatch:active {
+  transform: scale(0.98);
+}
+
 </style>
 </head>
 <body>
 <div id="app-root">
 
-  <!-- TOP HEADER (DEFAULT HOME SCREEN) -->
+  <!-- TOP HEADER (STEVE JOBS SOVEREIGN V22) -->
   <header class="app-bar">
     <div class="app-title-wrap">
-      <h1>🌸 Shenique <span style="font-size:0.62rem; background:rgba(255,255,255,0.25); padding:2px 6px; border-radius:10px; font-weight:800; vertical-align:middle; margin-left:4px;">v9.1 NUUTSTE</span></h1>
-      <p>Graad 6 Eindeksamens (Laerskool Hermanstad)</p>
+      <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap;">
+        <h1 style="margin:0; font-size:1.15rem; font-weight:900; letter-spacing:-0.02em; display:flex; align-items:center; gap:0.35rem;">
+          🌸 Shenique
+        </h1>
+        <span class="version-pill-sovereign">👑 V22 Sovereign • Splizr Pro</span>
+      </div>
+      <p style="margin:0.15rem 0 0 0; font-size:0.7rem; color:rgba(255,255,255,0.92); font-weight:700;">
+        Laerskool Hermanstad Graad 6 Eindeksamens
+      </p>
     </div>
     <div class="header-actions">
-      <button class="btn-fs-nav" id="btn-sound-toggle" onclick="toggleSound()" style="background:rgba(255,255,255,0.28); color:white; border-color:rgba(255,255,255,0.45); font-size:0.72rem; font-weight:900;" title="Klank Aan/Af">🔊 Klank</button>
-      <button class="btn-fs-nav" onclick="openProgressView()" style="background:rgba(255,255,255,0.28); color:white; border-color:rgba(255,255,255,0.45); font-size:0.72rem; font-weight:900;" title="My Punte & Eksamenvordering">
-        📊 Punte
-      </button>
-      <button class="btn-fs-nav" onclick="openGlossaryModal()" style="background:rgba(255,255,255,0.28); color:white; border-color:rgba(255,255,255,0.45); font-size:0.72rem; font-weight:900;" title="Vak-Begrippe & Woordeboek">
-        📖
-      </button>
-      <button class="btn-fs-nav" onclick="openRewardsView()" style="background:rgba(255,255,255,0.28); color:white; border-color:rgba(255,255,255,0.45); font-size:0.72rem; font-weight:900;" title="Glinster & Ster Belonings">
-        ✨🏆
-      </button>
-      <button class="btn-fs-nav" onclick="toggleTheme()" id="btn-theme-toggle" style="background:rgba(255,255,255,0.2); color:white; border-color:rgba(255,255,255,0.35); font-size:0.72rem;" title="Wissel Lig / Donker tema">
-        🌓
-      </button>
-      <button class="btn-fs-nav" onclick="forcePurgeAndReload()" style="background:rgba(255,255,255,0.2); color:white; border-color:rgba(255,255,255,0.35); font-size:0.72rem;" title="Herlaai nuutste weergawe">
-        🔄
-      </button>
-      <button class="btn-fs-nav" onclick="triggerAlarmPrompt()" style="background:rgba(255,255,255,0.2); color:white; border-color:rgba(255,255,255,0.35); font-size:0.72rem;">
-        ⏰
-      </button>
+      <span id="session-timer-display" class="header-live-timer" title="Werklike studietyd vandag">⏱️ 0m 00s</span>
+      <button class="btn-fs-nav" id="btn-sound-toggle" onclick="toggleSound()" title="Klank Aan/Af">🔊 Klank</button>
+      <button class="btn-fs-nav" onclick="openProgressView()" title="My Punte & Eksamenvordering">📊 Punte</button>
+      <button class="btn-fs-nav" onclick="openRewardsView()" title="Glinster & Ster Belonings">✨ Belonings</button>
+      <button class="btn-fs-nav" onclick="forcePurgeAndReload()" title="Herlaai nuutste weergawe">🔄</button>
     </div>
   </header>
 
@@ -4148,24 +4360,39 @@ function goHome() {
   renderMissions();
 }
 
-let sessionTimerInterval = null;
-let sessionSeconds = 0;
+// =======================================================
+// THE SOVEREIGN LIVING TIME LEDGER (NEVER LOSES A SECOND)
+// =======================================================
 let isAppActive = true;
 let breakAlertShown = false;
 
-function startStudySession() {
-  sessionSeconds = 0;
-  breakAlertShown = false;
-  if (sessionTimerInterval) clearInterval(sessionTimerInterval);
+function getTodayDateKey() {
+  const now = state.simulatedTime ? new Date(state.simulatedTime) : new Date();
+  return now.toISOString().slice(0, 10);
+}
 
-  updateSessionTimerDisplay();
+function initDailyTimer() {
+  const todayKey = 'hermanstad_study_secs_' + getTodayDateKey();
+  const savedSecs = parseInt(localStorage.getItem(todayKey) || '0', 10);
+  state.todayLearnedSeconds = Math.max(state.todayLearnedSeconds || 0, savedSecs);
+  state.sessionSeconds = state.todayLearnedSeconds;
 
-  sessionTimerInterval = setInterval(() => {
+  updateAllTimerDisplays();
+
+  if (window._studyHeartbeatInterval) clearInterval(window._studyHeartbeatInterval);
+  window._studyHeartbeatInterval = setInterval(() => {
     if (!document.hidden && isAppActive) {
-      sessionSeconds++;
-      updateSessionTimerDisplay();
+      state.todayLearnedSeconds = (state.todayLearnedSeconds || 0) + 1;
+      state.sessionSeconds = state.todayLearnedSeconds;
+      updateAllTimerDisplays();
 
-      if (sessionSeconds >= 1200 && !breakAlertShown) {
+      // Persist to storage every 5 seconds
+      if (state.todayLearnedSeconds % 5 === 0) {
+        persistTimeState();
+      }
+
+      // 20-min gentle rest reminder
+      if (state.todayLearnedSeconds >= 1200 && !breakAlertShown) {
         breakAlertShown = true;
         showBreakReminderModal();
       }
@@ -4173,24 +4400,41 @@ function startStudySession() {
   }, 1000);
 }
 
-function stopStudySession() {
-  if (sessionTimerInterval) clearInterval(sessionTimerInterval);
-  sessionSeconds = 0;
-  breakAlertShown = false;
-  updateSessionTimerDisplay();
+function persistTimeState() {
+  const todayKey = 'hermanstad_study_secs_' + getTodayDateKey();
+  try {
+    localStorage.setItem(todayKey, String(state.todayLearnedSeconds || 0));
+  } catch(e) {}
+  saveState();
 }
 
-function updateSessionTimerDisplay() {
+function updateAllTimerDisplays() {
+  const totalSecs = state.todayLearnedSeconds || 0;
+  const mins = Math.floor(totalSecs / 60);
+  const secs = totalSecs % 60;
+  const timeStr = `${mins}m ${secs < 10 ? '0' : ''}${secs}s`;
+
+  // Top header live timer pill
   const el = document.getElementById('session-timer-display');
-  if (!el) return;
-  if (state.activeMode === 'calendar') {
-    el.style.display = 'none';
-    return;
+  if (el) {
+    el.style.display = 'inline-flex';
+    el.innerHTML = `⏱️ ${timeStr}`;
   }
-  el.style.display = 'inline-flex';
-  const mins = Math.floor(sessionSeconds / 60);
-  const secs = sessionSeconds % 60;
-  el.innerText = `⏱️ ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+  // Hero card live metric
+  const heroEl = document.getElementById('hero-live-study-time');
+  if (heroEl) {
+    heroEl.innerText = mins > 0 ? `${mins} min aktief` : `${secs}s aktief`;
+  }
+}
+
+function startStudySession() {
+  updateAllTimerDisplays();
+}
+
+function stopStudySession() {
+  persistTimeState();
+  updateAllTimerDisplays();
 }
 
 document.addEventListener('visibilitychange', () => {
@@ -4499,13 +4743,13 @@ state.practiceScores = state.practiceScores || {};
 let currentPracticeAnswers = {};
 
 function loadKlasForSubject(mid) {
-  const isMath = (mid === 'm1' || mid === 'm2');
+  const isMath = (mid === 'm2' || mid === 'm6');
   const chipsBar = document.getElementById('klas-chips-bar');
   if (!chipsBar) return;
   chipsBar.innerHTML = '';
 
   if (isMath && typeof mathModulesData !== 'undefined' && mathModulesData.length > 0) {
-    const targetPaper = (mid === 'm1') ? 1 : 2;
+    const targetPaper = (mid === 'm2') ? 1 : 2;
     const sortedModules = [...mathModulesData].sort((a, b) => {
       if (a.paper === targetPaper && b.paper !== targetPaper) return -1;
       if (a.paper !== targetPaper && b.paper === targetPaper) return 1;
@@ -6487,10 +6731,19 @@ function renderStatutoryWiskundeBanner() {
   const container = document.getElementById('statutory-wiskunde-banner');
   if (!container) return;
 
+  const totalSecs = state.todayLearnedSeconds || 0;
+  const totalMins = Math.floor(totalSecs / 60);
+  const timeDisplay = totalMins > 0 ? `${totalMins} min aktief` : `${totalSecs}s aktief`;
+
+  const status = getStudyPlanStatus();
+  const todayTasks = status.todayTasks || [];
+  const doneTasks = todayTasks.filter(t => state.taskCompletions[t.id]).length;
+  const currentXP = calculateTotalXP();
+
+  // Statutory math data for collapsible dad view
   const history = state.quizHistory || {};
   const qhM2 = history['m2'];
   const qhM6 = history['m6'];
-
   let mathPctSum = 0;
   let mathCount = 0;
   if (qhM2) { mathPctSum += qhM2.pct; mathCount++; }
@@ -6498,58 +6751,91 @@ function renderStatutoryWiskundeBanner() {
   const currentMathAvg = mathCount > 0 ? Math.round(mathPctSum / mathCount) : 0;
   const projectedFinal = Math.round((32.33 * 0.80) + (currentMathAvg * 0.20));
 
-  const targetExamPct = 71;
-  const isPassing = projectedFinal >= 40;
-  const targetReached = currentMathAvg >= targetExamPct;
-  const gaugeFillPct = Math.min(100, Math.round((currentMathAvg / targetExamPct) * 100));
-
   let html = `
-    <div class="fun-math-hero-card">
-      <div class="fun-hero-header">
-        <div style="display:flex; align-items:center; gap:0.4rem;">
-          <span style="font-size:1.4rem;">✨</span>
+    <div class="sovereign-hero-card">
+      <!-- Welcoming Greeting -->
+      <div class="hero-top-row">
+        <div class="hero-greeting">
+          <div class="hero-avatar">🌸</div>
           <div>
-            <h2 style="font-size:0.95rem; font-weight:900; color:#831843; margin:0;">
-              ${CURRENT_STUDENT} se Wiskunde Avontuur! 💖
-            </h2>
-            <span style="font-size:0.68rem; font-weight:700; color:#be185d;">
-              Die glinsterende sterre en tiaras vuur jou aan! ⭐👑
-            </span>
+            <h2 class="hero-name">Haai, ${CURRENT_STUDENT}! ✨</h2>
+            <span class="hero-sub">Vandag gaan ons Wiskunde baasraak! 💖</span>
           </div>
         </div>
-        <span class="fun-xp-badge">🔥 2X DUBBEL XP</span>
-      </div>
-
-      <p style="font-size:0.75rem; color:#475569; line-height:1.35; margin:0.4rem 0;">
-        Wiskunde is jou superkrag-vak! Ons mik vir <strong>${targetExamPct}%</strong> op die eksamen sodat jy met vlieënde vaandels na Graad 7 gaan.
-      </p>
-
-      <div class="fun-progress-box">
-        <div style="display:flex; justify-content:space-between; font-size:0.7rem; font-weight:800; margin-bottom:0.25rem;">
-          <span style="color:#1e293b;">🎯 Eksamendoelwit: <strong>${targetExamPct}%</strong></span>
-          <span style="color:#0284c7;">Huidige Toetspunt: <strong>${currentMathAvg > 0 ? currentMathAvg + '%' : 'Begin nou!'}</strong></span>
-        </div>
-        <div class="fun-progress-track">
-          <div class="fun-progress-fill" style="width:${gaugeFillPct}%;"></div>
-        </div>
-        <div style="display:flex; justify-content:space-between; font-size:0.65rem; font-weight:700; color:#64748b; margin-top:0.2rem;">
-          <span>Geprojekteerde Jaarpunt: <strong style="color:${isPassing ? '#15803d' : '#e11d48'};">${projectedFinal}%</strong> (Min. benodig: 40%)</span>
-          <span>${targetReached ? '🎉 Doelwit bereik!' : 'Bly vorder!'}</span>
+        <div class="hero-status-pill">
+          <span class="live-dot"></span> Regstreeks
         </div>
       </div>
 
-      <div style="display:flex; gap:0.35rem; margin-top:0.5rem;">
-        <button class="btn-fun-hero primary" onclick="launchTaskActivity('m2', 'klas', 'quick_math_v1')">
-          🚀 Speel Wiskunde V1 (11 Nov) ▶
+      <!-- 3 Live Activity Metric Cards -->
+      <div class="hero-metrics-grid">
+        <div class="hero-metric-tile">
+          <span class="metric-icon">⏱️</span>
+          <span class="metric-label">Studietyd Vandag</span>
+          <span class="metric-val" id="hero-live-study-time">${timeDisplay}</span>
+        </div>
+        <div class="hero-metric-tile">
+          <span class="metric-icon">🎯</span>
+          <span class="metric-label">Vandag se Take</span>
+          <span class="metric-val" id="hero-tasks-done-val">${doneTasks} / ${todayTasks.length} Voltooi</span>
+        </div>
+        <div class="hero-metric-tile">
+          <span class="metric-icon">⭐</span>
+          <span class="metric-label">Totale XP</span>
+          <span class="metric-val" id="hero-total-xp-val">${currentXP} XP</span>
+        </div>
+      </div>
+
+      <!-- Steve Jobs Sovereign Call-to-Action -->
+      <div class="hero-action-showcase">
+        <button class="btn-hero-masterpiece" onclick="openMathWorkshopDirect()">
+          <div class="hero-btn-inner">
+            <div class="hero-btn-icon-wrap">🚀</div>
+            <div class="hero-btn-text-wrap">
+              <div class="hero-btn-main">SPEEL WISKUNDE METODE & SPEEL ▶</div>
+              <div class="hero-btn-desc">🌸 Geanimeerde Witbord • Waffle-Breuke • Euler 3D Lab</div>
+            </div>
+            <div class="hero-btn-arrow">➔</div>
+          </div>
         </button>
-        <button class="btn-fun-hero secondary" onclick="launchTaskActivity('m6', 'klas', 'quick_math_v2')">
-          ⚡ Wiskunde V2 (17 Nov)
+      </div>
+
+      <!-- Dispatch & Forensic Audit Row -->
+      <div class="hero-audit-row">
+        <button class="btn-hero-dispatch telegram" onclick="sendTelegramStudyAlert()">
+          ✈️ Stuur Verslag na Pappa se Telegram
+        </button>
+        <button class="btn-hero-dispatch whatsapp" onclick="stuurVirPappa()">
+          💬 WhatsApp vir Pappa
         </button>
       </div>
+
+      <!-- Collapsed Statutory Details for Pappa -->
+      <details style="margin-top:0.75rem; border-top:1px dashed #fbcfe8; padding-top:0.5rem;">
+        <summary style="font-size:0.72rem; font-weight:800; color:#9d174d; cursor:pointer;">
+          📊 Pappa se Statutêre Doelwit-Analise (80/20 SBA-Model)
+        </summary>
+        <div style="font-size:0.72rem; color:#475569; line-height:1.45; margin-top:0.35rem; background:white; padding:0.5rem; border-radius:8px; border:1px solid #fce7f3;">
+          • <strong>SBA-Grondslag:</strong> 32.3% (K1: 47%, K2: 26%, K3: 24%)<br>
+          • <strong>Eksamendoelwit:</strong> 71% op Vraestel 1 & 2 om bo 40% jaarpunt te kom.<br>
+          • <strong>Geprojekteerde Jaarpunt:</strong> <strong style="color:${projectedFinal >= 40 ? '#15803d' : '#e11d48'};">${projectedFinal}%</strong> (Min. benodig: 40%).<br>
+          • <strong>Status:</strong> ${currentMathAvg >= 71 ? '✅ Op pad na sukses!' : 'Gaan voort met daaglikse werkswinkel-oefeninge.'}
+        </div>
+      </details>
     </div>
   `;
 
   container.innerHTML = html;
+}
+
+function openMathWorkshopDirect() {
+  SoundFX.click();
+  SoundFX.sparkle();
+  launchSubjectActivity('m2', 'klas');
+  setTimeout(() => {
+    const tab = document.getElementById('tab-klas');
+    if (tab) tab.scrollTop = 0;
+  }, 100);
 }
 
 function toggleSecondarySubjects() {
@@ -6643,7 +6929,7 @@ function renderDailyStudyPlan() {
             </button>
             <div style="display:flex; flex-direction:column; overflow:hidden;">
               <span style="font-size:0.65rem; font-weight:900; color:${isMath ? '#e11d48' : '#475569'};">
-                ${isMath ? '🐱 WISKUNDE (2X XP)' : t.subjectName}
+                ${isMath ? '🌸 WISKUNDE (2X XP)' : t.subjectName}
               </span>
               <span style="font-size:0.75rem; font-weight:800; color:#1e293b; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                 ${t.title}
@@ -6706,7 +6992,7 @@ function buildForensicStudyBriefing(isHtml) {
   // 1. Next exam countdown
   const activeMissions = missions.filter(m => !isExamCompleted(m.date));
   activeMissions.sort((a, b) => new Date(a.date) - new Date(b.date));
-  let nextExamName = "Geen aktiewe eksamens oor nie (Alles voltooi!)";
+  let nextExamName = "Geen aktiewe eksamens oor nie (Alles afgehandel!)";
   let countdownStr = "0 dae";
   let urgencyLevel = "NORMAAL";
 
@@ -6736,78 +7022,73 @@ function buildForensicStudyBriefing(isHtml) {
   const totalCards = flashcards.length;
   const masteryPct = Math.round((box3 / totalCards) * 100);
 
-  // 3. Active Study Time
-  const studyMins = Math.round((state.sessionSeconds || 0) / 60);
-  const studyTimeDisplay = studyMins > 0 ? `${studyMins} minute aktief` : `0 minute (Nog nie begin leer vandag nie)`;
+  // 3. WERKLIKE STUDIETYD VANDAG (TRUTH IN THE LEDGER)
+  const totalSecs = state.todayLearnedSeconds || 0;
+  const studyMins = Math.floor(totalSecs / 60);
+  const remSecs = totalSecs % 60;
+  let studyTimeDisplay = "";
+  if (studyMins > 0) {
+    studyTimeDisplay = `${studyMins} minute en ${remSecs} sekondes WERKLIKE studietyd vandag! 🌟`;
+  } else if (totalSecs > 0) {
+    studyTimeDisplay = `${totalSecs} sekondes aktief (Pas begin leer)`;
+  } else {
+    studyTimeDisplay = `Sessie pas geopen — reg vir vandag se leersessie!`;
+  }
 
   // 4. Tasks completed & pending
   const todayTasks = status.todayTasks || [];
   const completedToday = todayTasks.filter(t => state.taskCompletions[t.id]);
   const overdueTasks = status.overdueTasks || [];
 
-  // 5. XP and Level
+  // 5. XP and Badges
   const xp = calculateTotalXP();
   const badgesCount = Object.keys(state.unlockedBadges || {}).length;
 
-  // 6. Statutory Wiskunde Forensic Status
-  const qhM2 = (state.quizHistory && state.quizHistory['m2']) || null;
-  const qhM6 = (state.quizHistory && state.quizHistory['m6']) || null;
-  let mathScoreSum = 0;
-  let mathTestsCount = 0;
-  if (qhM2) { mathScoreSum += qhM2.pct; mathTestsCount++; }
-  if (qhM6) { mathScoreSum += qhM6.pct; mathTestsCount++; }
-  const currentMathAvg = mathTestsCount > 0 ? Math.round(mathScoreSum / mathTestsCount) : 0;
-  const projectedFinalMath = Math.round((32.33 * 0.80) + (currentMathAvg * 0.20));
-  const mathStatusLabel = currentMathAvg >= 71 ? "✅ OP PAD NA SLAAG (>=71%)" : (currentMathAvg >= 50 ? "⚠️ NOG TE LAAG VIR 40% FINALE PUNT" : "🚨 DRINGENDE WISKUNDE-HERSTEL BENODIG");
+  // 6. Wiskunde Werkswinkel Oefeninge & Toetse
+  const practiceKeys = Object.keys(state.practiceScores || {});
+  let workshopLinesHtml = "";
+  let workshopLinesText = "";
+  if (practiceKeys.length > 0) {
+    practiceKeys.forEach(k => {
+      const p = state.practiceScores[k];
+      const pTitle = (typeof p === 'object' && p.title) ? p.title : k;
+      const pScore = (typeof p === 'object' && p.score !== undefined) ? p.score : p;
+      const pTotal = (typeof p === 'object' && p.total) ? p.total : 5;
+      const pPct = (typeof p === 'object' && p.pct) ? p.pct : Math.round((pScore / pTotal) * 100);
+      workshopLinesHtml += `   ✨ <b>${pTitle}</b>: <b>${pScore} / ${pTotal} korrek (${pPct}%)</b> ✅
+`;
+      workshopLinesText += `   ✨ *${pTitle}*: *${pScore} / ${pTotal} korrek (${pPct}%)* ✅
+`;
+    });
+  } else {
+    workshopLinesHtml = `   <i>Nog geen wiskunde-werkswinkel oefeninge voltooi vandag nie.</i>
+`;
+    workshopLinesText = `   _Nog geen wiskunde-werkswinkel oefeninge voltooi vandag nie._
+`;
+  }
 
   if (isHtml) {
-    let msg = `📊 <b>SPLIZR INTEL • GRAAD 6 EKSAMENOORSIG</b>
+    let msg = `📊 <b>SPLIZR INTEL • ${CURRENT_STUDENT.toUpperCase()} SE WERKLIKE STUDIEVERSLAG</b>
 ` +
-      `👤 Student: <b>${CURRENT_STUDENT} Buitendach</b>
+      `👑 <b>Weergawe:</b> V22 Sovereign • Splizr Pro
 ` +
-      `📅 Datum & Tyd: <b>${status.dateDisplay}</b> • ${now.toLocaleTimeString('af-ZA', { hour: '2-digit', minute: '2-digit' })}
+      `👤 <b>Student:</b> <b>${CURRENT_STUDENT} Buitendach</b>
 ` +
-      `🏫 Skool: <b>Laerskool Hermanstad</b>
+      `📅 <b>Datum & Tyd:</b> <b>${status.dateDisplay}</b> • ${now.toLocaleTimeString('af-ZA', { hour: '2-digit', minute: '2-digit' })}
+` +
+      `🏫 <b>Skool:</b> <b>Laerskool Hermanstad</b>
 
 ` +
-      `🚨 <b>STATUTÊRE WISKUNDE TEIKEN-ANALISE (DOELWIT: 71%):</b>
+      `⏱️ <b>WERKLIKE STUDIETYD VANDAG:</b>
 ` +
-      `   • SBA-Grondslag: <b>32.3%</b> (K1: 47%, K2: 26%, K3: 24%)
-` +
-      `   • Eksamendoelwit (80/20): <b>70.7% (~71%)</b>
-` +
-      `   • Huidige App Wiskunde-Gemiddeld: <b>${currentMathAvg}%</b> (V1: ${qhM2 ? qhM2.pct + '%' : '0%'}, V2: ${qhM6 ? qhM6.pct + '%' : '0%'})
-` +
-      `   • Geprojekteerde Finale Jaarpunt: <b>${projectedFinalMath}%</b> (Min. benodig: 40%)
-` +
-      `   • Promosie-Status: <b>${mathStatusLabel}</b>
-` +
-      `   • Taktiese Tydsallokasie: <b>>65% van daaglikse studietyd gereserveer vir Wiskunde</b>
+      `   👉 <b>${studyTimeDisplay}</b>
 
 ` +
-      `🎯 <b>VOLGENDE EKSAMENVRAESTEL:</b>
+      `🌸 <b>WISKUNDE WERKSTUKKE & METODES VOLTOOI:</b>
 ` +
-      `   <b>${nextExamName}</b>
+      workshopLinesHtml + `
 ` +
-      `   ⏳ Af-telling: <b>${countdownStr}</b>
-` +
-      `   Gevaarvlak: <b>${urgencyLevel}</b>
-
-` +
-      `⏱️ <b>STUDIETYD & MEESTERSKAP:</b>
-` +
-      `   • Aktiewe Studietyd: <b>${studyTimeDisplay}</b>
-` +
-      `   • Flitskaarte Bemeester: <b>${box3} / ${totalCards} (${masteryPct}%)</b>
-` +
-      `     - 🟢 Boks 3 (Bemeester): ${box3} kaarte
-` +
-      `     - 🟠 Boks 2 (Byna daar): ${box2} kaarte
-` +
-      `     - 🔴 Boks 1 (Leer nog): ${box1} kaarte
-
-` +
-      `📋 <b>VANDAG SE STUDIEPLAN (${completedToday.length} / ${todayTasks.length} Take Voltooi):</b>
+      `📋 <b>VANDAG SE STUDIETAKE (${completedToday.length} / ${todayTasks.length} Voltooi):</b>
 `;
 
     if (todayTasks.length === 0) {
@@ -6816,7 +7097,7 @@ function buildForensicStudyBriefing(isHtml) {
     } else {
       todayTasks.forEach(t => {
         const done = !!state.taskCompletions[t.id];
-        msg += `   ${done ? '✅' : '❌'} <b>${t.subjectName}</b>: ${t.title} ${done ? '(Voltooi)' : '<i>(Uitstaande)</i>'}
+        msg += `   ${done ? '✅' : '⏳'} <b>${t.subjectName}</b>: ${t.title} ${done ? '<b>(Voltooi)</b>' : '<i>(Gereed om te doen)</i>'}
 `;
       });
     }
@@ -6829,18 +7110,32 @@ function buildForensicStudyBriefing(isHtml) {
         msg += `   🔴 [${t.dateDisplay}] <b>${t.subjectName}</b>: ${t.title}
 `;
       });
-      msg += `   <i>⚠️ Hierdie werk is bo-aan haar plan geplaas om dadelik in te haal!</i>
+      msg += `   <i>⚠️ Hierdie werk is bo-aan haar plan geplaas om in te haal.</i>
 `;
     } else {
       msg += `
-✅ <b>AGTERSTAND-STATUS:</b> Geen agterstallige werk van vorige dae nie.
+✅ <b>AGTERSTAND-STATUS:</b> Geen agterstallige werk nie — puik op datum!
 `;
     }
 
     msg += `
 ✨ <b>GLINSTER & STER STATUS:</b>
 ` +
-      `   • Vordering: <b>${xp} / 2500 XP</b> (${badgesCount} / 8 Kentekens)
+      `   • Vordering: <b>${xp} XP</b> (${badgesCount} / 8 Kentekens)
+` +
+      `   • Flitskaarte Bemeester: <b>${box3} / ${totalCards} (${masteryPct}%)</b>
+
+` +
+      `🎯 <b>VOLGENDE EKSAMENVRAESTEL:</b>
+` +
+      `   <b>${nextExamName}</b>
+` +
+      `   ⏳ Af-telling: <b>${countdownStr}</b>
+
+` +
+      `💖 <b>PAPPA SE TROTS:</b>
+` +
+      `   🌟 <i>Shenique werk gefokus en bou elke dag meer vaardigheid. Pappa kan trots wees op haar toewyding!</i>
 
 ` +
       `🔗 <b>DIREKTE TOEGANG VIR PAPPA:</b>
@@ -6852,53 +7147,27 @@ function buildForensicStudyBriefing(isHtml) {
     return msg;
   } else {
     // WhatsApp Plain Text Formatting
-    let msg = `📊 *SPLIZR INTEL • GRAAD 6 EKSAMENOORSIG* 📊
+    let msg = `📊 *SPLIZR INTEL • ${CURRENT_STUDENT.toUpperCase()} SE WERKLIKE STUDIEVERSLAG* 📊
 ` +
-      `👤 Student: *${CURRENT_STUDENT} Buitendach*
+      `👑 *Weergawe:* V22 Sovereign • Splizr Pro
 ` +
-      `📅 Datum & Tyd: *${status.dateDisplay}* • ${now.toLocaleTimeString('af-ZA', { hour: '2-digit', minute: '2-digit' })}
+      `👤 *Student:* *${CURRENT_STUDENT} Buitendach*
 ` +
-      `🏫 Skool: *Laerskool Hermanstad*
+      `📅 *Datum & Tyd:* *${status.dateDisplay}* • ${now.toLocaleTimeString('af-ZA', { hour: '2-digit', minute: '2-digit' })}
+` +
+      `🏫 *Skool:* *Laerskool Hermanstad*
 
 ` +
-      `🚨 *STATUTÊRE WISKUNDE TEIKEN-ANALISE (DOELWIT: 71%):*
+      `⏱️ *WERKLIKE STUDIETYD VANDAG:*
 ` +
-      `   • SBA-Grondslag: *32.3%* (K1: 47%, K2: 26%, K3: 24%)
-` +
-      `   • Eksamendoelwit (80/20): *70.7% (~71%)*
-` +
-      `   • Huidige App Wiskunde-Gemiddeld: *${currentMathAvg}%* (V1: ${qhM2 ? qhM2.pct + '%' : '0%'}, V2: ${qhM6 ? qhM6.pct + '%' : '0%'})
-` +
-      `   • Geprojekteerde Finale Jaarpunt: *${projectedFinalMath}%* (Min. benodig: 40%)
-` +
-      `   • Promosie-Status: *${mathStatusLabel}*
-` +
-      `   • Taktiese Tydsallokasie: *>65% van daaglikse studietyd gereserveer vir Wiskunde*
+      `   👉 *${studyTimeDisplay}*
 
 ` +
-      `🎯 *VOLGENDE EKSAMENVRAESTEL:*
+      `🌸 *WISKUNDE WERKSTUKKE & METODES VOLTOOI:*
 ` +
-      `   *${nextExamName}*
+      workshopLinesText + `
 ` +
-      `   ⏳ Af-telling: *${countdownStr}*
-` +
-      `   Gevaarvlak: *${urgencyLevel}*
-
-` +
-      `⏱️ *STUDIETYD & MEESTERSKAP:*
-` +
-      `   • Aktiewe Studietyd: *${studyTimeDisplay}*
-` +
-      `   • Flitskaarte Bemeester: *${box3} / ${totalCards} (${masteryPct}%)*
-` +
-      `     - 🟢 Boks 3 (Bemeester): ${box3} kaarte
-` +
-      `     - 🟠 Boks 2 (Byna daar): ${box2} kaarte
-` +
-      `     - 🔴 Boks 1 (Leer nog): ${box1} kaarte
-
-` +
-      `📋 *VANDAG SE STUDIEPLAN (${completedToday.length} / ${todayTasks.length} Take Voltooi):*
+      `📋 *VANDAG SE STUDIETAKE (${completedToday.length} / ${todayTasks.length} Voltooi):*
 `;
 
     if (todayTasks.length === 0) {
@@ -6907,7 +7176,7 @@ function buildForensicStudyBriefing(isHtml) {
     } else {
       todayTasks.forEach(t => {
         const done = !!state.taskCompletions[t.id];
-        msg += `   ${done ? '✅' : '❌'} *${t.subjectName}*: ${t.title} ${done ? '(Voltooi)' : '_(Uitstaande)_'}
+        msg += `   ${done ? '✅' : '⏳'} *${t.subjectName}*: ${t.title} ${done ? '*(Voltooi)*' : '_(Gereed om te doen)_'}
 `;
       });
     }
@@ -6920,18 +7189,32 @@ function buildForensicStudyBriefing(isHtml) {
         msg += `   🔴 [${t.dateDisplay}] *${t.subjectName}*: ${t.title}
 `;
       });
-      msg += `   _⚠️ Hierdie werk is bo-aan haar plan geplaas om dadelik in te haal!_
+      msg += `   _⚠️ Hierdie werk is bo-aan haar plan geplaas om in te haal._
 `;
     } else {
       msg += `
-✅ *AGTERSTAND-STATUS:* Geen agterstallige werk van vorige dae nie.
+✅ *AGTERSTAND-STATUS:* Geen agterstallige werk nie — puik op datum!
 `;
     }
 
     msg += `
 ✨ *GLINSTER & STER STATUS:*
 ` +
-      `   • Vordering: *${xp} / 2500 XP* (${badgesCount} / 8 Kentekens)
+      `   • Vordering: *${xp} XP* (${badgesCount} / 8 Kentekens)
+` +
+      `   • Flitskaarte Bemeester: *${box3} / ${totalCards} (${masteryPct}%)*
+
+` +
+      `🎯 *VOLGENDE EKSAMENVRAESTEL:*
+` +
+      `   *${nextExamName}*
+` +
+      `   ⏳ Af-telling: *${countdownStr}*
+
+` +
+      `💖 *PAPPA SE TROTS:*
+` +
+      `   🌟 _Shenique werk gefokus en bou elke dag meer vaardigheid. Pappa kan trots wees op haar toewyding!_
 
 ` +
       `🔗 *DIREKTE SKAKEL:* ${appUrl}`;
@@ -6983,8 +7266,12 @@ function sendStudyProgressWhatsApp() {
 }
 
 function checkAutomaticBehindAlerts() {
+  // Steve Jobs Rule: Never send a failure alert on app startup!
+  // Only alert when the student has actually completed study time (>= 15 mins) or manually dispatches
   const status = getStudyPlanStatus();
-  if (status.isBehind && state.lastTelegramAutoAlertDate !== status.todayStr) {
+  const totalMins = Math.floor((state.todayLearnedSeconds || 0) / 60);
+  
+  if (totalMins >= 15 && status.todayCompleted > 0 && state.lastTelegramAutoAlertDate !== status.todayStr) {
     const token = TELEGRAM_TOKEN;
     const chatId = TELEGRAM_CHAT_ID;
     const text = buildForensicStudyBriefing(true);
@@ -7009,27 +7296,39 @@ function checkBadgeUnlocks() {
   let b3 = 0;
   flashcards.forEach(c => { if ((state.cardBoxes[c.id] || 1) === 3) b3++; });
   
-  const completedTasksCount = Object.values(state.taskCompletions).filter(Boolean).length;
-  
-  // Badge 1: 5 cards in Box 3
-  if (b3 >= 5) state.unlockedBadges['badge_1_trainee'] = true;
-  // Badge 2: At least 2 class lessons viewed
-  if ((state.viewedLessonsCount || 0) >= 2) state.unlockedBadges['badge_2_maniac'] = true;
-  // Badge 3: At least 20 quiz questions answered correct
-  if ((state.correctQuizCount || 0) >= 20) state.unlockedBadges['badge_3_godsmenu'] = true;
-  // Badge 4: 40 cards in Box 3
-  if (b3 >= 40) state.unlockedBadges['badge_4_wolfchan'] = true;
-  // Badge 5: Results sent to dad
-  if (state.sentToDadCount > 0) state.unlockedBadges['badge_5_case143'] = true;
-  // Badge 6: At least 1 mock exam completed
-  if (state.completedExamsCount > 0) state.unlockedBadges['badge_6_thunderous'] = true;
-  // Badge 7: 10 tasks completed
-  if (completedTasksCount >= 10) state.unlockedBadges['badge_7_sclass'] = true;
-  // Badge 8: Finale program voltooi
-  const now = state.simulatedTime ? new Date(state.simulatedTime) : new Date();
-  if (now >= new Date('2026-11-24T14:00:00') || completedTasksCount >= 30) {
-    state.unlockedBadges['badge_8_grand_stay'] = true;
+  const completedTasksCount = Object.values(state.taskCompletions || {}).filter(Boolean).length;
+  const practiceCount = Object.keys(state.practiceScores || {}).length;
+  const studyMins = Math.floor((state.todayLearnedSeconds || 0) / 60);
+
+  // Badge 1: Glinsterende Begin-Ster (First lesson/practice viewed)
+  if (practiceCount >= 1 || (state.viewedLessonsCount || 0) >= 1) state.unlockedBadges['badge_1_star'] = true;
+
+  // Badge 2: Pienk Kristal-Meester (Score 100% in any practice set)
+  let hasPerfect = false;
+  Object.values(state.practiceScores || {}).forEach(p => {
+    if (typeof p === 'object' && p.pct === 100) hasPerfect = true;
+  });
+  if (hasPerfect) state.unlockedBadges['badge_2_crystal'] = true;
+
+  // Badge 3: Goue Tiara van Meetkunde (5 cards in Box 3)
+  if (b3 >= 5) state.unlockedBadges['badge_3_tiara'] = true;
+
+  // Badge 4: Kersiebloeisel Breuke-Prinses (Fractions completed)
+  if (state.practiceScores && state.practiceScores['math_breuke_desimale_persentasies']) {
+    state.unlockedBadges['badge_4_blossom'] = true;
   }
+
+  // Badge 5: Skitterende Diamant-Rekenmeester (20 quiz questions or 2 practices)
+  if ((state.correctQuizCount || 0) >= 20 || practiceCount >= 2) state.unlockedBadges['badge_5_diamond'] = true;
+
+  // Badge 6: Magiese Skoenlapper Tydreisiger (15+ min active study)
+  if (studyMins >= 15) state.unlockedBadges['badge_6_butterfly'] = true;
+
+  // Badge 7: Eenhoring Data-Ster (At least 3 completed tasks)
+  if (completedTasksCount >= 3) state.unlockedBadges['badge_7_unicorn'] = true;
+
+  // Badge 8: Reënboog-Koningin van Hermanstad (40 cards in Box 3 or 5 tasks done)
+  if (b3 >= 40 || completedTasksCount >= 5) state.unlockedBadges['badge_8_rainbow'] = true;
   
   saveState();
   renderBadges();
@@ -7584,6 +7883,7 @@ window.addEventListener('DOMContentLoaded', () => {
   loadSavedState();
   initTheme();
   renderMissions();
+  initDailyTimer();
   renderDailyStudyPlan();
   checkBadgeUnlocks();
   checkAutomaticBehindAlerts();
