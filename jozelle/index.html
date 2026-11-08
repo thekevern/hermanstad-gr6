@@ -2242,75 +2242,94 @@ body.theme-dark .badge-sparkle-tag {
         </button>
       </div>
 
-      <!-- STEP CONTAINER 1: HIGH-CONTRAST ANIMATED DIGITAL WHITEBOARD & NARRATION -->
+      <!-- STEP CONTAINER 1: TACTILE PLAYGROUND & HIGH-CONTRAST ANIMATED WHITEBOARD -->
       <div class="ws-step-pane active" id="ws-pane-lab" style="display:flex; flex-direction:column; gap:0.75rem;">
         
-        <!-- WHITEBOARD STUDIO CARD (CRISP WHITE, WCAG AAA HIGH CONTRAST) -->
-        <div class="whiteboard-card" style="background:#ffffff; border:3px solid #f472b6; border-radius:20px; box-shadow:0 8px 30px rgba(236,72,153,0.15); overflow:hidden;">
-          
-          <!-- Whiteboard Top Ribbon -->
-          <div style="background:linear-gradient(135deg, #fdf2f8, #f5f3ff); padding:0.6rem 0.9rem; border-bottom:2px solid #fbcfe8; display:flex; justify-content:space-between; align-items:center;">
-            <div style="display:flex; align-items:center; gap:0.5rem;">
-              <span style="font-size:1.3rem;">✨</span>
-              <div>
-                <div id="math-vid-module-title" style="font-size:0.92rem; font-weight:900; color:#1e1b4b;">Metode-Animering</div>
-                <div id="math-vid-step-badge" style="font-size:0.72rem; font-weight:800; color:#db2777;">Stap 1 van 5</div>
+        <!-- DUAL-MODE TOGGLE: LEWENDIGE WITBORD vs RAAK & SPEEL SIMULEERDER -->
+        <div style="display:flex; justify-content:center; gap:0.5rem; margin-bottom:0.25rem;">
+          <button class="btn-sim-chip active" id="btn-mode-whiteboard" onclick="switchStep1Mode('whiteboard')" style="font-size:0.86rem; font-weight:900; padding:0.5rem 1.1rem; border-radius:999px;">
+            🌸 Geanimeerde Witbord
+          </button>
+          <button class="btn-sim-chip" id="btn-mode-interactive" onclick="switchStep1Mode('interactive')" style="font-size:0.86rem; font-weight:900; padding:0.5rem 1.1rem; border-radius:999px;">
+            🎮 Raak & Speel Simuleerder
+          </button>
+        </div>
+
+        <!-- MODE A: WHITEBOARD STUDIO CARD (CRISP WHITE, WCAG AAA HIGH CONTRAST) -->
+        <div id="step1-whiteboard-wrapper" style="display:flex; flex-direction:column; gap:0.75rem;">
+          <div class="whiteboard-card" style="background:#ffffff; border:3px solid #f472b6; border-radius:20px; box-shadow:0 8px 30px rgba(236,72,153,0.15); overflow:hidden;">
+            
+            <!-- Whiteboard Top Ribbon -->
+            <div style="background:linear-gradient(135deg, #fdf2f8, #f5f3ff); padding:0.6rem 0.9rem; border-bottom:2px solid #fbcfe8; display:flex; justify-content:space-between; align-items:center;">
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <span style="font-size:1.3rem;">✨</span>
+                <div>
+                  <div id="math-vid-module-title" style="font-size:0.95rem; font-weight:900; color:#1e1b4b;">Metode-Animering</div>
+                  <div id="math-vid-step-badge" style="font-size:0.75rem; font-weight:800; color:#db2777;">Stap 1 van 5</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.35rem;">
+                <span style="font-size:0.75rem; font-weight:900; background:#fce7f3; color:#be185d; padding:0.25rem 0.65rem; border-radius:999px;">🌸 Witbord</span>
               </div>
             </div>
-            <div style="display:flex; align-items:center; gap:0.35rem;">
-              <span style="font-size:0.72rem; font-weight:800; background:#fce7f3; color:#be185d; padding:0.25rem 0.6rem; border-radius:999px;">🌸 Witbord</span>
+
+            <!-- Whiteboard Screen / SVG Canvas (Pure White, 100% High Contrast) -->
+            <div style="background:#ffffff; padding:0.5rem; display:flex; justify-content:center; align-items:center; min-height:220px; position:relative;">
+              <svg id="math-video-svg-canvas" viewBox="0 0 320 220" style="width:100%; max-width:440px; height:auto; display:block; margin:0 auto; overflow:visible; border-radius:12px; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.04));">
+                <!-- SVG steps populated dynamically -->
+              </svg>
+            </div>
+
+            <!-- Whiteboard Step Indicator Dots Bar -->
+            <div id="math-vid-dots-container" style="display:flex; justify-content:center; align-items:center; gap:0.45rem; padding:0.4rem 0.5rem; background:#fdf2f8; border-top:1.5px solid #fce7f3;">
+              <!-- 5 dots populated dynamically -->
+            </div>
+
+            <!-- Interactive Playback & Pacing Controls -->
+            <div style="display:grid; grid-template-columns:1fr auto auto 1fr; gap:0.35rem; padding:0.55rem 0.75rem; background:#ffffff; border-top:1.5px solid #fbcfe8; align-items:center;">
+              <button class="btn-wb-nav" id="btn-wb-prev" onclick="prevVideoStep()" style="padding:0.6rem 0.65rem; border-radius:12px; font-size:0.82rem; font-weight:800; background:#f1f5f9; border:1.5px solid #cbd5e1; color:#1e293b; cursor:pointer;">
+                ⏪ Vorige
+              </button>
+              <button class="btn-wb-voice" id="btn-wb-speech" onclick="toggleSpeechReadAloud()" style="padding:0.6rem 0.75rem; border-radius:12px; font-size:0.82rem; font-weight:900; background:linear-gradient(135deg, #a855f7, #9333ea); border:none; color:white; box-shadow:0 3px 10px rgba(147,51,234,0.3); cursor:pointer;">
+                🔊 Luister
+              </button>
+              <button class="btn-wb-nav" id="btn-wb-autoplay" onclick="toggleAutoPlayWhiteboard()" style="padding:0.6rem 0.75rem; border-radius:12px; font-size:0.82rem; font-weight:900; background:#fef3c7; border:1.5px solid #f59e0b; color:#92400e; cursor:pointer;">
+                ▶ Outo
+              </button>
+              <button class="btn-wb-nav" id="btn-wb-next" onclick="nextVideoStep()" style="padding:0.6rem 0.65rem; border-radius:12px; font-size:0.85rem; font-weight:900; background:linear-gradient(135deg, #ec4899, #db2777); border:none; color:white; box-shadow:0 3px 10px rgba(219,39,119,0.3); cursor:pointer;">
+                Volgende ⏭️
+              </button>
             </div>
           </div>
 
-          <!-- Whiteboard Screen / SVG Canvas (Pure White, 100% High Contrast) -->
-          <div style="background:#ffffff; padding:0.5rem; display:flex; justify-content:center; align-items:center; min-height:220px; position:relative;">
-            <svg id="math-video-svg-canvas" viewBox="0 0 320 220" style="width:100%; max-width:440px; height:auto; display:block; margin:0 auto; overflow:visible; border-radius:12px; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.04));">
-              <!-- SVG steps populated dynamically -->
-            </svg>
-          </div>
-
-          <!-- Whiteboard Step Indicator Dots Bar -->
-          <div id="math-vid-dots-container" style="display:flex; justify-content:center; align-items:center; gap:0.45rem; padding:0.4rem 0.5rem; background:#fdf2f8; border-top:1.5px solid #fce7f3;">
-            <!-- 5 dots populated dynamically -->
-          </div>
-
-          <!-- Interactive Playback & Pacing Controls -->
-          <div style="display:grid; grid-template-columns:1fr auto auto 1fr; gap:0.35rem; padding:0.55rem 0.75rem; background:#ffffff; border-top:1.5px solid #fbcfe8; align-items:center;">
-            <button class="btn-wb-nav" id="btn-wb-prev" onclick="prevVideoStep()" style="padding:0.6rem 0.65rem; border-radius:12px; font-size:0.82rem; font-weight:800; background:#f1f5f9; border:1.5px solid #cbd5e1; color:#1e293b; cursor:pointer;">
-              ⏪ Vorige
-            </button>
-            <button class="btn-wb-voice" id="btn-wb-speech" onclick="toggleSpeechReadAloud()" style="padding:0.6rem 0.75rem; border-radius:12px; font-size:0.82rem; font-weight:900; background:linear-gradient(135deg, #a855f7, #9333ea); border:none; color:white; box-shadow:0 3px 10px rgba(147,51,234,0.3); cursor:pointer;">
-              🔊 Luister
-            </button>
-            <button class="btn-wb-nav" id="btn-wb-autoplay" onclick="toggleAutoPlayWhiteboard()" style="padding:0.6rem 0.75rem; border-radius:12px; font-size:0.82rem; font-weight:900; background:#fef3c7; border:1.5px solid #f59e0b; color:#92400e; cursor:pointer;">
-              ▶ Outo
-            </button>
-            <button class="btn-wb-nav" id="btn-wb-next" onclick="nextVideoStep()" style="padding:0.6rem 0.65rem; border-radius:12px; font-size:0.85rem; font-weight:900; background:linear-gradient(135deg, #ec4899, #db2777); border:none; color:white; box-shadow:0 3px 10px rgba(219,39,119,0.3); cursor:pointer;">
-              Volgende ⏭️
-            </button>
-          </div>
-        </div>
-
-        <!-- PERSISTENT TYPEWRITER EXPLANATION CARD (FOR SLOW READERS - NEVER DISAPPEARS) -->
-        <div class="math-narration-card" style="background:#ffffff; border:2px solid #fbcfe8; border-radius:18px; padding:0.95rem 1rem; box-shadow:0 6px 20px rgba(236,72,153,0.08);">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-            <div style="display:flex; align-items:center; gap:0.4rem;">
-              <span style="font-size:1.1rem;">💡</span>
-              <span style="font-size:0.78rem; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; color:#be185d;">
-                Verduideliking (Lees teen jou eie spoed)
-              </span>
+          <!-- PERSISTENT TYPEWRITER EXPLANATION CARD (FOR SLOW READERS - NEVER DISAPPEARS) -->
+          <div class="math-narration-card" style="background:#ffffff; border:2.5px solid #fbcfe8; border-radius:20px; padding:1rem 1.1rem; box-shadow:0 8px 24px rgba(236,72,153,0.08);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.45rem;">
+              <div style="display:flex; align-items:center; gap:0.4rem;">
+                <span style="font-size:1.15rem;">💡</span>
+                <span style="font-size:0.82rem; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; color:#be185d;">
+                  Verduideliking (Lees teen jou eie spoed)
+                </span>
+              </div>
+              <button id="btn-skip-typewriter" onclick="skipTypewriter()" style="font-size:0.72rem; font-weight:800; color:#db2777; background:#fdf2f8; border:1px solid #fbcfe8; border-radius:8px; padding:0.2rem 0.55rem; cursor:pointer;">
+                Wys Alles ⚡
+              </button>
             </div>
-            <button id="btn-skip-typewriter" onclick="skipTypewriter()" style="font-size:0.7rem; font-weight:700; color:#db2777; background:#fdf2f8; border:1px solid #fbcfe8; border-radius:6px; padding:0.15rem 0.45rem; cursor:pointer;">
-              Wys Alles ⚡
-            </button>
-          </div>
-          <div id="math-vid-step-heading" style="font-size:1.02rem; font-weight:900; color:#1e1b4b; margin-bottom:0.45rem; line-height:1.35;"></div>
-          <div id="math-vid-step-explanation" style="font-size:0.95rem; line-height:1.55; color:#1e293b; min-height:3rem; word-break:break-word;">
-            <!-- Typewriter streamed text persists permanently -->
+            <div id="math-vid-step-heading" style="font-size:1.06rem; font-weight:900; color:#0f172a; margin-bottom:0.45rem; line-height:1.4;"></div>
+            <div id="math-vid-step-explanation" style="font-size:1rem; line-height:1.62; color:#0f172a; font-weight:600; min-height:3rem; word-break:break-word;">
+              <!-- Typewriter streamed text persists permanently -->
+            </div>
           </div>
         </div>
 
-        <!-- STAGE TRANSITION BUTTON (Appears at Step 5 or always accessible) -->
+        <!-- MODE B: INTERACTIVE LAB (TACTILE MANIPULATIVES) -->
+        <div id="step1-interactive-wrapper" style="display:none; flex-direction:column; gap:0.75rem;">
+          <div id="interactive-lab-container" style="background:#ffffff; border:2.5px solid #fbcfe8; border-radius:20px; padding:1.15rem; box-shadow:0 8px 30px rgba(236,72,153,0.12);">
+            <!-- Interactive manipulative rendered here -->
+          </div>
+        </div>
+
+        <!-- STAGE TRANSITION BUTTON -->
         <div style="text-align:center; margin-top:0.2rem; margin-bottom:max(env(safe-area-inset-bottom, 24px), 2rem); padding-bottom:1rem;">
           <button class="btn-ws-next-action" id="btn-vid-to-explanations" onclick="setWorkshopStep('explanations')" style="width:100%; padding:0.95rem; font-size:1rem; font-weight:900; background:linear-gradient(135deg, #ec4899, #db2777); color:white; border:none; border-radius:14px; box-shadow:0 6px 18px rgba(219,39,119,0.35); cursor:pointer;">
             👉 VOLGENDE STAP: Gaan na Les & Wenke ➔
@@ -4577,7 +4596,33 @@ function renderMathWorkshop(m) {
   renderWorkshopExamples(m);
   renderWorkshopPractice(m);
 
+  switchStep1Mode('whiteboard');
   setWorkshopStep('lab');
+}
+
+function switchStep1Mode(mode) {
+  const wbWrapper = document.getElementById('step1-whiteboard-wrapper');
+  const labWrapper = document.getElementById('step1-interactive-wrapper');
+  const btnWb = document.getElementById('btn-mode-whiteboard');
+  const btnLab = document.getElementById('btn-mode-interactive');
+
+  if (mode === 'whiteboard') {
+    if (wbWrapper) wbWrapper.style.display = 'flex';
+    if (labWrapper) labWrapper.style.display = 'none';
+    if (btnWb) btnWb.classList.add('active');
+    if (btnLab) btnLab.classList.remove('active');
+    updateVideoStepUI();
+  } else {
+    if (wbWrapper) wbWrapper.style.display = 'none';
+    if (labWrapper) labWrapper.style.display = 'flex';
+    if (btnWb) btnWb.classList.remove('active');
+    if (btnLab) btnLab.classList.add('active');
+    stopSpeechReadAloud();
+    if (state.workshopActiveModule) {
+      renderInteractiveLab(state.workshopActiveModule);
+    }
+  }
+  if (typeof SoundFX !== 'undefined' && SoundFX.click) SoundFX.click();
 }
 
 // =========================================================================
@@ -5656,6 +5701,15 @@ function selectPracticeOption(qIdx, oIdx) {
   const isCorrect = (oIdx === q.ans);
   currentPracticeAnswers[qIdx] = isCorrect;
 
+  // Mobile Haptic Feedback (Redmi 13 / Android)
+  if ('vibrate' in navigator) {
+    if (isCorrect) {
+      navigator.vibrate([40, 50, 90]);
+    } else {
+      navigator.vibrate([35]);
+    }
+  }
+
   q.options.forEach((_, idx) => {
     const btn = document.getElementById(`btn-pr-opt-${qIdx}-${idx}`);
     if (btn) {
@@ -5663,12 +5717,12 @@ function selectPracticeOption(qIdx, oIdx) {
       if (idx === q.ans) {
         btn.style.background = '#dcfce7';
         btn.style.borderColor = '#22c55e';
-        btn.style.color = '#15803d';
+        btn.style.color = '#14532d';
         btn.style.fontWeight = '900';
       } else if (idx === oIdx && !isCorrect) {
         btn.style.background = '#fee2e2';
         btn.style.borderColor = '#ef4444';
-        btn.style.color = '#b91c1c';
+        btn.style.color = '#991b1b';
       }
     }
   });
@@ -5678,16 +5732,20 @@ function selectPracticeOption(qIdx, oIdx) {
     fb.style.display = 'block';
     if (isCorrect) {
       fb.style.background = '#f0fdf4';
-      fb.style.color = '#15803d';
-      fb.style.border = '1px solid #86efac';
-      fb.innerHTML = `<b>✅ Korrek! (+10 XP)</b> ${q.exp}`;
+      fb.style.color = '#14532d';
+      fb.style.border = '2px solid #86efac';
+      fb.style.fontSize = '1.02rem';
+      fb.style.lineHeight = '1.6';
+      fb.innerHTML = `<b>✅ Uitstekend Korrek! (+10 XP)</b><br>${q.exp}`;
       SoundFX.correct();
       SoundFX.sparkle();
     } else {
       fb.style.background = '#fffbeb';
-      fb.style.color = '#92400e';
-      fb.style.border = '1px solid #fde68a';
-      fb.innerHTML = `<b>💡 Wenk:</b> ${q.hint}<br><span style="color:#334155; margin-top:0.2rem; display:block;">${q.exp}</span>`;
+      fb.style.color = '#78350f';
+      fb.style.border = '2px solid #fde68a';
+      fb.style.fontSize = '1.02rem';
+      fb.style.lineHeight = '1.6';
+      fb.innerHTML = `<b>💡 Wenk:</b> ${q.hint}<br><span style="color:#0f172a; font-weight:600; margin-top:0.3rem; display:block;">${q.exp}</span>`;
       SoundFX.wrong();
     }
   }
@@ -5707,7 +5765,7 @@ function selectPracticeOption(qIdx, oIdx) {
         modal.scrollIntoView({ behavior: 'smooth' });
       }
       SoundFX.levelUp();
-      startConfetti();
+      if (typeof startConfetti === 'function') startConfetti();
       markActiveTaskDone();
       checkBadgeUnlocks();
     }, 600);
