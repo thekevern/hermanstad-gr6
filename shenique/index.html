@@ -991,146 +991,55 @@ body.theme-dark .math-vid-desc-card {
   animation: pulseGlowBtn 1.8s infinite;
 }
 
-.ws-card-fullscreen {
-  background: #ffffff;
-  border: 2px solid #fbcfe8;
-  border-radius: 16px;
-  padding: 1.15rem;
-  box-shadow: 0 6px 20px rgba(244, 114, 182, 0.12);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 0.85rem;
-  box-sizing: border-box;
-}
-.dark-mode 
 /* =======================================================
-   MATH VIDEO-METODE PLAYER STYLES (COLORED & HIGHLIGHTED)
+   FULLSCREEN WORKSHOP CARDS (HIGH-CONTRAST WCAG AAA)
    ======================================================= */
-.math-video-player-card {
-  background: #0f172a;
-  border: 2px solid #fbcfe8;
-  border-radius: 16px;
-  box-shadow: 0 6px 22px rgba(244, 114, 182, 0.18);
-  overflow: hidden;
-  margin-bottom: 0.75rem;
+.ws-card-fullscreen {
+  background: #ffffff !important;
+  border: 2.5px solid #fbcfe8 !important;
+  border-radius: 20px !important;
+  padding: 1.25rem !important;
+  box-shadow: 0 10px 30px rgba(236, 72, 153, 0.12) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  margin-bottom: 0.85rem !important;
+  box-sizing: border-box !important;
 }
-.math-video-topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #1e293b;
-  padding: 0.5rem 0.8rem;
-  border-bottom: 1.5px solid #334155;
-}
-.math-video-screen {
-  background: #0f172a;
-  min-height: 220px;
-  position: relative;
-  overflow: hidden;
-}
-.math-video-controls-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.4rem;
-  background: #1e293b;
-  padding: 0.45rem 0.65rem;
-  border-top: 1.5px solid #334155;
-}
-.btn-vid-ctrl {
-  background: #334155;
-  border: 1px solid #475569;
-  color: #f1f5f9;
-  border-radius: 8px;
-  padding: 0.4rem 0.65rem;
-  font-size: 0.75rem;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.btn-vid-ctrl:hover {
-  background: #475569;
-}
-.btn-vid-play {
-  background: linear-gradient(135deg, #ec4899, #db2777);
-  border: none;
-  color: #ffffff;
-  padding: 0.45rem 0.95rem;
-  font-size: 0.82rem;
-  box-shadow: 0 2px 8px rgba(236,72,153,0.35);
-}
-.math-vid-dots-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0 0.5rem 0;
-  background: #1e293b;
-}
-.ws-step-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #475569;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.ws-step-dot.active {
-  background: #f472b6;
-  width: 22px;
-  border-radius: 6px;
-  box-shadow: 0 0 8px #f472b6;
-}
-.math-vid-desc-card {
-  background: #ffffff;
-  border: 2px solid #fbcfe8;
-  border-radius: 14px;
-  padding: 0.85rem 1rem;
-  box-shadow: 0 4px 14px rgba(244, 114, 182, 0.09);
-  margin-bottom: 0.65rem;
-}
-body.theme-dark .math-vid-desc-card {
-  background: #1e293b;
-  border-color: #be185d;
-}
-.btn-ws-next-stage {
-  width: 100%;
-  background: linear-gradient(135deg, #ec4899, #db2777);
-  color: #ffffff;
-  border: none;
-  border-radius: 12px;
-  padding: 0.8rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.28);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.btn-ws-next-stage:active {
-  transform: scale(0.98);
-}
-@keyframes pulseGlowBtn {
-  0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
-  70% { box-shadow: 0 0 0 12px rgba(236, 72, 153, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
-}
-.pulse-glow {
-  animation: pulseGlowBtn 1.8s infinite;
+.dark-mode .ws-card-fullscreen,
+body.theme-dark .ws-card-fullscreen {
+  background: #0f172a !important;
+  border-color: #ec4899 !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
 }
 
-.ws-card-fullscreen {
-  background: #1e293b !important;
-  border-color: #475569 !important;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
-}
 .ws-card-scroll-body {
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
-  max-height: 52vh;
+  max-height: 54vh;
   padding-right: 4px;
   margin: 0.6rem 0;
+  color: #0f172a !important;
+  font-size: 1.05rem !important;
+  line-height: 1.68 !important;
+  font-weight: 600 !important;
 }
+.dark-mode .ws-card-scroll-body,
+body.theme-dark .ws-card-scroll-body {
+  color: #f8fafc !important;
+}
+
+.ws-card-title {
+  font-size: 1.15rem !important;
+  font-weight: 900 !important;
+  color: #0f172a !important;
+  line-height: 1.35 !important;
+}
+.dark-mode .ws-card-title,
+body.theme-dark .ws-card-title {
+  color: #ffffff !important;
+}
+
 .ws-slide-nav-bar {
   display: flex;
   justify-content: space-between;
@@ -1138,28 +1047,35 @@ body.theme-dark .math-vid-desc-card {
   gap: 0.5rem;
   margin-top: 0.75rem;
   padding-top: 0.65rem;
-  border-top: 1px solid #f1f5f9;
+  border-top: 2px solid #fce7f3;
 }
-.dark-mode .ws-slide-nav-bar {
+.dark-mode .ws-slide-nav-bar,
+body.theme-dark .ws-slide-nav-bar {
   border-top-color: #334155;
 }
+
 .btn-ws-nav {
-  padding: 0.75rem 1.1rem;
-  font-size: 0.88rem;
+  padding: 0.75rem 1.15rem;
+  font-size: 0.92rem;
   font-weight: 900;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.35rem;
   transition: all 0.15s ease;
+  touch-action: manipulation;
 }
 .btn-ws-prev {
   background: #f1f5f9;
   border: 1.5px solid #cbd5e1;
-  color: #475569;
+  color: #1e293b;
 }
-.dark-mode .btn-ws-prev {
+.btn-ws-prev:hover {
+  background: #e2e8f0;
+}
+.dark-mode .btn-ws-prev,
+body.theme-dark .btn-ws-prev {
   background: #334155;
   border-color: #475569;
   color: #f1f5f9;
@@ -1169,6 +1085,9 @@ body.theme-dark .math-vid-desc-card {
   border: none;
   color: white;
   box-shadow: 0 4px 14px rgba(219,39,119,0.35);
+}
+.btn-ws-next:active {
+  transform: scale(0.98);
 }
 .ws-dots-bar {
   display: flex;
@@ -2307,7 +2226,7 @@ body.theme-dark .badge-sparkle-tag {
       <div class="workshop-stepper-bar" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.35rem; margin-bottom:0.85rem;">
         <button class="btn-ws-step active" id="btn-ws-lab" onclick="setWorkshopStep('lab')">
           <span class="step-num">1</span>
-          <span class="step-txt">🎬 Video-Metode</span>
+          <span class="step-txt">✨ Witbord</span>
         </button>
         <button class="btn-ws-step" id="btn-ws-explanations" onclick="setWorkshopStep('explanations')">
           <span class="step-num">2</span>
@@ -2356,14 +2275,17 @@ body.theme-dark .badge-sparkle-tag {
           </div>
 
           <!-- Interactive Playback & Pacing Controls -->
-          <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:0.4rem; padding:0.55rem 0.8rem; background:#ffffff; border-top:1.5px solid #fbcfe8; align-items:center;">
-            <button class="btn-wb-nav" id="btn-wb-prev" onclick="prevVideoStep()" style="padding:0.6rem 0.8rem; border-radius:12px; font-size:0.82rem; font-weight:800; background:#f1f5f9; border:1.5px solid #cbd5e1; color:#334155; cursor:pointer;">
+          <div style="display:grid; grid-template-columns:1fr auto auto 1fr; gap:0.35rem; padding:0.55rem 0.75rem; background:#ffffff; border-top:1.5px solid #fbcfe8; align-items:center;">
+            <button class="btn-wb-nav" id="btn-wb-prev" onclick="prevVideoStep()" style="padding:0.6rem 0.65rem; border-radius:12px; font-size:0.82rem; font-weight:800; background:#f1f5f9; border:1.5px solid #cbd5e1; color:#1e293b; cursor:pointer;">
               ⏪ Vorige
             </button>
-            <button class="btn-wb-voice" id="btn-wb-speech" onclick="toggleSpeechReadAloud()" style="padding:0.6rem 1rem; border-radius:12px; font-size:0.85rem; font-weight:900; background:linear-gradient(135deg, #a855f7, #9333ea); border:none; color:white; box-shadow:0 3px 10px rgba(147,51,234,0.3); cursor:pointer;">
+            <button class="btn-wb-voice" id="btn-wb-speech" onclick="toggleSpeechReadAloud()" style="padding:0.6rem 0.75rem; border-radius:12px; font-size:0.82rem; font-weight:900; background:linear-gradient(135deg, #a855f7, #9333ea); border:none; color:white; box-shadow:0 3px 10px rgba(147,51,234,0.3); cursor:pointer;">
               🔊 Luister
             </button>
-            <button class="btn-wb-nav" id="btn-wb-next" onclick="nextVideoStep()" style="padding:0.6rem 0.8rem; border-radius:12px; font-size:0.85rem; font-weight:900; background:linear-gradient(135deg, #ec4899, #db2777); border:none; color:white; box-shadow:0 3px 10px rgba(219,39,119,0.3); cursor:pointer;">
+            <button class="btn-wb-nav" id="btn-wb-autoplay" onclick="toggleAutoPlayWhiteboard()" style="padding:0.6rem 0.75rem; border-radius:12px; font-size:0.82rem; font-weight:900; background:#fef3c7; border:1.5px solid #f59e0b; color:#92400e; cursor:pointer;">
+              ▶ Outo
+            </button>
+            <button class="btn-wb-nav" id="btn-wb-next" onclick="nextVideoStep()" style="padding:0.6rem 0.65rem; border-radius:12px; font-size:0.85rem; font-weight:900; background:linear-gradient(135deg, #ec4899, #db2777); border:none; color:white; box-shadow:0 3px 10px rgba(219,39,119,0.3); cursor:pointer;">
               Volgende ⏭️
             </button>
           </div>
@@ -4872,7 +4794,59 @@ function stopSpeechReadAloud() {
   }
 }
 
+let isAutoPlayingWhiteboard = false;
+let autoPlayInterval = null;
+
+function toggleAutoPlayWhiteboard() {
+  if (isAutoPlayingWhiteboard) {
+    stopAutoPlayWhiteboard();
+  } else {
+    startAutoPlayWhiteboard();
+  }
+}
+
+function startAutoPlayWhiteboard() {
+  isAutoPlayingWhiteboard = true;
+  const btn = document.getElementById('btn-wb-autoplay');
+  if (btn) {
+    btn.innerHTML = '⏸ Pouseer';
+    btn.style.background = '#fef08a';
+  }
+  toggleSpeechReadAloud();
+
+  if (autoPlayInterval) clearInterval(autoPlayInterval);
+  autoPlayInterval = setInterval(() => {
+    const vidData = MATH_VIDEOS[activeVideoModuleId];
+    if (!vidData) return;
+    const steps = vidData.steps || [];
+    if (activeVideoStepIdx < steps.length - 1) {
+      activeVideoStepIdx++;
+      updateVideoStepUI();
+      setTimeout(() => {
+        if (isAutoPlayingWhiteboard) toggleSpeechReadAloud();
+      }, 350);
+    } else {
+      stopAutoPlayWhiteboard();
+    }
+  }, 6500);
+}
+
+function stopAutoPlayWhiteboard() {
+  isAutoPlayingWhiteboard = false;
+  if (autoPlayInterval) {
+    clearInterval(autoPlayInterval);
+    autoPlayInterval = null;
+  }
+  const btn = document.getElementById('btn-wb-autoplay');
+  if (btn) {
+    btn.innerHTML = '▶ Outo';
+    btn.style.background = '#fef3c7';
+  }
+  stopSpeechReadAloud();
+}
+
 function stopVideoAutoPlay() {
+  stopAutoPlayWhiteboard();
   stopSpeechReadAloud();
   if (typewriterInterval) {
     clearInterval(typewriterInterval);
@@ -5332,38 +5306,43 @@ function renderWorkshopExplanations(m) {
   const currIdx = state.activeExplIndex || 0;
   const e = expls[currIdx];
 
-  const dotsHtml = expls.map((_, i) => `<div class="ws-dot ${i === currIdx ? 'active' : ''}"></div>`).join('');
+  const dotsHtml = expls.map((_, i) => `
+    <button onclick="jumpToExplPoint(${i})" style="width:${i === currIdx ? '28px' : '10px'}; height:10px; border-radius:${i === currIdx ? '6px' : '50%'}; background:${i === currIdx ? '#ec4899' : (i < currIdx ? '#f472b6' : '#cbd5e1')}; border:none; padding:0; cursor:pointer; transition:all 0.2s ease; ${i === currIdx ? 'box-shadow:0 0 8px rgba(236,72,153,0.6);' : ''}" title="Punt ${i+1}"></button>
+  `).join('');
 
   container.innerHTML = `
     <!-- PROGRESS DOTS -->
-    <div class="ws-dots-bar">
+    <div style="display:flex; justify-content:center; align-items:center; gap:0.45rem; padding:0.35rem 0.5rem; margin-bottom:0.35rem;">
       ${dotsHtml}
     </div>
-    <div style="text-align:center; font-size:0.75rem; font-weight:800; color:#ec4899; margin-bottom:0.5rem;">
-      PUNT ${currIdx + 1} VAN 5
+    <div style="text-align:center; font-size:0.82rem; font-weight:900; color:#db2777; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.5rem;">
+      ✨ LES: PUNT ${currIdx + 1} VAN 5
     </div>
 
-    <!-- FULL-SCREEN CARD -->
-    <div class="ws-card-fullscreen">
+    <!-- FULL-SCREEN CARD (CRISP WHITE, ULTRA-HIGH CONTRAST) -->
+    <div class="ws-card-fullscreen" style="background:#ffffff !important; border:2.5px solid #fbcfe8 !important; border-radius:20px !important; box-shadow:0 10px 30px rgba(236,72,153,0.12) !important;">
       <div>
-        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem;">
-          <span style="font-size:1.6rem;">${e.icon || '📖'}</span>
-          <div style="font-size:0.95rem; font-weight:900; color:#1e1b4b;">
+        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.4rem;">
+          <span style="font-size:1.8rem;">${e.icon || '📖'}</span>
+          <div class="ws-card-title" style="font-size:1.15rem; font-weight:900; color:#0f172a !important; line-height:1.35;">
             ${e.title}
           </div>
         </div>
-        <hr style="border:none; border-top:1px solid #fce7f3; margin:0.4rem 0;">
+        <hr style="border:none; border-top:2px solid #fce7f3; margin:0.4rem 0 0.6rem 0;">
       </div>
 
-      <!-- SCROLLABLE BODY -->
-      <div class="ws-card-scroll-body" style="font-size:0.86rem; color:#334155; line-height:1.55;">
+      <!-- SCROLLABLE BODY (HIGH CONTRAST PITCH NAVY/BLACK) -->
+      <div class="ws-card-scroll-body" style="font-size:1.06rem !important; color:#0f172a !important; line-height:1.68 !important; font-weight:600 !important; padding:0.2rem 0.3rem 0.6rem 0.2rem;">
         ${formatWithTermHighlights(nl2br(e.content))}
       </div>
 
       <!-- SLIDE NAVIGATION BUTTONS -->
       <div class="ws-slide-nav-bar">
         <button class="btn-ws-nav btn-ws-prev" onclick="prevExplPoint()">
-          ${currIdx === 0 ? '🎮 Terug na Speel' : '◀ Vorige Punt'}
+          ${currIdx === 0 ? '✨ Terug na Witbord' : '◀ Vorige Punt'}
+        </button>
+        <button class="btn-ws-nav" onclick="readExplPointAloud(${currIdx})" style="background:linear-gradient(135deg, #a855f7, #9333ea); border:none; color:white; padding:0.75rem 0.95rem; font-size:0.88rem; font-weight:900; border-radius:14px; cursor:pointer;">
+          🔊 Luister
         </button>
         <button class="btn-ws-nav btn-ws-next" onclick="nextExplPoint()">
           ${currIdx === expls.length - 1 ? '👉 Na Voorbeelde ➔' : 'Volgende Punt ▶'}
@@ -5394,6 +5373,30 @@ function nextExplPoint() {
   }
 }
 
+function jumpToExplPoint(idx) {
+  const expls = (state.workshopActiveModule && state.workshopActiveModule.explanations) ? state.workshopActiveModule.explanations : [];
+  if (idx >= 0 && idx < expls.length) {
+    state.activeExplIndex = idx;
+    renderWorkshopExplanations(state.workshopActiveModule);
+    SoundFX.click();
+  }
+}
+
+function readExplPointAloud(idx) {
+  const expls = (state.workshopActiveModule && state.workshopActiveModule.explanations) ? state.workshopActiveModule.explanations : [];
+  const e = expls[idx];
+  if (!e || !('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const cleanContent = e.content.replace(/<[^>]+>/g, ' ');
+  const utter = new SpeechSynthesisUtterance(e.title + '. ' + cleanContent);
+  utter.rate = 0.88;
+  utter.pitch = 1.05;
+  const voices = window.speechSynthesis.getVoices();
+  const afVoice = voices.find(v => v.lang.startsWith('af') || v.lang === 'af-ZA');
+  if (afVoice) utter.voice = afVoice;
+  window.speechSynthesis.speak(utter);
+}
+
 // =========================================================================
 // STEP 3: 5 WORKED EXAMPLES (FULL-SCREEN CARD STEPPER WITH PREV/NEXT)
 // =========================================================================
@@ -5409,55 +5412,60 @@ function renderWorkshopExamples(m) {
   const currIdx = state.activeExampleIndex || 0;
   const ex = examples[currIdx];
 
-  const dotsHtml = examples.map((_, i) => `<div class="ws-dot ${i === currIdx ? 'active' : ''}"></div>`).join('');
+  const dotsHtml = examples.map((_, i) => `
+    <button onclick="jumpToExamplePoint(${i})" style="width:${i === currIdx ? '28px' : '10px'}; height:10px; border-radius:${i === currIdx ? '6px' : '50%'}; background:${i === currIdx ? '#16a34a' : (i < currIdx ? '#86efac' : '#cbd5e1')}; border:none; padding:0; cursor:pointer; transition:all 0.2s ease; ${i === currIdx ? 'box-shadow:0 0 8px rgba(22,163,74,0.6);' : ''}" title="Voorbeeld ${i+1}"></button>
+  `).join('');
 
   container.innerHTML = `
     <!-- PROGRESS DOTS -->
-    <div class="ws-dots-bar">
+    <div style="display:flex; justify-content:center; align-items:center; gap:0.45rem; padding:0.35rem 0.5rem; margin-bottom:0.35rem;">
       ${dotsHtml}
     </div>
-    <div style="text-align:center; font-size:0.75rem; font-weight:800; color:#16a34a; margin-bottom:0.5rem;">
-      VOORBEELD ${currIdx + 1} VAN 5
+    <div style="text-align:center; font-size:0.82rem; font-weight:900; color:#15803d; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.5rem;">
+      📐 VOORBEELD ${currIdx + 1} VAN 5
     </div>
 
-    <!-- FULL-SCREEN CARD -->
-    <div class="ws-card-fullscreen" style="border-color:#bbf7d0;">
+    <!-- FULL-SCREEN CARD (CRISP WHITE, ULTRA-HIGH CONTRAST) -->
+    <div class="ws-card-fullscreen" style="background:#ffffff !important; border:2.5px solid #86efac !important; border-radius:20px !important; box-shadow:0 10px 30px rgba(34,197,94,0.12) !important;">
       <div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-          <span style="font-size:0.75rem; font-weight:900; padding:0.25rem 0.6rem; border-radius:8px; background:#dcfce7; color:#15803d; text-transform:uppercase;">
-            ${ex.icon || '📌'} Voorbeeld ${currIdx + 1} • ${ex.type}
+          <span style="font-size:0.82rem; font-weight:900; padding:0.3rem 0.75rem; border-radius:999px; background:#dcfce7; color:#14532d; text-transform:uppercase; border:1px solid #86efac;">
+            ${ex.icon || '📌'} Voorbeeld ${currIdx + 1} • ${ex.type || 'Stap-vir-Stap'}
           </span>
         </div>
-        <hr style="border:none; border-top:1px solid #dcfce7; margin:0.4rem 0;">
+        <hr style="border:none; border-top:2px solid #dcfce7; margin:0.4rem 0 0.6rem 0;">
       </div>
 
-      <!-- SCROLLABLE BODY -->
-      <div class="ws-card-scroll-body">
-        <div style="font-size:0.95rem; font-weight:800; color:#0f172a; margin-bottom:0.8rem; line-height:1.45;">
+      <!-- SCROLLABLE BODY (HIGH CONTRAST) -->
+      <div class="ws-card-scroll-body" style="padding:0.2rem 0.3rem 0.6rem 0.2rem;">
+        <div style="font-size:1.1rem !important; font-weight:900 !important; color:#0f172a !important; margin-bottom:0.85rem; line-height:1.55;">
           ${formatWithTermHighlights(ex.q)}
         </div>
 
-        <button class="btn-sim-chip" onclick="toggleActiveExampleSolution()" style="font-size:0.82rem; font-weight:900; background:#f0fdf4; border-color:#22c55e; color:#15803d; width:100%; padding:0.6rem;">
+        <button onclick="toggleActiveExampleSolution()" style="font-size:0.95rem; font-weight:900; background:#f0fdf4; border:2px solid #22c55e; color:#15803d; width:100%; padding:0.8rem; border-radius:14px; cursor:pointer; box-shadow:0 3px 10px rgba(34,197,94,0.15); transition:all 0.15s ease;">
           👁️ ${isExampleSolutionVisible ? 'Versteek Oplossing' : 'Sien Oplossing & Stap-vir-Stap Resep'}
         </button>
 
-        <div id="active-example-sol-box" style="display:${isExampleSolutionVisible ? 'block' : 'none'}; margin-top:0.65rem; padding:0.75rem; background:#f8fafc; border-radius:10px; border-left:4px solid #16a34a;">
-          <div style="font-size:0.86rem; font-weight:900; color:#16a34a; margin-bottom:0.35rem;">
+        <div id="active-example-sol-box" style="display:${isExampleSolutionVisible ? 'block' : 'none'}; margin-top:0.85rem; padding:1rem; background:#f0fdf4; border-radius:14px; border:2px solid #86efac; border-left:6px solid #16a34a;">
+          <div style="font-size:1.05rem; font-weight:900; color:#14532d; margin-bottom:0.45rem;">
             ✅ Korrekte Antwoord: ${ex.ans}
           </div>
-          <div style="font-size:0.82rem; color:#334155; line-height:1.5;">
+          <div style="font-size:1rem; font-weight:600; color:#0f172a !important; line-height:1.65;">
             ${nl2br(ex.steps)}
           </div>
         </div>
       </div>
 
       <!-- SLIDE NAVIGATION BUTTONS -->
-      <div class="ws-slide-nav-bar">
+      <div class="ws-slide-nav-bar" style="border-top:2px solid #dcfce7;">
         <button class="btn-ws-nav btn-ws-prev" onclick="prevExamplePoint()">
-          ${currIdx === 0 ? '📖 Terug na Leer' : '◀ Vorige Voorbeeld'}
+          ${currIdx === 0 ? '📖 Terug na Les' : '◀ Vorige'}
         </button>
-        <button class="btn-ws-nav btn-ws-next" onclick="nextExamplePoint()" style="background:linear-gradient(135deg, #16a34a, #059669);">
-          ${currIdx === examples.length - 1 ? '👉 Toets Jouself ➔' : 'Volgende Voorbeeld ▶'}
+        <button class="btn-ws-nav" onclick="readExampleAloud(${currIdx})" style="background:linear-gradient(135deg, #10b981, #059669); border:none; color:white; padding:0.75rem 0.95rem; font-size:0.88rem; font-weight:900; border-radius:14px; cursor:pointer;">
+          🔊 Luister
+        </button>
+        <button class="btn-ws-nav btn-ws-next" onclick="nextExamplePoint()" style="background:linear-gradient(135deg, #16a34a, #15803d); box-shadow:0 4px 14px rgba(22,163,74,0.35);">
+          ${currIdx === examples.length - 1 ? '👉 Na Oefen ➔' : 'Volgende ▶'}
         </button>
       </div>
     </div>
@@ -5494,6 +5502,33 @@ function nextExamplePoint() {
   }
 }
 
+function jumpToExamplePoint(idx) {
+  const examples = (state.workshopActiveModule && state.workshopActiveModule.examples) ? state.workshopActiveModule.examples : [];
+  if (idx >= 0 && idx < examples.length) {
+    state.activeExampleIndex = idx;
+    isExampleSolutionVisible = false;
+    renderWorkshopExamples(state.workshopActiveModule);
+    SoundFX.click();
+  }
+}
+
+function readExampleAloud(idx) {
+  const examples = (state.workshopActiveModule && state.workshopActiveModule.examples) ? state.workshopActiveModule.examples : [];
+  const ex = examples[idx];
+  if (!ex || !('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const cleanQ = ex.q.replace(/<[^>]+>/g, ' ');
+  const cleanSteps = (ex.steps || '').replace(/<[^>]+>/g, ' ');
+  const text = cleanQ + '. Korrekte antwoord: ' + ex.ans + '. ' + cleanSteps;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 0.88;
+  utter.pitch = 1.05;
+  const voices = window.speechSynthesis.getVoices();
+  const afVoice = voices.find(v => v.lang.startsWith('af') || v.lang === 'af-ZA');
+  if (afVoice) utter.voice = afVoice;
+  window.speechSynthesis.speak(utter);
+}
+
 // =========================================================================
 // STEP 4: 5 INTERACTIVE PRACTICE DRILLS (FULL-SCREEN STEPPER WITH PREV/NEXT)
 // =========================================================================
@@ -5503,73 +5538,74 @@ function renderWorkshopPractice(m) {
 
   const questions = m.practice || [];
   if (questions.length === 0) {
-    container.innerHTML = '<p>Geen oefenvrae beskikbaar nie.</p>';
+    container.innerHTML = '<p style="color:#0f172a; font-weight:800; font-size:1rem; padding:1rem;">Geen oefenvrae beskikbaar nie.</p>';
     return;
   }
 
   const currIdx = state.activePracticeIndex || 0;
   const q = questions[currIdx];
-  const dotsHtml = questions.map((_, i) => `<div class="ws-dot ${i === currIdx ? 'active' : ''}"></div>`).join('');
+  const dotsHtml = questions.map((_, i) => `
+    <button onclick="jumpToPracticePoint(${i})" style="width:${i === currIdx ? '28px' : '10px'}; height:10px; border-radius:${i === currIdx ? '6px' : '50%'}; background:${i === currIdx ? '#ec4899' : (currentPracticeAnswers[i] !== undefined ? '#86efac' : '#cbd5e1')}; border:none; padding:0; cursor:pointer; transition:all 0.2s ease; ${i === currIdx ? 'box-shadow:0 0 8px rgba(236,72,153,0.6);' : ''}" title="Vraag ${i+1}"></button>
+  `).join('');
 
-  // Check if all answered
   const allAnswered = (Object.keys(currentPracticeAnswers).length === questions.length);
 
   container.innerHTML = `
     <!-- PROGRESS DOTS -->
-    <div class="ws-dots-bar">
+    <div style="display:flex; justify-content:center; align-items:center; gap:0.45rem; padding:0.35rem 0.5rem; margin-bottom:0.35rem;">
       ${dotsHtml}
     </div>
-    <div style="text-align:center; font-size:0.75rem; font-weight:800; color:#db2777; margin-bottom:0.5rem;">
-      VRAAG ${currIdx + 1} VAN 5
+    <div style="text-align:center; font-size:0.82rem; font-weight:900; color:#db2777; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.5rem;">
+      ✏️ OEFENVRAAG ${currIdx + 1} VAN 5
     </div>
 
-    <!-- FULL-SCREEN QUESTION CARD -->
-    <div class="ws-card-fullscreen" style="border-color:#fbcfe8;">
+    <!-- FULL-SCREEN QUESTION CARD (CRISP WHITE, ULTRA-HIGH CONTRAST) -->
+    <div class="ws-card-fullscreen" style="background:#ffffff !important; border:2.5px solid #fbcfe8 !important; border-radius:20px !important; box-shadow:0 10px 30px rgba(236,72,153,0.12) !important;">
       <div>
-        <div style="font-size:0.75rem; font-weight:900; color:#ec4899; text-transform:uppercase; margin-bottom:0.25rem;">
+        <div style="font-size:0.82rem; font-weight:900; color:#db2777; text-transform:uppercase; margin-bottom:0.35rem;">
           ✏️ Vraag ${currIdx + 1} van 5
         </div>
-        <div style="font-size:0.92rem; font-weight:800; color:#0f172a; margin-bottom:0.6rem; line-height:1.45;">
+        <div style="font-size:1.1rem !important; font-weight:900 !important; color:#0f172a !important; margin-bottom:0.75rem; line-height:1.55;">
           ${formatWithTermHighlights(q.q)}
         </div>
-        <hr style="border:none; border-top:1px solid #fce7f3; margin:0.4rem 0;">
+        <hr style="border:none; border-top:2px solid #fce7f3; margin:0.4rem 0 0.65rem 0;">
       </div>
 
-      <!-- OPTIONS LIST (SCROLLABLE IF NEEDED) -->
-      <div class="ws-card-scroll-body">
-        <div style="display:grid; grid-template-columns:1fr; gap:0.45rem;">
+      <!-- OPTIONS LIST (HIGH CONTRAST) -->
+      <div class="ws-card-scroll-body" style="padding:0.2rem 0.3rem 0.6rem 0.2rem;">
+        <div style="display:grid; grid-template-columns:1fr; gap:0.55rem;">
           ${q.options.map((opt, oIdx) => `
-            <button class="quiz-opt-card" id="btn-pr-opt-${currIdx}-${oIdx}" onclick="selectPracticeOption(${currIdx}, ${oIdx})" style="padding:0.75rem; border-radius:10px; border:1.5px solid #cbd5e1; background:#ffffff; color:#0f172a; font-size:0.86rem; font-weight:700; text-align:left; cursor:pointer;">
+            <button class="quiz-opt-card" id="btn-pr-opt-${currIdx}-${oIdx}" onclick="selectPracticeOption(${currIdx}, ${oIdx})" style="padding:0.9rem 1.05rem; border-radius:14px; border:2px solid #cbd5e1; background:#ffffff; color:#0f172a !important; font-size:1rem !important; font-weight:800 !important; text-align:left; cursor:pointer; line-height:1.45; box-shadow:0 2px 6px rgba(0,0,0,0.04); transition:all 0.15s ease;">
               ${String.fromCharCode(65 + oIdx)}. ${opt}
             </button>
           `).join('')}
         </div>
 
-        <div id="practice-feedback-${currIdx}" style="display:none; margin-top:0.6rem; padding:0.6rem; border-radius:8px; font-size:0.82rem; line-height:1.45;"></div>
+        <div id="practice-feedback-${currIdx}" style="display:none; margin-top:0.85rem; padding:0.95rem; border-radius:14px; font-size:0.98rem; font-weight:700; line-height:1.55; color:#0f172a !important;"></div>
       </div>
 
       <!-- SLIDE NAVIGATION BUTTONS -->
       <div class="ws-slide-nav-bar">
         <button class="btn-ws-nav btn-ws-prev" onclick="prevPracticeQuestion()">
-          ${currIdx === 0 ? '📐 Terug na Voorbeelde' : '◀ Vorige Vraag'}
+          ${currIdx === 0 ? '📐 Terug na Voorbeelde' : '◀ Vorige'}
         </button>
         <button class="btn-ws-nav btn-ws-next" onclick="nextPracticeQuestion()">
-          ${currIdx === questions.length - 1 ? '🎉 Sien Resultate ➔' : 'Volgende Vraag ▶'}
+          ${currIdx === questions.length - 1 ? '🎉 Sien Resultate ➔' : 'Volgende ▶'}
         </button>
       </div>
     </div>
 
-    <!-- COMPLETION CELEBRATION (DISPLAYED WHEN FINISHED) -->
-    <div id="practice-completion-modal" style="display:${allAnswered ? 'block' : 'none'}; text-align:center; padding:1.2rem; background:linear-gradient(135deg, #fdf2f8, #f0fdf4); border:2px solid #22c55e; border-radius:16px; margin-top:1rem; box-shadow:0 6px 20px rgba(34,197,94,0.18);">
-      <div style="font-size:2.2rem; margin-bottom:0.3rem;">🎉✨👑</div>
-      <div style="font-size:1.15rem; font-weight:900; color:#15803d;">BAIE GELUK, SHENIQUE!</div>
-      <div id="practice-final-score" style="font-size:0.95rem; font-weight:800; color:#1e1b4b; margin:0.3rem 0;">Jy het al 5 vrae voltooi! (+50 XP)</div>
+    <!-- COMPLETION CELEBRATION -->
+    <div id="practice-completion-modal" style="display:${allAnswered ? 'block' : 'none'}; text-align:center; padding:1.35rem; background:linear-gradient(135deg, #fdf2f8, #f0fdf4); border:2.5px solid #22c55e; border-radius:20px; margin-top:1rem; box-shadow:0 8px 24px rgba(34,197,94,0.2);">
+      <div style="font-size:2.5rem; margin-bottom:0.35rem;">🎉✨👑</div>
+      <div style="font-size:1.25rem; font-weight:900; color:#15803d;">BAIE GELUK, ${student_name.upper()}!</div>
+      <div id="practice-final-score" style="font-size:1.02rem; font-weight:800; color:#1e1b4b; margin:0.35rem 0;">Jy het al 5 vrae voltooi! (+50 XP)</div>
       
-      <div style="display:flex; flex-direction:column; gap:0.45rem; margin-top:0.75rem;">
-        <button class="btn-ws-next-action" onclick="advanceToNextMathLesson()" style="padding:0.85rem; font-size:0.95rem; font-weight:900; background:linear-gradient(135deg, #ec4899, #db2777); color:white; border:none; border-radius:12px; cursor:pointer;">
+      <div style="display:flex; flex-direction:column; gap:0.55rem; margin-top:0.95rem;">
+        <button class="btn-ws-next-action" onclick="advanceToNextMathLesson()" style="padding:0.95rem; font-size:1rem; font-weight:900; background:linear-gradient(135deg, #ec4899, #db2777); color:white; border:none; border-radius:14px; cursor:pointer; box-shadow:0 4px 15px rgba(219,39,119,0.35);">
           🚀 Volgende Wiskunde-Missie ➔
         </button>
-        <button class="btn-sim-chip" onclick="launchSubjectActivity('m1', 'flashcards')" style="padding:0.7rem; font-size:0.85rem; font-weight:800; background:#ffffff; border:1.5px solid #ec4899; color:#db2777;">
+        <button class="btn-sim-chip" onclick="launchSubjectActivity('m1', 'flashcards')" style="padding:0.8rem; font-size:0.9rem; font-weight:800; background:#ffffff; border:2px solid #ec4899; color:#db2777;">
           🎴 Speel Flitskaarte van hierdie Konsep
         </button>
       </div>
@@ -5594,12 +5630,20 @@ function nextPracticeQuestion() {
     renderWorkshopPractice(state.workshopActiveModule);
     SoundFX.click();
   } else {
-    // Show results
     const modal = document.getElementById('practice-completion-modal');
     if (modal) {
       modal.style.display = 'block';
       modal.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+}
+
+function jumpToPracticePoint(idx) {
+  const questions = (state.workshopActiveModule && state.workshopActiveModule.practice) ? state.workshopActiveModule.practice : [];
+  if (idx >= 0 && idx < questions.length) {
+    state.activePracticeIndex = idx;
+    renderWorkshopPractice(state.workshopActiveModule);
+    SoundFX.click();
   }
 }
 
