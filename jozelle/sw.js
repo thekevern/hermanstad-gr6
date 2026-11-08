@@ -1,4 +1,4 @@
-// HERMANSTAD GR 6 PURGE SERVICE WORKER (v9.1)
+// GRAAD 6 PURGE SERVICE WORKER (v9.1)
 // Discards all stale v6 caches and auto-unregisters
 self.addEventListener('install', (e) => {
   self.skipWaiting();
